@@ -1,3 +1,40 @@
 {
-    "posts": [{}]
+    "coffees": [
+        {
+            "id": 0,
+            "name": "Mollbergs blandning",
+            "roastery": "ZÓEGAS",
+            "body": 1.0,
+            "flavor": ["round", "juicy"],
+            "acidity": 0.2,
+            "aroma": ["blackcurrant", "butter caramel"],
+            "degree of roasting": 0.875,
+            "origin": ["Latin America"],
+            "bean type": ["Arabica"]
+        },
+        {
+            "id": 1,
+            "name": "Espresso Della Casa",
+            "roastery": "ZÓEGAS",
+            "body": 1.0,
+            "flavor": ["piquant", "round", "soft"],
+            "acidity": 0.2,
+            "aroma": ["hint of salt", "dark chocolate"],
+            "degree of roasting": 0.875,
+            "origin": ["Latin America"],
+            "bean type": ["Robusta", "Arabica"]
+        },
+        {
+            "id": 2,
+            "name": "Estanzia",
+            "roastery": "ZÓEGAS",
+            "body": 0.6,
+            "flavor": ["Fresh"],
+            "acidity": 0.6,
+            "aroma": ["Redcurrant", "milk chocolate"],
+            "degree of roasting": 0.625,
+            "origin": ["Africa", "Central America", "South America"],
+            "bean Type": ["Arabica"]
+        }
+    ]
 }
