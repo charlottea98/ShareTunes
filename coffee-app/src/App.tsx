@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 
+import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
+import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
+
 const App : React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
 
@@ -16,6 +19,15 @@ const App : React.FC = () => {
     return (
         <div className="App">
             {coffeeData}
+
+            <PublishButton 
+                text = {<b>Publish</b>}
+                onButtonClick = {() => console.log("Publish btn clicked!")}
+            />
+
+            <LogInButton onButtonClick = {() => console.log("User logged in!")} >
+                <b>Log in</b>
+            </LogInButton>
         </div>
     );
 }

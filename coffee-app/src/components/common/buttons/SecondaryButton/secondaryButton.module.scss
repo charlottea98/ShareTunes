@@ -1,0 +1,17 @@
+.SecondaryButton {
+    border-radius: 5px;
+    border: 1px solid blue;
+    color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 0 8px;
+    cursor: pointer;
+    transition: .4s;
+    width: fit-content;
+}
+
+.SecondaryButton:hover {
+    background-color: rgb(85, 85, 255);
+}
