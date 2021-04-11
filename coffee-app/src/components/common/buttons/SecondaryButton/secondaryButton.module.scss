@@ -1,7 +1,5 @@
 .SecondaryButton {
     border-radius: 5px;
-    border: 1px solid blue;
-    color: blue;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,8 +8,33 @@
     cursor: pointer;
     transition: .4s;
     width: fit-content;
+    user-select: none;
 }
 
-.SecondaryButton:hover {
-    background-color: rgb(85, 85, 255);
+.standardStyle {
+    border: 1px solid #5e3d0e;
+    color: #5e3d0e;
 }
+
+.standardStyle:hover {
+    background-color: rgb(94, 61, 14, 0.2);
+}
+
+.blackStyle {
+    border: 1px solid #232323;
+    color: #232323;
+}
+
+.blackStyle:hover {
+    background-color: rgb(35, 35, 35, 0.2);
+}
+
+.greenStyle {
+    border: 1px solid #1DB954;
+    color: #1DB954;
+}
+
+.greenStyle:hover {
+    background-color: rgb(29, 185, 84, 0.2);
+}
+
