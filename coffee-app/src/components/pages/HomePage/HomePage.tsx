@@ -10,7 +10,7 @@ const HomePage : React.FC = () => {
 
     return (
         <div className={classes.HomePage}>
-            
+            This is the Home Page
         </div>
     )
 }

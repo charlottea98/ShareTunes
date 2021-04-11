@@ -1,3 +1,6 @@
+$brown1: #5e3d0e;
+$brown1HoverBG: rgba(94, 61, 14, 0.2);
+
 * {
     margin: 0;
     padding: 0;
@@ -9,4 +12,8 @@ h2,
 h3,
 h4 {
     color: #232323;
+}
+
+body {
+	background-color: #f0f0f0;
 }

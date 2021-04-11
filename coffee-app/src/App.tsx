@@ -1,8 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './App.scss';
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
 import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
+import Menu from './components/common/Menu/Menu';
+import HomePage from "./components/pages/HomePage/HomePage";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
+import FeedPage from "./components/pages/FeedPage/FeedPage";
 
 const App : React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
@@ -17,18 +27,24 @@ const App : React.FC = () => {
     });
 
     return (
-        <div className="App">
-            {coffeeData}
+        <Router>
+            <Switch>
+                <Route exact path={["/", "/home"]}>
+                    <Menu />
+                    <HomePage />
+                </Route>
 
-            <PublishButton 
-                text = {<b>Publish</b>}
-                onButtonClick = {() => console.log("Publish btn clicked!")}
-            />
+                <Route exact path='/profile'>
+                    <Menu />
+                    <ProfilePage />
+                </Route>
 
-            <LogInButton onButtonClick = {() => console.log("User logged in!")} >
-                <b>Log in</b>
-            </LogInButton>
-        </div>
+                <Route exact path='/feed'>
+                    <Menu />
+                    <FeedPage />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
