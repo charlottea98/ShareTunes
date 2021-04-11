@@ -46,7 +46,7 @@ const App : React.FC = () => {
             switch(err.code){
                 case 'auth/invalid-email':
                 case 'auth/user-disabled':
-                case 'auth/user-notfound':
+                case 'auth/user-not-found':
                     setEmailError(err.message);
                     break;
                 case 'auth/wrong-password':
