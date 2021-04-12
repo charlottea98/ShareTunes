@@ -1,0 +1,36 @@
+@use '../../../../App';
+
+.MenuLink,
+.MobileMenuLink {
+	border: 0;
+	background-color: #fff;
+	font-size: 25px;
+	cursor: pointer;
+	transition: .2s;
+}
+
+.MenuLink {
+	height: 100%;
+	width: 150px;
+	border-bottom: 4px solid transparent;
+}
+
+.MenuLink:hover {
+	color: App.$brown1;
+	border-bottom: 4px solid App.$brown1;
+}
+
+.MobileMenuLink {
+	width: 100%;
+	height: 75px;
+	transition: .2s;
+}
+
+.MobileMenuLink:nth-child(2n - 1) {
+	border-top: 1px solid App.$brown1HoverBG;
+	border-bottom: 1px solid App.$brown1HoverBG;
+}
+
+.MobileMenuLink:hover {
+	background-color: App.$brown1HoverBG;
+}
