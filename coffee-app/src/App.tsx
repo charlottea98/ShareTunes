@@ -1,11 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import LoginPage from './components/LoginPage/LoginPage';
 import TestHomePage from './components/LoginPage/TestHomePage';
 import fire from './fire';
 import firebase from "firebase/app";
 
+import './App.scss';
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
+
+import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
+import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
+import Menu from './components/common/Menu/Menu';
+import HomePage from "./components/pages/HomePage/HomePage";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
+import FeedPage from "./components/pages/FeedPage/FeedPage";
 
 const App : React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
@@ -94,20 +106,34 @@ const App : React.FC = () => {
         authListener();
     }, []);
 
-    const loginPageProps = {
-        email: email,
-
-    }
-
     return (
-        <div className="App">
+        <div>
             {user ? (
-                <TestHomePage handleLogout={handleLogout}></TestHomePage>
+            <div>
+                <Router>
+                    <Switch>
+                        <Route exact path={["/", "/home"]}>
+                            <Menu />
+                            <HomePage />
+                        </Route>
+
+                        <Route exact path='/profile'>
+                            <Menu />
+                            <ProfilePage />
+                        </Route>
+                        <Route exact path='/feed'>
+                            <Menu />
+                            <FeedPage />
+                        </Route>
+                    </Switch>
+                <button onClick={handleLogout}>Log out</button>
+                </Router>
+            </div>
             ) : (
                 <LoginPage email={email} setEmail={setEmail} password = {password} setPassword={setPassword}
-            handleLogin={handleLogin} handleSignup={handleSignup} hasAccount={hasAccount}
-            setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError}/>
-            )}
+                handleLogin={handleLogin} handleSignup={handleSignup} hasAccount={hasAccount}
+                setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError}/>
+                )}
         </div>
     );
 }

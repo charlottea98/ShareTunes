@@ -1,4 +1,5 @@
 import React, { ReactNode} from 'react';
+import LogInButton from '../common/buttons/SecondaryButton/secondaryButton';
 
 type Props = {
     email: string,
@@ -33,13 +34,13 @@ const LoginPage : React.FC<Props> = ({email, setEmail, password, setPassword, ha
                 <div>
                     {hasAccount ? (
                         <>
-                        <button onClick={handleLogin}>Sign in</button>
-                        <p>Don't have an account? <span onClick={() => setHasAccount(!hasAccount)}>Sign up</span></p>
+                        <LogInButton text="Sign in" onButtonClick={handleLogin}/>
+                        <p>Don't have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign up</button></p>
                         </>
                     ) : (
                         <>
-                        <button onClick={handleSignup}>Sign up</button>
-                        <p>Have an account? <span onClick={() => setHasAccount(!hasAccount)}>Sign in</span></p>
+                        <LogInButton text="Sign up" onButtonClick={handleSignup}/>
+                        <p>Have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign in</button></p>
                         </>
                     )}
                 </div>
