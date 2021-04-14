@@ -2,9 +2,11 @@ import React, { ReactNode,useEffect, useState } from 'react';
 import LogInButton from '../common/buttons/SecondaryButton/secondaryButton';
 import firebase from 'firebase';
 import fire from "../../fire";
+import classes from './loginPage.module.scss';
 
 
 const LoginPage : React.FC = () => {
+    
     const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -26,6 +28,10 @@ const LoginPage : React.FC = () => {
         clearErrors();
         fire.auth()
             .signInWithEmailAndPassword(email, password)
+            .then(() => {
+                alert('inloggad ');
+                // här vill vi routa till själva hemsidan
+              })
             .catch((err) => {
                 switch (err.code) {
                     case 'auth/invalid-email':
@@ -37,7 +43,7 @@ const LoginPage : React.FC = () => {
                         setPasswordError(err.message);
                         break;
                 }
-            });
+            })
     };
 
     const handleSignup = () => {
@@ -55,9 +61,12 @@ const LoginPage : React.FC = () => {
                         break;
                 }
             });
+        
     };
 
     const handleLogout = () => {
+        // måste ligga tillägänglig för alla sidor förutom login för att kunna 
+        // logga ut överallt
         fire.auth().signOut();
     };
 
@@ -78,6 +87,7 @@ const LoginPage : React.FC = () => {
     
     
     return (
+        <div className={classes.LoginPage}>
         <section className='login'>
             <div className='loginContainer'>
                 <label>
@@ -96,7 +106,7 @@ const LoginPage : React.FC = () => {
                 <div>
                     {hasAccount ? (
                         <>
-                        <LogInButton text="Sign in" onButtonClick={handleLogin}/>
+                        <LogInButton text="Sign in" onButtonClick={handleLogin} />
                         <p>Don't have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign up</button></p>
                         </>
                     ) : (
@@ -108,6 +118,7 @@ const LoginPage : React.FC = () => {
                 </div>
             </div>
         </section>
+        </div>
     )
 }
 

@@ -60,15 +60,11 @@ const App: React.FC = () => {
                     <FeedPage />
                 </Route>
                 <Route exact path="/login">
-                    <LoginPage/>
-                   
+                    <LoginPage/>  
                 </Route>
-
             </Switch>
-            
         </Router>
-          
-          
+
     );
 };
 
