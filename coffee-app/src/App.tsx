@@ -38,8 +38,7 @@ const App: React.FC = () => {
                     setProfileData(doc.data());
                 });
             });
-    }),
-        [];
+    },[]);
 
     const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
