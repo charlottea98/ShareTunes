@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import UserProfile from '../../UserProfile/UserProfile';
 import classes from './profilePage.module.scss';
 
-const ProfilePage: React.FC = () => {
+interface Props {
+    userObj: Object;
+}
+
+const ProfilePage: React.FC<Props> = ({ userObj }) => {
     useEffect(() => {});
 
     return (
