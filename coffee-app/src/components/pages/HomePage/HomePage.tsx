@@ -34,12 +34,12 @@ const HomePage : React.FC = () => {
             This is the Home Page
             <PrimaryButton 
                 text = "Change to user 0"
-                onButtonClick = {() => updateLoggedInUser(user0)}
+                onButtonClick = {() => updateLoggedInUser('rrudling@kth.se')}
                 buttonColor = 'green'
             />
             <SecondaryButton
                 text = "Change to user 1"
-                onButtonClick = {() => updateLoggedInUser(user1)}
+                onButtonClick = {() => updateLoggedInUser('johanlam@kth.se')}
                 buttonColor = 'black'
             />
             <strong>
