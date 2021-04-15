@@ -16,6 +16,8 @@ import HomePage from './components/pages/HomePage/HomePage';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import FeedPage from './components/pages/FeedPage/FeedPage';
 
+import LoggedInUserProvider from './contexts/LoggedInUserContext';
+
 const App: React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
     const [profileData, setProfileData] = useState<Object>({});
@@ -112,43 +114,45 @@ const App: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            {user ? (
-                <div>
-                    <Router>
-                        <Switch>
-                            <Route exact path={['/', '/home']}>
-                                <Menu />
-                                <HomePage />
-                            </Route>
+        <LoggedInUserProvider>
+            <div>
+                {user ? (
+                    <div>
+                        <Router>
+                            <Switch>
+                                <Route exact path={['/', '/home']}>
+                                    <Menu />
+                                    <HomePage />
+                                </Route>
 
-                            <Route exact path="/profile">
-                                <Menu />
-                                <ProfilePage userObj={profileData} />
-                            </Route>
-                            <Route exact path="/feed">
-                                <Menu />
-                                <FeedPage />
-                            </Route>
-                        </Switch>
-                        <button onClick={handleLogout}>Log out</button>
-                    </Router>
-                </div>
-            ) : (
-                <LoginPage
-                    email={email}
-                    setEmail={setEmail}
-                    password={password}
-                    setPassword={setPassword}
-                    handleLogin={handleLogin}
-                    handleSignup={handleSignup}
-                    hasAccount={hasAccount}
-                    setHasAccount={setHasAccount}
-                    emailError={emailError}
-                    passwordError={passwordError}
-                />
-            )}
-        </div>
+                                <Route exact path="/profile">
+                                    <Menu />
+                                    <ProfilePage userObj={profileData} />
+                                </Route>
+                                <Route exact path="/feed">
+                                    <Menu />
+                                    <FeedPage />
+                                </Route>
+                            </Switch>
+                            <button onClick={handleLogout}>Log out</button>
+                        </Router>
+                    </div>
+                ) : (
+                    <LoginPage
+                        email={email}
+                        setEmail={setEmail}
+                        password={password}
+                        setPassword={setPassword}
+                        handleLogin={handleLogin}
+                        handleSignup={handleSignup}
+                        hasAccount={hasAccount}
+                        setHasAccount={setHasAccount}
+                        emailError={emailError}
+                        passwordError={passwordError}
+                    />
+                )}
+            </div>
+        </LoggedInUserProvider>
     );
 };
 
