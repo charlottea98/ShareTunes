@@ -28,7 +28,7 @@ export const useLoggedInUserUpdate = () => {
 }
 
 
-const LanguageProvider : React.FC<Props> = ({children}) => {
+const LoggedInUserProvider : React.FC<Props> = ({children}) => {
     const [loggedInUser, setLoggedInUser] = useState<LoggedInUser | null>(null);
 
     const changeLoggedInUser = (newLoggedInUser : LoggedInUser) => {
@@ -44,4 +44,4 @@ const LanguageProvider : React.FC<Props> = ({children}) => {
     )
 }
 
-export default LanguageProvider;
+export default LoggedInUserProvider;
