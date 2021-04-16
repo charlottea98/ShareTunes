@@ -19,6 +19,7 @@ import FeedPage from './components/pages/FeedPage/FeedPage';
 const App: React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
     const [profileData, setProfileData] = useState<Object>({});
+    const [user, setUser] = useState<string | firebase.User>('');
 
     useEffect(() => {
         fetch(
@@ -40,31 +41,39 @@ const App: React.FC = () => {
             });
     },[]);
 
+    const handleLogout = () => {
+        // måste ligga tillägänglig för alla sidor förutom login för att kunna 
+        // logga ut överallt
+        fire.auth().signOut();
+    };
 
 
     return (
-     
-        <Router>
-            <Switch>
-                <Route exact path={['/', '/home']}>
-                    <Menu />
-                    <HomePage />
-                </Route>
 
-                <Route exact path="/profile">
-                    <Menu />
-                    <ProfilePage userObj={profileData} />
-                </Route>
-                <Route exact path="/feed">
-                    <Menu />
-                    <FeedPage />
-                </Route>
-                <Route exact path="/login">
-                    <LoginPage/>  
-                </Route>
-            </Switch>
-        </Router>
-
+        <div>
+            {user? (
+                <Router>
+                <Switch>
+                    <Route exact path={['/', '/home']}>
+                        <Menu />
+                        <HomePage />
+                    </Route>
+    
+                    <Route exact path="/profile">
+                        <Menu />
+                        <ProfilePage userObj={profileData} />
+                    </Route>
+                    <Route exact path="/feed">
+                        <Menu />
+                        <FeedPage />
+                    </Route>
+                </Switch>
+                <button onClick={handleLogout}>Log out</button>
+            </Router>
+            ): (
+            <LoginPage user = {user} setUser = {setUser}/>
+            )}
+        </div>
     );
 };
 

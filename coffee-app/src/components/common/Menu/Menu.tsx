@@ -22,10 +22,6 @@ const menuLinks = [
     {
         pageLink: '/feed',
         name: 'Feed'
-    },
-    {
-        pageLink: '/login',
-        name: 'Login/Signup'
     }
 ];
 

@@ -4,10 +4,14 @@ import firebase from 'firebase';
 import fire from "../../fire";
 import classes from './loginPage.module.scss';
 
+interface Props {
+    user : ReactNode;
+    setUser : any;
+}
 
-const LoginPage : React.FC = () => {
+const LoginPage : React.FC<Props> = ({user, setUser}) => {
     
-    const [user, setUser] = useState<string | firebase.User>('');
+    //const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [emailError, setEmailError] = useState<string>('');
@@ -29,7 +33,7 @@ const LoginPage : React.FC = () => {
         fire.auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                alert('inloggad ');
+                //alert('inloggad ');
                 // här vill vi routa till själva hemsidan
               })
             .catch((err) => {
@@ -61,7 +65,6 @@ const LoginPage : React.FC = () => {
                         break;
                 }
             });
-        
     };
 
     const handleLogout = () => {
@@ -103,10 +106,10 @@ const LoginPage : React.FC = () => {
                 onChange={(e) => {setPassword(e.target.value)}}>
                 </input>
                 <p>{passwordError}</p>
-                <div>
+                <div className={classes.center}>
                     {hasAccount ? (
                         <>
-                        <LogInButton text="Sign in" onButtonClick={handleLogin} />
+                        <LogInButton text="Sign in" onButtonClick={handleLogin}/>
                         <p>Don't have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign up</button></p>
                         </>
                     ) : (
