@@ -16,6 +16,8 @@ import HomePage from './components/pages/HomePage/HomePage';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import FeedPage from './components/pages/FeedPage/FeedPage';
 
+import LoggedInUserProvider from './contexts/LoggedInUserContext';
+
 const App: React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
     const [profileData, setProfileData] = useState<Object>({});
@@ -49,31 +51,35 @@ const App: React.FC = () => {
 
 
     return (
+        <LoggedInUserProvider>
+            <div>
+                {user ? (
+                    <div>
+                        <Router>
+                            <Switch>
+                                <Route exact path={['/', '/home']}>
+                                    <Menu />
+                                    <HomePage />
+                                </Route>
 
-        <div>
-            {user? (
-                <Router>
-                <Switch>
-                    <Route exact path={['/', '/home']}>
-                        <Menu />
-                        <HomePage />
-                    </Route>
-    
-                    <Route exact path="/profile">
-                        <Menu />
-                        <ProfilePage userObj={profileData} />
-                    </Route>
-                    <Route exact path="/feed">
-                        <Menu />
-                        <FeedPage />
-                    </Route>
-                </Switch>
-                <button onClick={handleLogout}>Log out</button>
-            </Router>
-            ): (
-            <LoginPage user = {user} setUser = {setUser}/>
-            )}
-        </div>
+                                <Route exact path="/profile">
+                                    <Menu />
+                                    <ProfilePage userObj={profileData} />
+                                </Route>
+                                <Route exact path="/feed">
+                                    <Menu />
+                                    <FeedPage />
+                                </Route>
+                            </Switch>
+                            <button onClick={handleLogout}>Log out</button>
+                        </Router>
+                    </div>
+                ) : (
+                    <LoginPage user = {user} setUser = {setUser}
+                    />
+                )}
+            </div>
+        </LoggedInUserProvider>
     );
 };
 

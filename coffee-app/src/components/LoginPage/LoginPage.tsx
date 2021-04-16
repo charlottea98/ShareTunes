@@ -35,6 +35,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .then(() => {
                 //alert('inloggad ');
                 // här vill vi routa till själva hemsidan
+                
               })
             .catch((err) => {
                 switch (err.code) {
@@ -65,12 +66,6 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
                         break;
                 }
             });
-    };
-
-    const handleLogout = () => {
-        // måste ligga tillägänglig för alla sidor förutom login för att kunna 
-        // logga ut överallt
-        fire.auth().signOut();
     };
 
     const authListener = () => {
