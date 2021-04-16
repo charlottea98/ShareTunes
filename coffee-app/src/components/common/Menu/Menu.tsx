@@ -12,7 +12,7 @@ interface Props {
 
 const menuLinks = [
     {
-        pageLink: '/',
+        pageLink: '/home',
         name: 'Home'
     },
     {
