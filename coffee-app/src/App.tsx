@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import LoginPage from './components/LoginPage/LoginPage';
 import TestHomePage from './components/LoginPage/TestHomePage';
 import fire from './fire';
@@ -23,13 +23,6 @@ const App: React.FC = () => {
     const [profileData, setProfileData] = useState<Object>({});
 
     useEffect(() => {
-        fetch(
-            'https://my-json-server.typicode.com/charlottea98/CoffeeApp/coffees'
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                setCoffeeData(JSON.stringify(data));
-            });
         firestore
             .collection('users')
             .get()
@@ -40,7 +33,7 @@ const App: React.FC = () => {
                     setProfileData(doc.data());
                 });
             });
-    },[]);
+    }, []);
 
     const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
