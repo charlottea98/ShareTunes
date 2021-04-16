@@ -5,30 +5,10 @@ import {
 } from '../../../contexts/LoggedInUserContext';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
+import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
+import fire from '../../../fire';
 
 import classes from './homePage.module.scss';
-
-let user0 = {
-    name: 'Rasmus Rudling',
-    favoriteSong: {
-        title: 'Midnight City',
-        artist: 'M83',
-        url:
-            'https://open.spotify.com/track/6GyFP1nfCDB8lbD2bG0Hq9?si=fNUnqyC7Sm2tIS9qhwtORQ',
-    },
-    email: 'rrudling@kth.se',
-};
-
-let user1 = {
-    name: 'User1',
-    favoriteSong: {
-        title: 'Test',
-        artist: 'M83',
-        url:
-            'https://open.spotify.com/track/6GyFP1nfCDB8lbD2bG0Hq9?si=fNUnqyC7Sm2tIS9qhwtORQ',
-    },
-    email: 'user1@kth.se',
-};
 
 const HomePage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -39,12 +19,12 @@ const HomePage: React.FC = () => {
             This is the Home Page
             <PrimaryButton
                 text="Change to user 0"
-                onButtonClick={() => updateLoggedInUser(user0)}
+                onButtonClick={() => updateLoggedInUser('rrudling@kth.se')}
                 buttonColor="green"
             />
             <SecondaryButton
                 text="Change to user 1"
-                onButtonClick={() => updateLoggedInUser(user1)}
+                onButtonClick={() => updateLoggedInUser('johanlam@kth.se')}
                 buttonColor="black"
             />
             <strong>
@@ -52,6 +32,7 @@ const HomePage: React.FC = () => {
                 {loggedInUser?.favoriteSong.title} <br />
                 {loggedInUser?.name}
             </strong>
+            <LogoutButton></LogoutButton>
         </div>
     );
 };
