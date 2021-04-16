@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import LoginPage from './components/LoginPage/LoginPage';
-import TestHomePage from './components/LoginPage/TestHomePage';
+import LoginPage from './components/pages/LoginPage/LoginPage';
+import TestHomePage from './components/pages/LoginPage/TestHomePage';
 import fire from './fire';
 import firestore from './firestore';
 import firebase from 'firebase';
+import { useHistory } from 'react-router';
 
 import './App.scss';
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
     const [coffeeData, setCoffeeData] = useState<string | null>(null);
     const [profileData, setProfileData] = useState<Object>({});
     const [user, setUser] = useState<string | firebase.User>('');
+    const history = useHistory();
 
     useEffect(() => {
         fetch(
@@ -43,42 +45,28 @@ const App: React.FC = () => {
             });
     },[]);
 
-    const handleLogout = () => {
-        // måste ligga tillägänglig för alla sidor förutom login för att kunna 
-        // logga ut överallt
-        fire.auth().signOut();
-    };
-
 
     return (
         <LoggedInUserProvider>
-            <div>
-                {user ? (
-                    <div>
-                        <Router>
-                            <Switch>
-                                <Route exact path={['/', '/home']}>
-                                    <Menu />
-                                    <HomePage />
-                                </Route>
-
-                                <Route exact path="/profile">
-                                    <Menu />
-                                    <ProfilePage userObj={profileData} />
-                                </Route>
-                                <Route exact path="/feed">
-                                    <Menu />
-                                    <FeedPage />
-                                </Route>
-                            </Switch>
-                            <button onClick={handleLogout}>Log out</button>
-                        </Router>
-                    </div>
-                ) : (
-                    <LoginPage user = {user} setUser = {setUser}
-                    />
-                )}
-            </div>
+            <Router>
+                <Switch>
+                    <Route exact path='/home'>
+                        <Menu />
+                        <HomePage />
+                    </Route>
+                    <Route exact path="/profile">
+                        <Menu />
+                        <ProfilePage userObj={profileData} />
+                    </Route>
+                    <Route exact path="/feed">
+                        <Menu />
+                        <FeedPage />
+                    </Route>
+                    <Route exact path={['/', '/login']}>
+                    <LoginPage user = {user} setUser = {setUser}/>
+                    </Route>
+                </Switch>
+            </Router>
         </LoggedInUserProvider>
     );
 };

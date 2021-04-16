@@ -1,8 +1,11 @@
 import React, { ReactNode,useEffect, useState } from 'react';
-import LogInButton from '../common/buttons/SecondaryButton/secondaryButton';
+import LogInButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import firebase from 'firebase';
-import fire from "../../fire";
+import fire from "../../../fire";
 import classes from './loginPage.module.scss';
+import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
+import { useHistory } from 'react-router';
+
 
 interface Props {
     user : ReactNode;
@@ -17,6 +20,9 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     const [emailError, setEmailError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
     const [hasAccount, setHasAccount] = useState<boolean>(false);
+
+    const history = useHistory();
+    const updateLoggedInUser = useLoggedInUserUpdate();
 
     const clearInputs = () => {
         setEmail('');
@@ -35,7 +41,8 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .then(() => {
                 //alert('inloggad ');
                 // här vill vi routa till själva hemsidan
-                
+                updateLoggedInUser(email);
+                history.push('/home');
               })
             .catch((err) => {
                 switch (err.code) {

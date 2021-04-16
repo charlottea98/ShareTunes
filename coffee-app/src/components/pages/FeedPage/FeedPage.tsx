@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+import fire from '../../../fire';
+import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
 
 import classes from './feedPage.module.scss';
 
@@ -14,6 +16,7 @@ const FeedPage : React.FC = () => {
             { loggedInUser?.favoriteSong.title } <br />
             { loggedInUser?.name }
             </strong>
+            <LogoutButton></LogoutButton>
         </div>
     )
 }
