@@ -42,7 +42,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
                 //alert('inloggad ');
                 // här vill vi routa till själva hemsidan
                 updateLoggedInUser(email);
-                history.push('/home');
+                history.push('/discover');
               })
             .catch((err) => {
                 switch (err.code) {
