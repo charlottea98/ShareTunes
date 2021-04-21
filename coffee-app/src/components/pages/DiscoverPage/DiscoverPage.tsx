@@ -64,7 +64,6 @@ const DiscoverPage : React.FC = () => {
     return (
         <div className={classes.HomePage}>
             <Searchbar></Searchbar>
-            This is the Home Page
             <PrimaryButton 
                 text = "Change to user 0"
                 onButtonClick = {() => updateLoggedInUser('rrudling@kth.se')}
