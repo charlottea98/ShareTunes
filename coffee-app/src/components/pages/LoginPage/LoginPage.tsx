@@ -21,6 +21,17 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     const [passwordError, setPasswordError] = useState<string>('');
     const [hasAccount, setHasAccount] = useState<boolean>(false);
 
+    /////////////////////////////
+
+    // Dom här är nya, behöver dom vara useStates eller kan man göra på något enklare sätt? 
+    const [username, setUsername] = useState<string>('');
+    const [usernameError, setUsernameError] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [firstNameError, setFirstNameError] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
+    const [lastNameError, setLastNameError] = useState<string>('');
+
+    //////////////////////////////
     const history = useHistory();
     const updateLoggedInUser = useLoggedInUserUpdate();
 
@@ -39,8 +50,6 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
         fire.auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                //alert('inloggad ');
-                // här vill vi routa till själva hemsidan
                 updateLoggedInUser(email);
                 history.push('/discover');
               })
@@ -62,6 +71,10 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
         clearErrors();
         fire.auth()
             .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                updateLoggedInUser(email);
+                history.push('/home');
+              })
             .catch((err) => {
                 switch (err.code) {
                     case 'auth/email-already-in-use':
@@ -91,36 +104,91 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     }, []);
     
     
+
+
+    // Den här funktionen lägget till en user i firestore databasen med mail som id och värden ( mail, username)
+    const createUserInDataBase = () => {
+        // checkUsername(); 
+        firebase.firestore().collection('users').doc(email).set({
+            first_name: firstName,
+            last_name: lastName,
+            userName: username,
+            email: email,
+          })
+    }
+
+    const checkUsername = () => {
+        // Ser ifall userName redan finns i databasen ? Kanske onödigt krångligt , strunta i den här? 
+    }
+    
     return (
         <div className={classes.LoginPage}>
         <section className='login'>
-            <div className='loginContainer'>
-                <label>
-                    Username
-                </label>
-                <input type='text' 
-                autoFocus required value={email} 
-                onChange={e=>setEmail(e.target.value)}>
-                </input>
-                <p>{emailError}</p>
-                <label>Password</label>
-                <input type="password" required value={password}
-                onChange={(e) => {setPassword(e.target.value)}}>
-                </input>
-                <p>{passwordError}</p>
                 <div className={classes.center}>
                     {hasAccount ? (
                         <>
+                        <div className='loginContainer'>
+                            <label>Mail</label>
+                            <input type='text' 
+                            autoFocus required value={email} 
+                            onChange={e=>setEmail(e.target.value)}>
+                            </input>
+                            <p>{emailError}</p>
+                            <label>Password</label>
+                            <input type="password" required value={password}
+                            onChange={(e) => {setPassword(e.target.value)}}>
+                            </input>
+                            <p>{passwordError}</p>
+                        </div>
                         <LogInButton text="Sign in" onButtonClick={handleLogin}/>
                         <p>Don't have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign up</button></p>
                         </>
                     ) : (
+                            // För mkt kodupprepning, har bara följt mönstret på de andra , osäker om error behövs? 
                         <>
-                        <LogInButton text="Sign up" onButtonClick={handleSignup}/>
+                         <div className='loginContainer'>
+                            <label>First name</label>
+                            <input type='text' 
+                            autoFocus required value={firstName} 
+                            onChange={e=>setFirstName(e.target.value)}>
+                            </input>
+                            <p>{firstNameError}</p>
+
+                            <label>Last name</label>
+                            <input type='text' 
+                            autoFocus required value={lastName} 
+                            onChange={e=>setLastName(e.target.value)}>
+                            </input>
+                            <p>{lastNameError}</p>
+
+                            <label>Username</label>
+                            <input type='text' 
+                            autoFocus required value={username} 
+                            onChange={e=>setUsername(e.target.value)}>
+                            </input>
+                            <p>{usernameError}</p>
+
+                            <label>Mail</label>
+                            <input type='text' 
+                            autoFocus required value={email} 
+                            onChange={e=>setEmail(e.target.value)}>
+                            </input>
+                            <p>{emailError}</p>
+
+                            <label>Password</label>
+                            <input type="password" required value={password}
+                            onChange={(e) => {setPassword(e.target.value)}}>
+                            </input>
+                            <p>{passwordError}</p>
+
+                        </div>
+
+                        <LogInButton text="Sign up" onButtonClick={() => { handleSignup(); createUserInDataBase();}}/>
+                        
                         <p>Have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign in</button></p>
                         </>
                     )}
-                </div>
+                
             </div>
         </section>
         </div>

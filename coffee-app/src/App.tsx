@@ -51,7 +51,7 @@ const App: React.FC = () => {
                         <FeedPage />
                     </Route>
                     <Route exact path={['/', '/login']}>
-                    <LoginPage user = {user} setUser = {setUser}/>
+                    <LoginPage user = {user} setUser = {setUser}/>      
                     </Route>
                 </Switch>
             </Router>
@@ -60,3 +60,6 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
+//updateLoggedInUser
