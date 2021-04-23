@@ -3,11 +3,12 @@ import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/Logged
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
+import Searchbar from './Searchbar';
 
-import classes from './homePage.module.scss';
+import classes from './discoverPage.module.scss';
 
 
-const HomePage : React.FC = () => {
+const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const updateLoggedInUser = useLoggedInUserUpdate();
     const [searchText, setSearchText] = useState("");
@@ -62,7 +63,7 @@ const HomePage : React.FC = () => {
 
     return (
         <div className={classes.HomePage}>
-            This is the Home Page
+            <Searchbar/>
             <PrimaryButton 
                 text = "Change to user 0"
                 onButtonClick = {() => updateLoggedInUser('rrudling@kth.se')}
@@ -102,4 +103,4 @@ const HomePage : React.FC = () => {
     )
 }
 
-export default HomePage;
+export default DiscoverPage;

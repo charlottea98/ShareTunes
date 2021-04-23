@@ -12,8 +12,8 @@ interface Props {
 
 const menuLinks = [
     {
-        pageLink: '/home',
-        name: 'Home'
+        pageLink: '/discover',
+        name: 'Discover'
     },
     {
         pageLink: '/profile',

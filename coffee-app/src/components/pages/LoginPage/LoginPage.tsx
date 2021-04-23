@@ -51,7 +51,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .signInWithEmailAndPassword(email, password)
             .then(() => {
                 updateLoggedInUser(email);
-                history.push('/home');
+                history.push('/discover');
               })
             .catch((err) => {
                 switch (err.code) {
