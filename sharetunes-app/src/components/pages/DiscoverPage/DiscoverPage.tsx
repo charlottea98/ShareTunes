@@ -7,6 +7,7 @@ import Searchbar from './Searchbar';
 
 import classes from './discoverPage.module.scss';
 
+import { CLIENT_ID, CLIENT_SECRET } from '../../../utility/spotifyAPI';
 
 const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -16,14 +17,11 @@ const DiscoverPage : React.FC = () => {
     const getSpotifySong = () => {
         let request = require('request'); // "Request" library
 
-        let client_id = 'c9e9c34181c846e2bf3d591af1b4ea52'; // Your client id
-        let client_secret = '92ac3ab6d2c646d3ab5c71d9ea5068fb'; // Your secret
-
         // your application requests authorization
         let authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             headers: {
-                'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
+                'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
             },
             form: {
                 grant_type: 'client_credentials'
@@ -75,7 +73,7 @@ const DiscoverPage : React.FC = () => {
                 buttonColor = 'black'
             />
             <strong>
-                { loggedInUser?.userName } <br />
+                { loggedInUser?.username } <br />
                 { loggedInUser?.email } <br />
                 { loggedInUser?.favoriteSong.title } <br />
                 { loggedInUser?.name }
