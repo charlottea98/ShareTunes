@@ -7,7 +7,7 @@ import Searchbar from './Searchbar';
 
 import classes from './discoverPage.module.scss';
 
-import { CLIENT_ID, CLIENT_SECRET } from '../../../utility/spotifyAPI';
+import { CLIENT_ID, CLIENT_SECRET } from '../../../utility/keys';
 
 const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -60,7 +60,7 @@ const DiscoverPage : React.FC = () => {
     }
 
     return (
-        <div className={classes.HomePage}>
+        <div className={classes.DiscoverPage}>
             <Searchbar/>
             <PrimaryButton 
                 text = "Change to user 0"
