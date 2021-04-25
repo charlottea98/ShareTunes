@@ -12,7 +12,7 @@ import LogInButton from './components/common/buttons/SecondaryButton/secondaryBu
 import Menu from './components/common/Menu/Menu';
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
-import FeedPage from './components/pages/FeedPage/FeedPage';
+import FeedPage from './components/pages/HomePage/HomePage';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
@@ -31,8 +31,7 @@ const App: React.FC = () => {
                     setProfileData(doc.data());
                 });
             });
-    },[]);
-
+    }, []);
 
     return (
         <LoggedInUserProvider>
@@ -60,6 +59,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
-//updateLoggedInUser

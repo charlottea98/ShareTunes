@@ -3,13 +3,13 @@ import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import fire from '../../../fire';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
 
-import classes from './feedPage.module.scss';
+import classes from './homePage.module.scss';
 
-const FeedPage : React.FC = () => {
+const HomePage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
 
     return (
-        <div className={classes.FeedPage}>
+        <div className={classes.HomePage}>
             This is the Feed Page <br />
             <strong>
             { loggedInUser?.email } <br />
@@ -21,4 +21,4 @@ const FeedPage : React.FC = () => {
     )
 }
 
-export default FeedPage;
+export default HomePage;

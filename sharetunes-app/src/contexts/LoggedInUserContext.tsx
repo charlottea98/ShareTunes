@@ -10,7 +10,7 @@ interface SpotifySong {
 
 interface LoggedInUser {
     name: string,
-    userName: string,
+    username: string,
     favoriteSong: SpotifySong,
     email: string
 }
@@ -40,8 +40,8 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
             if (doc.exists) {
                 let userInfo = doc.data();
                 setLoggedInUser({
-                    name: `${userInfo?.first_name} ${userInfo?.last_name}`,
-                    userName:`${userInfo?.userName}`,
+                    name: `${userInfo?.firstName} ${userInfo?.lastName}`,
+                    username:`${userInfo?.username}`,
                     email: loggedInUserEmail,
                     favoriteSong: {
                         title: 'Midnight City',
