@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "sharetunesmedia",
     "public": "build",
     "ignore": [
       "firebase.json",
