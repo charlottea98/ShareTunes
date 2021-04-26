@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
-import Menu from './components/common/Menu/Menu';
+import MenuPresenter from './components/common/Menu/MenuPresenter';
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import FeedPage from './components/pages/HomePage/HomePage';
@@ -38,15 +38,15 @@ const App: React.FC = () => {
             <Router>
                 <Switch>
                     <Route exact path='/discover'>
-                        <Menu />
+                        <MenuPresenter />
                         <DiscoverPage />
                     </Route>
                     <Route exact path="/profile">
-                        <Menu />
+                        <MenuPresenter />
                         <ProfilePage userObj={profileData} />
                     </Route>
                     <Route exact path="/feed">
-                        <Menu />
+                        <MenuPresenter />
                         <FeedPage />
                     </Route>
                     <Route exact path={['/', '/login']}>

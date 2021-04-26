@@ -6,34 +6,19 @@ import classes from './menu.module.scss';
 import MenuLink from "./MenuLink/MenuLink";
 import MobileMenuButton from "./HamburgerButton/MobileMenuButton";
 
-interface Props {
-
+interface MenuLink {
+    pageLink: string,
+    name: string
 }
 
-const menuLinks = [
-    {
-        pageLink: '/discover',
-        name: 'Discover'
-    },
-    {
-        pageLink: '/profile',
-        name: 'My Profile'
-    },
-    {
-        pageLink: '/feed',
-        name: 'Feed'
-    }
-];
+interface Props {
+    menuLinks: Array<MenuLink>,
+    showMobileMenu: boolean,
+    setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>,
+    menuLinkClickedHandler: (pageLink: string) => void
+}
 
-const Menu: React.FC<Props> = () => {
-    const history = useHistory();
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-    const menuLinkClickedHandler = (pageLink: string) => {
-
-        setShowMobileMenu(false);
-        history.replace(pageLink);
-    }
-
+const Menu: React.FC<Props> = ({menuLinks, showMobileMenu, setShowMobileMenu, menuLinkClickedHandler}) => {
     return (
         <>
             <div className={showMobileMenu ? classes.Menu : [classes.Menu, classes.MenuShadow].join(" ")}>
