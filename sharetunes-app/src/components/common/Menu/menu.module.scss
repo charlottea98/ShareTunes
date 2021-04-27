@@ -1,5 +1,5 @@
 .Menu {
-	height: 80px;
+	height: 60px;
 	width: 100vw;
 	background-color: #fff;
 	position: fixed;
@@ -7,77 +7,36 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	transition: .3s;
+	transition: 0.3s;
+	border-top: 5px solid #fec46e;
 }
 
-.MenuShadow {
-	transition: .3s;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-}
-
-.buttonsContainer {
+.menuContent {
 	margin: 0 auto;
-	width: 70%;
+	width: 100%;
+	padding: 0 20px;
+	max-width: 935px;
 	height: 100%;
 	display: none;
 	align-items: center;
-	justify-content: space-around;
-}
-
-.buttonsContainer button {
-	outline: none;
-}
-
-.showMenuModal,
-.hideMenuModal {
-	position: fixed;
+	justify-content: space-between;
 	display: flex;
-	flex-direction: column;
-	top: 80px;
-	width: 100vw;
-	background-color: #fff;
-	z-index: 900;
-	transition: .7s;
 }
 
-.showMenuModal {
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+.iconsToRight {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 130px;
 }
 
-.hideMenuModal {
-	transform: translateY(-102%);
-}
-
-.modalBackground,
-.fakeModalBackground {
-	width: 100%;
-	background-color: rgba(0, 0, 0, 0.65);
-	position: fixed;
-	z-index: 800;
-	cursor: pointer;
-	opacity: 1;
-	backdrop-filter: blur(2px);
-	transition: 0.5s, z-index 0s;
-}
-
-.modalBackground {
-	height: 100vh;
-}
-
-
-.hideModalBackground {
-	opacity: 0;
-	z-index: -1;
-	cursor: default;
-
-}
-
-@media (min-width: 600px) {
-	.buttonsContainer {
-		display: flex;
-	}
-
-	.showMenuModal {
-		display: none;
-	}
+.searchbarPlaceHolder {
+	width: 175px;
+	height: 30px;
+	border: 1px solid #707070;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #bfbfbf;
+	border-radius: 2px;
 }
