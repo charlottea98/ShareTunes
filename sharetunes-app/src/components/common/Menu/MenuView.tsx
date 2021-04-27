@@ -1,68 +1,34 @@
-import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
-
+import React from 'react';
 import classes from './menu.module.scss';
 
-import MenuLink from "./MenuLink/MenuLink";
-import MobileMenuButton from "./HamburgerButton/MobileMenuButton";
 
-interface MenuLink {
-    pageLink: string,
-    name: string
-}
+import ShareTunesLogo from '../Logo/LogoPresenter';
+import UserImage from '../UserImage/UserImagePresenter';
+import MenuIcon from './MenuIcon/MenuIconPresenter';
 
 interface Props {
-    menuLinks: Array<MenuLink>,
-    showMobileMenu: boolean,
-    setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>,
-    menuLinkClickedHandler: (pageLink: string) => void
+    userImageActive: boolean
 }
 
-const Menu: React.FC<Props> = ({menuLinks, showMobileMenu, setShowMobileMenu, menuLinkClickedHandler}) => {
+const MenuView: React.FC<Props> = ({userImageActive}) => {
     return (
-        <>
-            <div className={showMobileMenu ? classes.Menu : [classes.Menu, classes.MenuShadow].join(" ")}>
-                <div className={classes.buttonsContainer}>
-                    {
-                        menuLinks.map(menuLink => (
-                            <MenuLink
-                                key = {menuLink.pageLink}
-                                pageLink = {menuLink.pageLink}
-                                name = {menuLink.name}
-                                goToAddress = {menuLinkClickedHandler}
-                            />
-                        ))
-                    }
+        <div className={classes.Menu}>
+            <div className={classes.menuContent}>
+                <ShareTunesLogo fontSize="30px" />
+
+                <div className={classes.searchbarPlaceHolder}>Searchbar</div>
+
+                <div className={classes.iconsToRight}>
+                    <MenuIcon menuIcon="home" height="30px" />
+                    <MenuIcon menuIcon="compass" height="30px" />
+                    {/* <MenuIcon menuIcon="bell" height="30px" /> */}
+
+                    <UserImage diameter="30px" isActive={userImageActive} />
                 </div>
-
-                <MobileMenuButton
-                    showingMobileMenu = {showMobileMenu}
-                    onClick = {() => setShowMobileMenu(!showMobileMenu)}
-                />
+                
             </div>
-            <div className={showMobileMenu ? classes.showMenuModal : classes.hideMenuModal}>
-                {
-                    menuLinks.map(menuLink => (
-                        <MenuLink
-                            key = {menuLink.pageLink}
-                            pageLink = {menuLink.pageLink}
-                            name = {menuLink.name}
-                            goToAddress = {menuLinkClickedHandler}
-                            inMobileMenu = {true}
-                        />
-                    ))
-                }
-            </div>
-
-            <div
-                className = {showMobileMenu
-                    ? classes.modalBackground
-                    : [classes.modalBackground, classes.hideModalBackground].join(" ")
-                }
-                onClick={() => setShowMobileMenu(false)}
-            />
-        </>
+        </div>
     )
 }
 
-export default Menu;
+export default MenuView;

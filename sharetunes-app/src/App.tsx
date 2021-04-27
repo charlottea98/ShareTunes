@@ -12,7 +12,7 @@ import LogInButton from './components/common/buttons/SecondaryButton/secondaryBu
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
-import FeedPage from './components/pages/HomePage/HomePage';
+import HomePage from './components/pages/HomePage/HomePage';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
@@ -45,12 +45,12 @@ const App: React.FC = () => {
                         <MenuPresenter />
                         <ProfilePage userObj={profileData} />
                     </Route>
-                    <Route exact path="/feed">
+                    <Route exact path="/home">
                         <MenuPresenter />
-                        <FeedPage />
+                        <HomePage />
                     </Route>
                     <Route exact path={['/', '/login']}>
-                    <LoginPage user = {user} setUser = {setUser}/>      
+                        <LoginPage user = {user} setUser = {setUser}/>      
                     </Route>
                 </Switch>
             </Router>
