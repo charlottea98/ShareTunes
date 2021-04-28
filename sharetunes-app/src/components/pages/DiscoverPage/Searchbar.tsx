@@ -3,23 +3,40 @@ import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import classes from './searchbar.module.scss';
 
 const SearchBar = () => {
-    const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResult] = useState<any[]>([]);
     const [following, setFollowing] = useState<any[]>([]);
+    const [typing, setTyping] = useState<boolean>(false);
     const loggedInUser = useLoggedInUser();
 
-    const findUsers = () => {
+    const findUsers = (val:string) => {
         setSearchResult([]);
         getFollowing();
         firestore.collection('users').get().then(snapshot => {
             snapshot.docs.map(doc => {
-                if (doc.data().userName.includes(searchValue)){
+                if (doc.data().userName.includes(val)){
                     setSearchResult(oldArray => [...oldArray, doc.data()]);
                 }
             })
         })
+    }
+
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        var value = e.target.value;
+        setTyping(true);
+        handleSubmit(value);
+    }
+
+    const handleSubmit = (value:string) => {
+        findUsers(value);
+    }
+
+    const handleClose = () => {
+        setTyping(false);
+        setSearchResult([]);
     }
 
     const getFollowing = () => {
@@ -48,18 +65,23 @@ const SearchBar = () => {
 
     return (
         <div>
+            <div>
             <input type="text"
                     name="name"
                     placeholder="Search users..."
-                    onChange={e => setSearchValue(e.target.value)}>
+                    onChange={e => {handleChange(e);}}
+                    className="form-control">
             </input>
-            <PrimaryButton text="Search!" onButtonClick={() => findUsers()}></PrimaryButton>
-            <div>
+            <ul className="list-group" hidden={!typing}>
+            <div className="list-group-item">
+                <button onClick={()=>handleClose()}>Close</button>
+            </div>
             {searchResults.map(result => {
-                return (<div>
+                return (<div className="list-group-item">
                     {result.userName}<button disabled={isFollowing(result.email)} onClick={()=>followUser(result)}>Follow</button>
                     </div>)
             })}
+            </ul>
             </div>
         </div>
     );

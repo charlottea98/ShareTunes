@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
 import MenuPresenter from './components/common/Menu/MenuPresenter';
-import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
+import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
 import HomePage from './components/pages/HomePage/HomePage';
 
@@ -39,7 +39,7 @@ const App: React.FC = () => {
                 <Switch>
                     <Route exact path='/discover'>
                         <MenuPresenter />
-                        <DiscoverPage />
+                        <DiscoverPagePresenter />
                     </Route>
                     <Route exact path="/profile">
                         <MenuPresenter />
