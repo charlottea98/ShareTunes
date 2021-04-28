@@ -1,4 +1,87 @@
-.DiscoverPage {
-    text-align: center;
-	padding-top: 80px;
+.discoverFeed{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-between;
+    padding: 20px;
+}
+
+.card{
+    width: 302px;
+    height: 342px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #BFBFBF;
+    border-radius: 2px;
+    align-self: center;
+}
+
+.header {
+    width: 300px;
+    height: 40px;
+    background-color: WHITE;
+    display: flex;
+    justify-content: left;
+}
+
+.userPicture {
+    margin: 5px;
+    margin-right: 20px;
+    align-self: center;
+    width: 25px;
+    height: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #BFBFBF;
+    border-radius: 50%;
+}
+
+.settingsBtn{
+    width: 25px;
+    height: 25px;
+    align-self: center;
+    margin-right: 10px;
+    flex:1;
+}
+
+.buttonSvg{
+    width: 20px;
+    height: 20px;
+    padding-top: 1px;
+}
+
+.userName {
+    align-self: center;
+    flex:10;
+}
+
+.bottom{
+    position: relative;
+}
+
+.image{
+    bottom:0;
+}
+
+.songInfo{
+    width: 300px;
+    height: 60px;
+    position: absolute;
+    bottom:4px;
+    background-color: black;
+    opacity: 80%;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.title{
+
+}
+
+.artist{
+
 }

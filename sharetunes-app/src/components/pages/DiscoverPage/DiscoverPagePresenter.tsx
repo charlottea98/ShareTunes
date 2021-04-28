@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
@@ -15,19 +15,30 @@ import DiscoverPageView from './DiscoverPageView';
 
 const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
+    const [posts, setPosts] = useState<any[]>([]);
 
     const getDiscoverPosts = () => {
+        setPosts([]);
         firestore.collection('posts').get().then(snapshot => {
             snapshot.docs.map(doc => {
-                console.log(doc.data());
+                setPosts(oldArray => [...oldArray, doc.data()]);
             });
         })
     }
 
+
+    useEffect(() => {
+        setPosts([]);
+        firestore.collection('posts').get().then(snapshot => {
+            snapshot.docs.map(doc => {
+                setPosts(oldArray => [...oldArray, doc.data()]);
+            });
+        })
+    }, []);
+
     return (
         <div className={classes.DiscoverPage}>
-            <DiscoverPageView user={loggedInUser}></DiscoverPageView>
-            {getDiscoverPosts()}
+            <DiscoverPageView user={loggedInUser} posts={posts}/>
         </div>
     )
 }
