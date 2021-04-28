@@ -28,7 +28,6 @@ const DiscoverPage : React.FC = () => {
         <div className={classes.DiscoverPage}>
             <DiscoverPageView user={loggedInUser}></DiscoverPageView>
             {getDiscoverPosts()}
-            <Searchbar/>
         </div>
     )
 }

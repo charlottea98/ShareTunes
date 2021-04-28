@@ -5,6 +5,7 @@ import classes from './menu.module.scss';
 import ShareTunesLogo from '../Logo/LogoPresenter';
 import UserImage from '../UserImage/UserImagePresenter';
 import MenuIcon from './MenuIcon/MenuIconPresenter';
+import SearchBar from '../../pages/DiscoverPage/Searchbar';
 
 interface Props {
     userImageActive: boolean
@@ -16,7 +17,7 @@ const MenuView: React.FC<Props> = ({userImageActive}) => {
             <div className={classes.menuContent}>
                 <ShareTunesLogo fontSize="30px" />
 
-                <div className={classes.searchbarPlaceHolder}>Searchbar</div>
+                <SearchBar/>
 
                 <div className={classes.iconsToRight}>
                     <MenuIcon menuIcon="home" height="30px" />

@@ -3,7 +3,6 @@ import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from './searchbar.module.scss';
 
 const SearchBar = () => {
@@ -64,26 +63,24 @@ const SearchBar = () => {
     }
 
     return (
-        <div>
-            <div>
+            <div className={classes.SearchBar}>
             <input type="text"
                     name="name"
                     placeholder="Search users..."
                     onChange={e => {handleChange(e);}}
-                    className="form-control">
+                    className={classes.SearchInput}>
             </input>
-            <ul className="list-group" hidden={!typing}>
-            <div className="list-group-item">
+            <ul hidden={!typing} className={classes.SearchList}>
+            <div className={classes.SearchItems}>
                 <button onClick={()=>handleClose()}>Close</button>
             </div>
             {searchResults.map(result => {
-                return (<div className="list-group-item">
+                return (<div className={classes.SearchItems}>
                     {result.userName}<button disabled={isFollowing(result.email)} onClick={()=>followUser(result)}>Follow</button>
                     </div>)
             })}
             </ul>
             </div>
-        </div>
     );
 }
 
