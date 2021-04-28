@@ -110,8 +110,8 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     const createUserInDataBase = () => {
         // checkUsername(); 
         firebase.firestore().collection('users').doc(email).set({
-            first_name: firstName,
-            last_name: lastName,
+            firstName: firstName,
+            lastName: lastName,
             userName: username,
             email: email,
           })
