@@ -17,16 +17,6 @@ const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [posts, setPosts] = useState<any[]>([]);
 
-    const getDiscoverPosts = () => {
-        setPosts([]);
-        firestore.collection('posts').get().then(snapshot => {
-            snapshot.docs.map(doc => {
-                setPosts(oldArray => [...oldArray, doc.data()]);
-            });
-        })
-    }
-
-
     useEffect(() => {
         setPosts([]);
         firestore.collection('posts').get().then(snapshot => {
@@ -35,6 +25,8 @@ const DiscoverPage : React.FC = () => {
             });
         })
     }, []);
+
+
 
     return (
         <div className={classes.DiscoverPage}>

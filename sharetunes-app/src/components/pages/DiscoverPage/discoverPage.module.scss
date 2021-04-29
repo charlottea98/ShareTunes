@@ -1,3 +1,83 @@
+.discoverPage{
+    display: flex;
+    flex-direction: row;
+    padding-top: 80px;
+}
+
+.discoverSidebar{
+    flex: 1;
+    padding-top: 20px;
+}
+
+.sideBarText{
+    font-weight: bold;
+}
+
+.popularSongs{
+    margin-bottom: 20px;
+}
+
+.recommendedSongs {
+    margin-bottom: 20px;
+}
+
+.songCard{
+    margin: 10px;
+    height: 65px;
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #BFBFBF;
+    border-radius: 2px;
+}
+
+.songCardImage{
+    height: 64px;
+    width: 64px;
+}
+
+.songCardSong{
+    flex:2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.songCardTitle{
+    display: flex;
+    flex-direction: row;
+    padding-left: 5px;
+}
+
+.songCardTitleText{
+    padding-left: 5px;
+    align-self: center;
+    overflow: hidden;
+
+}
+
+.songCardTitleImage{
+    height:19px;
+    width:19px;
+    align-self: center;
+}
+
+.songCardPlayer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FEC46E;
+    width: 63px;
+}
+
+.songCardPlayerImage{
+    height: 30px;
+    width: 30px;
+    align-self: center;
+    fill: white;
+}
+
 .discoverFeed{
     display: flex;
     flex-direction: row;
@@ -6,6 +86,7 @@
     align-items: center;
     align-content: space-between;
     padding: 20px;
+    flex:4;
 }
 
 .card{
@@ -65,6 +146,24 @@
     bottom:0;
 }
 
+.title {
+    display: flex;
+    flex-direction: row;
+}
+
+.titleImage{
+    fill: white;
+    height: 19px;
+    width: 19px;
+    padding-left: 5px;
+    align-self: center;
+}
+
+.titleText {
+    padding-left: 5px;
+    align-self: center;
+}
+
 .songInfo{
     width: 300px;
     height: 60px;
@@ -76,12 +175,4 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-}
-
-.title{
-
-}
-
-.artist{
-
 }
