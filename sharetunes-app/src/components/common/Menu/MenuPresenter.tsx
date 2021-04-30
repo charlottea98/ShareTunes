@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from "react-router-dom";
 
-import classes from './menu.module.scss';
-
-import MenuView from './MenuView';
+import DesktopMenuView from './DesktopMenuView/DesktopMenuView';
+import MobileMenuView from './MobileMenuView/MobileMenuView';
 
 interface Props {
 
 }
 
-
 const Menu: React.FC<Props> = () => {
     const location = useLocation();
 
-
     return (
-        <MenuView 
-            userImageActive = {location.pathname === '/profile'}
-        />
+        <>
+            <DesktopMenuView userImageActive = {location.pathname === '/profile'}/>
+            <MobileMenuView userImageActive = {location.pathname === '/profile'}/>
+        </>
     )
 }
 

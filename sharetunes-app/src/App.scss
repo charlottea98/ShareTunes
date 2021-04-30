@@ -17,4 +17,19 @@ h4 {
 
 body {
 	background-color: #f0f0f0;
+	overflow-x: hidden;
+}
+
+.pageContainer {
+	padding-top: 20px;
+}
+
+@media (min-width: 600px) {
+	body {
+		overflow-x: visible;
+	}
+
+	.pageContainer {
+		padding-top: 80px;
+	}
 }

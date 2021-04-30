@@ -4,7 +4,7 @@
 	background-color: #fff;
 	position: fixed;
 	z-index: 1000;
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: flex-end;
 	transition: 0.3s;
@@ -28,7 +28,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 130px;
+	width: 175px;
 }
 
 .searchbarPlaceHolder {
@@ -40,4 +40,10 @@
 	align-items: center;
 	color: #bfbfbf;
 	border-radius: 2px;
+}
+
+@media (min-width: 600px) {
+	.Menu {
+		display: flex;
+	}
 }

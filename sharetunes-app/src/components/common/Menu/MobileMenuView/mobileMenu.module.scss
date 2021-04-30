@@ -1,0 +1,38 @@
+.Menu {
+	display: flex;
+	height: 60px;
+	width: 100vw;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+	z-index: 1000;
+	align-items: center;
+	justify-content: flex-end;
+	transition: 0.3s;
+	border-top: 1px solid #dbdbdb;
+	// border-top: 4px solid #fec46e;
+}
+
+.menuContent {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 935px;
+	height: 100%;
+	display: none;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+}
+
+.iconContainer {
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@media (min-width: 600px) {
+	.Menu {
+		display: none;
+	}
+}
