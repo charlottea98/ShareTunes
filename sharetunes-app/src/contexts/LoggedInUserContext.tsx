@@ -41,7 +41,7 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
                 let userInfo = doc.data();
                 setLoggedInUser({
                     name: `${userInfo?.firstName} ${userInfo?.lastName}`,
-                    username:`${userInfo?.username}`,
+                    username:`${userInfo?.userName}`,
                     email: loggedInUserEmail,
                     favoriteSong: {
                         title: 'Midnight City',
@@ -55,8 +55,6 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
         }).catch((error) => {
             console.log("Error getting info from Firestore:", error);
         });
-
-        // setLoggedInUser({});
     }
 
     return (

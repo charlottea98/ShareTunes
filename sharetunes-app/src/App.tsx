@@ -9,10 +9,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
-import Menu from './components/common/Menu/Menu';
+import MenuPresenter from './components/common/Menu/MenuPresenter';
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
-import FeedPage from './components/pages/HomePage/HomePage';
+
+import ProfilePage from './components/pages/ProfilePage/ProfilePage';
+import HomePage from './components/pages/HomePage/HomePage';
+import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
@@ -38,18 +41,40 @@ const App: React.FC = () => {
             <Router>
                 <Switch>
                     <Route exact path="/discover">
-                        <Menu />
+                        <MenuPresenter />
                         <DiscoverPage />
                     </Route>
                     <Route exact path="/profile">
-                        <Menu />
+                        <MenuPresenter />
                         <ProfilePresenter userObj={profileData} />
                     </Route>
-                    <Route exact path="/feed">
-                        <Menu />
-                        <FeedPage />
+                    <Route exact path="/home">
+                        <MenuPresenter />
+                        <div className="pageContainer">
+                            <HomePage />
+                        </div>
                     </Route>
+                    <Route exact path="/discover">
+                        <MenuPresenter />
+                        <div className="pageContainer">
+                            <DiscoverPage />
+                        </div>
+                    </Route>
+                    <Route exact path="/publish">
+                        <MenuPresenter />
+                        <div className="pageContainer">
+                            <PublishPage />
+                        </div>
+                    </Route>
+                    <Route exact path="/profile">
+                        <MenuPresenter />
+                        <div className="pageContainer">
+                            <ProfilePage userObj={profileData} />
+                        </div>
+                    </Route>
+
                     <Route exact path={['/', '/login']}>
+                        <LoginPage user={user} setUser={setUser} />
                         <LoginPage user={user} setUser={setUser} />
                     </Route>
                 </Switch>

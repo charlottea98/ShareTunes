@@ -1,0 +1,49 @@
+.Menu {
+	height: 60px;
+	width: 100vw;
+	background-color: #fff;
+	position: fixed;
+	z-index: 1000;
+	display: none;
+	align-items: center;
+	justify-content: flex-end;
+	transition: 0.3s;
+	border-top: 5px solid #fec46e;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.menuContent {
+	margin: 0 auto;
+	width: 100%;
+	padding: 0 20px;
+	max-width: 935px;
+	height: 100%;
+	display: none;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+}
+
+.iconsToRight {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 175px;
+}
+
+.searchbarPlaceHolder {
+	width: 175px;
+	height: 30px;
+	border: 1px solid #707070;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #bfbfbf;
+	border-radius: 2px;
+}
+
+@media (min-width: 600px) {
+	.Menu {
+		display: flex;
+	}
+}

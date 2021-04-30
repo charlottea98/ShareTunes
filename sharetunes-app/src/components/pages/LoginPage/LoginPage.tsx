@@ -73,7 +73,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .createUserWithEmailAndPassword(email, password)
             .then(() => {
                 updateLoggedInUser(email);
-                history.push('/home');
+                history.push('/discover');
               })
             .catch((err) => {
                 switch (err.code) {
@@ -110,8 +110,8 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     const createUserInDataBase = () => {
         // checkUsername(); 
         firebase.firestore().collection('users').doc(email).set({
-            first_name: firstName,
-            last_name: lastName,
+            firstName: firstName,
+            lastName: lastName,
             userName: username,
             email: email,
           })
