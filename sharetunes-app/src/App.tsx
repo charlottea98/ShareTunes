@@ -11,7 +11,7 @@ import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButt
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
 import Menu from './components/common/Menu/Menu';
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
-import ProfilePage from './components/pages/ProfilePage/ProfilePage';
+import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
 import FeedPage from './components/pages/HomePage/HomePage';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
@@ -37,20 +37,20 @@ const App: React.FC = () => {
         <LoggedInUserProvider>
             <Router>
                 <Switch>
-                    <Route exact path='/discover'>
+                    <Route exact path="/discover">
                         <Menu />
                         <DiscoverPage />
                     </Route>
                     <Route exact path="/profile">
                         <Menu />
-                        <ProfilePage userObj={profileData} />
+                        <ProfilePresenter userObj={profileData} />
                     </Route>
                     <Route exact path="/feed">
                         <Menu />
                         <FeedPage />
                     </Route>
                     <Route exact path={['/', '/login']}>
-                    <LoginPage user = {user} setUser = {setUser}/>      
+                        <LoginPage user={user} setUser={setUser} />
                     </Route>
                 </Switch>
             </Router>
