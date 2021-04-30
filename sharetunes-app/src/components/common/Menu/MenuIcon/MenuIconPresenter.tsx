@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import MenuIconView from './MenuIconView';
-import { faCompass, faHome, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faCompass, faHome, faBell, faSearch, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Props {
@@ -26,6 +26,14 @@ const MenuIconPresenter: React.FC<Props> = ({menuIcon, height, showNotifications
         icon = faHome;
         isActive = location.pathname === '/home';
         iconClickHandler = () => history.push('/home');
+    } else if (menuIcon === 'search') {
+        icon = faSearch;
+        iconClickHandler = () => history.push('/discover');
+        isActive = location.pathname === '/discover';
+    } else if (menuIcon === 'plus') {
+        icon = faPlusCircle;
+        iconClickHandler = () => history.push('/publish');
+        isActive = location.pathname === '/publish';
     } else {
         icon = faBell;
         isActive = showNotifications;
