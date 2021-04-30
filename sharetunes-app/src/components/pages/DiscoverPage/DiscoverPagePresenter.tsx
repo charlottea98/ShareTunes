@@ -16,6 +16,9 @@ import DiscoverPageView from './DiscoverPageView';
 const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [posts, setPosts] = useState<any[]>([]);
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
+    const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
 
     useEffect(() => {
         setPosts([]);
@@ -26,9 +29,47 @@ const DiscoverPage : React.FC = () => {
         })
     }, []);
 
+    useEffect(() => {
+        console.log(isPlaying);
+        if (isPlaying){
+            handlePlay();
+        }
+        else{
+            handlePause();
+        }
+    }, [isPlaying])
+
+
+    const handleAudio = (audiofile:string) => {
+        if (currentAudioFile==='' || currentAudioFile!==audiofile){
+            var audio = new Audio(audiofile);
+            setCurrentAudio(audio);
+            setCurrentAudioFile(audiofile);
+        }
+        else{
+            setCurrentAudio(currentAudio);
+        }
+        setIsPlaying(!isPlaying);
+    }
+
+    const handlePlay = () => {
+        currentAudio?.play();
+    }
+
+    const handlePause = () => {
+        currentAudio?.pause();
+    }
+
+    const isPlayingCurrentFile = (audiofile:string) => {
+        if (isPlaying && audiofile===currentAudioFile){
+            return true;
+        }
+        return false;
+    }
+
     return (
         <div className={classes.DiscoverPage}>
-            <DiscoverPageView user={loggedInUser} posts={posts}/>
+            <DiscoverPageView user={loggedInUser} posts={posts} handleAudio={handleAudio} isPlaying={isPlayingCurrentFile}/>
         </div>
     )
 }

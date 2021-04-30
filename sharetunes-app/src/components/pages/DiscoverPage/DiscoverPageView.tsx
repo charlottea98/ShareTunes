@@ -5,10 +5,12 @@ import classes from './discoverPage.module.scss';
 
 interface Props {
     user: any,
-    posts: any[]
+    posts: any[],
+    handleAudio: any,
+    isPlaying: any
 }
 
-const DiscoverPageView:React.FC<Props> = ({user, posts}) => {
+const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying}) => {
     return (
         <div>
             <div className={classes.discoverPage}>
@@ -297,8 +299,13 @@ const DiscoverPageView:React.FC<Props> = ({user, posts}) => {
                                         </div>
                                         </div>
                                     </div>
-                                    <div className={classes.songCardPlayer}>
-                                    <svg className={classes.songCardPlayerImage} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(post.song.preview)}}>
+                                    {isPlaying(post.song.preview)?(
+                                            <svg className={classes.songCardPlayerImage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+                                          </svg>
+                                        ):(
+                                            <svg className={classes.songCardPlayerImage} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="163.861px" height="163.861px" viewBox="0 0 163.861 163.861">
 <g>
 	<path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
@@ -335,9 +342,10 @@ const DiscoverPageView:React.FC<Props> = ({user, posts}) => {
 <g>
 </g>
 </svg>
+                                        )}
                                     </div>
                                 </div>
-                                <audio controls>
+                                <audio controls hidden={true} >
                                     <source src={post.song.preview} type="audio/mpeg"></source>
                                     Your browser does not support the audio element.
                                 </audio>
@@ -482,8 +490,13 @@ const DiscoverPageView:React.FC<Props> = ({user, posts}) => {
                                         </div>
                                         </div>
                                     </div>
-                                    <div className={classes.songCardPlayer}>
-                                    <svg className={classes.songCardPlayerImage} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(post.song.preview)}}>
+                                    {isPlaying(post.song.preview)?(
+                                            <svg className={classes.songCardPlayerImage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+                                          </svg>
+                                        ):(
+                                            <svg className={classes.songCardPlayerImage} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="163.861px" height="163.861px" viewBox="0 0 163.861 163.861">
 <g>
 	<path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
@@ -520,12 +533,9 @@ const DiscoverPageView:React.FC<Props> = ({user, posts}) => {
 <g>
 </g>
 </svg>
+                                        )}
                                     </div>
                                 </div>
-                                <audio controls>
-                                    <source src={post.song.preview} type="audio/mpeg"></source>
-                                    Your browser does not support the audio element.
-                                </audio>
                                 </div>
                         })}
                     </div>
