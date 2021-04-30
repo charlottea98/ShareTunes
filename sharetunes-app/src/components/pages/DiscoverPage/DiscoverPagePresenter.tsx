@@ -26,8 +26,6 @@ const DiscoverPage : React.FC = () => {
         })
     }, []);
 
-
-
     return (
         <div className={classes.DiscoverPage}>
             <DiscoverPageView user={loggedInUser} posts={posts}/>

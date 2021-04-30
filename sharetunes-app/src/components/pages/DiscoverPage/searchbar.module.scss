@@ -1,15 +1,21 @@
 .SearchBar {
     width: 175px;
+    position: relative;
+    top:0;
 }
 
 .SearchInput {
     height: 30px;
+    width: 175px;
 	border: 1px solid #707070;
 	border-radius: 2px;
 }
 
 .SearchList{
+    position: absolute;
+    top: 30px;
     background-color: white;
+    width: 175px;
 }
 
 .SearchItems {
