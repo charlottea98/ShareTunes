@@ -44,11 +44,7 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path='/discover'>
                         <MenuPresenter />
-<<<<<<< HEAD
-                        <DiscoverPagePresenter />
-=======
-                        <div className="pageContainer"><DiscoverPage /></div>
->>>>>>> 51535a89a20d2d8d3b1bf9f52e0e63fc1963d169
+                        <div className="pageContainer"><DiscoverPagePresenter /></div>
                     </Route>
                     <Route exact path="/publish">
                         <MenuPresenter />

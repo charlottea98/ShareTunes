@@ -30,7 +30,6 @@ const DiscoverPage : React.FC = () => {
     }, []);
 
     useEffect(() => {
-        console.log(isPlaying);
         if (isPlaying){
             handlePlay();
         }
