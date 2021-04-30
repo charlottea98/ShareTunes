@@ -55,8 +55,6 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
         }).catch((error) => {
             console.log("Error getting info from Firestore:", error);
         });
-
-        // setLoggedInUser({});
     }
 
     return (
