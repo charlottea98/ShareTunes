@@ -1,6 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
 import firestore from '../firestore';
-// import firebase from 'firebase';
 
 interface SpotifySong {
     title: string,
@@ -12,7 +11,8 @@ interface LoggedInUser {
     name: string,
     username: string,
     favoriteSong: SpotifySong,
-    email: string
+    email: string,
+    profilePicture: string
 }
 
 interface Props {
@@ -21,6 +21,8 @@ interface Props {
 
 const LoggedInUser = createContext<LoggedInUser | null>(null);
 const LoggedInUserUpdateContext = createContext<(newLoggedInUser : string) => void>(x => console.log(x));
+const UpdateProfilePictureContext = createContext<(newLoggedInUser : string) => void>(x => console.log(x));
+
 
 export const useLoggedInUser = () => {
     return useContext(LoggedInUser);
@@ -28,6 +30,10 @@ export const useLoggedInUser = () => {
 
 export const useLoggedInUserUpdate = () => {
     return useContext(LoggedInUserUpdateContext);
+}
+
+export const useUpdateProfilePicture = () => {
+    return useContext(UpdateProfilePictureContext);
 }
 
 const LoggedInUserProvider : React.FC<Props> = ({children}) => {
@@ -47,7 +53,8 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
                         title: 'Midnight City',
                         artist: 'M83',
                         url: 'https://open.spotify.com/track/6GyFP1nfCDB8lbD2bG0Hq9?si=fNUnqyC7Sm2tIS9qhwtORQ'
-                    }
+                    },
+                    profilePicture: `${userInfo?.profilePicture}`
                 });
             } else {
                 console.log("No such user in Firestore database!");
@@ -57,10 +64,18 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
         });
     }
 
+    const updateProfilePicture = (newProfilePicture: string) => {
+        // 1. Update string in Firebase
+        // 2. Fetch user data from firebase
+        // 3. 
+    }
+
     return (
         <LoggedInUser.Provider value={loggedInUser}>
             <LoggedInUserUpdateContext.Provider value={changeLoggedInUser}>
-                {children}
+                <UpdateProfilePictureContext.Provider value={updateProfilePicture}>
+                    {children}
+                </UpdateProfilePictureContext.Provider>
             </LoggedInUserUpdateContext.Provider>
         </LoggedInUser.Provider>
     )
