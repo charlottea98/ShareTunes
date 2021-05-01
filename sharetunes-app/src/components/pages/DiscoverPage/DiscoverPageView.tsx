@@ -1,13 +1,11 @@
-import React from 'react';
-import { Button } from 'semantic-ui-react';
-import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
+import React, { ReactInstance, ReactNode, ReactNodeArray } from 'react';
 import classes from './discoverPage.module.scss';
 
 interface Props {
     user: any,
     posts: any[],
-    handleAudio: any,
-    isPlaying: any,
+    handleAudio: Function,
+    isPlaying: Function,
     topSongs: any[],
     recommendedSongs:any[]
 }
@@ -540,7 +538,6 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, 
                 </div>
             </div>
             </div>
-            <LogoutButton/>
         </div>
     );
 }

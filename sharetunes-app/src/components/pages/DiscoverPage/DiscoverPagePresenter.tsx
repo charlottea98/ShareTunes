@@ -15,8 +15,8 @@ import DiscoverPageView from './DiscoverPageView';
 const DiscoverPage : React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [posts, setPosts] = useState<any[]>([]);
-    const [topSongs, setTopSongs] = useState<any[]>([]);
-    const [recommendedSongs, setRecommendedSongs] = useState<any[]>([])
+    const [topSongs, setTopSongs] = useState<string[]>([]);
+    const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
@@ -168,6 +168,7 @@ const DiscoverPage : React.FC = () => {
     return (
         <div className={classes.DiscoverPage}>
             <DiscoverPageView user={loggedInUser} posts={posts} handleAudio={handleAudio} isPlaying={isPlayingCurrentFile} topSongs={topSongs} recommendedSongs={recommendedSongs}/>
+            <LogoutButton/>
         </div>
     )
 }
