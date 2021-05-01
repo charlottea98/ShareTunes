@@ -12,9 +12,9 @@ const HomePage : React.FC = () => {
         <div className={classes.HomePage}>
             This is the Feed Page <br />
             <strong>
-            { loggedInUser?.email } <br />
-            { loggedInUser?.favoriteSong.title } <br />
-            { loggedInUser?.name }
+                { loggedInUser?.email } <br />
+                { loggedInUser?.favoriteSong.title } <br />
+                { loggedInUser?.name }
             </strong>
             <LogoutButton></LogoutButton>
         </div>
