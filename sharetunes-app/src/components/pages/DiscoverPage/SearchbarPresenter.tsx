@@ -1,25 +1,41 @@
+import SearchbarView from './SearchbarView';
 import React, { useState } from 'react';
-import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import firestore from '../../../firestore';
 import firebase from 'firebase/app';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
+import { useLoggedInUser} from '../../../contexts/LoggedInUserContext';
 
-const SearchBar = () => {
-    const [searchValue, setSearchValue] = useState('');
+
+const SearchBar:React.FC = () => {
     const [searchResults, setSearchResult] = useState<any[]>([]);
     const [following, setFollowing] = useState<any[]>([]);
+    const [typing, setTyping] = useState<boolean>(false);
     const loggedInUser = useLoggedInUser();
 
-    const findUsers = () => {
+    const findUsers = (val:string) => {
         setSearchResult([]);
         getFollowing();
         firestore.collection('users').get().then(snapshot => {
             snapshot.docs.map(doc => {
-                if (doc.data().userName.includes(searchValue)){
+                if (doc.data().userName.includes(val)){
                     setSearchResult(oldArray => [...oldArray, doc.data()]);
                 }
             })
         })
+    }
+
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        var value = e.target.value;
+        setTyping(true);
+        handleSubmit(value);
+    }
+
+    const handleSubmit = (value:string) => {
+        findUsers(value);
+    }
+
+    const handleClose = () => {
+        setTyping(false);
+        setSearchResult([]);
     }
 
     const getFollowing = () => {
@@ -46,23 +62,12 @@ const SearchBar = () => {
         })
     }
 
-    return (
-        <div>
-            <input type="text"
-                    name="name"
-                    placeholder="Search users..."
-                    onChange={e => setSearchValue(e.target.value)}>
-            </input>
-            <PrimaryButton text="Search!" onButtonClick={() => findUsers()}></PrimaryButton>
-            <div>
-            {searchResults.map(result => {
-                return (<div>
-                    {result.userName}<button disabled={isFollowing(result.email)} onClick={()=>followUser(result)}>Follow</button>
-                    </div>)
-            })}
-            </div>
-        </div>
-    );
+
+    return (<div>
+        <SearchbarView handleChange={handleChange} searchResults={searchResults} typing={typing} 
+        handleClose={handleClose} isFollowing={isFollowing} followUser={followUser}/>
+    </div>)
+
 }
 
 export default SearchBar;
