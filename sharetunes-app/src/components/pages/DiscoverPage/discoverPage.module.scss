@@ -6,6 +6,7 @@
 .discoverSidebar{
     flex: 1;
     padding-top: 20px;
+    padding-right: 20px;
     width: 300px;
 }
 
@@ -25,6 +26,7 @@
 .songCard{
     margin: 10px;
     height: 65px;
+    width: 328px;
     display: flex;
     flex-direction: row;
     border-style: solid;
@@ -39,24 +41,23 @@
 }
 
 .songCardSong{
-    flex:2;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 130px;
+    width: 200px;
 }
 
 .songCardTitle{
     display: flex;
     flex-direction: row;
     padding-left: 5px;
-    width: 130px;
+    width: 190px;
 }
 
 .songCardTitleText{
     padding-left: 5px;
     margin-left: 2px;
-    width: 100px;
+    width: 160px;
 }
 
 .songCardTitleText p {
@@ -95,12 +96,12 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: space-around;
     top: 0px;
     align-items: center;
     align-content: space-between;
     padding: 20px;
-    flex:4;
+    flex:2;
 }
 
 .card{
