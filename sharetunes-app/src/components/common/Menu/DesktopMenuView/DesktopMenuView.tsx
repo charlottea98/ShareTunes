@@ -5,7 +5,7 @@ import classes from './desktopMenu.module.scss';
 import ShareTunesLogo from '../../Logo/LogoPresenter';
 import UserImage from '../../UserImage/UserImagePresenter';
 import MenuIcon from '../MenuIcon/MenuIconPresenter';
-import SearchBar from '../../../pages/DiscoverPage/Searchbar';
+import SearchBar from '../../../pages/DiscoverPage/SearchbarPresenter';
 
 interface Props {
     userImageActive: boolean
