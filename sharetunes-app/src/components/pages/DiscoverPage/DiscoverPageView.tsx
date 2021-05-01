@@ -220,7 +220,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, 
 </g>
 </svg>
                                             <div className={classes.songCardTitleText}>
-                                            {song.title}
+                                            <p>{song.title}</p>
                                             </div>
                                         </div>
                                         <div className={classes.songCardTitle}>
@@ -297,7 +297,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, 
 </g>
 </svg>
                                         <div className={classes.songCardTitleText}>
-                                        {song.artist}
+                                        <p>{song.artist}</p>
                                         </div>
                                         </div>
                                     </div>
@@ -407,7 +407,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, 
 </g>
 </svg>
                                             <div className={classes.songCardTitleText}>
-                                            {song.title}
+                                            <p>{song.title}</p>
                                             </div>
                                         </div>
                                         <div className={classes.songCardTitle}>
@@ -484,7 +484,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, 
 </g>
 </svg>
                                         <div className={classes.songCardTitleText}>
-                                        {song.artist}
+                                        <p>{song.artist}</p>
                                         </div>
                                         </div>
                                     </div>
