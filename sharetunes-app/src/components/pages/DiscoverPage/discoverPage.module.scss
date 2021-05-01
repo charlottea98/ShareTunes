@@ -95,9 +95,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: left;
     align-items: center;
-    align-content: space-between;
+    align-content: space-evenly;
     padding: 20px;
     flex:4;
 }
@@ -110,6 +110,7 @@
     border-color: #BFBFBF;
     border-radius: 2px;
     align-self: center;
+    margin: 10px;
 }
 
 .header {
@@ -174,7 +175,11 @@
 
 .titleText {
     padding-left: 5px;
+    width:276px;
     align-self: center;
+    overflow-x: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 .songInfo{

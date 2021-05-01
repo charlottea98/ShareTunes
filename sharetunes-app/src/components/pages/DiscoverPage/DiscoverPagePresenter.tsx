@@ -49,7 +49,7 @@ const DiscoverPage : React.FC = () => {
                 json: true
                 };
                 request.get(options, function(error : any, response: any, body: any) {
-                    
+                    console.log(body.tracks.items);
                     let tracks = body?.tracks?.items;
                     let topTracks = [];
                     let countValidTracks = 0;
@@ -85,7 +85,7 @@ const DiscoverPage : React.FC = () => {
                 json: true
                 };
                 request.get(options, function(error : any, response: any, body: any) {
-                    
+
                     let tracks = body?.tracks?.items;
                     let recommendedTracks = [];
                     let countValidTracks = 0;
