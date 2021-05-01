@@ -7,10 +7,12 @@ interface Props {
     user: any,
     posts: any[],
     handleAudio: any,
-    isPlaying: any
+    isPlaying: any,
+    topSongs: any[],
+    recommendedSongs:any[]
 }
 
-const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying}) => {
+const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying, topSongs, recommendedSongs}) => {
     return (
         <div>
             <div className={classes.discoverPage}>
@@ -167,11 +169,11 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
                         Popular Songs
                     </div>
                     <div className={classes.displayPopular}>
-                        {posts.map(post => {
+                        {topSongs.map(song => {
                             return <div>
                                 <div className={classes.songCard}>
                                     <div className={classes.songCardImage}>
-                                        <img src={post.song.albumCoverSmall}></img>
+                                        <img src={song.albumCoverSmall}></img>
                                     </div>
                                     <div className={classes.songCardSong}>
                                         <div className={classes.songCardTitle}>
@@ -218,7 +220,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
 </g>
 </svg>
                                             <div className={classes.songCardTitleText}>
-                                            {post.song.title}
+                                            {song.title}
                                             </div>
                                         </div>
                                         <div className={classes.songCardTitle}>
@@ -295,12 +297,12 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
 </g>
 </svg>
                                         <div className={classes.songCardTitleText}>
-                                        {post.song.artist}
+                                        {song.artist}
                                         </div>
                                         </div>
                                     </div>
-                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(post.song.preview)}}>
-                                    {isPlaying(post.song.preview)?(
+                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(song.preview)}}>
+                                    {isPlaying(song.preview)?(
                                             <svg className={classes.songCardPlayerImage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
                                           </svg>
@@ -345,10 +347,6 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
                                         )}
                                     </div>
                                 </div>
-                                <audio controls hidden={true} >
-                                    <source src={post.song.preview} type="audio/mpeg"></source>
-                                    Your browser does not support the audio element.
-                                </audio>
                                 </div>
                         })}
                     </div>
@@ -358,11 +356,11 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
                         Recommended Songs
                     </div>
                     <div className={classes.displayRecommended}>
-                    {posts.map(post => {
+                    {recommendedSongs.map(song => {
                             return <div>
                                 <div className={classes.songCard}>
                                     <div className={classes.songCardImage}>
-                                        <img src={post.song.albumCoverSmall}></img>
+                                        <img src={song.albumCoverSmall}></img>
                                     </div>
                                     <div className={classes.songCardSong}>
                                         <div className={classes.songCardTitle}>
@@ -409,7 +407,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
 </g>
 </svg>
                                             <div className={classes.songCardTitleText}>
-                                            {post.song.title}
+                                            {song.title}
                                             </div>
                                         </div>
                                         <div className={classes.songCardTitle}>
@@ -486,12 +484,12 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, handleAudio, isPlaying})
 </g>
 </svg>
                                         <div className={classes.songCardTitleText}>
-                                        {post.song.artist}
+                                        {song.artist}
                                         </div>
                                         </div>
                                     </div>
-                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(post.song.preview)}}>
-                                    {isPlaying(post.song.preview)?(
+                                    <div className={classes.songCardPlayer} onClick={() => {handleAudio(song.preview)}}>
+                                    {isPlaying(song.preview)?(
                                             <svg className={classes.songCardPlayerImage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
                                           </svg>
