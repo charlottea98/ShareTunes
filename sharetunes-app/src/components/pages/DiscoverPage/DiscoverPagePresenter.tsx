@@ -3,7 +3,6 @@ import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/Logged
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
-import Searchbar from './Searchbar';
 import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 
