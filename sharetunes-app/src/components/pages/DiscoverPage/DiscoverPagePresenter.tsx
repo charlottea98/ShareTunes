@@ -40,7 +40,14 @@ const DiscoverPage : React.FC = () => {
 
 
     const handleAudio = (audiofile:string) => {
-        if (currentAudioFile==='' || currentAudioFile!==audiofile){
+        if (currentAudioFile===''){
+            var audio = new Audio(audiofile);
+            setCurrentAudio(audio);
+            setCurrentAudioFile(audiofile);
+        }
+        else if (currentAudioFile!==audiofile && currentAudio){
+            handlePause();
+            currentAudio.currentTime=0;
             var audio = new Audio(audiofile);
             setCurrentAudio(audio);
             setCurrentAudioFile(audiofile);
@@ -52,6 +59,7 @@ const DiscoverPage : React.FC = () => {
     }
 
     const handlePlay = () => {
+        currentAudio?.addEventListener("ended", () => setIsPlaying(false));
         currentAudio?.play();
     }
 
