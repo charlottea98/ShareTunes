@@ -12,7 +12,7 @@ import LogInButton from './components/common/buttons/SecondaryButton/secondaryBu
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
-import HomePage from './components/pages/HomePage/HomePage';
+import HomePage from './components/pages/HomePage/HomePagePresenter';
 import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
