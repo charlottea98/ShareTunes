@@ -20,8 +20,10 @@ interface Props {
     setEmail:(email: string) => void
     emailError: string 
 
-    password: string
-    setPassword: (password: string) => void
+    password1: string
+    setPassword1: (password1: string) => void
+    password2: string
+    setPassword2: (password2: string) => void
     passwordError: string 
 
     firstName: string
@@ -34,7 +36,7 @@ interface Props {
     setUsername: (setUsername: string) => void
     
     handleLogin:() => void
-    handleSignup:() => void
+    confirmPasswordSignup: () => void
    
 
 }
@@ -48,8 +50,10 @@ const LoginView : React.FC<Props> = (
     email,
     setEmail,
     emailError,
-    password,
-    setPassword,
+    password1,
+    password2,
+    setPassword1,
+    setPassword2,
     passwordError,
     firstName,
     setFirstName,
@@ -58,7 +62,7 @@ const LoginView : React.FC<Props> = (
     username,
     setUsername,
     handleLogin,
-    handleSignup,
+    confirmPasswordSignup,
     }
     
     ) => {
@@ -79,11 +83,11 @@ const LoginView : React.FC<Props> = (
                             <div className = {classes.form}>
 
                                 <label className = {classes.formText}>Mail</label>
-                                <input type='text' autoFocus required value={email} onChange={e=>setEmail(e.target.value)} ></input>
+                                <input type='text' autoFocus = {true} required value={email} onChange={e=>setEmail(e.target.value)} ></input>
                                 <p className = {classes.errorText}>{emailError}</p>
                                 
                                 <label  className = {classes.formText}>Password</label>
-                                <input type="password" required value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
+                                <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
                                 <p  className = {classes.errorText}>{passwordError}</p>
 
                             </div>
@@ -103,26 +107,31 @@ const LoginView : React.FC<Props> = (
 
                             <div className = {classes.form}>
                                 <label  className = {classes.formText}>First name</label>
-                                <input type='text' autoFocus required value={firstName} onChange={e=>setFirstName(e.target.value)}></input>
+                                <input type='text' autoFocus = {true} required value={firstName} onChange={e=>setFirstName(e.target.value)}></input>
                               
                                 <label  className = {classes.formText}>Last name</label>
-                                <input type='text'  autoFocus required value={lastName} onChange={e=>setLastName(e.target.value)}></input>
+                                <input type='text' required value={lastName} onChange={e=>setLastName(e.target.value)}></input>
 
                                 <label  className = {classes.formText}>Username</label>
-                                <input type='text' autoFocus required value={username} onChange={e=>setUsername(e.target.value)}></input>
+                                <input type='text' required value={username} onChange={e=>setUsername(e.target.value)}></input>
                             
 
                                 <label  className = {classes.formText}>Mail</label>
-                                <input type='text'autoFocus required value={email} onChange={e=>setEmail(e.target.value)}></input>
+                                <input type='text' required value={email} onChange={e=>setEmail(e.target.value)}></input>
                                 <p className = {classes.errorText}>{emailError}</p>
 
+
                                 <label  className = {classes.formText}>Password</label>
-                                <input type="password" required value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
+                                <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
                                 <p  className = {classes.errorText}>{passwordError}</p>
+
+                                <label  className = {classes.formText}>Confirm Password</label>
+                                <input type="password" required value={password2} onChange={(e) => {setPassword2(e.target.value)}}></input>
+                        
 
                             </div>
 
-                            <SignInUpButton text="Create account" onButtonClick={() => {handleSignup();}}/>
+                            <SignInUpButton text="Create account" onButtonClick={() => {confirmPasswordSignup();}}/>
                         
                         </div>
                         <SwitchButton  text1 = "Have an account?" text2 = "Sign in" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>

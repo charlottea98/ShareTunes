@@ -16,7 +16,9 @@ interface Props {
 const LoginPresenter: React.FC<Props> = () => {
     const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [password1, setPassword1] = useState<string>('');
+    const [password2, setPassword2] = useState<string>('');
+
     const [emailError, setEmailError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
     const [hasAccount, setHasAccount] = useState<boolean>(false);
@@ -38,7 +40,8 @@ const LoginPresenter: React.FC<Props> = () => {
 
     const clearInputs = () => {
         setEmail('');
-        setPassword('');
+        setPassword1('');
+        setPassword2('');
         setFirstName('');
         setLastName('');
         setUsername('');
@@ -52,7 +55,7 @@ const LoginPresenter: React.FC<Props> = () => {
     const handleLogin = () => {
         clearErrors();
         fire.auth()
-            .signInWithEmailAndPassword(email, password)
+            .signInWithEmailAndPassword(email, password1)
             .then(() => {
                 updateLoggedInUser(email);
                 history.push('/discover');
@@ -71,10 +74,21 @@ const LoginPresenter: React.FC<Props> = () => {
             })
     };
 
-    const handleSignup = () => {
+
+    const confirmPasswordSignUp = () => {
         clearErrors();
+        if (password1 == password2){
+            handleSignup();
+        }
+        else{
+
+            setPasswordError("Passwords do not match")
+        }
+
+    }
+    const handleSignup = () => {
         fire.auth()
-            .createUserWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email, password1)
             .then(() => {
                 updateLoggedInUser(email);
                 createUserInDataBase();
@@ -150,8 +164,10 @@ const LoginPresenter: React.FC<Props> = () => {
         setEmail = {setEmail}
         emailError = {emailError}
     
-        password = {password}
-        setPassword = {setPassword} 
+        password1 = {password1}
+        password2 = {password2}
+        setPassword1 = {setPassword1} 
+        setPassword2 = {setPassword2}
         passwordError = {passwordError} 
     
         firstName = {firstName}
@@ -166,7 +182,8 @@ const LoginPresenter: React.FC<Props> = () => {
         setUsername = {setUsername}
 
         handleLogin = {handleLogin}
-        handleSignup = {handleSignup}    
+        confirmPasswordSignup = {confirmPasswordSignUp}  
+
             
         />
     )
