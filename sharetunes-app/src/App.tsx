@@ -10,11 +10,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
 import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
 import MenuPresenter from './components/common/Menu/MenuPresenter';
+<<<<<<< HEAD
 import DiscoverPage from './components/pages/DiscoverPage/DiscoverPage';
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
 
+=======
+import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
+>>>>>>> c6f146f7e3d8eaac62398814e154eda3ba598ca5
 import ProfilePage from './components/pages/ProfilePage/ProfilePage';
-import HomePage from './components/pages/HomePage/HomePage';
+import HomePage from './components/pages/HomePage/HomePagePresenter';
 import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
@@ -56,9 +60,13 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/discover">
                         <MenuPresenter />
+<<<<<<< HEAD
                         <div className="pageContainer">
                             <DiscoverPage />
                         </div>
+=======
+                        <div className="pageContainer"><DiscoverPagePresenter /></div>
+>>>>>>> c6f146f7e3d8eaac62398814e154eda3ba598ca5
                     </Route>
                     <Route exact path="/publish">
                         <MenuPresenter />
