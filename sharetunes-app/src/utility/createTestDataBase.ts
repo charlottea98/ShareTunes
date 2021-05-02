@@ -31,18 +31,22 @@ export const addNewPost = async () => {
 }
 
 export const addNewSong = async () => {
-    // const snapshot = await firebase.firestore().collection('songs').get()
-    // snapshot.docs.map(doc => console.log(doc.data()));
-
     let songId = "4aaEV6V9aOQb2oQzWlf9cu";
-    SpotifySource.getSongDetails(songId)
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    let songData = await SpotifySource.getSongDetails(songId);
     
+    let newSong : Song = {
+        id: songId,
+        title: songData.name,
+        artists: songData.artists.map((artist: any) => artist.name),
+        albumCoverSmallURL: songData.album.images[2].url,
+        albumCoverMediumURL: songData.album.images[1].url,
+        albumCoverLargeURL: songData.album.images[0].url,
+        songPreviewURL: songData.preview_url,
+        posts: [],
+        totalLikes: 0,
+        totalPosts: 0,
+        avarageRating: null
+    }
 
-    // firebase.firestore().collection('songs').doc(songId).set(newSong);
+    firebase.firestore().collection('songs').doc(songId).set(newSong);
 }
