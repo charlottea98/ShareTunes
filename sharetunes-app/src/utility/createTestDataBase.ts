@@ -1,6 +1,7 @@
 import firebase from 'firebase';
-import { Post } from './types';
-// import fire from "../../../fire";
+import { Post, Song } from './types';
+
+import { SpotifySource } from './spotifySource';
 
 
 const createImageLinkFromDriveId = (id: string) => {
@@ -8,7 +9,7 @@ const createImageLinkFromDriveId = (id: string) => {
 }
 
 
-export const createNewPost = async () => {
+export const addNewPost = async () => {
     const snapshot = await firebase.firestore().collection('posts').get()
     snapshot.docs.map(doc => console.log(doc.data()));
     let newPostId = snapshot.docs.length;
@@ -29,10 +30,19 @@ export const createNewPost = async () => {
     firebase.firestore().collection('posts').doc(String(newPostId)).set(newPost);
 }
 
-// var today = new Date();
-// var dd = String(today.getDate()).padStart(2, '0');
-// var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-// var yyyy = today.getFullYear();
+export const addNewSong = async () => {
+    // const snapshot = await firebase.firestore().collection('songs').get()
+    // snapshot.docs.map(doc => console.log(doc.data()));
 
-// today = mm + '/' + dd + '/' + yyyy;
-// document.write(today);
+    let songId = "4aaEV6V9aOQb2oQzWlf9cu";
+    SpotifySource.getSongDetails(songId)
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    
+
+    // firebase.firestore().collection('songs').doc(songId).set(newSong);
+}

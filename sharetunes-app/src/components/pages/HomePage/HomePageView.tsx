@@ -5,7 +5,7 @@ import classes from './homePage.module.scss';
 import PostCard from '../../common/PostCard/PostCardPresenter';
 import Button from '../../common/buttons/PrimaryButton/PrimaryButton';
 
-import { createNewPost } from '../../../utility/createTestDataBase';
+import { addNewPost, addNewSong } from '../../../utility/createTestDataBase';
 import { faRoad } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
@@ -17,7 +17,12 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
         <div className={classes.HomePage}>
             <Button 
                 text="create new post in Firestore"
-                onButtonClick = {createNewPost}
+                onButtonClick = {addNewPost}
+            />
+
+            <Button 
+                text="create new song in Firestore"
+                onButtonClick = {addNewSong}
             />
             {
                 postsToShow.map(post => (
