@@ -11,3 +11,17 @@ export interface Post {
     date: Date,
     deleted: boolean
 }
+
+export interface Song {
+    id: string,
+    title: string,
+    artists: Array<string>,
+    albumCoverSmallURL: string,
+    albumCoverMediumURL: string,
+    albumCoverLargeURL: string,
+    songPreviewURL: string,
+    posts: Array<number>,
+    totalLikes: number,
+    totalPosts: number,
+    avarageRating: number | null
+}
