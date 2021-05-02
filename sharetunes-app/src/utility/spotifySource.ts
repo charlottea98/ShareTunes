@@ -24,18 +24,18 @@ export const SpotifySource = {
         const data = await SpotifySource.getAccessToken();
 
         return fetch(BASE_ENDPOINT_URL + params, {
-                    "method": "GET",
-                    "headers": {
-                        'Authorization': 'Bearer ' + data.access_token
-                    }
-                })
-                .then(response => {
-                    if (response.status === 200) {
-                        return response.json()
-                    } else {
-                        throw new Error(`Code "${response.status}" with the message "${response.statusText}"! :(`);
-                    }
-                })
+            "method": "GET",
+            "headers": {
+                'Authorization': 'Bearer ' + data.access_token
+            }
+        })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                throw new Error(`Code "${response.status}" with the message "${response.statusText}"! :(`);
+            }
+        })
     },
     async getSongDetails(songId: string) {
         return SpotifySource.apiCall(`tracks/${songId}`).then(data => data);
