@@ -1,7 +1,7 @@
 import { CLIENT_ID, CLIENT_SECRET } from './keys';
 const BASE_ENDPOINT_URL = "https://api.spotify.com/v1/";
 
-export const SpotifySource = {
+export const SpotifyAPI = {
     async getAccessToken() {
         return fetch('https://accounts.spotify.com/api/token', {
             method: "POST",
@@ -21,7 +21,7 @@ export const SpotifySource = {
         })
     },
     async apiCall(params: string) {
-        const data = await SpotifySource.getAccessToken();
+        const data = await SpotifyAPI.getAccessToken();
 
         return fetch(BASE_ENDPOINT_URL + params, {
             "method": "GET",
@@ -38,6 +38,9 @@ export const SpotifySource = {
         })
     },
     async getSongDetails(songId: string) {
-        return SpotifySource.apiCall(`tracks/${songId}`).then(data => data);
+        return SpotifyAPI.apiCall(`tracks/${songId}`).then(data => data);
+    },
+    async getArtistDetails(artistId: string) {
+        return SpotifyAPI.apiCall(`artists/${artistId}`).then(data => data);
     }
 };

@@ -12,6 +12,21 @@ export interface Post {
     deleted: boolean
 }
 
+export interface PostCardInfo {
+    caption: string,
+    rating: 1 | 2 | 3 | 4 | 5,
+    tags: Array<string>,
+    postImageURL: string,
+    songTitle: string,
+    artists: Array<string>,
+    albumCover: string,
+    usernameOfPublisher: string,
+    profilePictureOfPublisher: string,
+    likes: number,
+    comments: Array<number>,
+    date: any,
+}
+
 export interface User {
     id: string,
     name: string,

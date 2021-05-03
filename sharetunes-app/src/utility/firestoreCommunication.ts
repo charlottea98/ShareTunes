@@ -1,11 +1,9 @@
 import firebase from 'firebase';
 import { Post, Song, User } from './types';
 
-import { SpotifySource } from './spotifyCommunication';
+import { SpotifyAPI } from './spotifyCommunication';
 
 import { createImageLinkFromDriveId } from './utility';
-
-
 
 export const addNewPost = async (newPost: Post) => {
     const snapshot = await firebase.firestore().collection('posts').get()
@@ -22,7 +20,7 @@ export const addNewSong = async (songId: string) => {
     if (song_already_exsist) {
         console.error('Song already exist');
     } else {
-        let songData = await SpotifySource.getSongDetails(songId);
+        let songData = await SpotifyAPI.getSongDetails(songId);
         let newSong : Song = {
             id: songId,
             title: songData.name,
@@ -105,4 +103,26 @@ export const createDataBase = (collectionsToDelete: Array<string>) => {
         deleted: false
     };
     addNewPost(postToAdd);
+}
+
+export const getUserInfo = async (userId: string) => {
+    const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
+    return userSnapshot.data();
+}
+
+export const getSongInfo = async (songId: string) => {
+    const songSnapshot = await firebase.firestore().collection('songs').doc(songId).get();
+    return songSnapshot.data();
+}
+
+export const getAllPostsFromUser = async (userId: string) => {
+    const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
+    let userData = userSnapshot.data();
+    let postIds = userData?.posts;
+
+    const postSnapshot = await firebase.firestore().collection('posts').get();
+    let allPosts = postSnapshot.docs.map(post => post.data());
+    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+
+    return allPostsFromUser;
 }

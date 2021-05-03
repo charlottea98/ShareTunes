@@ -5,8 +5,7 @@ import classes from './homePage.module.scss';
 import PostCard from '../../common/PostCard/PostCardPresenter';
 import Button from '../../common/buttons/PrimaryButton/PrimaryButton';
 
-import { addNewPost, addNewSong, addNewUser, createDataBase } from '../../../utility/firestoreCommunication';
-import { faRoad } from '@fortawesome/free-solid-svg-icons';
+import { addNewSong, createDataBase } from '../../../utility/firestoreCommunication';
 
 interface Props {
     postsToShow: Array<Post>
@@ -26,7 +25,9 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
             />
             {
                 postsToShow.map(post => (
-                    <PostCard 
+                    <PostCard
+                        key = {post.id}
+                        postInfo = {post}
                         pageToViewOn="home page"
                     />
                 ))

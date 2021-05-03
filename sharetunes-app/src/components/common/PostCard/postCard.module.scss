@@ -1,0 +1,120 @@
+.PostCardHome {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 300px;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.layer1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 60px;
+	border: 1px solid #dbdbdb;
+	padding: 0 10px;
+}
+
+.publisherInfoContainer {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.publisherInfoContainer img {
+	height: 70%;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.postImage {
+	height: 200px;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.reviewContainer {
+	display: flex;
+	height: 45px;
+	align-items: center;
+	border: 1px solid #dbdbdb;
+	padding: 0 10px;
+}
+
+.ratingContainer {
+	display: flex;
+	font-size: 20px;
+}
+
+.ratingContainer div:not(:last-child) {
+	margin-right: 2px;
+}
+
+.tagsContainer {
+	display: flex;
+	margin-left: 10px;
+}
+
+.tag {
+	border: 20px;
+	padding: 3px 5px;
+	border: 1px solid #232323;
+	border-radius: 30px;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.tag:not(:last-child) {
+	margin-right: 5px;
+}
+
+.interactionContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	padding: 10px;
+	border-left: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.likeAndCommentContainer {
+	display: flex;
+	font-size: 25px;
+	color: #232323;
+}
+
+.likeAndCommentContainer div {
+	cursor: pointer;
+	transition: 0.2s;
+	user-select: none;
+}
+
+.likeAndCommentContainer div:first-child {
+	margin-right: 6px;
+}
+
+.likeAndCommentContainer div:hover {
+	transform: scale(1.04);
+	color: #fec46e !important;
+}
+
+.numberOfLikes,
+.captionAndComments div {
+	display: flex;
+	justify-content: left;
+	margin-top: 3px;
+}
+
+.numberOfLikes,
+.userNameInComment {
+	font-weight: 700;
+}
+
+.userNameInComment {
+	margin-right: 5px;
+	cursor: pointer;
+	user-select: none;
+}
