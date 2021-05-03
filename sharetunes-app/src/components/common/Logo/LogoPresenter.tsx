@@ -5,17 +5,26 @@ import { useHistory } from "react-router-dom";
 import LogoView from './LogoView';
 
 interface Props {
-    fontSize?: string
+    fontSize?: string,
+    clickable?: boolean
 }
 
-const LogoPresenter : React.FC<Props> = ({fontSize}) => {
+const LogoPresenter : React.FC<Props> = ({fontSize, clickable=false}) => {
     const history = useHistory();
 
     const logoClickedHandler = () => {
-        history.replace('/home');
+        if (clickable) {
+            history.replace('/home');
+        }
     }
 
-    return <LogoView fontSize={fontSize} logoClickedHandler={logoClickedHandler} />;
+    return (
+        <LogoView 
+            fontSize = {fontSize} 
+            logoClickedHandler = {logoClickedHandler}
+            clickable = {clickable}
+        />
+    );
 }
 
 export default LogoPresenter;

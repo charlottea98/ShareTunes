@@ -75,9 +75,7 @@ const DiscoverPage : React.FC = () => {
             <strong>
                 { loggedInUser?.username } <br />
                 { loggedInUser?.email } <br />
-                { loggedInUser?.favoriteSong.title } <br />
                 { loggedInUser?.name }
-
             </strong>
 
             <div>
