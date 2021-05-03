@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext } from 'react';
 import firestore from '../firestore';
+import firebase from 'firebase';
 import { User } from '../utility/types';
 
 interface SpotifySong {
@@ -14,7 +15,7 @@ interface Props {
 
 const LoggedInUser = createContext<User | null>(null);
 const LoggedInUserUpdateContext = createContext<(newLoggedInUser : string) => void>(x => console.log(x));
-const UpdateProfilePictureContext = createContext<(newLoggedInUser : string) => void>(x => console.log(x));
+const UpdateProfilePictureContext = createContext<(newProfilePicture : string) => void>(x => console.log(x));
 
 
 export const useLoggedInUser = () => {
@@ -54,10 +55,17 @@ const LoggedInUserProvider : React.FC<Props> = ({children}) => {
         }
     }
 
-    const updateProfilePicture = (newProfilePicture: string) => {
-        // 1. Update string in Firebase
-        // 2. Fetch user data from firebase
-        // 3. 
+    const updateProfilePicture = async (newProfilePicture: string) => {
+        const currentUserRef = firebase.firestore().collection('users').doc(loggedInUser?.email);
+        currentUserRef.update({
+            profilePictureURL: newProfilePicture
+        }).then(() => {
+            console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
     }
 
     return (
