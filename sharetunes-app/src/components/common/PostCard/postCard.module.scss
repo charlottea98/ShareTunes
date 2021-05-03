@@ -1,0 +1,35 @@
+.PostCardHome {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: 300px;
+	background-color: #fff;
+}
+
+.layer1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 60px;
+	border: 1px solid #dbdbdb;
+	padding: 0 10px;
+}
+
+.publisherInfoContainer {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.publisherInfoContainer img {
+	height: 70%;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.postImage {
+	height: 200px;
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: cover;
+}

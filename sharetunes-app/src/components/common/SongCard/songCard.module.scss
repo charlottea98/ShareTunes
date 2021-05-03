@@ -1,0 +1,65 @@
+.SongCard {
+	height: 65px;
+	display: flex;
+	flex-direction: row;
+	border-radius: 2px;
+	justify-content: space-between;
+}
+
+.SongCard img {
+	height: 64px;
+	width: 64px;
+}
+
+.albumCoverAndSongInfoContainer {
+	display: flex;
+}
+
+.SongInfoContainer {
+	display: flex;
+	padding: 10px;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.SongTitleContainer,
+.SongArtistsContainer {
+	display: flex;
+	align-items: center;
+}
+
+.SongTitleContainer span,
+.SongArtistsContainer span {
+	overflow-x: hidden;
+	white-space: nowrap;
+	transition: text-indent 60s linear;
+}
+
+.SongTitleContainer span {
+	margin-left: 9px;
+}
+
+.SongArtistsContainer span {
+	margin-left: 5px;
+}
+
+.SongTitleContainer span:hover,
+.SongArtistsContainer span:hover {
+	text-indent: -3000px;
+}
+
+.playButtonContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fec46e;
+	width: 63px;
+	cursor: pointer;
+}
+
+.songCardPlayerImage {
+	height: 30px;
+	width: 30px;
+	align-self: center;
+	fill: white;
+}
