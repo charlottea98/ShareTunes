@@ -3,10 +3,8 @@ import { Post, Song, User } from './types';
 
 import { SpotifySource } from './spotifyCommunication';
 
+import { createImageLinkFromDriveId } from './utility';
 
-const createImageLinkFromDriveId = (id: string) => {
-    return `https://drive.google.com/uc?export=view&id=${id}`
-}
 
 
 export const addNewPost = async (newPost: Post) => {
