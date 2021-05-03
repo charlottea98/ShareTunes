@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import { Post, Song, User } from './types';
 
-import { SpotifySource } from './spotifySource';
+import { SpotifySource } from './spotifyCommunication';
 
 
 const createImageLinkFromDriveId = (id: string) => {
