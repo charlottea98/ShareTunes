@@ -55,6 +55,11 @@
 	background-color: #fec46e;
 	width: 63px;
 	cursor: pointer;
+	user-select: none;
+}
+
+.playButtonContainer:hover {
+	background-color: #eeb45e;
 }
 
 .songCardPlayerImage {

@@ -7,10 +7,18 @@ import { faMusic, faUsers, faPlay, faPause } from '@fortawesome/free-solid-svg-i
 interface Props {
     title: string,
     artists: string,
-    albumCover: string
+    albumCover: string,
+    isPlayingSong: boolean,
+    playPauseButtonClickedHandler: () => void
 }
 
-const SongCardView: React.FC<Props> = ({title, artists, albumCover}) => {
+const SongCardView: React.FC<Props> = ({
+    title, 
+    artists,
+    albumCover, 
+    isPlayingSong, 
+    playPauseButtonClickedHandler
+}) => {
     return (
         <div className={classes.SongCard}>
             <div className={classes.albumCoverAndSongInfoContainer}>
@@ -31,9 +39,9 @@ const SongCardView: React.FC<Props> = ({title, artists, albumCover}) => {
 
             <div 
                 className={classes.playButtonContainer}
-                onClick = {() => console.log("Play song!")}
+                onClick = {playPauseButtonClickedHandler}
             >
-                <FontAwesomeIcon icon={faPlay} color="#fff" size="2x" />
+                <FontAwesomeIcon icon={isPlayingSong ? faPlay : faPause} color="#fff" size="2x" />
             </div>
         </div>
     )
