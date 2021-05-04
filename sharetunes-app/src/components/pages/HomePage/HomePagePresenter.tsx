@@ -15,7 +15,7 @@ const HomePagePresenter : React.FC = () => {
             getAllPostsFromUser(loggedInUser.email)
                 .then(posts => setPostsToShow(posts));
         } else {
-            getAllPostsFromUser('rrudling1@kth.se')
+            getAllPostsFromUser('rrudling@kth.se')
                 .then(posts => setPostsToShow(posts));
         }
     }, []);

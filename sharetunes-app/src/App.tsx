@@ -26,9 +26,7 @@ const App: React.FC = () => {
             .collection('users')
             .get()
             .then((snapshot) => {
-                // console.log(snapshot.docs);
                 snapshot.docs.forEach((doc) => {
-                    // console.log(doc.data());
                     setProfileData(doc.data());
                 });
             });

@@ -53,30 +53,32 @@ export const addNewUser = async (newUser: User) => {
 }
 
 
-const deleteCollectionData = async (collection: string) => {
-    const snapshot = await firebase.firestore().collection(collection).get();
+const deleteCollectionsData = async (collectionsToDelete: Array<string>) => {
+    collectionsToDelete.forEach(async (collection) => {
+        const snapshot = await firebase.firestore().collection(collection).get();
 
-    const ids = snapshot.docs.map(doc => doc.data().id);
-
-    ids.forEach(id => {
-        firebase.firestore().collection(collection).doc(id).delete()
-            .then(() => {
-                console.log("Document successfully deleted!");
-            }).catch((error) => {
-                console.error("Error removing document: ", error);
-            });
-    })
+        const ids = snapshot.docs.map(doc => doc.data().id);
+    
+        ids.forEach(id => {
+            firebase.firestore().collection(collection).doc(id).delete()
+                .then(() => {
+                    console.log("Document successfully deleted!");
+                }).catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+        })
+    });
 }
 
-export const createDataBase = (collectionsToDelete: Array<string>) => {
-    collectionsToDelete.forEach(collection => deleteCollectionData(collection));
+export const createDataBase = async () => {
+    // deleteCollectionsData(['songs']);
 
     // Add new songs
     addNewSong("5qYf19BLOheApfe6NqhDPg");
     addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
 
     // Add new users
-    let email = 'rasmus@kth.se';
+    let email = 'rrudling@kth.se';
     let userToAdd : User = {
         id: email,
         name: "Rasmus Rudling",
@@ -95,7 +97,7 @@ export const createDataBase = (collectionsToDelete: Array<string>) => {
         rating: 3,
         tags: ["Chill", "Sommar", "annat"],
         postImageURL: createImageLinkFromDriveId("1c26_sQEcyIeF-txMLd-FglSMLmEM5lWA"),
-        song: "ab67616d00001e02908280d9807127e185b71d56",
+        song: "4aaEV6V9aOQb2oQzWlf9cu",
         postedBy: "rrudling@kth.se",
         likes: 4,
         comments: [1, 2],

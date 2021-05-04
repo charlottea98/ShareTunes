@@ -21,7 +21,7 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
 
             <Button 
                 text="init songs collection"
-                onButtonClick = {() => createDataBase(['songs'])}
+                onButtonClick = {() => createDataBase()}
             />
             {
                 postsToShow.map(post => (
