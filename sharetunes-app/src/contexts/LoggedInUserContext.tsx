@@ -37,7 +37,7 @@ export const useUpdateProfilePicture = () => {
     return useContext(UpdateProfilePictureContext);
 };
 
-const LoggedInUserProvider: React.FC<Props> = ({ children }) => {
+const LoggedInUserProvider: React.FC = ({ children }) => {
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
     const changeLoggedInUser = async (loggedInUserEmail: string) => {
