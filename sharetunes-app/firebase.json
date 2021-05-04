@@ -5,7 +5,7 @@
     },
     "hosting": [
         {
-            "site": "sharetunesmedia",
+            "site": "sharetunes1",
             "public": "build",
             "ignore": [
                 "firebase.json",
@@ -18,7 +18,7 @@
             }]
         },
         {
-            "site": "sharetunes1",
+            "site": "sharetunesmedia",
             "public": "build",
             "ignore": [
                 "firebase.json",

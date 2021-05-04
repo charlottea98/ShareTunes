@@ -17,4 +17,23 @@ h4 {
 
 body {
 	background-color: #f0f0f0;
+	overflow-x: hidden;
+}
+
+.pageContainer {
+	padding-top: 20px;
+	padding-bottom: 60px;
+	padding: 20px 20px 60px 20px;
+	max-width: 935px;
+	margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+	body {
+		overflow-x: visible;
+	}
+
+	.pageContainer {
+		padding-top: 80px;
+	}
 }

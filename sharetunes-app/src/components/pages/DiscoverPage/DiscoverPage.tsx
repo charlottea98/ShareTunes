@@ -3,7 +3,7 @@ import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/Logged
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
-import Searchbar from './Searchbar';
+import SearchBar from './SearchbarPresenter';
 
 import classes from './discoverPage.module.scss';
 
@@ -61,7 +61,7 @@ const DiscoverPage : React.FC = () => {
 
     return (
         <div className={classes.DiscoverPage}>
-            <Searchbar/>
+            <SearchBar/>
             <PrimaryButton 
                 text = "Change to user 0"
                 onButtonClick = {() => updateLoggedInUser('rrudling@kth.se')}
@@ -75,9 +75,7 @@ const DiscoverPage : React.FC = () => {
             <strong>
                 { loggedInUser?.username } <br />
                 { loggedInUser?.email } <br />
-                { loggedInUser?.favoriteSong.title } <br />
                 { loggedInUser?.name }
-
             </strong>
 
             <div>
