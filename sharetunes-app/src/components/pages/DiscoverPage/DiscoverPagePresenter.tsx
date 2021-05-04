@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
+import {
+    useLoggedInUser,
+    useLoggedInUserUpdate,
+} from '../../../contexts/LoggedInUserContext';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import SecondaryButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
@@ -12,11 +15,11 @@ import { CLIENT_ID, CLIENT_SECRET } from '../../../utility/keys';
 
 import DiscoverPageView from './DiscoverPageView';
 
-const DiscoverPage : React.FC = () => {
+const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [posts, setPosts] = useState<any[]>([]);
     const [topSongs, setTopSongs] = useState<string[]>([]);
-    const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
+    const [recommendedSongs, setRecommendedSongs] = useState<string[]>([]);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
@@ -28,40 +31,45 @@ const DiscoverPage : React.FC = () => {
         let authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             headers: {
-                'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+                Authorization: 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET),
             },
             form: {
-                grant_type: 'client_credentials'
+                grant_type: 'client_credentials',
             },
-            json: true
+            json: true,
         };
 
-        request.post(authOptions, (error : any, response: any, body: any) => {
+        request.post(authOptions, (error: any, response: any, body: any) => {
             if (!error && response.statusCode === 200) {
-
                 // use the access token to access the Spotify Web API
                 let token = body.access_token;
                 let options = {
-                url: `https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF`,
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                json: true
+                    url: `https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF`,
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                    },
+                    json: true,
                 };
-                request.get(options, function(error : any, response: any, body: any) {
+                request.get(options, function(
+                    error: any,
+                    response: any,
+                    body: any
+                ) {
                     console.log(body.tracks.items);
                     let tracks = body?.tracks?.items;
                     let topTracks = [];
                     let countValidTracks = 0;
 
                     if (tracks !== undefined) {
-                        for (var i=0; countValidTracks < 5; i++) {
-                            const trackInfo:any = {artist: tracks[i]?.track.artists[0].name,
-                                                title: tracks[i]?.track.name,
-                                                albumCoverSmall: tracks[i]?.track.album.images[2].url,
-                                                preview: tracks[i]?.track.preview_url
-                                                };
-                            if (trackInfo.preview){
+                        for (var i = 0; countValidTracks < 5; i++) {
+                            const trackInfo: any = {
+                                artist: tracks[i]?.track.artists[0].name,
+                                title: tracks[i]?.track.name,
+                                albumCoverSmall:
+                                    tracks[i]?.track.album.images[2].url,
+                                preview: tracks[i]?.track.preview_url,
+                            };
+                            if (trackInfo.preview) {
                                 topTracks.push(trackInfo);
                                 countValidTracks++;
                             }
@@ -72,32 +80,36 @@ const DiscoverPage : React.FC = () => {
             }
         });
 
-        request.post(authOptions, (error : any, response: any, body: any) => {
+        request.post(authOptions, (error: any, response: any, body: any) => {
             if (!error && response.statusCode === 200) {
-
                 // use the access token to access the Spotify Web API
                 let token = body.access_token;
                 let options = {
-                url: `https://api.spotify.com/v1/playlists/37i9dQZF1DXcecv7ESbOPu`,
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-                json: true
+                    url: `https://api.spotify.com/v1/playlists/37i9dQZF1DXcecv7ESbOPu`,
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                    },
+                    json: true,
                 };
-                request.get(options, function(error : any, response: any, body: any) {
-
+                request.get(options, function(
+                    error: any,
+                    response: any,
+                    body: any
+                ) {
                     let tracks = body?.tracks?.items;
                     let recommendedTracks = [];
                     let countValidTracks = 0;
 
                     if (tracks !== undefined) {
-                        for (var i=0; countValidTracks < 5; i++) {
-                            const trackInfo:any = {artist: tracks[i]?.track.artists[0].name,
-                                                title: tracks[i]?.track.name,
-                                                albumCoverSmall: tracks[i]?.track.album.images[2].url,
-                                                preview: tracks[i]?.track.preview_url
-                                                };
-                            if (trackInfo.preview){
+                        for (var i = 0; countValidTracks < 5; i++) {
+                            const trackInfo: any = {
+                                artist: tracks[i]?.track.artists[0].name,
+                                title: tracks[i]?.track.name,
+                                albumCoverSmall:
+                                    tracks[i]?.track.album.images[2].url,
+                                preview: tracks[i]?.track.preview_url,
+                            };
+                            if (trackInfo.preview) {
                                 recommendedTracks.push(trackInfo);
                                 countValidTracks++;
                             }
@@ -107,70 +119,75 @@ const DiscoverPage : React.FC = () => {
                 });
             }
         });
-    }
-
+    };
 
     useEffect(() => {
         getSpotifyPopularPlaylist();
         setPosts([]);
-        firestore.collection('posts').get().then(snapshot => {
-            snapshot.docs.map(doc => {
-                setPosts(oldArray => [...oldArray, doc.data()]);
+        firestore
+            .collection('posts')
+            .get()
+            .then((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    setPosts((oldArray) => [...oldArray, doc.data()]);
+                });
             });
-        })
     }, []);
 
     useEffect(() => {
-        if (isPlaying){
+        if (isPlaying) {
             handlePlay();
-        }
-        else{
+        } else {
             handlePause();
         }
-    }, [isPlaying])
+    }, [isPlaying]);
 
-
-    const handleAudio = (audiofile:string) => {
-        if (currentAudioFile===''){
+    const handleAudio = (audiofile: string) => {
+        if (currentAudioFile === '') {
             var audio = new Audio(audiofile);
             setCurrentAudio(audio);
             setCurrentAudioFile(audiofile);
-        }
-        else if (currentAudioFile!==audiofile && currentAudio){
+        } else if (currentAudioFile !== audiofile && currentAudio) {
             handlePause();
-            currentAudio.currentTime=0;
+            currentAudio.currentTime = 0;
             var audio = new Audio(audiofile);
             setCurrentAudio(audio);
             setCurrentAudioFile(audiofile);
-        }
-        else{
+        } else {
             setCurrentAudio(currentAudio);
         }
         setIsPlaying(!isPlaying);
-    }
+    };
 
     const handlePlay = () => {
-        currentAudio?.addEventListener("ended", () => setIsPlaying(false));
+        currentAudio?.addEventListener('ended', () => setIsPlaying(false));
         currentAudio?.play();
-    }
+    };
 
     const handlePause = () => {
         currentAudio?.pause();
-    }
+    };
 
-    const isPlayingCurrentFile = (audiofile:string) => {
-        if (isPlaying && audiofile===currentAudioFile){
+    const isPlayingCurrentFile = (audiofile: string) => {
+        if (isPlaying && audiofile === currentAudioFile) {
             return true;
         }
         return false;
-    }
+    };
 
     return (
         <div className={classes.DiscoverPage}>
-            <DiscoverPageView user={loggedInUser} posts={posts} handleAudio={handleAudio} isPlaying={isPlayingCurrentFile} topSongs={topSongs} recommendedSongs={recommendedSongs}/>
-            <LogoutButton/>
+            <DiscoverPageView
+                user={loggedInUser}
+                posts={posts}
+                handleAudio={handleAudio}
+                isPlaying={isPlayingCurrentFile}
+                topSongs={topSongs}
+                recommendedSongs={recommendedSongs}
+            />
+            <LogoutButton />
         </div>
-    )
-}
+    );
+};
 
 export default DiscoverPage;

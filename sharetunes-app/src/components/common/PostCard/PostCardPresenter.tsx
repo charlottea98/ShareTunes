@@ -36,6 +36,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     title: songInfo?.title,
                                     artists: [artistInfo.name],
                                     albumCover: songInfo?.albumCoverMediumURL,
+                                    preview: songInfo?.songPreviewURL
                                 }
                                 setPostCardInfo({
                                     caption: postInfo.caption,
@@ -45,11 +46,12 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     songTitle: infoAboutSong.title, 
                                     artists: infoAboutSong.artists, 
                                     albumCover: infoAboutSong.albumCover,
+                                    previewSong: infoAboutSong.preview,
                                     usernameOfPublisher: infoAboutPublisher.username,
                                     profilePictureOfPublisher: infoAboutPublisher.profilePicture,
                                     likes: postInfo.likes,
                                     comments: postInfo.comments,
-                                    date: postInfo.date,
+                                    date: postInfo.date
                                 })
                             })
                         }

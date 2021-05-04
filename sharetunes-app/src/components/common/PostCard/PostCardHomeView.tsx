@@ -60,6 +60,7 @@ const PostCardHomeView : React.FC<Props> = ({
                 title = {postCardInfo?.songTitle}
                 artists = {postCardInfo?.artists[0]}
                 albumCover = {postCardInfo?.albumCover}
+                previewSong = {postCardInfo?.previewSong}
             />
 
             <div className={classes.reviewContainer}>

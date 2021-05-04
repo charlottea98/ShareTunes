@@ -1,19 +1,20 @@
-import React, { ReactNode,useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import LogInButton from '../../common/buttons/SecondaryButton/secondaryButton';
 import firebase from 'firebase';
-import fire from "../../../fire";
+import fire from '../../../fire';
 import classes from './loginPage.module.scss';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
+import {
+    useLoggedInUser,
+    useLoggedInUserUpdate,
+} from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
 
-
 interface Props {
-    user : ReactNode;
-    setUser : any;
+    user: ReactNode;
+    setUser: any;
 }
 
-const LoginPage : React.FC<Props> = ({user, setUser}) => {
-    
+const LoginPage: React.FC<Props> = ({ user, setUser }) => {
     //const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -23,7 +24,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
 
     /////////////////////////////
 
-    // Dom här är nya, behöver dom vara useStates eller kan man göra på något enklare sätt? 
+    // Dom här är nya, behöver dom vara useStates eller kan man göra på något enklare sätt?
     const [username, setUsername] = useState<string>('');
     const [usernameError, setUsernameError] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
@@ -52,7 +53,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .then(() => {
                 updateLoggedInUser(email);
                 history.push('/discover');
-              })
+            })
             .catch((err) => {
                 switch (err.code) {
                     case 'auth/invalid-email':
@@ -64,7 +65,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
                         setPasswordError(err.message);
                         break;
                 }
-            })
+            });
     };
 
     const handleSignup = () => {
@@ -74,7 +75,7 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
             .then(() => {
                 updateLoggedInUser(email);
                 history.push('/discover');
-              })
+            })
             .catch((err) => {
                 switch (err.code) {
                     case 'auth/email-already-in-use':
@@ -102,97 +103,150 @@ const LoginPage : React.FC<Props> = ({user, setUser}) => {
     useEffect(() => {
         authListener();
     }, []);
-    
-    
-
 
     // Den här funktionen lägget till en user i firestore databasen med mail som id och värden ( mail, username)
     const createUserInDataBase = () => {
-        // checkUsername(); 
-        firebase.firestore().collection('users').doc(email).set({
-            firstName: firstName,
-            lastName: lastName,
-            userName: username,
-            email: email,
-          })
-    }
+        // checkUsername();
+        firebase
+            .firestore()
+            .collection('users')
+            .doc(email)
+            .set({
+                firstName: firstName,
+                lastName: lastName,
+                userName: username,
+                email: email,
+            });
+    };
 
     const checkUsername = () => {
-        // Ser ifall userName redan finns i databasen ? Kanske onödigt krångligt , strunta i den här? 
-    }
-    
+        // Ser ifall userName redan finns i databasen ? Kanske onödigt krångligt , strunta i den här?
+    };
+
     return (
         <div className={classes.LoginPage}>
-        <section className='login'>
+            <section className="login">
                 <div className={classes.center}>
                     {hasAccount ? (
                         <>
-                        <div className='loginContainer'>
-                            <label>Mail</label>
-                            <input type='text' 
-                            autoFocus required value={email} 
-                            onChange={e=>setEmail(e.target.value)}>
-                            </input>
-                            <p>{emailError}</p>
-                            <label>Password</label>
-                            <input type="password" required value={password}
-                            onChange={(e) => {setPassword(e.target.value)}}>
-                            </input>
-                            <p>{passwordError}</p>
-                        </div>
-                        <LogInButton text="Sign in" onButtonClick={handleLogin}/>
-                        <p>Don't have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign up</button></p>
+                            <div className="loginContainer">
+                                <label>Mail</label>
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                ></input>
+                                <p>{emailError}</p>
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                ></input>
+                                <p>{passwordError}</p>
+                            </div>
+                            <LogInButton
+                                text="Sign in"
+                                onButtonClick={handleLogin}
+                            />
+                            <p>
+                                Don't have an account?{' '}
+                                <button
+                                    onClick={() => setHasAccount(!hasAccount)}
+                                >
+                                    Sign up
+                                </button>
+                            </p>
                         </>
                     ) : (
-                            // För mkt kodupprepning, har bara följt mönstret på de andra , osäker om error behövs? 
+                        // För mkt kodupprepning, har bara följt mönstret på de andra , osäker om error behövs?
                         <>
-                         <div className='loginContainer'>
-                            <label>First name</label>
-                            <input type='text' 
-                            autoFocus required value={firstName} 
-                            onChange={e=>setFirstName(e.target.value)}>
-                            </input>
-                            <p>{firstNameError}</p>
+                            <div className="loginContainer">
+                                <label>First name</label>
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    required
+                                    value={firstName}
+                                    onChange={(e) =>
+                                        setFirstName(e.target.value)
+                                    }
+                                ></input>
+                                <p>{firstNameError}</p>
 
-                            <label>Last name</label>
-                            <input type='text' 
-                            autoFocus required value={lastName} 
-                            onChange={e=>setLastName(e.target.value)}>
-                            </input>
-                            <p>{lastNameError}</p>
+                                <label>Last name</label>
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    required
+                                    value={lastName}
+                                    onChange={(e) =>
+                                        setLastName(e.target.value)
+                                    }
+                                ></input>
+                                <p>{lastNameError}</p>
 
-                            <label>Username</label>
-                            <input type='text' 
-                            autoFocus required value={username} 
-                            onChange={e=>setUsername(e.target.value)}>
-                            </input>
-                            <p>{usernameError}</p>
+                                <label>Username</label>
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    required
+                                    value={username}
+                                    onChange={(e) =>
+                                        setUsername(e.target.value)
+                                    }
+                                ></input>
+                                <p>{usernameError}</p>
 
-                            <label>Mail</label>
-                            <input type='text' 
-                            autoFocus required value={email} 
-                            onChange={e=>setEmail(e.target.value)}>
-                            </input>
-                            <p>{emailError}</p>
+                                <label>Mail</label>
+                                <input
+                                    type="text"
+                                    autoFocus
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                ></input>
+                                <p>{emailError}</p>
 
-                            <label>Password</label>
-                            <input type="password" required value={password}
-                            onChange={(e) => {setPassword(e.target.value)}}>
-                            </input>
-                            <p>{passwordError}</p>
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                ></input>
+                                <p>{passwordError}</p>
+                            </div>
 
-                        </div>
+                            <LogInButton
+                                text="Sign up"
+                                onButtonClick={() => {
+                                    handleSignup();
+                                    createUserInDataBase();
+                                }}
+                            />
 
-                        <LogInButton text="Sign up" onButtonClick={() => { handleSignup(); createUserInDataBase();}}/>
-                        
-                        <p>Have an account? <button onClick={() => setHasAccount(!hasAccount)}>Sign in</button></p>
+                            <p>
+                                Have an account?{' '}
+                                <button
+                                    onClick={() => setHasAccount(!hasAccount)}
+                                >
+                                    Sign in
+                                </button>
+                            </p>
                         </>
                     )}
-                
-            </div>
-        </section>
+                </div>
+            </section>
         </div>
-    )
-}
+    );
+};
 
 export default LoginPage;
