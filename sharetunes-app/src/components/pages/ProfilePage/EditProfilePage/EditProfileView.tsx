@@ -11,12 +11,12 @@ const EditProfileView: React.FC<Props> = ({ user }) => {
             <h1>THIS IS THE EDIT PROFILE PAGE</h1>
             <img
                 className={classes.profileImg}
-                src={user.profilePicture}
+                src={user.profilePictureURL}
                 alt="Profile picture"
             />
 
             <h2>Profile picture URL</h2>
-            <p>{user.profilePicture}</p>
+            <p>{user.profilePictureURL}</p>
 
             <h2>Name</h2>
             <p>{user.name}</p>

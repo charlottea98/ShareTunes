@@ -12,7 +12,7 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
         <div className={classes.ProfileView}>
             <img
                 className={classes.profileImg}
-                src={user.profilePicture}
+                src={user.profilePictureURL}
                 alt="Profile picture"
             />
             <h1>{user.username}</h1>
