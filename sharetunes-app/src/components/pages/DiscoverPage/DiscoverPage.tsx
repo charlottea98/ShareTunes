@@ -65,19 +65,11 @@ const DiscoverPage: React.FC = () => {
 
     return (
         <div className={classes.DiscoverPage}>
-<<<<<<< HEAD
-            <Searchbar />
+            <SearchBar />
             <PrimaryButton
                 text="Change to user 0"
                 onButtonClick={() => updateLoggedInUser('rrudling@kth.se')}
                 buttonColor="green"
-=======
-            <SearchBar/>
-            <PrimaryButton 
-                text = "Change to user 0"
-                onButtonClick = {() => updateLoggedInUser('rrudling@kth.se')}
-                buttonColor = 'green'
->>>>>>> c6f146f7e3d8eaac62398814e154eda3ba598ca5
             />
             <SecondaryButton
                 text="Change to user 1"

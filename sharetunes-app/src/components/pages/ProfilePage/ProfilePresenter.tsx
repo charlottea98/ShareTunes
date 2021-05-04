@@ -1,31 +1,24 @@
 import React from 'react';
-import ProfileView from '../../UserProfile/views/ProfileView';
+import ProfileView from './ProfileView';
+import {
+    useLoggedInUser,
+    useLoggedInUserUpdate,
+    useUpdateProfilePicture,
+} from '../../../contexts/LoggedInUserContext';
+import { useHistory } from 'react-router-dom';
 
-interface Props {
-    userObj: any;
-}
+interface Props {}
 
-const ProfilePresenter: React.FC<Props> = ({ userObj }) => {
-    React.useEffect(
-        () => {
-            //effect
-            return () => {
-                //cleanup
-            };
-        },
-        [
-            /**input */
-        ]
-    );
+const ProfilePresenter: React.FC<Props> = () => {
+    const history = useHistory();
+    const user = useLoggedInUser();
+    const setUser = useLoggedInUserUpdate();
 
-    return (
-        <ProfileView
-            imgSource="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.ivHy7rpHL0GyEA_mdcY5AAHaFj%26pid%3DApi&f=1"
-            firstName={userObj.firstName}
-            lastName={userObj.lastName}
-            email={userObj.email}
-        />
-    );
+    const handleEditProfile = () => {
+        history.push('/profile/edit');
+    };
+
+    return <ProfileView user={user} onClickEditProfile={handleEditProfile} />;
 };
 
 export default ProfilePresenter;
