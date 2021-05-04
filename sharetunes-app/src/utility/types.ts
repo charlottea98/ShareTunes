@@ -20,6 +20,7 @@ export interface PostCardInfo {
     songTitle: string,
     artists: Array<string>,
     albumCover: string,
+    previewSong: string,
     usernameOfPublisher: string,
     profilePictureOfPublisher: string,
     likes: number,

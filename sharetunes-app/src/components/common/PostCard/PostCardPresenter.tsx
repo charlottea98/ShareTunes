@@ -29,7 +29,8 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
 
                 getSongInfo(postInfo.song)
                     .then(songInfo => {
-                        SpotifyAPI.getArtistDetails(songInfo?.artists[0])
+                        if (songInfo) {
+                            SpotifyAPI.getArtistDetails(songInfo.artists[0])
                             .then(artistInfo => {
                                 let infoAboutSong = {
                                     title: songInfo?.title,
@@ -53,6 +54,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     date: postInfo.date
                                 })
                             })
+                        }
                     })
             });
     }, []);

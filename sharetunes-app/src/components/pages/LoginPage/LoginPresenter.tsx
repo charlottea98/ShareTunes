@@ -21,7 +21,7 @@ const LoginPresenter: React.FC<Props> = () => {
 
     const [emailError, setEmailError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
-    const [hasAccount, setHasAccount] = useState<boolean>(false);
+    const [hasAccount, setHasAccount] = useState<boolean>(true);
 
 
     const [username, setUsername] = useState<string>('');

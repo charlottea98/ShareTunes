@@ -1,0 +1,39 @@
+.PageNotFound {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+	text-align: center;
+}
+
+.infoBox {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	width: 300px;
+	border: 3px solid #fec46e;
+	font-size: 30px;
+}
+
+.infoBox div {
+	margin-bottom: 10px;
+}
+
+.loginPageButton {
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 2px;
+	background-color: #fec46e;
+	color: #fff;
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+.loginPageButton:hover {
+	background-color: #eeb45e;
+}
