@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import LoginPage from './components/pages/LoginPage/LoginPage';
+
+import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
 import firestore from './firestore';
 import firebase from 'firebase';
 
 import './App.scss';
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import PublishButton from './components/common/buttons/PrimaryButton/PrimaryButton';
-import LogInButton from './components/common/buttons/SecondaryButton/secondaryButton';
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
@@ -56,7 +54,7 @@ const App: React.FC = () => {
                     </Route>
 
                     <Route exact path={['/', '/login']}>
-                        <LoginPage user={user} setUser={setUser} />
+                        <LoginPresenter />
                     </Route>
                 </Switch>
             </Router>
