@@ -43,8 +43,8 @@
 	margin-left: 5px;
 }
 
-.SongTitleContainer span:hover,
-.SongArtistsContainer span:hover {
+.SongTitleContainer:hover span,
+.SongArtistsContainer:hover span {
 	text-indent: -3000px;
 }
 
