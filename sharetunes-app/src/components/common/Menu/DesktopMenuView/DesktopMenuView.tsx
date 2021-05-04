@@ -15,7 +15,7 @@ const DesktopMenuView: React.FC<Props> = ({userImageActive}) => {
     return (
         <div className={classes.Menu}>
             <div className={classes.menuContent}>
-                <ShareTunesLogo fontSize="30px" />
+                <ShareTunesLogo fontSize="30px" clickable={true} />
 
                 <SearchBar/>
 

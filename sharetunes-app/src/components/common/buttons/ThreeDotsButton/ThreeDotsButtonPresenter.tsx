@@ -7,23 +7,23 @@ interface Props {
 }
 
 const ThreeDotsButtonPresenter : React.FC<Props> = ({size}) => {
-    let bulletDiameter, threeDotsWidth;
+    let bulletDiameter, bulletDistance;
 
     if (size === 'S') {
         bulletDiameter = "3px";
-        threeDotsWidth = "5px";
+        bulletDistance = "5px";
     } else if (size === 'M') {
         bulletDiameter = "5px";
-        threeDotsWidth = "7px";
+        bulletDistance = "7px";
     } else { // size === 'L'
-        bulletDiameter = "7px";
-        threeDotsWidth = "9px";
+        bulletDiameter = "10px";
+        bulletDistance = "9px";
     } 
 
     return (
         <ThreeDotsButtonView
             bulletDiameter = {bulletDiameter}
-            threeDotsWidth = {threeDotsWidth}
+            bulletDistance = {bulletDistance}
         />
     )
 }

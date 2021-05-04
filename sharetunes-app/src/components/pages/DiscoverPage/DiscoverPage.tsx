@@ -85,10 +85,16 @@ const DiscoverPage: React.FC = () => {
                 buttonColor="black"
             />
             <strong>
+<<<<<<< HEAD
                 {loggedInUser?.username} <br />
                 {loggedInUser?.email} <br />
                 {loggedInUser?.favoriteSong.title} <br />
                 {loggedInUser?.name}
+=======
+                { loggedInUser?.username } <br />
+                { loggedInUser?.email } <br />
+                { loggedInUser?.name }
+>>>>>>> f28a91ecf46ff70a3318a75b06294920945b584c
             </strong>
 
             <div>
