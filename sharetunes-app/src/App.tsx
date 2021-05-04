@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
-import firestore from './firestore';
-import firebase from 'firebase';
 
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 
@@ -20,9 +18,11 @@ import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
 import UserCheckerPresenter from './components/UserCheckerPresenter';
-import PageNotFoundView from './components/pages/PageNotFoundView';
+import MessageToUserPage from './components/pages/MessageToUserPage/MessageToUserPagePresenter';
 
 const App: React.FC = () => {
+    const history = useHistory();
+
     return (
         <LoggedInUserProvider>
             <Router>
@@ -68,7 +68,14 @@ const App: React.FC = () => {
                         <LoginPresenter />
                     </Route>
                     
-                    <Route component={PageNotFoundView} />
+                    <Route>
+                        <MessageToUserPage 
+                            emotion="sad" 
+                            message="The page you're looking for doesn't exist!"
+                            actionButtonFunc = {() => history.push('/login')}
+                            actionButtonText = "Take me to the login page"
+                        />
+                    </Route>
                 </Switch>
             </Router>
         </LoggedInUserProvider>
