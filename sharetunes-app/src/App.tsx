@@ -19,43 +19,56 @@ import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
-const App: React.FC = () => {
-    const [user, setUser] = useState<string | firebase.User>('');
+import UserCheckerPresenter from './components/UserCheckerPresenter';
+import PageNotFoundView from './components/pages/PageNotFoundView';
 
+const App: React.FC = () => {
     return (
         <LoggedInUserProvider>
             <Router>
                 <Switch>
                     <Route exact path="/profile">
-                        <MenuPresenter />
-                        <ProfilePresenter />
+                        <UserCheckerPresenter>
+                            <MenuPresenter />
+                            <ProfilePresenter />
+                        </UserCheckerPresenter>
                     </Route>
                     <Route exact path="/home">
-                        <MenuPresenter />
-                        <div className="pageContainer">
-                            <HomePage />
-                        </div>
+                        <UserCheckerPresenter>
+                            <MenuPresenter />
+                            <div className="pageContainer">
+                                <HomePage />
+                            </div>
+                        </UserCheckerPresenter>
                     </Route>
                     <Route exact path="/discover">
-                        <MenuPresenter />
-                        <div className="pageContainer">
-                            <DiscoverPagePresenter />
-                        </div>
+                        <UserCheckerPresenter>
+                            <MenuPresenter />
+                            <div className="pageContainer">
+                                <DiscoverPagePresenter />
+                            </div>
+                        </UserCheckerPresenter>
                     </Route>
                     <Route exact path="/publish">
-                        <MenuPresenter />
-                        <div className="pageContainer">
-                            <PublishPage />
-                        </div>
+                        <UserCheckerPresenter>
+                            <MenuPresenter />
+                            <div className="pageContainer">
+                                <PublishPage />
+                            </div>
+                        </UserCheckerPresenter>
                     </Route>
                     <Route exact path="/profile/edit">
-                        <MenuPresenter />
-                        <EditProfilePresenter />
+                        <UserCheckerPresenter>
+                            <MenuPresenter />
+                            <EditProfilePresenter />
+                        </UserCheckerPresenter>
                     </Route>
 
                     <Route exact path={['/', '/login']}>
                         <LoginPresenter />
                     </Route>
+                    
+                    <Route component={PageNotFoundView} />
                 </Switch>
             </Router>
         </LoggedInUserProvider>
