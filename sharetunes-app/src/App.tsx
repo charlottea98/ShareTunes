@@ -20,9 +20,9 @@ import LoggedInUserProvider from './contexts/LoggedInUserContext';
 import UserCheckerPresenter from './components/UserCheckerPresenter';
 import MessageToUserPage from './components/pages/MessageToUserPage/MessageToUserPagePresenter';
 import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUserProfileContext';
+import PageNotFound from './components/pages/MessageToUserPage/PageNotFoundPresenter';
 
 const App: React.FC = () => {
-    const history = useHistory();
 
     return (
         <LoggedInUserProvider>
@@ -70,14 +70,7 @@ const App: React.FC = () => {
                             <LoginPresenter />
                         </Route>
                         
-                        <Route>
-                            <MessageToUserPage 
-                                emotion="sad" 
-                                message="The page you're looking for doesn't exist!"
-                                actionButtonFunc = {() => history.push('/login')}
-                                actionButtonText = "Take me to the login page"
-                            />
-                        </Route>
+                        <Route component={PageNotFound} />
                     </Switch>
                 </Router>
             </CurrentlyVisitedUserProfileProvider>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './messageToUserPage.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 interface Props {
     emotion: "happy" | "sad",
     message: string,
-    actionButtonFunc: Function,
+    actionButtonFunc: any,
     actionButtonText: string,
 }
 
@@ -20,8 +20,6 @@ const MessageToUserPageView: React.FC<Props> = ({
     actionButtonFunc, 
     actionButtonText, 
 }) => {
-    const history = useHistory();
-
     return (
         <div className={classes.PageNotFound}>
             <h1 style = {{
@@ -37,7 +35,7 @@ const MessageToUserPageView: React.FC<Props> = ({
 
             <div 
                 className = {classes.loginPageButton}
-                onClick = {() => actionButtonFunc()}
+                onClick = {actionButtonFunc}
             >{actionButtonText}</div>    
         </div>
     )

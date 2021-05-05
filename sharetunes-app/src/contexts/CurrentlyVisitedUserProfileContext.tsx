@@ -3,9 +3,7 @@ import React, { useState, useContext, createContext } from 'react';
 import { useLoggedInUser } from './LoggedInUserContext';
 
 const CurrentlyVisitedUserProfileContext = createContext<string>("");
-const CurrentlyVisitedUserProfileUpdateContext = createContext<
-    (newLoggedInUser: string) => void
->((x) => console.log(x));
+const CurrentlyVisitedUserProfileUpdateContext = createContext<Function>(() => "");
 
 const ViewingOwnProfileContext = createContext<boolean>(false);
 
@@ -26,14 +24,8 @@ const CurrentlyVisitedUserProfileProvider: React.FC = ({ children }) => {
     const [currentlyVisitedUserProfile, setCurrentlyVisitedUserProfile] = useState<string>("");
     const [viewingOwnProfile, setViewingOwnProfile] = useState<boolean>(false);
 
-    const changeCurrentlyVisitedUserProfile = (newCurrentlyVisitedUserEmail: string) => {
-        const currentlyLoggedInUser = useLoggedInUser();
-        if (currentlyLoggedInUser) {
-            setViewingOwnProfile(currentlyLoggedInUser.email === newCurrentlyVisitedUserEmail);
-        } else {
-            setViewingOwnProfile(false);
-        }
-        
+    const changeCurrentlyVisitedUserProfile = (newCurrentlyVisitedUserEmail: string, currentlyLoggedInUserEmail: string) => {
+        setViewingOwnProfile(currentlyLoggedInUserEmail === newCurrentlyVisitedUserEmail);
         setCurrentlyVisitedUserProfile(newCurrentlyVisitedUserEmail);
     };
 

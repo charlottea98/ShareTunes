@@ -1,6 +1,4 @@
 import React, { useState, useContext, createContext } from 'react';
-import firestore from '../firestore';
-import firebase from 'firebase';
 import { User } from '../utility/types';
 import { getUserInfo } from '../utility/firestoreCommunication';
 import { updateUserProfilePicture } from '../utility/firestoreCommunication';
