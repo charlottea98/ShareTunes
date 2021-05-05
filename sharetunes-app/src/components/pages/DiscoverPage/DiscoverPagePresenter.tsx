@@ -7,12 +7,11 @@ import { SpotifyAPI } from '../../../utility/spotifyCommunication';
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
 
-const DiscoverPage : React.FC = () => {
+const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [posts, setPosts] = useState<any[]>([]);
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
-    const [viewPost, setViewPost] = useState<boolean>(false);
 
     const getSpotifyPopularPlaylist = () => {
         SpotifyAPI.getPlaylistDetails('37i9dQZEVXbMDoHDwVN2tF').then(body => {
@@ -63,11 +62,14 @@ const DiscoverPage : React.FC = () => {
     useEffect(() => {
         getSpotifyPopularPlaylist();
         setPosts([]);
-        firestore.collection('posts').get().then(snapshot => {
-            snapshot.docs.map(doc => {
-                setPosts(oldArray => [...oldArray, doc.data()]);
+        firestore
+            .collection('posts')
+            .get()
+            .then((snapshot) => {
+                snapshot.docs.map((doc) => {
+                    setPosts((oldArray) => [...oldArray, doc.data()]);
+                });
             });
-        })
     }, []);
 
     return (
@@ -79,7 +81,7 @@ const DiscoverPage : React.FC = () => {
             />
             <LogoutButton/>
         </div>
-    )
-}
+    );
+};
 
 export default DiscoverPage;

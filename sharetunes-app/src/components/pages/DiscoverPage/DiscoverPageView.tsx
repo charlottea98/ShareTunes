@@ -57,9 +57,9 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         </div>
     );
-}
+};
 
 export default DiscoverPageView;

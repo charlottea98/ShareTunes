@@ -42,7 +42,6 @@ const DiscoverPage : React.FC = () => {
                 json: true
                 };
                 request.get(options, function(error : any, response: any, body: any) {
-                    console.log(body);
                     let tracks = body?.tracks?.items;
                     
                     if (tracks !== undefined) {
