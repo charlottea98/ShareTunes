@@ -15,6 +15,9 @@
     position: absolute;
     top: 30px;
     background-color: white;
+    max-height: 200px;
+    overflow: scroll;
+    border-bottom: 1px solid #707070;
     width: 175px;
 }
 
@@ -24,4 +27,28 @@
     border-left: 1px solid #707070;
     border-right: 1px solid #707070;
     border-radius: 2px;
+}
+
+
+@media (max-width: 600px) {
+    .SearchBar {
+        width: 100%;
+        position: fixed;
+        left: 0;
+    }
+
+    .SearchInput{
+        padding: 15px;
+        height: 40px;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #707070;
+    }
+
+    .SearchList{
+        position: absolute;
+        top: 30px;
+        background-color: white;
+        width: 100%;
+    }
 }

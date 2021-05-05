@@ -1,5 +1,5 @@
 .SongCard {
-	height: 65px;
+	height: 64px;
 	display: flex;
 	flex-direction: row;
 	border-radius: 2px;
@@ -13,6 +13,7 @@
 
 .albumCoverAndSongInfoContainer {
 	display: flex;
+	width: calc(100% - 70px);
 }
 
 .SongInfoContainer {
@@ -20,12 +21,14 @@
 	padding: 10px;
 	flex-direction: column;
 	justify-content: space-between;
+	overflow-x: hidden;
 }
 
 .SongTitleContainer,
 .SongArtistsContainer {
 	display: flex;
 	align-items: center;
+	white-space: nowrap;
 }
 
 .SongTitleContainer span,
@@ -50,12 +53,24 @@
 
 .playButtonContainer {
 	display: flex;
+	align-self: center;
 	align-items: center;
 	justify-content: center;
 	background-color: #fec46e;
-	width: 63px;
+	width: 64px;
+	height:64px;
 	cursor: pointer;
 	user-select: none;
+}
+
+.dontButtonContainer{
+	display: flex;
+	align-self: center;
+	align-items: center;
+	justify-content: center;
+	background-color: grey;
+	width: 64px;
+	height:64px;
 }
 
 .playButtonContainer:hover {
