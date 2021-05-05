@@ -9,6 +9,7 @@ const PageNotFoundPresenter: React.FC = () => {
 
     return (
         <>
+            {/* <div onClick={createDataBase} style={{"backgroundColor": "red"}}>Create database</div> */}
             <MessageToUserPage 
                 emotion="sad" 
                 message="The page you're looking for doesn't exist!"

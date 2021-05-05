@@ -101,27 +101,67 @@ export const createDataBase = async () => {
     addNewSong("5qYf19BLOheApfe6NqhDPg");
     addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
 
+    addNewSong("1XvrMOEi2oLFYdrkfIX3xG");
+    addNewSong("54rjlka9h5VCl8ugns7gvt");
+    addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+
     // Add new users
-    let email = 'rrudling@kth.se';
-    let userToAdd : User = {
-        id: email,
+    let userToAdd1 : User = {
+        id: 'rrudling@kth.se',
         name: "Rasmus Rudling",
-        email: email,
+        email: 'rrudling@kth.se',
         username: "rasmusrudling",
-        profilePictureURL: createImageLinkFromDriveId("1pYIMKBLGubCmw78RAxDDhbm98PyOlY6Y"),
+        profilePictureURL: createImageLinkFromDriveId("1GnZSOEI94lljIswu601Cu3lFDtvExwPb"),
         favoriteSong: "4aaEV6V9aOQb2oQzWlf9cu",
         biography: "Songs are cool",
         posts: []
     }
-    addNewUser(userToAdd);
+
+    let userToAdd2 : User = {
+        id: 'charande@kth.se',
+        name: "Lotta Andersson",
+        email: 'charande@kth.se',
+        username: "lottaandersson",
+        profilePictureURL: createImageLinkFromDriveId("1nfCENDyYTWQMAtWsDYCNQjBk3oIjStr1"),
+        favoriteSong: "1XvrMOEi2oLFYdrkfIX3xG",
+        biography: "Music is my life",
+        posts: []
+    }
+
+    let userToAdd3 : User = {
+        id: 'johanlam@kth.se',
+        name: "Johan Lam",
+        email: 'johanlam@kth.se',
+        username: "johanlam",
+        profilePictureURL: createImageLinkFromDriveId("106Y8mMGHIE5_JPSo6Id9gv5-rQgiS5Vw"),
+        favoriteSong: "7723JnKU2R15Iv4T7OJrly",
+        biography: "Muusic is the best",
+        posts: []
+    }
+
+    let userToAdd4 : User = {
+        id: 'isakpet@kth.se',
+        name: "Isak Movitz Pettersson",
+        email: 'isakpet@kth.se',
+        username: "isakmovitzpettersson",
+        profilePictureURL: createImageLinkFromDriveId("1L5iHyRF6Ai6nJy9CIqee6eTaquykT0ef"),
+        favoriteSong: "3LmpQiFNgFCnvAnhhvKUyI",
+        biography: "Muuuusic is awsome",
+        posts: []
+    }
+
+    addNewUser(userToAdd1);
+    addNewUser(userToAdd2);
+    addNewUser(userToAdd3);
+    addNewUser(userToAdd4);
 
     // Add new post
-    let postToAdd: Post = {
+    let postToAdd1: Post = {
         id: -1,
         caption: "Denna låten var bra! :)",
         rating: 3,
-        tags: ["Chill", "Sommar", "annat"],
-        postImageURL: createImageLinkFromDriveId("1c26_sQEcyIeF-txMLd-FglSMLmEM5lWA"),
+        tags: ["Tagg"],
+        postImageURL: createImageLinkFromDriveId("10ANTVpvP4crwarzLLlxGLs4ilJab5kmK"),
         song: "4aaEV6V9aOQb2oQzWlf9cu",
         postedBy: "rrudling@kth.se",
         likes: 4,
@@ -129,7 +169,53 @@ export const createDataBase = async () => {
         date: new Date(),
         deleted: false
     };
-    addNewPost(postToAdd);
+
+    let postToAdd2: Post = {
+        id: -1,
+        caption: "sooooft",
+        rating: 4,
+        tags: ["Lugn"],
+        postImageURL: createImageLinkFromDriveId("1SJ9G6CaASo9QKysPlnBcQY5Bo2Kzw0rO"),
+        song: "5nNmj1cLH3r4aA4XDJ2bgY",
+        postedBy: "charande@kth.se",
+        likes: 4,
+        comments: [],
+        date: new Date(),
+        deleted: false
+    };
+
+    let postToAdd3: Post = {
+        id: -1,
+        caption: "bäst",
+        rating: 5,
+        tags: ["Chill", "Sommar", "annat"],
+        postImageURL: createImageLinkFromDriveId("1BwAehUC9llxQDoIkaQdZm6yOH29K7lV5"),
+        song: "54rjlka9h5VCl8ugns7gvt",
+        postedBy: "johanlam@kth.se",
+        likes: 4,
+        comments: [],
+        date: new Date(),
+        deleted: false
+    };
+
+    let postToAdd4: Post = {
+        id: -1,
+        caption: "Jättekul :))))",
+        rating: 4,
+        tags: [],
+        postImageURL: createImageLinkFromDriveId("1tKc382TgI7tLiZB0uOisfQ_yIL-26t_5"),
+        song: "3LmpQiFNgFCnvAnhhvKUyI",
+        postedBy: "isakpet@kth.se",
+        likes: 4,
+        comments: [],
+        date: new Date(),
+        deleted: false
+    };
+
+    // addNewPost(postToAdd1);
+    // addNewPost(postToAdd2);
+    // addNewPost(postToAdd3);
+    addNewPost(postToAdd4);
 }
 
 export const getUserInfo = async (userId: string) => {
@@ -149,8 +235,9 @@ export const getAllPostsFromUser = async (userId: string) => {
 
     const postSnapshot = await firebase.firestore().collection('posts').get();
     let allPosts = postSnapshot.docs.map(post => post.data());
-    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
 
+    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+    allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
     return allPostsFromUser;
 }
 
@@ -165,9 +252,29 @@ export const updateUserProfilePicture = async (newProfilePicture: string, email:
 
 export const deletePost = async (postId: number) => {
     const currentUserRef = firebase
-    .firestore()
-    .collection('posts')
-    .doc(String(postId));
+        .firestore()
+        .collection('posts')
+        .doc(String(postId));
 
     currentUserRef.update({deleted: true});
+}
+
+
+export const getAllRelevantPosts = async (userId: string, page: "home page" | "discover page") => {
+    const followingSnapshot = await firebase.firestore().collection('following').doc(userId).get();
+    let userIsFollowingData = followingSnapshot.data();
+    let userIsFollowing = userIsFollowingData?.following;
+    console.log(userIsFollowing);
+
+
+    const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
+    let userData = userSnapshot.data();
+    let postIds = userData?.posts;
+
+    const postSnapshot = await firebase.firestore().collection('posts').get();
+    let allPosts = postSnapshot.docs.map(post => post.data());
+
+    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+    allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
+    return allPostsFromUser;
 }

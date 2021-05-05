@@ -15,11 +15,13 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
         <div className={classes.HomePage}>
             {
                 postsToShow.map(post => (
-                    <PostCard
-                        key = {post.id}
-                        postInfo = {post}
-                        pageToViewOn="home page"
-                    />
+                    <div className={classes.postCardContainer}>
+                        <PostCard
+                            key = {post.id}
+                            postInfo = {post}
+                            pageToViewOn="home page"
+                        />
+                    </div>
                 ))
             }
         </div>
