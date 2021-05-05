@@ -16,6 +16,7 @@ interface Props {
 const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
     const [postCardInfo, setPostCardInfo] = useState<PostCardInfo | undefined>(undefined);
     const [currentLoggedInUserLikesPost, setCurrentLoggedInUserLikesPost] = useState<boolean>(false);
+    const [viewPost, setViewPost] = useState<boolean>(false);
 
     let postCardView;
 
@@ -58,6 +59,10 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                     })
             });
     }, []);
+
+    const changeViewPost = () => {
+        setViewPost(!viewPost);
+    }
     
     const likeButtonClickHandler = () => {
         setCurrentLoggedInUserLikesPost(!currentLoggedInUserLikesPost);
@@ -72,7 +77,12 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
             />
         );
     } else { // pageToViewOn === 'discovery page'
-        postCardView = <PostCardDiscoverView postCardInfo={postCardInfo} />;
+        postCardView = <PostCardDiscoverView postCardInfo={postCardInfo} 
+                                        changeViewPost={changeViewPost}
+                                        viewPost={viewPost}
+                                        currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
+                                        likeButtonClickHandler = {likeButtonClickHandler}
+                                        />;
     }
 
     return postCardView;
