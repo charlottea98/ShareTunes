@@ -1,8 +1,10 @@
 import React from 'react';
-import classes from './userImage.module.scss';
 import { useHistory } from "react-router-dom";
 
 import UserImageView from './UserImageView';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+
+import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 
 interface Props {
     diameter: string,
@@ -11,6 +13,15 @@ interface Props {
 
 const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
     const history = useHistory();
+    const loggedInUser = useLoggedInUser();
+
+    let profileImage;
+
+    if (loggedInUser && loggedInUser.profilePictureURL !== "") {
+        profileImage = loggedInUser.profilePictureURL;
+    } else {
+        profileImage = DEFAULT_PROFILE_PICTURE_URL;
+    }
 
     const userImageClickedHandler = () => {
         history.replace('/profile');
@@ -20,6 +31,7 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
         diameter = {diameter}
         userImageClickedHandler={userImageClickedHandler}
         isActive = {isActive}
+        profileImage = {profileImage}
     />;
 }
 
