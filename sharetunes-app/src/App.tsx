@@ -19,65 +19,68 @@ import LoggedInUserProvider from './contexts/LoggedInUserContext';
 
 import UserCheckerPresenter from './components/UserCheckerPresenter';
 import MessageToUserPage from './components/pages/MessageToUserPage/MessageToUserPagePresenter';
+import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUserProfileContext';
 
 const App: React.FC = () => {
     const history = useHistory();
 
     return (
         <LoggedInUserProvider>
-            <Router>
-                <Switch>
-                    <Route exact path="/profile">
-                        <UserCheckerPresenter>
-                            <MenuPresenter />
-                            <ProfilePresenter />
-                        </UserCheckerPresenter>
-                    </Route>
-                    <Route exact path="/home">
-                        <UserCheckerPresenter>
-                            <MenuPresenter />
-                            <div className="pageContainer">
-                                <HomePage />
-                            </div>
-                        </UserCheckerPresenter>
-                    </Route>
-                    <Route exact path="/discover">
-                        <UserCheckerPresenter>
-                            <MenuPresenter />
-                            <div className="pageContainer">
-                                <DiscoverPagePresenter />
-                            </div>
-                        </UserCheckerPresenter>
-                    </Route>
-                    <Route exact path="/publish">
-                        <UserCheckerPresenter>
-                            <MenuPresenter />
-                            <div className="pageContainer">
-                                <PublishPage />
-                            </div>
-                        </UserCheckerPresenter>
-                    </Route>
-                    <Route exact path="/profile/edit">
-                        <UserCheckerPresenter>
-                            <MenuPresenter />
-                            <EditProfilePresenter />
-                        </UserCheckerPresenter>
-                    </Route>
+            <CurrentlyVisitedUserProfileProvider>
+                <Router>
+                    <Switch>
+                        <Route exact path="/profile">
+                            <UserCheckerPresenter>
+                                <MenuPresenter />
+                                <ProfilePresenter />
+                            </UserCheckerPresenter>
+                        </Route>
+                        <Route exact path="/home">
+                            <UserCheckerPresenter>
+                                <MenuPresenter />
+                                <div className="pageContainer">
+                                    <HomePage />
+                                </div>
+                            </UserCheckerPresenter>
+                        </Route>
+                        <Route exact path="/discover">
+                            <UserCheckerPresenter>
+                                <MenuPresenter />
+                                <div className="pageContainer">
+                                    <DiscoverPagePresenter />
+                                </div>
+                            </UserCheckerPresenter>
+                        </Route>
+                        <Route exact path="/publish">
+                            <UserCheckerPresenter>
+                                <MenuPresenter />
+                                <div className="pageContainer">
+                                    <PublishPage />
+                                </div>
+                            </UserCheckerPresenter>
+                        </Route>
+                        <Route exact path="/profile/edit">
+                            <UserCheckerPresenter>
+                                <MenuPresenter />
+                                <EditProfilePresenter />
+                            </UserCheckerPresenter>
+                        </Route>
 
-                    <Route exact path={['/', '/login']}>
-                        <LoginPresenter />
-                    </Route>
-                    
-                    <Route>
-                        <MessageToUserPage 
-                            emotion="sad" 
-                            message="The page you're looking for doesn't exist!"
-                            actionButtonFunc = {() => history.push('/login')}
-                            actionButtonText = "Take me to the login page"
-                        />
-                    </Route>
-                </Switch>
-            </Router>
+                        <Route exact path={['/', '/login']}>
+                            <LoginPresenter />
+                        </Route>
+                        
+                        <Route>
+                            <MessageToUserPage 
+                                emotion="sad" 
+                                message="The page you're looking for doesn't exist!"
+                                actionButtonFunc = {() => history.push('/login')}
+                                actionButtonText = "Take me to the login page"
+                            />
+                        </Route>
+                    </Switch>
+                </Router>
+            </CurrentlyVisitedUserProfileProvider>
         </LoggedInUserProvider>
     );
 };
