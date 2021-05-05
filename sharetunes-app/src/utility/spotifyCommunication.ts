@@ -42,5 +42,8 @@ export const SpotifyAPI = {
     },
     async getArtistDetails(artistId: string) {
         return SpotifyAPI.apiCall(`artists/${artistId}`).then(data => data);
+    },
+    async getPlaylistDetails(playlistId: string){
+        return SpotifyAPI.apiCall(`playlists/${playlistId}`).then(data => data);
     }
 };
