@@ -117,6 +117,7 @@ export const createDataBase = async () => {
 
     // Add new post
     let postToAdd: Post = {
+        id: -1,
         caption: "Denna låten var bra! :)",
         rating: 3,
         tags: ["Chill", "Sommar", "annat"],
@@ -160,4 +161,13 @@ export const updateUserProfilePicture = async (newProfilePicture: string, email:
             .doc(email);
 
     currentUserRef.update({profilePictureURL: newProfilePicture});
+}
+
+export const deletePost = async (postId: number) => {
+    const currentUserRef = firebase
+    .firestore()
+    .collection('posts')
+    .doc(String(postId));
+
+    currentUserRef.update({deleted: true});
 }

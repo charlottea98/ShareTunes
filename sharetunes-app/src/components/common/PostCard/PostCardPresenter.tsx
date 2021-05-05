@@ -38,6 +38,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     preview: songInfo?.songPreviewURL
                                 }
                                 setPostCardInfo({
+                                    id: postInfo.id,
                                     caption: postInfo.caption,
                                     rating: postInfo.rating,
                                     tags: postInfo.tags,
@@ -68,6 +69,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                 postCardInfo = {postCardInfo} 
                 currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
                 likeButtonClickHandler = {likeButtonClickHandler}
+                userCanDeletePost = {true}
             />
         );
     } else { // pageToViewOn === 'discovery page'

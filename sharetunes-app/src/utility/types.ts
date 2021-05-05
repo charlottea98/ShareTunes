@@ -1,5 +1,5 @@
 export interface Post {
-    id?: number,
+    id: number,
     caption: string,
     rating: 1 | 2 | 3 | 4 | 5,
     tags: Array<string>,
@@ -13,6 +13,7 @@ export interface Post {
 }
 
 export interface PostCardInfo {
+    id: number,
     caption: string,
     rating: 1 | 2 | 3 | 4 | 5,
     tags: Array<string>,
