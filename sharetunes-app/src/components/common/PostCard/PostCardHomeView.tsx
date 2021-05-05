@@ -7,19 +7,21 @@ import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
-import ThreeDotsButton from '../../common/buttons/ThreeDotsButton/ThreeDotsButtonPresenter';
 import SongCard from '../SongCard/SongCardPresenter';
+import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
 
 interface Props {
     postCardInfo: PostCardInfo | undefined,
     currentLoggedInUserLikesPost: boolean,
-    likeButtonClickHandler: () => void
+    likeButtonClickHandler: () => void,
+    userCanDeletePost: boolean
 }
 
 const PostCardHomeView: React.FC<Props> = ({
     postCardInfo,
     currentLoggedInUserLikesPost,
-    likeButtonClickHandler
+    likeButtonClickHandler,
+    userCanDeletePost
 }) => {
     const day = postCardInfo?.date.toDate().getDay() + 1;
     const month = postCardInfo?.date.toDate().getMonth() + 1;
@@ -45,9 +47,12 @@ const PostCardHomeView: React.FC<Props> = ({
                     <img src={postCardInfo?.profilePictureOfPublisher} />
                     {postCardInfo?.usernameOfPublisher}
                 </div>
-                <ThreeDotsButton
-                    size="M"
-                /> {/* TODO: (1) Ska bara synas för post-ägaren (2) När man trycker på knapparna ska man kunna radera posten */}
+                {
+                    userCanDeletePost && postCardInfo ? <DeletePostButtonPresenter postId={postCardInfo.id} /> : <div />
+                }
+                
+                    
+                {/* TODO: (1) Ska bara synas för post-ägaren (2) När man trycker på knapparna ska man kunna radera posten */}
             </div>
             <div
                 className={classes.postImage}

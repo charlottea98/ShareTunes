@@ -5,6 +5,7 @@ import PostCardDiscoverView from './PostCardDiscoveryView';
 import { Post, PostCardInfo } from '../../../utility/types';
 import { getUserInfo, getSongInfo } from '../../../utility/firestoreCommunication';
 import { SpotifyAPI } from '../../../utility/spotifyCommunication';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 
 interface Props {
@@ -39,6 +40,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     preview: songInfo?.songPreviewURL
                                 }
                                 setPostCardInfo({
+                                    id: postInfo.id,
                                     caption: postInfo.caption,
                                     rating: postInfo.rating,
                                     tags: postInfo.tags,
@@ -67,12 +69,21 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
         setCurrentLoggedInUserLikesPost(!currentLoggedInUserLikesPost);
     }
 
+    const loggedInUser = useLoggedInUser();
+
+    let userCanDeleteThisPost = false;
+
+    if (loggedInUser && loggedInUser.username == postCardInfo?.usernameOfPublisher) {
+        userCanDeleteThisPost = true;
+    }
+
     if (pageToViewOn === 'home page') {
         postCardView = (
             <PostCardHomeView 
                 postCardInfo = {postCardInfo} 
                 currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
                 likeButtonClickHandler = {likeButtonClickHandler}
+                userCanDeletePost = {userCanDeleteThisPost}
             />
         );
     } else { // pageToViewOn === 'discovery page'

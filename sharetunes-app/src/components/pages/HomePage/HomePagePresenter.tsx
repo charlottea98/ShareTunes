@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
-import { getAllPostsFromUser } from '../../../utility/firestoreCommunication';
+import { getAllRelevantPosts } from '../../../utility/firestoreCommunication';
 import { Post } from '../../../utility/types';
 
 
@@ -12,7 +12,7 @@ const HomePagePresenter : React.FC = () => {
 
     useEffect(() => {
         if (loggedInUser) {
-            getAllPostsFromUser(loggedInUser.email)
+            getAllRelevantPosts(loggedInUser.email, "home page")
                 .then(posts => setPostsToShow(posts));
         }
     }, []);
