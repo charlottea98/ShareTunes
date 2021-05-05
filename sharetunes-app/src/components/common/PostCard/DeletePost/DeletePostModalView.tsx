@@ -14,7 +14,7 @@ const DeletePostModalView: React.FC<Props> = ({
 
     return (
         <>
-            <div className={classes.DeletePostModalBG} />
+            <div className={classes.DeletePostModalBG} onClick={abortButtonClicked}/>
 
             <div className={classes.DeletePostModalContainer} >
                 <div>Do you want to delete this post?</div>

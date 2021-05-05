@@ -35,17 +35,20 @@
 	font-weight: 700;
 	font-size: 20px;
 	padding: 30px;
+	min-width: 275px;
 }
 
 .buttonContainer {
-	margin-top: 30px;
+	margin-top: 15px;
 	display: flex;
+	flex-direction: column;
 	font-size: 15px;
 	font-weight: 500;
 	justify-content: space-between;
 }
 
 .buttonContainer div {
+	user-select: none;
 	padding: 10px 13px;
 	border-radius: 2px;
 	cursor: pointer;
@@ -57,6 +60,7 @@
 
 .buttonContainer div:last-child {
 	background-color: #fe6e6e;
+	margin-top: 15px;
 }
 
 .buttonContainer div:first-child:hover {
@@ -65,4 +69,15 @@
 
 .buttonContainer div:last-child:hover {
 	background-color: #e15454;
+}
+
+@media (min-width: 715px) {
+	.buttonContainer {
+		flex-direction: row;
+		margin-top: 20px;
+	}
+
+	.buttonContainer div:last-child {
+		margin-top: 0;
+	}
 }
