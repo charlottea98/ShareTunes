@@ -16,15 +16,15 @@ interface Props {
     likeButtonClickHandler: () => void
 }
 
-const PostCardHomeView : React.FC<Props> = ({
-    postCardInfo, 
+const PostCardHomeView: React.FC<Props> = ({
+    postCardInfo,
     currentLoggedInUserLikesPost,
     likeButtonClickHandler
 }) => {
     const day = postCardInfo?.date.toDate().getDay() + 1;
     const month = postCardInfo?.date.toDate().getMonth() + 1;
     const year = postCardInfo?.date.toDate().getFullYear();
-    
+
     let filledRatingArray = [];
     let nonFilledRatingArray = [];
 
@@ -37,7 +37,6 @@ const PostCardHomeView : React.FC<Props> = ({
             nonFilledRatingArray.push(i);
         }
     }
-    
 
     return (
         <div className={classes.PostCardHome}>
@@ -46,21 +45,21 @@ const PostCardHomeView : React.FC<Props> = ({
                     <img src={postCardInfo?.profilePictureOfPublisher} />
                     {postCardInfo?.usernameOfPublisher}
                 </div>
-                <ThreeDotsButton 
-                    size = "M"
-                />
+                <ThreeDotsButton
+                    size="M"
+                /> {/* TODO: (1) Ska bara synas för post-ägaren (2) När man trycker på knapparna ska man kunna radera posten */}
             </div>
-            <div 
+            <div
                 className={classes.postImage}
-                style = {{
+                style={{
                     "backgroundImage": `url(${postCardInfo?.postImageURL})`
                 }}
             />
             <SongCard
-                title = {postCardInfo?.songTitle}
-                artists = {postCardInfo?.artists[0]}
-                albumCover = {postCardInfo?.albumCover}
-                previewSong = {postCardInfo?.previewSong}
+                title={postCardInfo?.songTitle}
+                artists={postCardInfo?.artists[0]}
+                albumCover={postCardInfo?.albumCover}
+                previewSong={postCardInfo?.previewSong}
             />
 
             <div className={classes.reviewContainer}>
@@ -92,10 +91,10 @@ const PostCardHomeView : React.FC<Props> = ({
             <div className={classes.interactionContainer}>
                 <div className={classes.likeAndCommentContainer}>
                     <div
-                        style = {{
+                        style={{
                             "color": currentLoggedInUserLikesPost ? "#fec46e" : "#232323"
                         }}
-                        onClick = {likeButtonClickHandler}
+                        onClick={likeButtonClickHandler}
                     >
                         <FontAwesomeIcon icon={currentLoggedInUserLikesPost ? faHeart : farFaHeart} />
                     </div>
@@ -104,11 +103,11 @@ const PostCardHomeView : React.FC<Props> = ({
                 <div className={classes.numberOfLikes}>{postCardInfo?.likes} likes</div>
 
                 <div className={classes.captionAndComments}>
-                    <div>
+                    <div> {/*TODO: När man trycker på användare ska man tas till dennes profil */}
                         <span className={classes.userNameInComment}>{postCardInfo?.usernameOfPublisher}</span>
                         {postCardInfo?.caption}
                     </div>
-                    
+
                     <div>
                         <span className={classes.userNameInComment}>johanlam</span>
                         Cool bild!⭐

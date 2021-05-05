@@ -128,3 +128,12 @@ export const getAllPostsFromUser = async (userId: string) => {
 
     return allPostsFromUser;
 }
+
+export const updateUserProfilePicture = async (newProfilePicture: string, email: string) => {
+    const currentUserRef = firebase
+            .firestore()
+            .collection('users')
+            .doc(email);
+
+    currentUserRef.update({profilePictureURL: newProfilePicture});
+}
