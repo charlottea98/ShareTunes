@@ -48,19 +48,42 @@ export const addNewUser = async (newUser: User) => {
         console.error('Email already exist');
     } else {
         firebase.firestore().collection('users').doc(newUser.email).set(newUser);
-        console.log("New user added")
+        firebase.firestore().collection('followers').doc(newUser.email).set({
+            "id": newUser.email,
+            "followers": []
+        });
+
+        firebase.firestore().collection('following').doc(newUser.email).set({
+            "id": newUser.email,
+            "following": []
+        });
+
+        console.log("New user added");
     }
 }
 
 
 const deleteCollectionsData = async (collectionsToDelete: Array<string>) => {
     collectionsToDelete.forEach(async (collection) => {
-        const snapshot = await firebase.firestore().collection(collection).get();
+        let snapshot;
 
-        const ids = snapshot.docs.map(doc => doc.data().id);
-    
+        if (collection === 'followers' || collection === 'following') {
+            snapshot = await firebase.firestore().collection("users").get();
+        }
+        snapshot = await firebase.firestore().collection(collection).get();
+
+        let ids;
+
+        if (collection === 'users') {
+            ids = snapshot.docs.map(doc => doc.data().email);
+        } else {
+            ids = snapshot.docs.map(doc => doc.data().id);
+        }
+
+        console.log(ids)
+        
         ids.forEach(id => {
-            firebase.firestore().collection(collection).doc(id).delete()
+            firebase.firestore().collection(collection).doc(String(id)).delete()
                 .then(() => {
                     console.log("Document successfully deleted!");
                 }).catch((error) => {
@@ -71,7 +94,8 @@ const deleteCollectionsData = async (collectionsToDelete: Array<string>) => {
 }
 
 export const createDataBase = async () => {
-    // deleteCollectionsData(['songs']);
+    // deleteCollectionsData(['users', 'songs', 'posts', 'followers', 'following']);
+    // deleteCollectionsData(['users']);
 
     // Add new songs
     addNewSong("5qYf19BLOheApfe6NqhDPg");
@@ -127,4 +151,13 @@ export const getAllPostsFromUser = async (userId: string) => {
     let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
 
     return allPostsFromUser;
+}
+
+export const updateUserProfilePicture = async (newProfilePicture: string, email: string) => {
+    const currentUserRef = firebase
+            .firestore()
+            .collection('users')
+            .doc(email);
+
+    currentUserRef.update({profilePictureURL: newProfilePicture});
 }

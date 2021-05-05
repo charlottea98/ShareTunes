@@ -7,7 +7,6 @@ import { getUserInfo, getSongInfo } from '../../../utility/firestoreCommunicatio
 import { SpotifyAPI } from '../../../utility/spotifyCommunication';
 
 
-
 interface Props {
     postInfo: Post,
     pageToViewOn: "home page" | "discovery page"
