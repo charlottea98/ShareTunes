@@ -10,10 +10,11 @@ import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 interface Props {
     postInfo: Post,
-    pageToViewOn: "home page" | "discovery page"
+    pageToViewOn: "home page" | "discovery page",
+    deletePost?: Function
 }
 
-const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
+const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo, deletePost = () => {}}) => {
     const [postCardInfo, setPostCardInfo] = useState<PostCardInfo | undefined>(undefined);
     const [currentLoggedInUserLikesPost, setCurrentLoggedInUserLikesPost] = useState<boolean>(false);
     const [viewPost, setViewPost] = useState<boolean>(false);
@@ -84,15 +85,16 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                 currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
                 likeButtonClickHandler = {likeButtonClickHandler}
                 userCanDeletePost = {userCanDeleteThisPost}
+                deletePost = {deletePost}
             />
         );
     } else { // pageToViewOn === 'discovery page'
         postCardView = <PostCardDiscoverView postCardInfo={postCardInfo} 
-                                        changeViewPost={changeViewPost}
-                                        viewPost={viewPost}
-                                        currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
-                                        likeButtonClickHandler = {likeButtonClickHandler}
-                                        />;
+            changeViewPost={changeViewPost}
+            viewPost={viewPost}
+            currentLoggedInUserLikesPost = {currentLoggedInUserLikesPost}
+            likeButtonClickHandler = {likeButtonClickHandler}
+        />;
     }
 
     return postCardView;

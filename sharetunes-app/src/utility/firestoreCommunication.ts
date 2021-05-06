@@ -3,7 +3,7 @@ import { Post, Song, User } from './types';
 
 import { SpotifyAPI } from './spotifyCommunication';
 
-import { createImageLinkFromDriveId } from './utility';
+import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from './utility';
 
 export const addNewPost = async (newPost: Post) => {
     const snapshot = await firebase.firestore().collection('posts').get()
@@ -47,6 +47,7 @@ export const addNewUser = async (newUser: User) => {
     if (email_already_exsist) {
         console.error('Email already exist');
     } else {
+        newUser.profilePictureURL = DEFAULT_PROFILE_PICTURE_URL;
         firebase.firestore().collection('users').doc(newUser.email).set(newUser);
         firebase.firestore().collection('followers').doc(newUser.email).set({
             "id": newUser.email,
@@ -228,17 +229,6 @@ export const getSongInfo = async (songId: string) => {
     return songSnapshot.data();
 }
 
-export const getAllPostsFromUser = async (userId: string) => {
-    const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
-    let userData = userSnapshot.data();
-    let postIds = userData?.posts;
-
-    const postSnapshot = await firebase.firestore().collection('posts').get();
-    let allPosts = postSnapshot.docs.map(post => post.data());
-    let allPostsFromUser: Array<Post> = postIds.map((postId: any) => allPosts[postId]);
-    allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
-    return allPostsFromUser;
-}
 
 export const updateUserProfilePicture = async (newProfilePicture: string, email: string) => {
     const currentUserRef = firebase
@@ -259,22 +249,65 @@ export const deletePost = async (postId: number) => {
 }
 
 
-export const getAllRelevantPosts = async (userId: string, page: "home page" | "discover page") => {
-    const followingSnapshot = await firebase.firestore().collection('following').doc(userId).get();
-    let userIsFollowingData = followingSnapshot.data();
-    let userIsFollowing = userIsFollowingData?.following;
-    console.log(userIsFollowing);
+export const getAllRelevantPosts = async (userId: string, page: "home page" | "discover page" | "profile page") => {
+    const allPostsSnapshot = await firebase.firestore().collection('posts').get();
+    let allPostsData: Array<any> = allPostsSnapshot.docs.map(doc => doc.data());
+    let allPostsRelevantToUser: Array<Post> = [];
+
+    if (page === "home page") {
+        const followingSnapshot = await firebase.firestore().collection('following').doc(userId).get();
+        let userIsFollowingData = followingSnapshot.data();
+        let userIsFollowing = userIsFollowingData?.following;
+    
+        userIsFollowing = [...userIsFollowing, userId];
+    
+        let allRelevantIds: Array<any> = [];
+    
+        allPostsData.forEach(post => {
+            if (userIsFollowing.includes(post.postedBy)) {
+                allRelevantIds.push(post.id)
+            }
+        });
+    
+        let allRelevantPosts: Array<any> = allPostsData.filter(post => userIsFollowing.includes(post.postedBy));
+        allPostsRelevantToUser = allRelevantPosts;
+    
+        allPostsRelevantToUser = allPostsRelevantToUser.filter(post => post!==undefined)
+        allPostsRelevantToUser = allPostsRelevantToUser.filter(post => !post.deleted);
+
+        allPostsRelevantToUser.sort((postA, postB) => {
+            
+            if (postA.date < postB.date) {
+                return 1;
+            } else if (postA.date > postB.date) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    } else if (page === "discover page") {
+        allPostsRelevantToUser = allPostsData.sort((postA, postB) => {
+            
+            if (postA.likes < postB.likes) {
+                return 1;
+            } else if (postA.likes > postB.likes) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+    } else if (page === "profile page") {
+        const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
+        let userData = userSnapshot.data();
+        let postIds = userData?.posts;
+    
+        const postSnapshot = await firebase.firestore().collection('posts').get();
+        let allPosts = postSnapshot.docs.map(post => post.data());
+        let allPostsFromUser: Array<Post> = postIds.map((postId: any) => allPosts[postId]);
+        allPostsRelevantToUser = allPostsFromUser.filter(post => !post.deleted);
+    }
 
 
-    const userSnapshot = await firebase.firestore().collection('users').doc(userId).get();
-    let userData = userSnapshot.data();
-    let postIds = userData?.posts;
-
-    const postSnapshot = await firebase.firestore().collection('posts').get();
-    let allPosts = postSnapshot.docs.map(post => post.data());
-
-    let allPostsFromUser: Array<Post> = allPosts.map((post: any) => {if (postIds.includes(post.id.toString())){return post}});
-    allPostsFromUser = allPostsFromUser.filter(post => post!==undefined)
-    allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
-    return allPostsFromUser;
+    
+    return allPostsRelevantToUser;
 }

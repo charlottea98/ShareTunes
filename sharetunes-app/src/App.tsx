@@ -3,22 +3,16 @@ import React from 'react';
 import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
 
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
-
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
 import EditProfilePresenter from './components/pages/ProfilePage/EditProfilePage/EditProfilePresenter';
-
 import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
-
 import HomePage from './components/pages/HomePage/HomePagePresenter';
 import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
-
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
-
-import UserCheckerPresenter from './components/UserCheckerPresenter';
-import MessageToUserPage from './components/pages/MessageToUserPage/MessageToUserPagePresenter';
+import UserCheckerPresenter from './components/pages/UserCheckerPresenter';
 import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUserProfileContext';
 import PageNotFound from './components/pages/MessageToUserPage/PageNotFoundPresenter';
 
