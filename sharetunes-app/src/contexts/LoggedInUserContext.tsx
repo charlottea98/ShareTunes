@@ -1,21 +1,7 @@
-import React, { useState, useContext, createContext, useEffect } from 'react';
-import firestore from '../firestore';
-import firebase from 'firebase';
+import React, { useState, useContext, createContext } from 'react';
 import { User } from '../utility/types';
-
-interface SpotifySong {
-    title: string;
-    artist: string;
-    url: string;
-}
-
-interface LoggedInUser {
-    name: string;
-    username: string;
-    favoriteSong: SpotifySong;
-    email: string;
-    profilePicture: string;
-}
+import { getUserInfo } from '../utility/firestoreCommunication';
+import { updateUserProfilePicture } from '../utility/firestoreCommunication';
 
 const LoggedInUser = createContext<User | null>(null);
 const LoggedInUserUpdateContext = createContext<
@@ -41,46 +27,27 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
     const changeLoggedInUser = async (loggedInUserEmail: string) => {
-        let snapshot = await firestore
-            .collection('users')
-            .doc(loggedInUserEmail)
-            .get();
-        let userInfo = snapshot.data();
+        let userInfo = await getUserInfo(loggedInUserEmail);
 
-        if (snapshot.exists) {
-            let user: User = {
-                id: userInfo?.id,
-                name: userInfo?.name,
-                email: userInfo?.email,
-                username: userInfo?.username,
-                profilePictureURL: userInfo?.profilePictureURL,
-                favoriteSong: userInfo?.favoriteSong,
-                biography: userInfo?.biography,
-                posts: userInfo?.posts,
-            };
+        let user: User = {
+            id: userInfo?.id,
+            name: userInfo?.name,
+            email: userInfo?.email,
+            username: userInfo?.username,
+            profilePictureURL: userInfo?.profilePictureURL,
+            favoriteSong: userInfo?.favoriteSong,
+            biography: userInfo?.biography,
+            posts: userInfo?.posts,
+        };
 
-            setLoggedInUser(user);
-        } else {
-            console.log('No such user in Firestore database!');
-        }
+        setLoggedInUser(user);
     };
 
     const updateProfilePicture = async (newProfilePicture: string) => {
-        const currentUserRef = firebase
-            .firestore()
-            .collection('users')
-            .doc(loggedInUser?.email);
-        currentUserRef
-            .update({
-                profilePictureURL: newProfilePicture,
-            })
-            .then(() => {
-                console.log('Document successfully updated!');
-            })
-            .catch((error) => {
-                // The document probably doesn't exist.
-                console.error('Error updating document: ', error);
-            });
+        if (loggedInUser) {
+            await updateUserProfilePicture(newProfilePicture, loggedInUser.email);
+            changeLoggedInUser(loggedInUser.email);
+        }
     };
 
     return (

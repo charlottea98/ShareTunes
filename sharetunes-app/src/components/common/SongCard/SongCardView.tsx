@@ -2,22 +2,24 @@ import React from 'react';
 import classes from './songCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic, faUsers, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faUsers, faPlay, faPause, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     title: string,
     artists: string,
     albumCover: string,
-    isPlayingSong: boolean,
-    playPauseButtonClickedHandler: () => void
+    previewSong: string | undefined,
+    handleAudio: Function,
+    isPlaying: Function
 }
 
 const SongCardView: React.FC<Props> = ({
     title, 
     artists,
-    albumCover, 
-    isPlayingSong, 
-    playPauseButtonClickedHandler
+    albumCover,
+    previewSong,
+    handleAudio,
+    isPlaying
 }) => {
     return (
         <div className={classes.SongCard}>
@@ -36,13 +38,19 @@ const SongCardView: React.FC<Props> = ({
                     </div>
                 </div>
             </div>
-
-            <div 
+            {previewSong ? (
+                <div 
                 className={classes.playButtonContainer}
-                onClick = {playPauseButtonClickedHandler}
+                onClick = {() => {handleAudio(previewSong)}}
             >
-                <FontAwesomeIcon icon={isPlayingSong ? faPlay : faPause} color="#fff" size="2x" />
+                <FontAwesomeIcon icon={isPlaying(previewSong) ? faPause : faPlay} color="#fff" size="2x" />
             </div>
+            ):(
+                <div className={classes.dontButtonContainer}>
+                    <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"></FontAwesomeIcon>
+                </div>
+            )}
+            
         </div>
     )
 }
