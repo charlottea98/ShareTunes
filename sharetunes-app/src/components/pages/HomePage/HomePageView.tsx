@@ -5,10 +5,11 @@ import classes from './homePage.module.scss';
 import PostCard from '../../common/PostCard/PostCardPresenter';
 
 interface Props {
-    postsToShow: Array<Post>
+    postsToShow: Array<Post>,
+    deletePost: Function
 }
 
-const HomePageView : React.FC<Props> = ({postsToShow}) => {
+const HomePageView : React.FC<Props> = ({postsToShow, deletePost}) => {
     console.log(postsToShow);
     
     return (
@@ -20,6 +21,7 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
                             key = {post.id}
                             postInfo = {post}
                             pageToViewOn="home page"
+                            deletePost = {deletePost}
                         />
                     </div>
                 ))

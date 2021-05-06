@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLoggedInUser } from '../contexts/LoggedInUserContext';
-import MessageToUserPage from './pages/MessageToUserPage/MessageToUserPagePresenter';
+import { useLoggedInUser } from '../../contexts/LoggedInUserContext';
+import MessageToUserPage from './MessageToUserPage/MessageToUserPagePresenter';
 
 import { useHistory } from 'react-router-dom';
 
