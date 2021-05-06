@@ -235,8 +235,8 @@ export const getAllPostsFromUser = async (userId: string) => {
 
     const postSnapshot = await firebase.firestore().collection('posts').get();
     let allPosts = postSnapshot.docs.map(post => post.data());
-
-    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+    let allPostsFromUser: Array<Post> = postIds.map((postId: any) => allPosts[postId]);
+    console.log(allPostsFromUser);
     allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
     return allPostsFromUser;
 }

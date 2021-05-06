@@ -1,4 +1,6 @@
 import classes from './searchbar.module.scss';
+import { faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
     handleChange: Function,
@@ -15,17 +17,19 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
                 name="name"
                 placeholder="Search users..."
                 onChange={e => {handleChange(e);}}
-                className={classes.SearchInput}>
+                className={classes.SearchInput}
+                autoComplete="off">
         </input>
-        <ul hidden={!typing} className={classes.SearchList}>
-        <div className={classes.SearchItems}>
-            <button onClick={()=>handleClose()}>Close</button>
+        <div hidden={!typing}>
+        <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClose()} size='2x' cursor='pointer' color='#fec46e'></FontAwesomeIcon>
         </div>
+        <ul hidden={!typing} className={classes.SearchList}>
         {searchResults.map(result => {
             return (<div className={classes.SearchItems}>
-                {result?.userName}<button disabled={isFollowing(result?.email)} onClick={()=>followUser(result)}>Follow</button>
+                {result?.username}<button disabled={isFollowing(result?.email)} onClick={()=>followUser(result)}>Follow</button>
                 </div>)
         })}
+        
         </ul>
         </div>)
 }

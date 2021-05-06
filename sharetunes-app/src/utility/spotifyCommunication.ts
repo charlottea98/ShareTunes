@@ -35,6 +35,8 @@ export const SpotifyAPI = {
             } else {
                 throw new Error(`Code "${response.status}" with the message "${response.statusText}"! :(`);
             }
+        }).catch(error => {
+            console.log(error);
         })
     },
     async getSongDetails(songId: string) {
@@ -45,5 +47,8 @@ export const SpotifyAPI = {
     },
     async getPlaylistDetails(playlistId: string){
         return SpotifyAPI.apiCall(`playlists/${playlistId}`).then(data => data);
+    },
+    async getSongSearch(searchString: string){
+        return SpotifyAPI.apiCall(`search?q=${searchString}&type=track&limit=1`).then(data=>data);
     }
 };

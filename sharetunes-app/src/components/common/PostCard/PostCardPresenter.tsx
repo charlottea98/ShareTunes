@@ -35,10 +35,11 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                             .then(artistInfo => {
                                 let infoAboutSong = {
                                     title: songInfo?.title,
-                                    artists: [artistInfo.name],
+                                    artists: [artistInfo?.name],
                                     albumCover: songInfo?.albumCoverMediumURL,
                                     preview: songInfo?.songPreviewURL
                                 }
+                                console.log(postInfo)
                                 setPostCardInfo({
                                     id: postInfo.id,
                                     caption: postInfo.caption,

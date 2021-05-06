@@ -1,0 +1,158 @@
+.mainDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-weight: 1000;
+    font-size:xx-large;
+    color: #fec46e;
+}
+
+.headers{
+    font-weight: 700;
+}
+
+.postBox{
+    width: 300px;
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom:1px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgb(160, 156, 156);
+    border-left-color:#fec46e;
+    border-left-width: 5px;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 0%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding:15px;
+    margin:10px;
+}
+
+.postImage{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+.postCaption{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;   
+}
+
+.showSong{
+    display: flex;
+    flex-direction: column;   
+    padding-bottom: 10px;
+}
+
+.postSong{
+    display: flex;
+    flex-direction: row;   
+    padding-bottom: 10px;
+}
+
+.input{
+    border: 1px solid rgb(160, 156, 156);
+}
+
+.postSong input{
+    margin-right: 10px;
+}
+
+.songButton{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    color:#fec46e;
+    cursor: pointer;
+}
+
+.postRatings{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    justify-content: center
+}
+
+.ratingsButton{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #707070;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 1px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ratingsButton:focus{
+    background-color: #fec46e;
+    color: white;
+    font-weight: bold;
+}
+
+.icon{
+    align-self: center;
+}
+
+.postPublish{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
+
+.publishButton{
+    background-color: #fec46e;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.cancelButton{
+    background-color: lightcoral;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.publishedInfo{
+    background-color: white;
+    width: 300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #fec46e;
+    font-size: small;
+}
+
+.tagsContainer {
+	display: flex;
+	margin-left: 10px;
+    overflow: scroll;
+}
+
+.tag {
+	border: 20px;
+	padding: 3px 5px;
+	border: 1px solid #232323;
+	border-radius: 30px;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.tag:not(:last-child) {
+	margin-right: 5px;
+}
