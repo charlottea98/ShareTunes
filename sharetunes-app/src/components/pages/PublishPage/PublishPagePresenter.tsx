@@ -168,7 +168,6 @@ const PublishPagePresenter = () => {
                         })
                     }
                     else{
-                        console.log(song);
                         firestore.collection('songs').doc(song.id).set({
                             albumCoverLargeURL: song.albumCoverLargeURL,
                             albumCoverMediumURL: song.albumCoverMediumURL,
