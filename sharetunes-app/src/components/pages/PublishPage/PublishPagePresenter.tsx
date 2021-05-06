@@ -172,7 +172,7 @@ const PublishPagePresenter = () => {
                             albumCoverLargeURL: song.albumCoverLargeURL,
                             albumCoverMediumURL: song.albumCoverMediumURL,
                             albumCoverSmallURL: song.albumCoverSmallURL,
-                            artists: song.artists,
+                            artists: [song.artists],
                             averageRating: [rating],
                             id: song.id,
                             posts: [docRef.id],
