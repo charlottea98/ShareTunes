@@ -39,7 +39,6 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo}) => {
                                     albumCover: songInfo?.albumCoverMediumURL,
                                     preview: songInfo?.songPreviewURL
                                 }
-                                console.log(postInfo)
                                 setPostCardInfo({
                                     id: postInfo.id,
                                     caption: postInfo.caption,
