@@ -32,8 +32,7 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
                 </ul>
 
                 <div className={classes.Song}>
-                    <p>{user.favoriteSong.title}</p>
-                    <p>{user.favoriteSong.artist}</p>
+                    <p>{user.favoriteSong}</p>
                 </div>
 
                 <div className={classes.About}>
