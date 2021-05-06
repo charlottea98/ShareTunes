@@ -50,7 +50,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/profile/edit">
                         <MenuPresenter />
-                        <EditProfilePresenter />
+                        <div className="pageContainer">
+                            <EditProfilePresenter />
+                        </div>
                     </Route>
 
                     <Route exact path={['/', '/login']}>

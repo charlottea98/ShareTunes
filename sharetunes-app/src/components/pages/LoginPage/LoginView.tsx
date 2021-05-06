@@ -26,12 +26,9 @@ interface Props {
     setPassword2: (password2: string) => void
     passwordError: string 
 
-    firstName: string
-    setFirstName: (firstName: string) => void
+    name: string
+    setName: (name: string) => void
 
-    lastName:string 
-    setLastName:(lastName: string) => void
-   
     username: string
     setUsername: (setUsername: string) => void
     
@@ -55,10 +52,8 @@ const LoginView : React.FC<Props> = (
     setPassword1,
     setPassword2,
     passwordError,
-    firstName,
-    setFirstName,
-    lastName,
-    setLastName,
+    name,
+    setName,
     username,
     setUsername,
     handleLogin,
@@ -106,12 +101,10 @@ const LoginView : React.FC<Props> = (
                             <LogoPresenter fontSize = {"40px"}/>
 
                             <div className = {classes.form}>
-                                <label  className = {classes.formText}>First name</label>
-                                <input type='text' autoFocus = {true} required value={firstName} onChange={e=>setFirstName(e.target.value)}></input>
+                                <label  className = {classes.formText}>Name </label>
+                                <input type='text' autoFocus = {true} required value={name} onChange={e=>setName(e.target.value)}></input>
                               
-                                <label  className = {classes.formText}>Last name</label>
-                                <input type='text' required value={lastName} onChange={e=>setLastName(e.target.value)}></input>
-
+                            
                                 <label  className = {classes.formText}>Username</label>
                                 <input type='text' required value={username} onChange={e=>setUsername(e.target.value)}></input>
                             

@@ -3,18 +3,33 @@ import React, { ReactNode,useEffect, useState } from 'react';
 import LoginView from './LoginView';
 import firebase from 'firebase';
 import fire from "../../../fire";
+
+//import addNewUser from "../../../utility/firestoreCommunication"
+
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
+import { addNewUser } from '../../../utility/firestoreCommunication';
 
 
+// Ändra i creatUserinDatabase() här för att använda nya utility funktionerna firestoreCommunication.ts istället
+// Sätt till empty strings eller tom array
+
+
+// Ändra firstName och lastName till name 
+// Lägg in krav på name och username 
+
+// Ändra LoginView till SignupView och LoginView
+// Ändra mellan dem i loginPresenter 
+
+// Ändra bakgrund på loginComponent till vit 
 
 interface Props {
 }
 
-// Kanske för mkt variabler och funktioner nu, refactor? 
+
 
 const LoginPresenter: React.FC<Props> = () => {
-    const [user, setUser] = useState<string | firebase.User>('');
+    const [user, setUser] = useState<string | firebase.User>('');             // const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password1, setPassword1] = useState<string>('');
     const [password2, setPassword2] = useState<string>('');
@@ -25,8 +40,8 @@ const LoginPresenter: React.FC<Props> = () => {
 
 
     const [username, setUsername] = useState<string>('');
-    const [firstName, setFirstName] = useState<string>('');
-    const [lastName, setLastName] = useState<string>('');
+    const [name, setName] = useState<string>('');
+
 
     const history = useHistory();
     const updateLoggedInUser = useLoggedInUserUpdate();
@@ -42,8 +57,7 @@ const LoginPresenter: React.FC<Props> = () => {
         setEmail('');
         setPassword1('');
         setPassword2('');
-        setFirstName('');
-        setLastName('');
+        setName('');
         setUsername('');
     };
 
@@ -114,7 +128,7 @@ const LoginPresenter: React.FC<Props> = () => {
                 clearInputs();
                 setUser(user);
             } else {
-                setUser('');
+
             }
         });
     };
@@ -125,12 +139,13 @@ const LoginPresenter: React.FC<Props> = () => {
 
     
     // Den här funktionen lägget till en user i firestore databasen med mail som id och värden ( mail, username)
+
+    // Ändre det här för att använda nya utility funktionerna
     const createUserInDataBase = () => {
-        
+    
         // Lägg till i users
         firebase.firestore().collection('users').doc(email).set({
-            firstName: firstName,
-            lastName: lastName,
+            name: name,
             userName: username,
             email: email,
           })
@@ -170,12 +185,8 @@ const LoginPresenter: React.FC<Props> = () => {
         setPassword2 = {setPassword2}
         passwordError = {passwordError} 
     
-        firstName = {firstName}
-        setFirstName = {setFirstName}
-      
-    
-        lastName = {lastName}
-        setLastName = {setLastName}
+        name = {name}
+        setName = {setName}
       
     
         username = {username}
