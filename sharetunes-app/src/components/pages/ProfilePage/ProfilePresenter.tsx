@@ -6,6 +6,7 @@ import {
     useUpdateProfilePicture,
 } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router-dom';
+import { useCurrentlyVisitedUserProfile } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 interface Props {}
 
