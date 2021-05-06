@@ -20,6 +20,7 @@ const PublishPagePresenter = () => {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [tagsInput, setTagsInput] = useState<string>('');
     const [tagsArray, setTagsArray] = useState<String[]>([]);
+    const [artist, setArtist] = useState<string>('');
     const history = useHistory();
 
     const switchSearchMode = () => {
@@ -32,7 +33,6 @@ const PublishPagePresenter = () => {
     const searchSong = (searchString:string) => {
         SpotifyAPI.getSongSearch(searchString).then(songInfo=>{
             let song=songInfo?.tracks?.items[0];
-            console.log(song);
             if (song===undefined){
                 handleChange('Please type a song', 'error');
             }
@@ -59,6 +59,10 @@ const PublishPagePresenter = () => {
                     totalLikes: 0,
                     totalPosts: 0,
                     avarageRating: 0
+                })
+                SpotifyAPI.getArtistDetails(postSong.artists).then((artistInfo)=>{
+                    let artistName = artistInfo.name;
+                    setArtist(artistName)
                 })
                 switchSearchMode();
             }
@@ -100,7 +104,6 @@ const PublishPagePresenter = () => {
     }
 
     const handleSubmit = (image:String, caption:String, song:Song, rating:number, tags:String[]) => {
-        console.log(tags);
         var errors = [];
         if (image===''){
             errors.push('picture URL');
@@ -132,12 +135,6 @@ const PublishPagePresenter = () => {
             errormessage += 'and ' + errors[errors.length-1] + '.'
             setErrorMessage(errormessage);
         }
-        console.log(image);
-        console.log(caption);
-        console.log(song);
-        console.log(rating);
-        console.log(tags);
-        console.log(loggedInUser?.email);
     }
 
     const handlePublish = (image:String, caption:String, song:Song, rating:number, tags:String[]) => {
@@ -157,13 +154,14 @@ const PublishPagePresenter = () => {
             firestore.collection('posts').doc(docRef.id).update({
                 id: docRef.id
             }).then(() => {
+                var ref = docRef.id;
                 console.log('Added and updated!')
                 firestore.collection('songs').doc(song.id).get()
                 .then((docSnapshot) => {
                     if(docSnapshot.exists){
                         firestore.collection('songs').doc(song.id).update({
                             ratings: firebase.firestore.FieldValue.arrayUnion(rating),
-                            posts: firebase.firestore.FieldValue.arrayUnion(docRef),
+                            posts: firebase.firestore.FieldValue.arrayUnion(ref),
                             totalPosts: firebase.firestore.FieldValue.increment(1)
                         }).then(()=>{
                             console.log('Song updated')
@@ -188,7 +186,7 @@ const PublishPagePresenter = () => {
                     }
                 }).then(()=> {
                     firestore.collection('users').doc(loggedInUser?.email).update({
-                        posts: firebase.firestore.FieldValue.arrayUnion(docRef)
+                        posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
                     })
                 })
             })
@@ -207,6 +205,7 @@ const PublishPagePresenter = () => {
                             switchSearchMode={switchSearchMode}
                             searchSong={searchSong}
                             songPostInfo={songPostInfo}
+                            artist={artist}
                             handleChange={handleChange}
                             searchInput={searchInput}
                             captionInput={captionInput}
