@@ -63,6 +63,30 @@ export const addNewUser = async (newUser: User) => {
 }
 
 
+export const updateUser = (currentUser: User|null) => {
+    
+    if(currentUser!= null){
+
+        firebase.firestore().collection('users').doc(currentUser.email).set({
+            id:currentUser.id,
+            name: currentUser.name,
+            username: currentUser.username,
+            email:currentUser.email,
+            profilePictureURL:currentUser.profilePictureURL,
+            posts:currentUser.posts,
+            favoriteSong:currentUser.favoriteSong,
+            biography:currentUser.biography
+
+        }) 
+    }
+
+}
+   
+
+
+
+
+
 const deleteCollectionsData = async (collectionsToDelete: Array<string>) => {
     collectionsToDelete.forEach(async (collection) => {
         let snapshot;
