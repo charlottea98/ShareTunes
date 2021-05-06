@@ -1,20 +1,24 @@
 
 import React, { ReactNode,useEffect, useState } from 'react';
 import LoginView from './LoginView';
+import SignUpView from './SignUpView';
 import firebase from 'firebase';
 import fire from "../../../fire";
+
+import { Post, Song, User } from '../../../utility/types';
+import { createImageLinkFromDriveId } from '../../../utility/utility';
+import { addNewUser } from '../../../utility/firestoreCommunication';
+
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
-
 
 
 interface Props {
 }
 
-// Kanske för mkt variabler och funktioner nu, refactor? 
 
 const LoginPresenter: React.FC<Props> = () => {
-    const [user, setUser] = useState<string | firebase.User>('');
+    const [user, setUser] = useState<string | firebase.User>('');             // const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password1, setPassword1] = useState<string>('');
     const [password2, setPassword2] = useState<string>('');
@@ -23,13 +27,14 @@ const LoginPresenter: React.FC<Props> = () => {
     const [passwordError, setPasswordError] = useState<string>('');
     const [hasAccount, setHasAccount] = useState<boolean>(true);
 
-
+    const [name, setName] = useState<string>('');
+    const [nameError, setNameError] = useState<string>('');
     const [username, setUsername] = useState<string>('');
-    const [firstName, setFirstName] = useState<string>('');
-    const [lastName, setLastName] = useState<string>('');
+    const [usernameError, setUsernameError] = useState<string>('');
 
     const history = useHistory();
     const updateLoggedInUser = useLoggedInUserUpdate();
+
 
     const clearAll = () => {
 
@@ -42,14 +47,15 @@ const LoginPresenter: React.FC<Props> = () => {
         setEmail('');
         setPassword1('');
         setPassword2('');
-        setFirstName('');
-        setLastName('');
+        setName('');
         setUsername('');
     };
 
     const clearErrors = () => {
         setEmailError('');
         setPasswordError('');
+        setUsernameError('');
+        setNameError('');
     };
 
     const handleLogin = () => {
@@ -57,6 +63,8 @@ const LoginPresenter: React.FC<Props> = () => {
         fire.auth()
             .signInWithEmailAndPassword(email, password1)
             .then(() => {
+
+                // Uppdatera mer här ? 
                 updateLoggedInUser(email);
                 history.push('/discover');
               })
@@ -75,21 +83,33 @@ const LoginPresenter: React.FC<Props> = () => {
     };
 
 
-    const confirmPasswordSignUp = () => {
+    const confirmSignUp = () => {
         clearErrors();
-        if (password1 == password2){
+        if (password1 == password2 && name.trim().length && username.trim().length){
             handleSignup();
         }
-        else{
+        else if(password1 != password2){
 
             setPasswordError("Passwords do not match")
         }
+        else if(!name.trim().length){
+
+
+            setNameError("You have to fill in your name")
+        }
+        else if(!username.trim().length){
+
+            setUsernameError("You have to fill in a username")
+        }
+
 
     }
     const handleSignup = () => {
         fire.auth()
             .createUserWithEmailAndPassword(email, password1)
             .then(() => {
+
+                // Uppdatera mer här ? 
                 updateLoggedInUser(email);
                 createUserInDataBase();
                 history.push('/discover');
@@ -114,7 +134,7 @@ const LoginPresenter: React.FC<Props> = () => {
                 clearInputs();
                 setUser(user);
             } else {
-                setUser('');
+                setUser('')
             }
         });
     };
@@ -124,69 +144,105 @@ const LoginPresenter: React.FC<Props> = () => {
      }, []);
 
     
-    // Den här funktionen lägget till en user i firestore databasen med mail som id och värden ( mail, username)
+
     const createUserInDataBase = () => {
         
-        // Lägg till i users
-        firebase.firestore().collection('users').doc(email).set({
-            firstName: firstName,
-            lastName: lastName,
-            userName: username,
-            email: email,
-          })
-        
-        // Lägg till i followers
-        firebase.firestore().collection('followers').doc(email).set({
-            followers: [email]
+        // Ny rasmus 
+        let userToAdd : User = {
+        id: email,
+        name: name,
+        email: email,
+        username: username,
+        profilePictureURL: createImageLinkFromDriveId("1pYIMKBLGubCmw78RAxDDhbm98PyOlY6Y"),
+        favoriteSong: "4aaEV6V9aOQb2oQzWlf9cu",
+        biography: "",
+        posts: []
+        }
+        addNewUser(userToAdd);
+           
+        // // Lägg till i followers
+        // firebase.firestore().collection('followers').doc(email).set({
+        //     followers: [email]
        
-        })
+        // })
 
-        //Lägg till i following
-        firebase.firestore().collection('following').doc(email).set({
-            following: [email]
-        })
+        // //Lägg till i following
+        // firebase.firestore().collection('following').doc(email).set({
+        //     following: [email]
+        // })
+
+
+        // // Lägg till i users,  gammal, mail redan i database funkar redan här 
+        // firebase.firestore().collection('users').doc(email).set({
+        //     id:email,
+        //     name: name,
+        //     username: username,
+        //     email: email,
+        //     profilePictureURL:'',
+        //     favouriteSong:'7723JnKU2R15Iv4T7OJrly',
+        //     favouriteArtist:'',
+        //     posts:[''],
+        //     biography:''
+        //   }) 
+
     }
 
     const checkUsername = () => {
         // Ser ifall userName redan finns i databasen ? Kanske onödigt krångligt , strunta i den här? 
     }
 
-    return (
 
-
-        <LoginView    
+    if(hasAccount){
         
-        clearAll = {clearAll}
-        hasAccount = {hasAccount}
-        setHasAccount = {setHasAccount}
+        return (
+            <LoginView    
+                clearAll = {clearAll}
+                hasAccount = {hasAccount}
+                setHasAccount = {setHasAccount}
+                email = {email} 
+                setEmail = {setEmail}
+                emailError = {emailError}
+                password1 = {password1}
+                setPassword1 = {setPassword1} 
+                passwordError = {passwordError} 
+                handleLogin = {handleLogin}  
+            />
+        )
+    }
 
-        email = {email} 
-        setEmail = {setEmail}
-        emailError = {emailError}
-    
-        password1 = {password1}
-        password2 = {password2}
-        setPassword1 = {setPassword1} 
-        setPassword2 = {setPassword2}
-        passwordError = {passwordError} 
-    
-        firstName = {firstName}
-        setFirstName = {setFirstName}
-      
-    
-        lastName = {lastName}
-        setLastName = {setLastName}
-      
-    
-        username = {username}
-        setUsername = {setUsername}
+    else{
 
-        handleLogin = {handleLogin}
-        confirmPasswordSignup = {confirmPasswordSignUp}  
+        return (
 
+            <SignUpView    
+                clearAll = {clearAll}
+                hasAccount = {hasAccount}
+                setHasAccount = {setHasAccount}
+        
+                email = {email} 
+                setEmail = {setEmail}
+                emailError = {emailError}
             
-        />
-    )
+                password1 = {password1}
+                password2 = {password2}
+                setPassword1 = {setPassword1} 
+                setPassword2 = {setPassword2}
+                passwordError = {passwordError} 
+            
+                name = {name}
+                setName = {setName}
+                nameError = {nameError}
+
+                username = {username}
+                setUsername = {setUsername}
+                usernameError = {usernameError}
+
+                confirmSignup = {confirmSignUp}
+            />
+        )
+
+    }
+    
 }
 
 export default LoginPresenter;

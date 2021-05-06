@@ -16,7 +16,7 @@ const SearchBar:React.FC = () => {
         getFollowing();
         firestore.collection('users').get().then(snapshot => {
             snapshot.docs.map(doc => {
-                if (doc.data().userName.includes(val)){
+                if (doc.data().username.includes(val)){
                     setSearchResult(oldArray => [...oldArray, doc.data()]);
                 }
             })
