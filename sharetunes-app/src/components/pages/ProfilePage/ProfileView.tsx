@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
+import { isDebuggerStatement } from 'typescript';
 
 interface Props {
     user: any;
@@ -9,31 +10,39 @@ interface Props {
 
 const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
     return (
-        <div className={classes.ProfileView}>
+        <header className={classes.ProfileViewHeader}>
             <img
-                className={classes.profileImg}
+                className={classes.ProfileImg}
                 src={user.profilePictureURL}
                 alt="Profile picture"
             />
-            <h1>{user.username}</h1>
-            <PrimaryButton
-                text="Edit profile"
-                onButtonClick={onClickEditProfile}
-                buttonColor="green"
-            />
-            <button>Edit profile</button>
+            <section className={classes.ProfileInfo}>
+                <div className={classes.NameButtonContainer}>
+                    <h2 className={classes.Name}>{user.username}</h2>
+                    <PrimaryButton
+                        text="Edit profile"
+                        onButtonClick={onClickEditProfile}
+                        buttonColor="green"
+                    />
+                </div>
+                <ul className={classes.List}>
+                    <li>posts</li>
+                    <li>followers</li>
+                    <li>following</li>
+                </ul>
 
-            <p>posts</p>
-            <p>followers</p>
-            <p>following</p>
+                <div className={classes.Song}>
+                    <p>{user.favoriteSong}</p>
+                </div>
 
-            <p>{user.favoriteSong.title}</p>
-            <p>{user.favoriteSong.artist}</p>
+                <div className={classes.About}>
+                    <h1>{user.name}</h1>
+                    <br />
 
-            <h2>{user.name}</h2>
-            <p>{user.biography}</p>
-            <p>{user.posts}</p>
-        </div>
+                    <p>{user.biography}</p>
+                </div>
+            </section>
+        </header>
     );
 };
 
