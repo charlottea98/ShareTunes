@@ -45,7 +45,10 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
     const updateProfilePicture = async (newProfilePicture: string) => {
         if (loggedInUser) {
-            await updateUserProfilePicture(newProfilePicture, loggedInUser.email);
+            await updateUserProfilePicture(
+                newProfilePicture,
+                loggedInUser.email
+            );
             changeLoggedInUser(loggedInUser.email);
         }
     };

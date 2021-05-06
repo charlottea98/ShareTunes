@@ -14,14 +14,16 @@ interface Props {
     postCardInfo: PostCardInfo | undefined,
     currentLoggedInUserLikesPost: boolean,
     likeButtonClickHandler: () => void,
-    userCanDeletePost: boolean
+    userCanDeletePost: boolean,
+    deletePost: Function
 }
 
 const PostCardHomeView: React.FC<Props> = ({
     postCardInfo,
     currentLoggedInUserLikesPost,
     likeButtonClickHandler,
-    userCanDeletePost
+    userCanDeletePost,
+    deletePost
 }) => {
     const day = postCardInfo?.date.toDate().getDay() + 1;
     const month = postCardInfo?.date.toDate().getMonth() + 1;
@@ -48,7 +50,9 @@ const PostCardHomeView: React.FC<Props> = ({
                     {postCardInfo?.usernameOfPublisher}
                 </div>
                 {
-                    userCanDeletePost && postCardInfo ? <DeletePostButtonPresenter postId={postCardInfo.id} /> : <div />
+                    userCanDeletePost && postCardInfo 
+                        ? <DeletePostButtonPresenter postId={postCardInfo.id} deletePost={deletePost} /> 
+                        : <div />
                 }
                 
                     

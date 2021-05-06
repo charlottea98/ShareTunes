@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { deletePost } from '../../../../utility/firestoreCommunication';
 import DeletePostButtonView from './DeletePostButtonView';
 import DeletePostModalView from './DeletePostModalView';
 
 interface Props {
-    postId: number
+    postId: number,
+    deletePost?: Function
 }
 
-const DeletePostButtonPresenter: React.FC<Props> = ({postId}) => {
+const DeletePostButtonPresenter: React.FC<Props> = ({postId, deletePost}) => {
     const [displayDeleteModal, setDisplayDeleteModal] = useState<boolean>(false);
 
     const deleteIconClickedHandler = () => {
@@ -19,7 +19,10 @@ const DeletePostButtonPresenter: React.FC<Props> = ({postId}) => {
     }
 
     const confirmDeleteButtonClicked = () => {
-        deletePost(postId);
+        if (deletePost) {
+            deletePost(postId);
+        }
+        
         setDisplayDeleteModal(false);
     }
 

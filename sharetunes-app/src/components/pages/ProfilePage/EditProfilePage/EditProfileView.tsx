@@ -27,8 +27,7 @@ const EditProfileView: React.FC<Props> = ({ user }) => {
             <p>{user.biography}</p>
 
             <h2>My favorite song</h2>
-            <p>{user.favoriteSong.title}</p>
-            <p>{user.favoriteSong.artist}</p>
+            <p>{user.favoriteSong}</p>
             <button>Change favorite song</button>
 
             <button>Cancel</button>
