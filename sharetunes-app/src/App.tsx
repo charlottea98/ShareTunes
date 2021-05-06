@@ -3,11 +3,17 @@ import React from 'react';
 import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
 
 import './App.scss';
-import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useHistory,
+} from 'react-router-dom';
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
+import ProfilePostsPresenter from './components/pages/ProfilePage/ProfilePostsPresenter';
 import EditProfilePresenter from './components/pages/ProfilePage/EditProfilePage/EditProfilePresenter';
 
 import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
@@ -23,7 +29,6 @@ import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUser
 import PageNotFound from './components/pages/MessageToUserPage/PageNotFoundPresenter';
 
 const App: React.FC = () => {
-
     return (
         <LoggedInUserProvider>
             <CurrentlyVisitedUserProfileProvider>
@@ -32,7 +37,10 @@ const App: React.FC = () => {
                         <Route exact path="/profile">
                             <UserCheckerPresenter>
                                 <MenuPresenter />
-                                <ProfilePresenter />
+                                <div className="pageContainer">
+                                    <ProfilePresenter />
+                                    <ProfilePostsPresenter />
+                                </div>
                             </UserCheckerPresenter>
                         </Route>
                         <Route exact path="/home">
@@ -62,14 +70,16 @@ const App: React.FC = () => {
                         <Route exact path="/profile/edit">
                             <UserCheckerPresenter>
                                 <MenuPresenter />
-                                <EditProfilePresenter />
+                                <div className="pageContainer">
+                                    <EditProfilePresenter />
+                                </div>
                             </UserCheckerPresenter>
                         </Route>
 
                         <Route exact path={['/', '/login']}>
                             <LoginPresenter />
                         </Route>
-                        
+
                         <Route component={PageNotFound} />
                     </Switch>
                 </Router>
