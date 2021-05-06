@@ -235,8 +235,7 @@ export const getAllPostsFromUser = async (userId: string) => {
 
     const postSnapshot = await firebase.firestore().collection('posts').get();
     let allPosts = postSnapshot.docs.map(post => post.data());
-
-    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+    let allPostsFromUser: Array<Post> = postIds.map((postId: any) => allPosts[postId]);
     allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
     return allPostsFromUser;
 }
@@ -274,7 +273,8 @@ export const getAllRelevantPosts = async (userId: string, page: "home page" | "d
     const postSnapshot = await firebase.firestore().collection('posts').get();
     let allPosts = postSnapshot.docs.map(post => post.data());
 
-    let allPostsFromUser: Array<Post> = postIds.map((postId: number) => allPosts[postId]);
+    let allPostsFromUser: Array<Post> = allPosts.map((post: any) => {if (postIds.includes(post.id.toString())){return post}});
+    allPostsFromUser = allPostsFromUser.filter(post => post!==undefined)
     allPostsFromUser = allPostsFromUser.filter(post => !post.deleted);
     return allPostsFromUser;
 }
