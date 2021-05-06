@@ -10,7 +10,8 @@ export const addNewPost = async (newPost: Post) => {
     snapshot.docs.map(doc => console.log(doc.data()));
     newPost.id = snapshot.docs.length;
 
-    firebase.firestore().collection('posts').doc(String(newPost.id)).set(newPost);
+    // firebase.firestore().collection('posts').doc(String(newPost.id)).set(newPost);
+    firebase.firestore().collection('posts').doc("0").set(newPost);
 }
 
 export const addNewSong = async (songId: string) => {
@@ -99,12 +100,12 @@ export const createDataBase = async () => {
     // deleteCollectionsData(['users']);
 
     // Add new songs
-    addNewSong("5qYf19BLOheApfe6NqhDPg");
-    addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
+    // addNewSong("5qYf19BLOheApfe6NqhDPg");
+    // addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
 
-    addNewSong("1XvrMOEi2oLFYdrkfIX3xG");
-    addNewSong("54rjlka9h5VCl8ugns7gvt");
-    addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+    // addNewSong("1XvrMOEi2oLFYdrkfIX3xG");
+    // addNewSong("54rjlka9h5VCl8ugns7gvt");
+    // addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
 
     // Add new users
     let userToAdd1 : User = {
@@ -151,10 +152,10 @@ export const createDataBase = async () => {
         posts: []
     }
 
-    addNewUser(userToAdd1);
-    addNewUser(userToAdd2);
-    addNewUser(userToAdd3);
-    addNewUser(userToAdd4);
+    // addNewUser(userToAdd1);
+    // addNewUser(userToAdd2);
+    // addNewUser(userToAdd3);
+    // addNewUser(userToAdd4);
 
     // Add new post
     let postToAdd1: Post = {
@@ -166,7 +167,11 @@ export const createDataBase = async () => {
         song: "4aaEV6V9aOQb2oQzWlf9cu",
         postedBy: "rrudling@kth.se",
         likes: 4,
-        comments: [1, 2],
+        comments: [{
+            "postedBy": "isakpet@kth.se",
+            "comment": "Håller med!",
+            "date": new Date()
+        }],
         date: new Date(),
         deleted: false
     };
@@ -213,10 +218,10 @@ export const createDataBase = async () => {
         deleted: false
     };
 
-    // addNewPost(postToAdd1);
+    addNewPost(postToAdd1);
     // addNewPost(postToAdd2);
     // addNewPost(postToAdd3);
-    addNewPost(postToAdd4);
+    // addNewPost(postToAdd4);
 }
 
 export const getUserInfo = async (userId: string) => {
@@ -276,7 +281,6 @@ export const getAllRelevantPosts = async (userId: string, page: "home page" | "d
         allPostsRelevantToUser = allPostsRelevantToUser.filter(post => !post.deleted);
 
         allPostsRelevantToUser.sort((postA, postB) => {
-            
             if (postA.date < postB.date) {
                 return 1;
             } else if (postA.date > postB.date) {
@@ -305,6 +309,16 @@ export const getAllRelevantPosts = async (userId: string, page: "home page" | "d
         let allPosts = postSnapshot.docs.map(post => post.data());
         let allPostsFromUser: Array<Post> = postIds.map((postId: any) => allPosts[postId]);
         allPostsRelevantToUser = allPostsFromUser.filter(post => !post.deleted);
+
+        allPostsRelevantToUser.sort((postA, postB) => {
+            if (postA.date < postB.date) {
+                return 1;
+            } else if (postA.date > postB.date) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
     }
 
 

@@ -1,3 +1,9 @@
+export interface Comment {
+    date: any,
+    postedBy: string,
+    comment: string
+}
+
 export interface Post {
     id: number,
     caption: string,
@@ -7,7 +13,7 @@ export interface Post {
     song: string,
     postedBy: string,
     likes: number,
-    comments: Array<number>,
+    comments: Array<Comment>,
     date: Date,
     deleted: boolean
 }
@@ -23,9 +29,10 @@ export interface PostCardInfo {
     albumCover: string,
     previewSong: string,
     usernameOfPublisher: string,
+    emailOfPublisher: string,
     profilePictureOfPublisher: string,
     likes: number,
-    comments: Array<number>,
+    comments: Array<Comment>,
     date: any,
 }
 
@@ -39,16 +46,6 @@ export interface User {
     biography: string,
     posts: Array<number>
 }
-
-export interface Comment {
-    id: number,
-    comment: string,
-    post: string,
-    postedBy: string,
-    date: Date,
-    deleted: boolean
-}
-
 
 export interface Artist {
     id: string,

@@ -26,7 +26,8 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo, deletePost
             .then(publisherInfo => {
                 let infoAboutPublisher = {
                     profilePicture: publisherInfo?.profilePictureURL,
-                    username: publisherInfo?.username
+                    username: publisherInfo?.username,
+                    email: publisherInfo?.email
                 };
 
                 getSongInfo(postInfo.song)
@@ -51,6 +52,7 @@ const PostCardPresenter : React.FC<Props> = ({pageToViewOn, postInfo, deletePost
                                     albumCover: infoAboutSong.albumCover,
                                     previewSong: infoAboutSong.preview,
                                     usernameOfPublisher: infoAboutPublisher.username,
+                                    emailOfPublisher: infoAboutPublisher.email,
                                     profilePictureOfPublisher: infoAboutPublisher.profilePicture,
                                     likes: postInfo.likes,
                                     comments: postInfo.comments,
