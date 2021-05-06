@@ -109,7 +109,6 @@ const LoginPresenter: React.FC<Props> = () => {
             .createUserWithEmailAndPassword(email, password1)
             .then(() => {
 
-                // Uppdatera mer här ? 
                 updateLoggedInUser(email);
                 createUserInDataBase();
                 history.push('/discover');
