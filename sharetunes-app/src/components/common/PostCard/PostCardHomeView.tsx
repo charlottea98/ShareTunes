@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { PostCardInfo } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
@@ -12,7 +12,10 @@ import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 import SongCard from '../SongCard/SongCardPresenter';
 import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
 import { useHistory } from 'react-router';
-import { createDataBase } from '../../../utility/firestoreCommunication';
+import { makeCommentOnPost } from '../../../utility/firestoreCommunication';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+
+import { Comment } from '../../../utility/types';
 
 interface Props {
     postCardInfo: PostCardInfo | undefined,
@@ -29,8 +32,11 @@ const PostCardHomeView: React.FC<Props> = ({
     userCanDeletePost,
     deletePost
 }) => {
+    const [commentText, setCommentText] = useState<string>("");
+
     const history = useHistory();
     const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate()
+    const loggedInUser = useLoggedInUser()
 
     const day = postCardInfo?.date.toDate().getDay() + 1;
     const month = postCardInfo?.date.toDate().getMonth() + 1;
@@ -46,6 +52,20 @@ const PostCardHomeView: React.FC<Props> = ({
 
         for (let i = postCardInfo.rating; i < 5; i++) {
             nonFilledRatingArray.push(i);
+        }
+    }
+
+    const publishCommentClick = () => {
+        if (postCardInfo) {
+
+            let newComment: Comment = {
+                date: new Date(),
+                postedBy: loggedInUser ? loggedInUser.username : "",
+                comment: commentText
+            }
+
+            makeCommentOnPost(postCardInfo.id, newComment);
+            console.log(commentText);
         }
     }
 
@@ -119,7 +139,7 @@ const PostCardHomeView: React.FC<Props> = ({
                 <div className={classes.numberOfLikes}>{postCardInfo?.likes} likes</div>
 
                 <div className={classes.captionAndComments}>
-                    <div> {/*TODO: När man trycker på användare ska man tas till dennes profil */}
+                    <div>
                         <span 
                             className={classes.userNameInComment}
                             onClick = {() => {
@@ -138,7 +158,21 @@ const PostCardHomeView: React.FC<Props> = ({
                         {comment.comment}
                     </div>
                     ))}
-                </div>
+                </div>                
+            </div>
+
+            <div className={classes.commentBox}>
+                <input 
+                    type="text"
+                    placeholder="Write comment"
+                    value = {commentText}
+                    onChange = {event => setCommentText(event.target.value)}
+                />
+
+                <div onClick={() => {
+                    publishCommentClick();
+                    setCommentText("")
+                }}>Publish</div>
             </div>
         </div>
     )

@@ -7,7 +7,7 @@
 	overflow: hidden;
 }
 
-.PostCardDiscovery{
+.PostCardDiscovery {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 10px;
@@ -129,11 +129,40 @@
 	user-select: none;
 }
 
-.viewPost{
+.viewPost {
 	cursor: pointer;
 	transition: 0.2s;
 	user-select: none;
 	font-weight: 1000;
 	font-size: small;
 	color: #fec46e;
+}
+
+.commentBox {
+	height: 40px;
+	border-left: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+	display: flex;
+	padding: 0 10px;
+	align-items: center;
+}
+
+.commentBox input {
+	border: none;
+	outline: none;
+	height: 100%;
+	width: 100%;
+	font-size: 15px;
+}
+
+.commentBox div {
+	border-radius: 2px;
+	padding: 2px 5px;
+	color: #fff;
+	font-weight: 600;
+	user-select: none;
+	margin-left: 10px;
+	cursor: pointer;
+	background-color: #fec46e;
 }

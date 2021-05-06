@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Post, Song, User } from './types';
+import { Post, Song, User, Comment } from './types';
 
 import { SpotifyAPI } from './spotifyCommunication';
 
@@ -253,9 +253,21 @@ export const deletePost = async (postId: number) => {
     currentUserRef.update({deleted: true});
 }
 
+export const makeCommentOnPost = async (postId: number, newComment: Comment) => {
+    const currentPostRef = firebase
+        .firestore()
+        .collection('posts')
+        .doc(String(postId));
+
+    console.log(currentPostRef);
+    // TODO: Ta med gamla kommentarer
+    currentPostRef.update({comments: [newComment]});
+}
+
 
 export const getAllRelevantPosts = async (userId: string, page: "home page" | "discover page" | "profile page") => {
     const allPostsSnapshot = await firebase.firestore().collection('posts').get();
+
     let allPostsData: Array<any> = allPostsSnapshot.docs.map(doc => doc.data());
     let allPostsRelevantToUser: Array<Post> = [];
 
@@ -263,8 +275,8 @@ export const getAllRelevantPosts = async (userId: string, page: "home page" | "d
         const followingSnapshot = await firebase.firestore().collection('following').doc(userId).get();
         let userIsFollowingData = followingSnapshot.data();
         let userIsFollowing = userIsFollowingData?.following;
-    
         userIsFollowing = [...userIsFollowing, userId];
+        
     
         let allRelevantIds: Array<any> = [];
     

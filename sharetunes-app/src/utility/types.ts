@@ -4,37 +4,39 @@ export interface Comment {
     comment: string
 }
 
+export interface Followee {
+    id: string,
+    followers: Array<string>
+}
+
+export interface Follower {
+    id: string,
+    following: Array<string>
+}
+
 export interface Post {
     id: number,
     caption: string,
     rating: 1 | 2 | 3 | 4 | 5,
     tags: Array<string>,
     postImageURL: string,
-    song: string,
-    postedBy: string,
-    likes: number,
+    song: Song,
+    usernameOfPublisher: string,
+    emailOfPublisher: string,
+    likes: Array<string>,
     comments: Array<Comment>,
     date: Date,
     deleted: boolean
 }
 
-export interface PostCardInfo {
-    id: number,
-    caption: string,
-    rating: 1 | 2 | 3 | 4 | 5,
-    tags: Array<string>,
-    postImageURL: string,
-    songTitle: string,
+export interface Song {
+    id: string,
+    title: string,
     artists: Array<string>,
-    albumCover: string,
-    previewSong: string,
-    usernameOfPublisher: string,
-    emailOfPublisher: string,
-    profilePictureOfPublisher: string,
-    likes: number,
-    comments: Array<Comment>,
-    date: any,
+    albumCoverURL: string,
+    previewURL: string,
 }
+
 
 export interface User {
     id: string,
@@ -46,25 +48,3 @@ export interface User {
     biography: string,
     posts: Array<number>
 }
-
-export interface Artist {
-    id: string,
-    name: string,
-    totalLikes: number,
-    totalPosts: number
-}
-
-export interface Song {
-    id: string,
-    title: string,
-    artists: Array<string>,
-    albumCoverSmallURL: string,
-    albumCoverMediumURL: string,
-    albumCoverLargeURL: string,
-    songPreviewURL: string,
-    posts: Array<number>,
-    totalLikes: number,
-    totalPosts: number,
-    avarageRating: number | null
-}
-
