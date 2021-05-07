@@ -45,8 +45,8 @@ const DiscoverPage : React.FC = () => {
                     let tracks = body?.tracks?.items;
                     
                     if (tracks !== undefined) {
-                        let displayTracks = tracks.map((track: any) => (
-                            <div>
+                        let displayTracks = tracks.map((track: any, idx: number) => (
+                            <div key = {idx}>
                                 {track.name}
                             </div>
                         ))

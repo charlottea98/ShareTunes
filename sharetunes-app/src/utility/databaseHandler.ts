@@ -99,6 +99,14 @@ export const DatabaseHandler = {
     deletePost(postId: string) {
         db.collection('posts').doc(postId).update({deleted: true});
     },
+    async deleteComment(postId: string, commentId: string) {
+        const postData : any = await firebase.firestore().collection('posts').doc(postId).get();
+        const post : Post = postData.data();
+        let newComments = post.comments;
+        newComments = newComments.filter(comment => comment.id !== commentId);
+        
+        db.collection('posts').doc(postId).update({comments: newComments});
+    },
 
     // === UPDATE ===
     updateUserInfo(newUserInfo: User) {
@@ -285,6 +293,7 @@ export const DatabaseHandler = {
     },
     loginUser(email: string, password: string) {
         // Return error eller OK
+        // TODO
     },
     signUpUser(name: string, username:string, email: string, password: string) {
         DatabaseHandler.addNewUser({
@@ -299,6 +308,6 @@ export const DatabaseHandler = {
         })
     },
     logoutUser() {
-
+        // TODO
     },
 }

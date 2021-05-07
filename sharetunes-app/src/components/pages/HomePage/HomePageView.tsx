@@ -12,10 +12,9 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
     return (
         <div className={classes.HomePage}>
             {
-                postsToShow.map(post => (
-                    <div className={classes.postCardContainer}>
+                postsToShow.map((post, idx) => (
+                    <div className={classes.postCardContainer} key = {idx}>
                         <PostCard
-                            key = {post.id}
                             postInfo = {post}
                         />
                     </div>

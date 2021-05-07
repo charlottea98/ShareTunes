@@ -1,24 +1,29 @@
 import React from 'react';
 
-import classes from './deletePost.module.scss';
+import classes from './deletePostAndComment.module.scss';
 
 interface Props {
     abortButtonClicked: () => void,
-    confirmDeleteButtonClicked: () => void
+    confirmDeleteButtonClicked: () => void,
+    message: string,
+    message2?: string
 }
 
-const DeletePostModalView: React.FC<Props> = ({
+const DeleteModalView: React.FC<Props> = ({
     abortButtonClicked,
-    confirmDeleteButtonClicked
+    confirmDeleteButtonClicked,
+    message,
+    message2 = ""
 }) => {
 
     return (
         <>
             <div className={classes.DeletePostModalBG} onClick={abortButtonClicked}/>
 
-            <div className={classes.DeletePostModalContainer} >
-                <div>Do you want to delete this post?</div>
+            <div className={classes.DeleteCommentModalContainer} >
+                <div>{message}</div>
 
+                <i style={{"fontWeight": 400, "fontSize": "15px", "margin": "5px 0"}}>"{message2}"</i>
                 <div className={classes.buttonContainer}>
                     <div onClick={abortButtonClicked}>No, take me back</div>
                     <div onClick={confirmDeleteButtonClicked}>Yes, delete it</div>
@@ -28,4 +33,4 @@ const DeletePostModalView: React.FC<Props> = ({
     )
 }
 
-export default DeletePostModalView;
+export default DeleteModalView;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { DatabaseHandler } from '../../../../utility/databaseHandler';
+import { DatabaseHandler } from '../../../../../utility/databaseHandler';
 import DeletePostButtonView from './DeletePostButtonView';
-import DeletePostModalView from './DeletePostModalView';
+import DeleteModalView from '../DeleteModalView';
 
 interface Props {
     postId: string
@@ -27,9 +27,10 @@ const DeletePostButtonPresenter: React.FC<Props> = ({postId}) => {
     return (
         <>
             <DeletePostButtonView onClickHandler={deleteIconClickedHandler} />
-            {displayDeleteModal ? <DeletePostModalView 
+            {displayDeleteModal ? <DeleteModalView 
                 abortButtonClicked = {abortButtonClicked}
                 confirmDeleteButtonClicked = {confirmDeleteButtonClicked}
+                message = "Do you want to delete this post?"
             /> : null}
         </>
     );
