@@ -3,7 +3,6 @@ import { SpotifyAPI } from '../../../utility/spotifyCommunication';
 import { Song, Post} from '../../../utility/types';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
-import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
@@ -21,7 +20,6 @@ const PublishPagePresenter = () => {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [tagsInput, setTagsInput] = useState<string>('');
     const [tagsArray, setTagsArray] = useState<String[]>([]);
-    const [artist, setArtist] = useState<string>('');
     const history = useHistory();
 
     const switchSearchMode = () => {
@@ -52,11 +50,6 @@ const PublishPagePresenter = () => {
                     artists: postSong.artists,
                     albumCoverURL: postSong.albumCoverURL,
                     previewURL: postSong.previewURL,
-                })
-
-                SpotifyAPI.getArtistDetails(postSong.artists[0].id).then((artistInfo)=>{
-                    let artistName = artistInfo.name;
-                    setArtist(artistName)
                 })
                 switchSearchMode();
             }
@@ -150,59 +143,6 @@ const PublishPagePresenter = () => {
 
         DatabaseHandler.addNewPost(newPost);
         DatabaseHandler.addNewSong(song.id);
-
-        firestore.collection('posts').add({
-            caption: caption,
-            comments: [],
-            date: firebase.firestore.FieldValue.serverTimestamp(),
-            deleted: false,
-            id: null,
-            likes: 0,
-            postImageURL: image,
-            profilePictureOfPublisher: loggedInUser?.profilePictureURL,
-            postedBy: loggedInUser?.email,
-            rating: rating,
-            song: song,
-            tags: tags,
-            usernameOfPublisher: loggedInUser?.username
-        }).then((docRef) => {
-            firestore.collection('posts').doc(docRef.id).update({
-                id: docRef.id
-            }).then(() => {
-                var ref = docRef.id;
-                console.log('Added and updated!')
-                firestore.collection('songs').doc(song.id).get()
-                .then((docSnapshot) => {
-                    if(docSnapshot.exists){
-                        firestore.collection('songs').doc(song.id).update({
-                            ratings: firebase.firestore.FieldValue.arrayUnion(rating),
-                            posts: firebase.firestore.FieldValue.arrayUnion(ref),
-                            totalPosts: firebase.firestore.FieldValue.increment(1)
-                        }).then(()=>{
-                            console.log('Song updated')
-                        })
-                    }
-                    else{
-                        firestore.collection('songs').doc(song.id).set({
-                            id: song.id,
-                            title: song.title,
-                            artists: song.artists,
-                            albumCoverURL: song.albumCoverURL,
-                            previewURL: song.previewURL,
-                        }).then(()=> {
-                            console.log('song added')
-                        })
-                    }
-                }).then(()=> {
-                    firestore.collection('users').doc(loggedInUser?.email).update({
-                        posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
-                    })
-                })
-            })
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-        });
     }
 
     const handleCancel = () => {
@@ -214,7 +154,6 @@ const PublishPagePresenter = () => {
                             switchSearchMode={switchSearchMode}
                             searchSong={searchSong}
                             songPostInfo={songPostInfo}
-                            artist={artist}
                             handleChange={handleChange}
                             searchInput={searchInput}
                             captionInput={captionInput}

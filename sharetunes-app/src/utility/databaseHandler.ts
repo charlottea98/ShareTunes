@@ -40,9 +40,8 @@ export const DatabaseHandler = {
     },
     async addNewSong(songId: string) {
         const snapshot = await firebase.firestore().collection('songs').doc(songId).get();
-        const song_already_exsist = snapshot.exists;
     
-        if (!song_already_exsist) {
+        if (!snapshot.exists) {
             let songData = await SpotifyAPI.getSongDetails(songId);
             let newSong : Song = {
                 id: songId,

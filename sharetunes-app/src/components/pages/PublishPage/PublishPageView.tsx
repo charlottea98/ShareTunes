@@ -11,7 +11,6 @@ interface Props {
     songPostInfo: any,
     handleChange: Function,
     searchInput: any,
-    artist: string,
     captionInput:any,
     tagsArray:String[],
     imageURL:any,
@@ -22,7 +21,7 @@ interface Props {
     addToTags: Function
 }
 
-const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searchSong, songPostInfo, handleChange, searchInput, artist, captionInput, tagsArray,imageURL, ratingInput, handleSubmit, errorMessage, handleCancel, addToTags}) => {
+const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searchSong, songPostInfo, handleChange, searchInput, captionInput, tagsArray,imageURL, ratingInput, handleSubmit, errorMessage, handleCancel, addToTags}) => {
     var ratings = [1,2,3,4,5];
     return <div className={classes.mainDiv}>
         <div className={classes.title}>
@@ -53,7 +52,6 @@ const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searc
                 <div className={classes.headers}>Song</div>
                 {isSearching?(
                     <div className={classes.showSong}>
-                        {console.log(songPostInfo)}
                         <SongCardPresenter song = {{
                             id: songPostInfo.id,
                             title: songPostInfo.title,
