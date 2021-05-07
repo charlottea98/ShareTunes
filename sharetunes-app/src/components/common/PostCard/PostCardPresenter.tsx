@@ -1,12 +1,13 @@
 import React, {  useState } from 'react';
 
 import PostCardView from './PostCardView';
-import { Post, Comment } from '../../../utility/types';
+import { Post, Comment, Song } from '../../../utility/types';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 interface Props {
     postInfo: Post
@@ -74,7 +75,7 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
     const showDeleteButton = !showToggleInteraction && userCanDeleteThisPost && postInfo && location.pathname === '/home';
 
     return loggedInUser ? <PostCardView 
-        postCardInfo = {postInfo} 
+        postCardInfo = {postInfo}
         addComment = {addComment}
         addLike = {addLike}
         commentTextChangeHandler = {commentTextChangeHandler}
