@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
+import { useLocation } from 'react-router-dom';
+
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,52 +17,41 @@ import { useHistory } from 'react-router';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 import { Comment } from '../../../utility/types';
-import { DatabaseHandler } from '../../../utility/databaseHandler';
+
 
 interface Props {
     postCardInfo: Post | undefined,
-    userCanDeletePost: boolean
+    userCanDeletePost: boolean,
+    addComment: (commentText: string) => void,
+    addLike: (postId: string, emailOfLiker: string) => void,
+    commentTextChangeHandler: (newCommentText: string) => void,
+    commentText: string,
+    filledRatingArray: Array<number>,
+    nonFilledRatingArray: Array<number>,
+    loggedInUserEmail: string
 }
 
 const PostCardView: React.FC<Props> = ({
     postCardInfo,
-    userCanDeletePost
+    userCanDeletePost,
+    addComment,
+    addLike,
+    commentTextChangeHandler,
+    commentText,
+    filledRatingArray,
+    nonFilledRatingArray,
+    loggedInUserEmail
 }) => {
-    const [commentText, setCommentText] = useState<string>("");
-
     const history = useHistory();
-    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate()
-    const loggedInUser = useLoggedInUser()
+    const location = useLocation();
+    
+    
+    const [showInteraction, setShowInteraction] = useState<boolean>(location.pathname === '/home');
+    
+    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate();
 
 
-    let filledRatingArray = [];
-    let nonFilledRatingArray = [];
-
-    if (postCardInfo) {
-        for (let i = 0; i < postCardInfo.rating; i++) {
-            filledRatingArray.push(i);
-        }
-
-        for (let i = postCardInfo.rating; i < 5; i++) {
-            nonFilledRatingArray.push(i);
-        }
-    }
-
-    const publishCommentClick = () => {
-        if (postCardInfo && loggedInUser) {
-
-            let newComment: Comment = {
-                date: new Date(),
-                emailOfPublisher: loggedInUser.email,
-                usernameOfPublisher: loggedInUser.username,
-                comment: commentText
-            }
-
-            DatabaseHandler.addNewComment(postCardInfo.id, newComment);
-        }
-    }
-
-    return loggedInUser && postCardInfo ? (
+    return postCardInfo ? (
         <div className={classes.PostCardHome}>
             
             <div className={classes.layer1}>
@@ -69,9 +60,17 @@ const PostCardView: React.FC<Props> = ({
                     {postCardInfo.usernameOfPublisher}
                 </div>
                 {
-                    userCanDeletePost && postCardInfo 
+                    userCanDeletePost && postCardInfo && location.pathname === '/home'
                         ? <DeletePostButtonPresenter postId={postCardInfo.id} /> 
-                        : <div />
+                        : (
+                            <div className={classes.viewPost} onClick={() => setShowInteraction(!showInteraction)}>
+                                {showInteraction ? (
+                                    <p>Close post</p>
+                                ):(
+                                <p>View post</p>
+                                )}
+                            </div>
+                        )
                 }  
             </div>
             <div
@@ -107,57 +106,57 @@ const PostCardView: React.FC<Props> = ({
                     }
                 </div>
             </div>
-
-            <div className={classes.interactionContainer}>
-                <div className={classes.likeAndCommentContainer}>
-                    <div
-                        style={{
-                            "color": postCardInfo.likes.includes(loggedInUser.email) ? "#fec46e" : "#232323"
-                        }}
-                        onClick={() => DatabaseHandler.addNewLike(postCardInfo.id, loggedInUser.email)}
-                    >
-                        <FontAwesomeIcon icon={postCardInfo.likes.includes(loggedInUser.email) ? faHeart : farFaHeart} />
-                    </div>
-                    <div><FontAwesomeIcon icon={farFaComments} /></div>
-                </div>
-                <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
-
-                <div className={classes.captionAndComments}>
-                    <div>
-                        <span 
-                            className={classes.userNameInComment}
-                            onClick = {() => {
-                                currentlyVisitedUserProfileUpdate(postCardInfo.emailOfPublisher);
-                                history.push('/profile');
+            
+            <div style={{ "display": showInteraction ? "block" : "none"}}>
+                <div className={classes.interactionContainer}>
+                    <div className={classes.likeAndCommentContainer}>
+                        <div
+                            style={{
+                                "color": postCardInfo.likes.includes(loggedInUserEmail) ? "#fec46e" : "#232323"
                             }}
+                            onClick={() => addLike(postCardInfo.id, loggedInUserEmail)}
                         >
-                            {postCardInfo.usernameOfPublisher}
-                        </span>
-                        {postCardInfo.caption}
+                            <FontAwesomeIcon icon={postCardInfo.likes.includes(loggedInUserEmail) ? faHeart : farFaHeart} />
+                        </div>
+                        <div><FontAwesomeIcon icon={farFaComments} /></div>
                     </div>
+                    <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
 
-                    {postCardInfo.comments.map(comment => (
+                    <div className={classes.captionAndComments}>
                         <div>
-                        <span className={classes.userNameInComment}>{comment.usernameOfPublisher}</span>
-                        {comment.comment}
-                    </div>
-                    ))}
-                </div>                
-            </div>
+                            <span 
+                                className={classes.userNameInComment}
+                                onClick = {() => {
+                                    currentlyVisitedUserProfileUpdate(postCardInfo.emailOfPublisher);
+                                    history.push('/profile');
+                                }}
+                            >
+                                {postCardInfo.usernameOfPublisher}
+                            </span>
+                            {postCardInfo.caption}
+                        </div>
 
-            <div className={classes.commentBox}>
-                <input 
-                    type="text"
-                    placeholder="Write comment"
-                    value = {commentText}
-                    onChange = {event => setCommentText(event.target.value)}
-                />
+                        {postCardInfo.comments.map(comment => (
+                            <div>
+                            <span className={classes.userNameInComment}>{comment.usernameOfPublisher}</span>
+                            {comment.comment}
+                        </div>
+                        ))}
+                    </div>                
+                </div>
 
-                <div onClick={() => {
-                    publishCommentClick();
-                    setCommentText("")
-                }}>Publish</div>
+                <div className={classes.commentBox}>
+                    <input 
+                        type="text"
+                        placeholder="Write comment"
+                        value = {commentText}
+                        onChange = {event => commentTextChangeHandler(event.target.value)}
+                    />
+
+                    <div onClick={() => addComment(commentText)}>Publish</div>
+                </div>
             </div>
+            
         </div>
     ) : null;
 }

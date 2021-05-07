@@ -17,7 +17,6 @@ const HomePageView : React.FC<Props> = ({postsToShow}) => {
                         <PostCard
                             key = {post.id}
                             postInfo = {post}
-                            pageToViewOn="home page"
                         />
                     </div>
                 ))

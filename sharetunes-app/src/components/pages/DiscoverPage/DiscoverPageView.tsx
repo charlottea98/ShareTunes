@@ -21,7 +21,7 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
             <div className={classes.discoverFeed}>
             {posts.map(post => {
                 return <div className={classes.card}>
-                    <PostCardPresenter pageToViewOn='discovery page' postInfo={post}></PostCardPresenter>
+                    <PostCardPresenter postInfo={post} />
                     </div>
             })}
             </div>
