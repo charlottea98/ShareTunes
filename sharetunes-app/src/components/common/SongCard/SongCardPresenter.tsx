@@ -60,7 +60,7 @@ const SongCardPresenter: React.FC<Props> = ({song}) => {
     if (song?.title && song?.artists && song?.albumCoverURL) {
         songCard = <SongCardView 
             title = {song.title}
-            artists = {String(song.artists)}
+            artists = {song.artists[0].name}
             albumCover = {song.albumCoverURL}
             previewSong = {song.previewURL}
             handleAudio={handleAudio} 

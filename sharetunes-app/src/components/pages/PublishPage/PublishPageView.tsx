@@ -53,17 +53,17 @@ const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searc
                 <div className={classes.headers}>Song</div>
                 {isSearching?(
                     <div className={classes.showSong}>
+                        {console.log(songPostInfo)}
                         <SongCardPresenter song = {{
                             id: songPostInfo.id,
                             title: songPostInfo.title,
                             artists: [{
-                                id: "",
-                                name: ""
+                                id: songPostInfo.artists[0].id,
+                                name: songPostInfo.artists[0].name
                             }],
-                            albumCoverURL: songPostInfo.albumCoverSmallURL,
-                            previewURL: songPostInfo.songPreviewURL
+                            albumCoverURL: songPostInfo.albumCoverURL,
+                            previewURL: songPostInfo.previewURL
                         }}
-                            
                         ></SongCardPresenter>
                         <div className={classes.songButton} onClick={()=>switchSearchMode()}>Change song</div>
                     </div>

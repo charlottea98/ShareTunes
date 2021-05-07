@@ -11,7 +11,12 @@ export const DatabaseHandler = {
         firebase.firestore().collection('posts').add(newPost)
             .then(docRef => {
                 firebase.firestore().collection('posts').doc(docRef.id).update({id: docRef.id})
-            });
+                .then(()=>{
+                    firebase.firestore().collection('users').doc(newPost.emailOfPublisher).update({
+                        posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                });
+                })
+            })
     },
     async addNewUser(newUser: User) {
         const snapshot = await firebase.firestore().collection('users').get();
@@ -34,12 +39,11 @@ export const DatabaseHandler = {
         }
     },
     async addNewSong(songId: string) {
-        const snapshot = await firebase.firestore().collection('songs').get();
-        const song_already_exsist = snapshot.docs.some(doc => doc.data().id === songId);
+        const snapshot = await firebase.firestore().collection('songs').doc(songId).get();
+        const song_already_exsist = snapshot.exists;
     
         if (!song_already_exsist) {
             let songData = await SpotifyAPI.getSongDetails(songId);
-    
             let newSong : Song = {
                 id: songId,
                 title: songData.name,
@@ -47,14 +51,11 @@ export const DatabaseHandler = {
                     id: artist.id,
                     name: artist.name
                 })),
-                albumCoverURL: songData.album.images[0].url,
+                albumCoverURL: songData.album.images[2].url,
                 previewURL: songData.preview_url,
             }
-        
-            firebase.firestore().collection('songs').add(newSong)
-                .then(docRef => {
-                    firebase.firestore().collection('songs').doc(docRef.id).update({id: docRef.id})
-                });
+
+            firebase.firestore().collection('songs').doc(newSong.id).set(newSong);
         }
     },
     async addNewComment(postId: string, newComment: Comment) {

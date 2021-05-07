@@ -18,7 +18,7 @@ export interface Follower {
 export interface Post {
     id: string,
     caption: string,
-    rating: 1 | 2 | 3 | 4 | 5,
+    rating: number,
     tags: Array<string>,
     postImageURL: string,
     song: Song,

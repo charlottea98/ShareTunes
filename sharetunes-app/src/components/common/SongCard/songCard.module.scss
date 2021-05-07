@@ -6,7 +6,9 @@
 	justify-content: space-between;
 }
 
-.SongCard img {
+.albumImageContainer {
+	display: inline-flex;
+	justify-content: center;
 	height: 64px;
 	width: 64px;
 }

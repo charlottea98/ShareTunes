@@ -21,14 +21,12 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i = 0; countValidTracks < 5; i++) {
-                    const trackInfo: any = {
-                        artist: tracks[i]?.track.artists[0].name,
-                        title: tracks[i]?.track.name,
-                        albumCoverSmall:
-                            tracks[i]?.track.album.images[2].url,
-                        preview: tracks[i]?.track.preview_url,
+                    const trackInfo: any = {artists: [{name: tracks[i]?.track.artists[0].name, id:tracks[i]?.track.artists[0].id}],
+                    title: tracks[i]?.track.name,
+                    albumCoverURL: tracks[i]?.track.album.images[2].url,
+                    previewURL: tracks[i]?.track.preview_url
                     };
-                    if (trackInfo.preview) {
+                    if (trackInfo.previewURL) {
                         topTracks.push(trackInfo);
                         countValidTracks++;
                     }
@@ -44,12 +42,12 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i=0; countValidTracks < 5; i++) {
-                    const trackInfo:any = {artist: tracks[i]?.track.artists[0].name,
+                    const trackInfo:any = {artists: [{name: tracks[i]?.track.artists[0].name, id:tracks[i]?.track.artists[0].id}],
                                         title: tracks[i]?.track.name,
-                                        albumCoverSmall: tracks[i]?.track.album.images[2].url,
-                                        preview: tracks[i]?.track.preview_url
+                                        albumCoverURL: tracks[i]?.track.album.images[2].url,
+                                        previewURL: tracks[i]?.track.preview_url
                                         };
-                    if (trackInfo.preview){
+                    if (trackInfo.previewURL){
                         recommendedTracks.push(trackInfo);
                         countValidTracks++;
                     }
