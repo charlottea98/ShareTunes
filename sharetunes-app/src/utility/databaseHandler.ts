@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { error } from 'node:console';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
 import { SpotifyAPI } from './spotifyCommunication';
@@ -130,10 +131,11 @@ export const DatabaseHandler = {
         // Add new songs
         DatabaseHandler.addNewSong("5qYf19BLOheApfe6NqhDPg");
         DatabaseHandler.addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
-    
-        DatabaseHandler.addNewSong("1XvrMOEi2oLFYdrkfIX3xG");
+        DatabaseHandler.addNewSong("3LmpQiFNgFCnvAnhhvKUyI");
         DatabaseHandler.addNewSong("54rjlka9h5VCl8ugns7gvt");
         DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+        DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+        
     
         // Add new users
         let userToAdd1 : User = {
@@ -308,7 +310,13 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
-    logoutUser() {
-        // TODO
+    async logoutUser() {
+        let returnMessage;
+
+        await fire.auth().signOut()
+            .then(msg => {returnMessage = msg})
+            .catch(error => {returnMessage = error})
+
+        return returnMessage;
     },
 }
