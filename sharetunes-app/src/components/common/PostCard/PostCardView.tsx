@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { PostCardInfo } from '../../../utility/types';
+import React, { useState } from 'react';
+import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
@@ -12,25 +12,19 @@ import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 import SongCard from '../SongCard/SongCardPresenter';
 import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
 import { useHistory } from 'react-router';
-import { makeCommentOnPost } from '../../../utility/firestoreCommunication';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 import { Comment } from '../../../utility/types';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 interface Props {
-    postCardInfo: PostCardInfo | undefined,
-    currentLoggedInUserLikesPost: boolean,
-    likeButtonClickHandler: () => void,
-    userCanDeletePost: boolean,
-    deletePost: Function
+    postCardInfo: Post | undefined,
+    userCanDeletePost: boolean
 }
 
-const PostCardHomeView: React.FC<Props> = ({
+const PostCardView: React.FC<Props> = ({
     postCardInfo,
-    currentLoggedInUserLikesPost,
-    likeButtonClickHandler,
-    userCanDeletePost,
-    deletePost
+    userCanDeletePost
 }) => {
     const [commentText, setCommentText] = useState<string>("");
 
@@ -38,9 +32,6 @@ const PostCardHomeView: React.FC<Props> = ({
     const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate()
     const loggedInUser = useLoggedInUser()
 
-    const day = postCardInfo?.date.toDate().getDay() + 1;
-    const month = postCardInfo?.date.toDate().getMonth() + 1;
-    const year = postCardInfo?.date.toDate().getFullYear();
 
     let filledRatingArray = [];
     let nonFilledRatingArray = [];
@@ -56,44 +47,40 @@ const PostCardHomeView: React.FC<Props> = ({
     }
 
     const publishCommentClick = () => {
-        if (postCardInfo) {
+        if (postCardInfo && loggedInUser) {
 
             let newComment: Comment = {
                 date: new Date(),
-                postedBy: loggedInUser ? loggedInUser.username : "",
+                emailOfPublisher: loggedInUser.email,
+                usernameOfPublisher: loggedInUser.username,
                 comment: commentText
             }
 
-            makeCommentOnPost(postCardInfo.id, newComment);
-            console.log(commentText);
+            DatabaseHandler.addNewComment(postCardInfo.id, newComment);
         }
     }
 
-    return (
+    return loggedInUser && postCardInfo ? (
         <div className={classes.PostCardHome}>
+            
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
-                    <img src={postCardInfo?.profilePictureOfPublisher} />
-                    {postCardInfo?.usernameOfPublisher}
+                    <img src={postCardInfo.profilePictureOfPublisher} />
+                    {postCardInfo.usernameOfPublisher}
                 </div>
                 {
                     userCanDeletePost && postCardInfo 
-                        ? <DeletePostButtonPresenter postId={postCardInfo.id} deletePost={deletePost} /> 
+                        ? <DeletePostButtonPresenter postId={postCardInfo.id} /> 
                         : <div />
                 }  
             </div>
             <div
                 className={classes.postImage}
                 style={{
-                    "backgroundImage": `url(${postCardInfo?.postImageURL})`
+                    "backgroundImage": `url(${postCardInfo.postImageURL})`
                 }}
             />
-            <SongCard
-                title={postCardInfo?.songTitle}
-                artists={postCardInfo?.artists[0]}
-                albumCover={postCardInfo?.albumCover}
-                previewSong={postCardInfo?.previewSong}
-            />
+            <SongCard song = {postCardInfo.song} />
 
             <div className={classes.reviewContainer}>
                 <div className={classes.ratingContainer}>
@@ -114,7 +101,7 @@ const PostCardHomeView: React.FC<Props> = ({
                 </div>
                 <div className={classes.tagsContainer}>
                     {
-                        postCardInfo?.tags.map(tag => (
+                        postCardInfo.tags.map(tag => (
                             <div className={classes.tag}>{tag}</div>
                         ))
                     }
@@ -125,36 +112,33 @@ const PostCardHomeView: React.FC<Props> = ({
                 <div className={classes.likeAndCommentContainer}>
                     <div
                         style={{
-                            "color": currentLoggedInUserLikesPost ? "#fec46e" : "#232323"
+                            "color": postCardInfo.likes.includes(loggedInUser.email) ? "#fec46e" : "#232323"
                         }}
-                        onClick={() => {
-                            likeButtonClickHandler();
-                            // createDataBase();
-                        }}
+                        onClick={() => DatabaseHandler.addNewLike(postCardInfo.id, loggedInUser.email)}
                     >
-                        <FontAwesomeIcon icon={currentLoggedInUserLikesPost ? faHeart : farFaHeart} />
+                        <FontAwesomeIcon icon={postCardInfo.likes.includes(loggedInUser.email) ? faHeart : farFaHeart} />
                     </div>
                     <div><FontAwesomeIcon icon={farFaComments} /></div>
                 </div>
-                <div className={classes.numberOfLikes}>{postCardInfo?.likes} likes</div>
+                <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
 
                 <div className={classes.captionAndComments}>
                     <div>
                         <span 
                             className={classes.userNameInComment}
                             onClick = {() => {
-                                currentlyVisitedUserProfileUpdate(postCardInfo?.emailOfPublisher);
+                                currentlyVisitedUserProfileUpdate(postCardInfo.emailOfPublisher);
                                 history.push('/profile');
                             }}
                         >
-                            {postCardInfo?.usernameOfPublisher}
+                            {postCardInfo.usernameOfPublisher}
                         </span>
-                        {postCardInfo?.caption}
+                        {postCardInfo.caption}
                     </div>
 
-                    {postCardInfo?.comments.map(comment => (
+                    {postCardInfo.comments.map(comment => (
                         <div>
-                        <span className={classes.userNameInComment}>{comment.postedBy}</span>
+                        <span className={classes.userNameInComment}>{comment.usernameOfPublisher}</span>
                         {comment.comment}
                     </div>
                     ))}
@@ -175,7 +159,7 @@ const PostCardHomeView: React.FC<Props> = ({
                 }}>Publish</div>
             </div>
         </div>
-    )
+    ) : null;
 }
 
-export default PostCardHomeView;
+export default PostCardView;

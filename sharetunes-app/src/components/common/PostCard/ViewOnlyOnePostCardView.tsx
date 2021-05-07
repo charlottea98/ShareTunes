@@ -1,9 +1,9 @@
 import React from 'react';
-import { PostCardInfo } from '../../../utility/types';
+import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
 interface Props {
-    postCardInfo: PostCardInfo | undefined
+    postCardInfo: Post | undefined
 }
 
 const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo}) => {

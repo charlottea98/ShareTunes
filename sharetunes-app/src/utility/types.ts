@@ -1,6 +1,7 @@
 export interface Comment {
     date: any,
-    postedBy: string,
+    emailOfPublisher: string,
+    usernameOfPublisher: string,
     comment: string
 }
 
@@ -15,7 +16,7 @@ export interface Follower {
 }
 
 export interface Post {
-    id: number,
+    id: string,
     caption: string,
     rating: 1 | 2 | 3 | 4 | 5,
     tags: Array<string>,
@@ -23,28 +24,33 @@ export interface Post {
     song: Song,
     usernameOfPublisher: string,
     emailOfPublisher: string,
+    profilePictureOfPublisher: string,
     likes: Array<string>,
     comments: Array<Comment>,
-    date: Date,
+    date: any,
     deleted: boolean
+}
+
+export interface Artist {
+    id: string,
+    name: string
 }
 
 export interface Song {
     id: string,
     title: string,
-    artists: Array<string>,
+    artists: Array<Artist>,
     albumCoverURL: string,
-    previewURL: string,
+    previewURL: string | null,
 }
-
 
 export interface User {
     id: string,
     name: string,
     email: string,
     username: string,
-    profilePictureURL: string,
-    favoriteSong: string,
+    profilePictureURL: string | null,
+    favoriteSong: string | null,
     biography: string,
     posts: Array<number>
 }

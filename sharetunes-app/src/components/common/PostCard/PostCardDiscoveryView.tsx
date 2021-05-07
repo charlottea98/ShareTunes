@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostCardInfo } from '../../../utility/types';
+import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,16 +9,16 @@ import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import ThreeDotsButton from '../../common/buttons/ThreeDotsButton/ThreeDotsButtonPresenter';
 import SongCard from '../SongCard/SongCardPresenter';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 interface Props {
-    postCardInfo: PostCardInfo | undefined,
+    postCardInfo: Post | undefined,
     changeViewPost: Function,
-    viewPost: any,
-    currentLoggedInUserLikesPost: boolean,
-    likeButtonClickHandler: () => void
+    viewPost: any
 }
 
-const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, viewPost, currentLoggedInUserLikesPost, likeButtonClickHandler}) => {
+const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, viewPost}) => {
+    const loggedInUser = useLoggedInUser();
 
     let filledRatingArray:any = [];
     let nonFilledRatingArray:any = [];
@@ -33,7 +33,7 @@ const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, 
         }
     }
 
-    return (
+    return loggedInUser && postCardInfo ? (
         <div className={classes.PostCardDiscovery}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
@@ -54,12 +54,7 @@ const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, 
                     "backgroundImage": `url(${postCardInfo?.postImageURL})`
                 }}
             />
-            <SongCard
-                title = {postCardInfo?.songTitle}
-                artists = {postCardInfo?.artists[0]}
-                albumCover = {postCardInfo?.albumCover}
-                previewSong = {postCardInfo?.previewSong}
-            />
+            <SongCard song = {postCardInfo?.song} />
 
             <div className={classes.reviewContainer}>
                 <div className={classes.ratingContainer}>
@@ -91,11 +86,11 @@ const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, 
                 <div className={classes.likeAndCommentContainer}>
                     <div
                         style = {{
-                            "color": currentLoggedInUserLikesPost ? "#fec46e" : "#232323"
+                            "color": postCardInfo.likes.includes(loggedInUser.email) ? "#fec46e" : "#232323"
                         }}
-                        onClick = {likeButtonClickHandler}
+                        onClick = {() => console.log(loggedInUser.email, postCardInfo.id)}
                     >
-                        <FontAwesomeIcon icon={currentLoggedInUserLikesPost ? faHeart : farFaHeart} />
+                        <FontAwesomeIcon icon={postCardInfo.likes.includes(loggedInUser.email) ? faHeart : farFaHeart} />
                     </div>
                     <div><FontAwesomeIcon icon={farFaComments} /></div>
                 </div>
@@ -128,7 +123,7 @@ const PostCardDiscoveryView : React.FC<Props> = ({postCardInfo, changeViewPost, 
             ):(<div></div>)}
             
         </div>
-    )
+    ) : null;
 }
 
 export default PostCardDiscoveryView;

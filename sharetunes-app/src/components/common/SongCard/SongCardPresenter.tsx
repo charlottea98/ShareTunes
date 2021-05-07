@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SongCardView from './SongCardView';
+import { Song } from '../../../utility/types';
 
 interface Props {
-    title?: string,
-    artists?: string,
-    albumCover?: string,
-    previewSong?: string
+    song: Song | undefined
 }
 
-const SongCardPresenter: React.FC<Props> = ({title, artists, albumCover, previewSong}) => {
+const SongCardPresenter: React.FC<Props> = ({song}) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
@@ -59,12 +57,12 @@ const SongCardPresenter: React.FC<Props> = ({title, artists, albumCover, preview
         return false;
     }
 
-    if (title && artists && albumCover) {
+    if (song?.title && song?.artists && song?.albumCoverURL) {
         songCard = <SongCardView 
-            title = {title}
-            artists = {artists}
-            albumCover = {albumCover}
-            previewSong = {previewSong}
+            title = {song.title}
+            artists = {String(song.artists)}
+            albumCover = {song.albumCoverURL}
+            previewSong = {song.previewURL}
             handleAudio={handleAudio} 
             isPlaying={isPlayingCurrentFile}
         />;

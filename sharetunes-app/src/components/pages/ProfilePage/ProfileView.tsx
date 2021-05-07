@@ -3,6 +3,8 @@ import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import { isDebuggerStatement } from 'typescript';
 
+import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
+ 
 interface Props {
     user: any;
     onClickEditProfile: any;
@@ -13,7 +15,7 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
         <header className={classes.ProfileViewHeader}>
             <img
                 className={classes.ProfileImg}
-                src={user.profilePictureURL}
+                src={user.profilePictureURL ? user.profilePictureURL : DEFAULT_PROFILE_PICTURE_URL}
                 alt="Profile picture"
             />
             <section className={classes.ProfileInfo}>

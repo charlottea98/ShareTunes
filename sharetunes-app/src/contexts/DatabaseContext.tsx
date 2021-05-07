@@ -1,4 +1,5 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
+import firebase from 'firebase';
 
 import { Followee, Follower, Post, Song, User } from './../utility/types';
 
@@ -23,11 +24,41 @@ export const useDatabase = () => {
 };
 
 const LoggedInUserProvider: React.FC = ({ children }) => {
+    const db = firebase.firestore();
+
     const [followers, setFollowers] = useState<Array<Followee>>([]);
     const [following, setFollowing] = useState<Array<Follower>>([]);
     const [posts, setPosts] = useState<Array<Post>>([]);
     const [songs, setSongs] = useState<Array<Song>>([]);
     const [users, setUsers] = useState<Array<User>>([]);
+
+    useEffect(() => {
+        let usersRef = db.collection('users');
+        usersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let usersFromDatabase: Array<any> = [];
+
+            querySnapshot.forEach(doc => {
+                usersFromDatabase.push(doc.data());
+            });
+            
+            setUsers(usersFromDatabase);
+        })
+
+        let postsRef = db.collection('posts');
+        postsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let postsFromDatabase: Array<any> = [];
+
+            querySnapshot.forEach(doc => {
+                postsFromDatabase.push(doc.data());
+            });
+
+            postsFromDatabase = postsFromDatabase.filter(post => !post.deleted);
+
+            setPosts(postsFromDatabase);
+        })
+    }, []);
+
+    
 
     return (
         <DatabaseContext.Provider value={{
@@ -37,7 +68,7 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
             songs: songs,
             users: users
         }}>
-                {children}
+            {children}
         </DatabaseContext.Provider>
     );
 };
