@@ -45,6 +45,7 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
     const addComment = (commentText: string) => {
         if (loggedInUser) {
             let newComment: Comment = {
+                id: String(Date.now()),
                 date: new Date(),
                 emailOfPublisher: loggedInUser.email,
                 usernameOfPublisher: loggedInUser.username,
@@ -57,8 +58,6 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
     }
 
     const addLike = (postId: string, emailOfLiker: string) => {
-        console.log(postId);
-        console.log(emailOfLiker);
         DatabaseHandler.addNewLike(postId, emailOfLiker);
     }
 
@@ -66,8 +65,8 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
         setShowInteraction(!showInteraction);
     }
 
-    const visitProfile = (userId: string) => {
-        currentlyVisitedUserProfileUpdate(userId);
+    const visitProfile = (userToVisit: string) => {
+        currentlyVisitedUserProfileUpdate(userToVisit);
         history.push('/profile');
     }
 

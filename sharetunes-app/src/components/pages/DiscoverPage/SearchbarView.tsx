@@ -24,11 +24,11 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
         <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClose()} size='2x' cursor='pointer' color='#fec46e'></FontAwesomeIcon>
         </div>
         <ul hidden={!typing} className={classes.SearchList}>
-        {searchResults.map(result => {
-            return (<div className={classes.SearchItems}>
+        {searchResults.map((result, idx) => (
+            <div className={classes.SearchItems} key={idx}>
                 {result?.username}<button disabled={isFollowing(result?.email)} onClick={()=>followUser(result)}>Follow</button>
-                </div>)
-        })}
+            </div>)
+        )}
         
         </ul>
         </div>)

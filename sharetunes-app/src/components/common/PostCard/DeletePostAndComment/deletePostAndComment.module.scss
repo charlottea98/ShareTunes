@@ -1,12 +1,22 @@
-.DeletePostButton {
-	font-size: 20px;
-	margin-right: 8px;
+.DeletePostButton,
+.DeleteCommentButton {
 	cursor: pointer;
 	transition: 0.2s;
+}
+
+.DeletePostButton {
+	margin-right: 8px;
+	font-size: 20px;
 	color: #232323;
 }
 
-.DeletePostButton:hover {
+.DeleteCommentButton {
+	font-size: 14px;
+	color: #a1a1a1;
+}
+
+.DeletePostButton:hover,
+.DeleteCommentButton:hover {
 	color: #fe6e6e;
 }
 
@@ -22,7 +32,8 @@
 	cursor: pointer;
 }
 
-.DeletePostModalContainer {
+.DeletePostModalContainer,
+.DeleteCommentModalContainer {
 	display: flex;
 	flex-direction: column;
 	position: fixed;
@@ -36,6 +47,10 @@
 	font-size: 20px;
 	padding: 30px;
 	min-width: 275px;
+}
+
+.DeleteCommentModalContainer {
+	max-width: 350px;
 }
 
 .buttonContainer {
@@ -52,6 +67,9 @@
 	padding: 10px 13px;
 	border-radius: 2px;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttonContainer div:first-child {

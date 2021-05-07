@@ -19,11 +19,11 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
             </div>
             <div className={classes.discoverPage}>
             <div className={classes.discoverFeed}>
-            {posts.map(post => {
-                return <div className={classes.card}>
+            {posts.map((post, idx) => (
+                <div className={classes.card} key={idx}>
                     <PostCardPresenter postInfo={post} />
-                    </div>
-            })}
+                </div>
+            ))}
             </div>
             <div className={classes.discoverSidebar}>
                 <div className={classes.popularSongs}>
@@ -31,11 +31,11 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
                         Popular Songs
                     </div>
                     <div className={classes.displayPopular}>
-                        {topSongs.map(song => {
-                            return <div className={classes.songCard}>
-                            <SongCardPresenter song={song} />
+                        {topSongs.map((song, idx) => (
+                            <div className={classes.songCard} key={idx}>
+                                <SongCardPresenter song={song} />
                             </div>
-                        })}
+                        ))}
                     </div>
                 </div>
                 <div className={classes.recommendedSongs}>
@@ -43,11 +43,11 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
                         Recommended Songs
                     </div>
                     <div className={classes.displayRecommended}>
-                    {recommendedSongs.map(song => {
-                            return <div className={classes.songCard}>
+                    {recommendedSongs.map((song, idx) => (
+                        <div className={classes.songCard} key={idx}>
                             <SongCardPresenter song={song} />
-                            </div>
-                        })}
+                        </div>
+                    ))}
                     </div>
                 </div>
             </div>
