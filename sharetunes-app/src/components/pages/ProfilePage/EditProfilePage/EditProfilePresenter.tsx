@@ -3,7 +3,6 @@ import EditProfileView from './EditProfileView';
 import {
     useLoggedInUser,
     useLoggedInUserUpdate,
-    useUpdateProfilePicture,
 } from '../../../../contexts/LoggedInUserContext';
 
 const EditProfilePresenter: React.FC = () => {

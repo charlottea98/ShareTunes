@@ -1,33 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
-import { getAllRelevantPosts } from '../../../utility/firestoreCommunication';
-import { Post } from '../../../utility/types';
-import { deletePost as deletePostFromFirestore } from '../../../utility/firestoreCommunication';
+import React from 'react';
 
 import HomePageView from './HomePageView';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 const HomePagePresenter : React.FC = () => {
-    const [postsToShow, setPostsToShow] = useState<Array<Post>>([]);
-    const loggedInUser = useLoggedInUser();
+    const { posts } = useDatabase();
 
-    const deletePost = (postId: string) => {
-        deletePostFromFirestore(parseInt(postId));
-
-        if (loggedInUser) {
-            getAllRelevantPosts(loggedInUser.email, "home page")
-                .then(posts => setPostsToShow(posts));
-        }
-    }
-
-    useEffect(() => {
-        if (loggedInUser) {
-            getAllRelevantPosts(loggedInUser.email, "home page")
-                .then(posts => setPostsToShow(posts));
-        }
-    }, []);
-    
-
-    return <HomePageView postsToShow={postsToShow} deletePost={deletePost} />;
+    return <HomePageView postsToShow={posts} />;
 }
 
 export default HomePagePresenter;

@@ -6,7 +6,7 @@ import fire from '../../../fire';
 
 import { Post, Song, User } from '../../../utility/types';
 import { createImageLinkFromDriveId } from '../../../utility/utility';
-import { addNewUser } from '../../../utility/firestoreCommunication';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import {
     useLoggedInUser,
@@ -149,7 +149,7 @@ const LoginPresenter: React.FC<Props> = () => {
             biography: '',
             posts: [],
         };
-        addNewUser(userToAdd);
+        DatabaseHandler.addNewUser(userToAdd);
 
         // // Lägg till i followers
         // firebase.firestore().collection('followers').doc(email).set({

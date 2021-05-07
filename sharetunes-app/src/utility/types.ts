@@ -1,39 +1,47 @@
 export interface Comment {
     date: any,
-    postedBy: string,
+    emailOfPublisher: string,
+    usernameOfPublisher: string,
     comment: string
 }
 
-export interface Post {
-    id: number,
-    caption: string,
-    rating: 1 | 2 | 3 | 4 | 5,
-    tags: Array<string>,
-    postImageURL: string,
-    song: string,
-    postedBy: string,
-    likes: number,
-    comments: Array<Comment>,
-    date: Date,
-    deleted: boolean
+export interface Followee {
+    id: string,
+    followers: Array<string>
 }
 
-export interface PostCardInfo {
-    id: number,
+export interface Follower {
+    id: string,
+    following: Array<string>
+}
+
+export interface Post {
+    id: string,
     caption: string,
     rating: 1 | 2 | 3 | 4 | 5,
     tags: Array<string>,
     postImageURL: string,
-    songTitle: string,
-    artists: Array<string>,
-    albumCover: string,
-    previewSong: string,
+    song: Song,
     usernameOfPublisher: string,
     emailOfPublisher: string,
     profilePictureOfPublisher: string,
-    likes: number,
+    likes: Array<string>,
     comments: Array<Comment>,
     date: any,
+    deleted: boolean
+}
+
+export interface Artist {
+    id: string,
+    name: string
+}
+
+export interface Song {
+    id: string,
+    title: string,
+    artists: Array<Artist>,
+    albumCoverURL: string,
+    previewURL: string | null,
 }
 
 export interface User {
@@ -41,30 +49,8 @@ export interface User {
     name: string,
     email: string,
     username: string,
-    profilePictureURL: string,
-    favoriteSong: string,
+    profilePictureURL: string | null,
+    favoriteSong: string | null,
     biography: string,
     posts: Array<number>
 }
-
-export interface Artist {
-    id: string,
-    name: string,
-    totalLikes: number,
-    totalPosts: number
-}
-
-export interface Song {
-    id: string,
-    title: string,
-    artists: Array<string>,
-    albumCoverSmallURL: string,
-    albumCoverMediumURL: string,
-    albumCoverLargeURL: string,
-    songPreviewURL: string,
-    posts: Array<number>,
-    totalLikes: number,
-    totalPosts: number,
-    avarageRating: number | null
-}
-

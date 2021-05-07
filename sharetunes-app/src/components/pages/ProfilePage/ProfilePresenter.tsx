@@ -3,7 +3,6 @@ import ProfileView from './ProfileView';
 import {
     useLoggedInUser,
     useLoggedInUserUpdate,
-    useUpdateProfilePicture,
 } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router-dom';
 import { useCurrentlyVisitedUserProfile } from '../../../contexts/CurrentlyVisitedUserProfileContext';

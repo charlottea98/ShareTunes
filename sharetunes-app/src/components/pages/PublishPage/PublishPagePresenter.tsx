@@ -47,19 +47,15 @@ const PublishPagePresenter = () => {
                     albumCoverLargeURL: song.album.images[0].url,
                     songPreviewURL: song.preview_url
                 }
+
                 setPostSongInfo( {
                     id: postSong.id,
                     title: postSong.title,
                     artists: postSong.artists,
-                    albumCoverSmallURL: postSong.albumCoverSmallURL,
-                    albumCoverMediumURL: postSong.albumCoverMediumURL,
-                    albumCoverLargeURL: postSong.albumCoverLargeURL,
-                    songPreviewURL: postSong.songPreviewURL,
-                    posts: [],
-                    totalLikes: 0,
-                    totalPosts: 0,
-                    avarageRating: 0
+                    albumCoverURL: postSong.albumCoverLargeURL,
+                    previewURL: postSong.songPreviewURL,
                 })
+
                 SpotifyAPI.getArtistDetails(postSong.artists).then((artistInfo)=>{
                     let artistName = artistInfo.name;
                     setArtist(artistName)
@@ -169,17 +165,11 @@ const PublishPagePresenter = () => {
                     }
                     else{
                         firestore.collection('songs').doc(song.id).set({
-                            albumCoverLargeURL: song.albumCoverLargeURL,
-                            albumCoverMediumURL: song.albumCoverMediumURL,
-                            albumCoverSmallURL: song.albumCoverSmallURL,
-                            artists: [song.artists],
-                            averageRating: [rating],
                             id: song.id,
-                            posts: [docRef.id],
-                            songPreviewURL: song.songPreviewURL,
                             title: song.title,
-                            totalLikes: 0,
-                            totalPosts: 1
+                            artists: [song.artists],
+                            albumCoverURL: song.albumCoverURL,
+                            previewURL: song.previewURL,
                         }).then(()=> {
                             console.log('song added')
                         })

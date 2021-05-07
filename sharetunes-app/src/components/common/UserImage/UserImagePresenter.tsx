@@ -17,7 +17,7 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
 
     let profileImage;
 
-    if (loggedInUser && loggedInUser.profilePictureURL !== "") {
+    if (loggedInUser && loggedInUser.profilePictureURL !== null && loggedInUser.profilePictureURL !== undefined) {
         profileImage = loggedInUser.profilePictureURL;
     } else {
         profileImage = DEFAULT_PROFILE_PICTURE_URL;

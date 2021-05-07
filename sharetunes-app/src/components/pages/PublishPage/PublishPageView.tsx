@@ -31,33 +31,39 @@ const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searc
         <div className={classes.postBox}>
             <div className={classes.postImage}>
                 <div className={classes.headers}>Post picture URL</div>
-            <input className={classes.input} onChange={e => {handleChange(e,'image');}}/>
+                <input className={classes.input} onChange={e => {handleChange(e,'image');}}/>
             </div>
             <div className={classes.postCaption}>
                 <div className={classes.headers}>Caption</div>
-            <input className={classes.input} onChange={e => {handleChange(e,'caption');}}/>
+                <input className={classes.input} onChange={e => {handleChange(e,'caption');}}/>
             </div>
             <div className={classes.headers}>Tags</div>
             <div className={classes.postSong}>
                 <input type="text" className={classes.input} onChange={e => {handleChange(e,'tags');}}/>
                 <div className={classes.icon}>
-                <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
                 </div>
                 <div className={classes.tagsContainer}>
-                {tagsArray.map(tag => {
-                    return <div className={classes.tag}>{tag}</div>
-                })}
+                    {tagsArray.map(tag => {
+                        return <div className={classes.tag}>{tag}</div>
+                    })}
                 </div>
             </div>
             <div>
                 <div className={classes.headers}>Song</div>
                 {isSearching?(
                     <div className={classes.showSong}>
-                        <SongCardPresenter 
-                            title={songPostInfo.title}
-                            artists={artist}
-                            albumCover ={songPostInfo.albumCoverSmallURL}
-                            previewSong={songPostInfo.songPreviewURL}
+                        <SongCardPresenter song = {{
+                            id: songPostInfo.id,
+                            title: songPostInfo.title,
+                            artists: [{
+                                id: "",
+                                name: ""
+                            }],
+                            albumCoverURL: songPostInfo.albumCoverSmallURL,
+                            previewURL: songPostInfo.songPreviewURL
+                        }}
+                            
                         ></SongCardPresenter>
                         <div className={classes.songButton} onClick={()=>switchSearchMode()}>Change song</div>
                     </div>

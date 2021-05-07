@@ -8,7 +8,7 @@ interface Props {
     title: string,
     artists: string,
     albumCover: string,
-    previewSong: string | undefined,
+    previewSong: string | null,
     handleAudio: Function,
     isPlaying: Function
 }

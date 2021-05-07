@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { DatabaseHandler } from '../../../../utility/databaseHandler';
 import DeletePostButtonView from './DeletePostButtonView';
 import DeletePostModalView from './DeletePostModalView';
 
 interface Props {
-    postId: number,
-    deletePost?: Function
+    postId: string
 }
 
-const DeletePostButtonPresenter: React.FC<Props> = ({postId, deletePost}) => {
+const DeletePostButtonPresenter: React.FC<Props> = ({postId}) => {
     const [displayDeleteModal, setDisplayDeleteModal] = useState<boolean>(false);
 
     const deleteIconClickedHandler = () => {
@@ -19,9 +19,7 @@ const DeletePostButtonPresenter: React.FC<Props> = ({postId, deletePost}) => {
     }
 
     const confirmDeleteButtonClicked = () => {
-        if (deletePost) {
-            deletePost(postId);
-        }
+        DatabaseHandler.deletePost(postId);
         
         setDisplayDeleteModal(false);
     }
