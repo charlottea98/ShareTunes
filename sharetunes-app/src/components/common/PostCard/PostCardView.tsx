@@ -112,11 +112,15 @@ const PostCardView: React.FC<Props> = ({
                             }}
                             onClick={() => addLike(postCardInfo.id, loggedInUserEmail)}
                         >
-                            <FontAwesomeIcon icon={postCardInfo.likes.includes(loggedInUserEmail) ? faHeart : farFaHeart} />
+                            <FontAwesomeIcon 
+                                icon={postCardInfo.likes.includes(loggedInUserEmail) ? faHeart : farFaHeart}
+                                size = "1x"
+                            />
                         </div>
-                        <div><FontAwesomeIcon icon={farFaComments} /></div>
+                        {/* <div><FontAwesomeIcon icon={farFaComments} /></div> */}
                     </div>
                     <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
+                    
 
                     <div className={classes.captionAndComments}>
                         <div>
@@ -126,7 +130,6 @@ const PostCardView: React.FC<Props> = ({
                                 </strong>
                                 {postCardInfo.caption}
                             </span>
-                            
                         </div>
 
                         {postCardInfo.comments.map((comment, idx) => (
@@ -160,9 +163,17 @@ const PostCardView: React.FC<Props> = ({
                         placeholder="Write comment"
                         value = {commentText}
                         onChange = {event => commentTextChangeHandler(event.target.value)}
+                        onKeyDown = {event => {
+                            if (event.key === "Enter") {
+                                addComment(commentText)
+                            }
+                        }}
                     />
 
-                    <div onClick={() => addComment(commentText)}>Publish</div>
+                    <div 
+                        onClick={() => addComment(commentText)}
+                        className = {commentText === "" ? classes.inActivePublishComment : classes.publishComment}
+                    >Publish</div>
                 </div>
             </div>
             
