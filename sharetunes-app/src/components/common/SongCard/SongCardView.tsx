@@ -3,10 +3,11 @@ import classes from './songCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faUsers, faPlay, faPause, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { Artist } from '../../../utility/types';
 
 interface Props {
     title: string,
-    artists: string,
+    artists: Array<Artist>,
     albumCover: string,
     previewSong: string | null,
     handleAudio: Function,
@@ -34,7 +35,11 @@ const SongCardView: React.FC<Props> = ({
 
                     <div className={classes.SongArtistsContainer}>
                         <FontAwesomeIcon icon={faUsers} color="#232323" size="1x" />
-                        <span>{artists}</span>
+                        <div>
+                            {
+                                artists.map(artist => <span className={classes.artistContainer}>{artist.name}</span>)
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
