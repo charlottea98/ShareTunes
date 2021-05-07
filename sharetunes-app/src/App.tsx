@@ -6,7 +6,7 @@ import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
-import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
+import ProfilePresenter from './components/pages/ProfilePage/ProfileInfoPresenter';
 import ProfilePostsPresenter from './components/pages/ProfilePage/ProfilePostsPresenter';
 import EditProfilePresenter from './components/pages/ProfilePage/EditProfilePage/EditProfilePresenter';
 import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
