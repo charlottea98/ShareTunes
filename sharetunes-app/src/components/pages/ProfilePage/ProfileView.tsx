@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './profileView.module.scss';
+import classes from './profileInfoView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import { isDebuggerStatement } from 'typescript';
 
@@ -19,10 +19,11 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
             <section className={classes.ProfileInfo}>
                 <div className={classes.NameButtonContainer}>
                     <h2 className={classes.Name}>{user.username}</h2>
+
                     <PrimaryButton
                         text="Edit profile"
                         onButtonClick={onClickEditProfile}
-                        buttonColor="green"
+                        buttonColor="editProfileBtn"
                     />
                 </div>
                 <ul className={classes.List}>
