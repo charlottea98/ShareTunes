@@ -25,8 +25,9 @@ const SongCardView: React.FC<Props> = ({
     return (
         <div className={classes.SongCard}>
             <div className={classes.albumCoverAndSongInfoContainer}>
+                <div className={classes.albumImageContainer}>
                 <img src={albumCover} />
-
+                </div>
                 <div className={classes.SongInfoContainer}>
                     <div className={classes.SongTitleContainer}>
                         <FontAwesomeIcon icon={faMusic} color="#232323" size="1x" />

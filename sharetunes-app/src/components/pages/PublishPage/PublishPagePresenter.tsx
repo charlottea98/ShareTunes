@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { SpotifyAPI } from '../../../utility/spotifyCommunication';
-import { Song} from '../../../utility/types';
+import { Song, Post} from '../../../utility/types';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
-import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 
 
@@ -13,14 +13,13 @@ const PublishPagePresenter = () => {
     const loggedInUser = useLoggedInUser();
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [songPostInfo, setPostSongInfo] = useState<Song | undefined>(undefined);
-    const [searchInput, setSearchInput] = useState<String>(' ');
-    const [pictureURLInput, setPictureURLInput] = useState<String>('');
-    const [captionInput, setCaptionInput] = useState<String>('');
+    const [searchInput, setSearchInput] = useState<string>(' ');
+    const [pictureURLInput, setPictureURLInput] = useState<string>('');
+    const [captionInput, setCaptionInput] = useState<string>('');
     const [ratingInput, setRatingInput] = useState<number>(0);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [tagsInput, setTagsInput] = useState<string>('');
     const [tagsArray, setTagsArray] = useState<String[]>([]);
-    const [artist, setArtist] = useState<string>('');
     const history = useHistory();
 
     const switchSearchMode = () => {
@@ -41,24 +40,16 @@ const PublishPagePresenter = () => {
                 let postSong = {
                     id: song.id,
                     title: song.name,
-                    artists: song.artists[0].id,
-                    albumCoverSmallURL: song.album.images[2].url,
-                    albumCoverMediumURL: song.album.images[1].url,
-                    albumCoverLargeURL: song.album.images[0].url,
-                    songPreviewURL: song.preview_url
+                    artists: [{id:song.artists[0].id, name:song.artists[0].name}],
+                    albumCoverURL: song.album.images[0].url,
+                    previewURL: song.preview_url
                 }
-
                 setPostSongInfo( {
                     id: postSong.id,
                     title: postSong.title,
                     artists: postSong.artists,
-                    albumCoverURL: postSong.albumCoverLargeURL,
-                    previewURL: postSong.songPreviewURL,
-                })
-
-                SpotifyAPI.getArtistDetails(postSong.artists).then((artistInfo)=>{
-                    let artistName = artistInfo.name;
-                    setArtist(artistName)
+                    albumCoverURL: postSong.albumCoverURL,
+                    previewURL: postSong.previewURL,
                 })
                 switchSearchMode();
             }
@@ -99,7 +90,7 @@ const PublishPagePresenter = () => {
         }
     }
 
-    const handleSubmit = (image:String, caption:String, song:Song, rating:number, tags:String[]) => {
+    const handleSubmit = (image:string, caption:string, song:Song, rating:number, tags:string[]) => {
         var errors = [];
         if (image===''){
             errors.push('picture URL');
@@ -133,69 +124,36 @@ const PublishPagePresenter = () => {
         }
     }
 
-    const handlePublish = (image:String, caption:String, song:Song, rating:number, tags:String[]) => {
-        firestore.collection('posts').add({
+    const handlePublish = (image:string, caption:string, song:Song, rating:number, tags:string[]) => {
+        let newPost : Post = {
             caption: caption,
             comments: [],
             date: firebase.firestore.FieldValue.serverTimestamp(),
             deleted: false,
-            id: null,
-            likes: 0,
+            id: '',
+            likes: [],
             postImageURL: image,
-            postedBy: loggedInUser?.email,
+            profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
+            emailOfPublisher: String(loggedInUser?.email),
             rating: rating,
-            song: song.id,
-            tags: tags
-        }).then((docRef) => {
-            firestore.collection('posts').doc(docRef.id).update({
-                id: docRef.id
-            }).then(() => {
-                var ref = docRef.id;
-                console.log('Added and updated!')
-                firestore.collection('songs').doc(song.id).get()
-                .then((docSnapshot) => {
-                    if(docSnapshot.exists){
-                        firestore.collection('songs').doc(song.id).update({
-                            ratings: firebase.firestore.FieldValue.arrayUnion(rating),
-                            posts: firebase.firestore.FieldValue.arrayUnion(ref),
-                            totalPosts: firebase.firestore.FieldValue.increment(1)
-                        }).then(()=>{
-                            console.log('Song updated')
-                        })
-                    }
-                    else{
-                        firestore.collection('songs').doc(song.id).set({
-                            id: song.id,
-                            title: song.title,
-                            artists: [song.artists],
-                            albumCoverURL: song.albumCoverURL,
-                            previewURL: song.previewURL,
-                        }).then(()=> {
-                            console.log('song added')
-                        })
-                    }
-                }).then(()=> {
-                    firestore.collection('users').doc(loggedInUser?.email).update({
-                        posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
-                    })
-                })
-            })
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-        });
+            songId: song.id,
+            tags: tags,
+            usernameOfPublisher: String(loggedInUser?.username)
+        }
+
+        DatabaseHandler.addNewPost(newPost);
+        DatabaseHandler.addNewSong(song.id);
     }
 
     const handleCancel = () => {
         setErrorMessage('Cancelled! You will soon be redirected to your home page')
-            setTimeout(()=>history.push('/home'), 5000);
+        setTimeout(()=>history.push('/home'), 5000);
     }
 
     return <PublishPageView isSearching={isSearching} 
                             switchSearchMode={switchSearchMode}
                             searchSong={searchSong}
                             songPostInfo={songPostInfo}
-                            artist={artist}
                             handleChange={handleChange}
                             searchInput={searchInput}
                             captionInput={captionInput}
