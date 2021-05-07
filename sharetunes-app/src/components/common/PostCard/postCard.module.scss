@@ -143,10 +143,12 @@
 .commentContainer {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 }
 
 .deleteComment {
+	margin-top: -2px !important;
 }
 
 .viewPost {
@@ -176,13 +178,22 @@
 	font-size: 15px;
 }
 
-.commentBox div {
+.publishComment,
+.inActivePublishComment {
 	border-radius: 2px;
 	padding: 2px 5px;
 	color: #fff;
 	font-weight: 600;
 	user-select: none;
 	margin-left: 10px;
-	cursor: pointer;
 	background-color: #fec46e;
+}
+
+.publishComment {
+	cursor: pointer;
+}
+
+.inActivePublishComment {
+	opacity: 0.5;
+	cursor: default;
 }
