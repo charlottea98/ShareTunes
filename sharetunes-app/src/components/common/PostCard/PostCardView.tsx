@@ -75,7 +75,7 @@ const PostCardView: React.FC<Props> = ({
                     "backgroundImage": `url(${postCardInfo.postImageURL})`
                 }}
             />
-            <SongCard song = {postCardInfo.song} />
+            <SongCard songId = {postCardInfo.songId} />
 
             <div className={classes.reviewContainer}>
                 <div className={classes.ratingContainer}>

@@ -8,6 +8,8 @@ import { Post, Song, User } from '../../../utility/types';
 import { createImageLinkFromDriveId } from '../../../utility/utility';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
+import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
+
 import {
     useLoggedInUser,
     useLoggedInUserUpdate,
@@ -142,9 +144,7 @@ const LoginPresenter: React.FC<Props> = () => {
             name: name,
             email: email,
             username: username,
-            profilePictureURL: createImageLinkFromDriveId(
-                '1pYIMKBLGubCmw78RAxDDhbm98PyOlY6Y'
-            ),
+            profilePictureURL: DEFAULT_PROFILE_PICTURE_URL,
             favoriteSong: '4aaEV6V9aOQb2oQzWlf9cu',
             biography: '',
             posts: [],
