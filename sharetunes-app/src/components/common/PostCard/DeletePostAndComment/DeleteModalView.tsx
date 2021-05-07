@@ -23,7 +23,13 @@ const DeleteModalView: React.FC<Props> = ({
             <div className={classes.DeleteCommentModalContainer} >
                 <div>{message}</div>
 
-                <i style={{"fontWeight": 400, "fontSize": "15px", "margin": "5px 0"}}>"{message2}"</i>
+                {message2 !== "" ?
+                    <i style={{
+                        "fontWeight": 400, 
+                        "fontSize": "15px", 
+                        "margin": "5px 0"
+                    }}>"{message2}"</i> : null
+                }
                 <div className={classes.buttonContainer}>
                     <div onClick={abortButtonClicked}>No, take me back</div>
                     <div onClick={confirmDeleteButtonClicked}>Yes, delete it</div>
