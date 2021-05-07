@@ -53,8 +53,8 @@ export const DatabaseHandler = {
                 albumCoverURL: songData.album.images[2].url,
                 previewURL: songData.preview_url,
             }
-
-            firebase.firestore().collection('songs').doc(newSong.id).set(newSong);
+            console.log(songId);
+            firebase.firestore().collection('songs').doc(songId).set(newSong);
         }
     },
     async addNewComment(postId: string, newComment: Comment) {
