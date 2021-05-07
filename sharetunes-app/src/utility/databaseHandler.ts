@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
 import { SpotifyAPI } from './spotifyCommunication';
 import { User, Post, Comment, Song } from './types';
@@ -34,8 +35,10 @@ export const DatabaseHandler = {
                 "id": newUser.email,
                 "following": []
             });
+
+            return "New user created";
         } else {
-            return "Email already exist!"
+            return "Email already exist";
         }
     },
     async addNewSong(songId: string) {
@@ -252,21 +255,58 @@ export const DatabaseHandler = {
         DatabaseHandler.addNewPost(postToAdd3);
         DatabaseHandler.addNewPost(postToAdd4);
     },
-    loginUser(email: string, password: string) {
-        // Return error eller OK
-        // TODO
-    },
-    signUpUser(name: string, username:string, email: string, password: string) {
-        DatabaseHandler.addNewUser({
-            id: email,
-            email: email,
-            name: name,
-            username: username,
-            biography: "",
-            favoriteSong: null,
-            profilePictureURL: null,
-            posts: []
+    async loginUser(email: string, password: string) {
+        let returnMessage;
+
+        await fire.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+            sessionStorage.setItem('user-session', email);
+            returnMessage = "User logged in successfully";
         })
+        .catch((err) => {
+            switch (err.code) {
+                case 'auth/invalid-email':
+                case 'auth/user-disabled':
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                    returnMessage = err.message;
+                break;
+            }
+        });
+
+        return returnMessage;
+    },
+    async signUpUser(name: string, username:string, email: string, password: string) {
+        let returnMessage;
+        
+        await fire.auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                DatabaseHandler.addNewUser({
+                    id: email,
+                    email: email,
+                    name: name,
+                    username: username,
+                    biography: "",
+                    favoriteSong: null,
+                    profilePictureURL: DEFAULT_PROFILE_PICTURE_URL,
+                    posts: []
+                })
+
+                returnMessage = "New user added in database";
+            })
+            .catch((err) => {
+                switch (err.code) {
+                    case 'auth/email-already-in-use':
+                    case 'auth/invalid-email':
+                    case 'auth/weak-password':
+                        returnMessage = err.message;
+                    break;
+                }
+            });
+
+        return returnMessage;
     },
     logoutUser() {
         // TODO

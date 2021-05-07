@@ -2,6 +2,6 @@
 	text-align: center;
 }
 
-.postCardContainer {
+.postCardContainer:not(:first-child) {
 	margin-top: 30px;
 }
