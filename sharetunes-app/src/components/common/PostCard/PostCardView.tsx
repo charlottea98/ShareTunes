@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
-import { useLocation } from 'react-router-dom';
-
-import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons';
@@ -13,42 +9,38 @@ import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
 import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
-import { useHistory } from 'react-router';
-import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
-
-import { Comment } from '../../../utility/types';
 
 
 interface Props {
     postCardInfo: Post | undefined,
-    userCanDeletePost: boolean,
     addComment: (commentText: string) => void,
     addLike: (postId: string, emailOfLiker: string) => void,
     commentTextChangeHandler: (newCommentText: string) => void,
     commentText: string,
     filledRatingArray: Array<number>,
     nonFilledRatingArray: Array<number>,
-    loggedInUserEmail: string
+    loggedInUserEmail: string,
+    showInteraction: boolean,
+    showToggleInteraction: boolean,
+    visitProfile: (userId: string) => void,
+    toggleShowInteraction: () => void,
+    showDeleteButton: boolean
 }
 
 const PostCardView: React.FC<Props> = ({
     postCardInfo,
-    userCanDeletePost,
-    addComment,
-    addLike,
-    commentTextChangeHandler,
+    showDeleteButton,
     commentText,
     filledRatingArray,
     nonFilledRatingArray,
-    loggedInUserEmail
+    loggedInUserEmail,
+    showInteraction,
+    showToggleInteraction,
+    addComment,
+    addLike,
+    commentTextChangeHandler,
+    toggleShowInteraction,
 }) => {
-    const history = useHistory();
-    const location = useLocation();
-    
-    
-    const [showInteraction, setShowInteraction] = useState<boolean>(location.pathname === '/home');
-    
-    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate();
 
 
     return postCardInfo ? (
@@ -59,19 +51,16 @@ const PostCardView: React.FC<Props> = ({
                     <img src={postCardInfo.profilePictureOfPublisher} />
                     {postCardInfo.usernameOfPublisher}
                 </div>
-                {
-                    userCanDeletePost && postCardInfo && location.pathname === '/home'
-                        ? <DeletePostButtonPresenter postId={postCardInfo.id} /> 
-                        : (
-                            <div className={classes.viewPost} onClick={() => setShowInteraction(!showInteraction)}>
-                                {showInteraction ? (
-                                    <p>Close post</p>
-                                ):(
-                                <p>View post</p>
-                                )}
-                            </div>
-                        )
-                }  
+                {showDeleteButton ? <DeletePostButtonPresenter postId={postCardInfo.id} /> : <div />}
+                {showToggleInteraction ? 
+                    <div className={classes.viewPost} onClick={toggleShowInteraction}>
+                        {showInteraction ? (
+                            <p>Close post</p>
+                        ):(
+                        <p>View post</p>
+                        )}
+                    </div> : null
+                }
             </div>
             <div
                 className={classes.postImage}
@@ -127,8 +116,7 @@ const PostCardView: React.FC<Props> = ({
                             <span 
                                 className={classes.userNameInComment}
                                 onClick = {() => {
-                                    currentlyVisitedUserProfileUpdate(postCardInfo.emailOfPublisher);
-                                    history.push('/profile');
+                                    
                                 }}
                             >
                                 {postCardInfo.usernameOfPublisher}

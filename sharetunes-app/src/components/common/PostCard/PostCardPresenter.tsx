@@ -1,19 +1,25 @@
 import React, {  useState } from 'react';
 
 import PostCardView from './PostCardView';
-import PostCardDiscoverView from './PostCardDiscoveryView';
 import { Post, Comment } from '../../../utility/types';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
-import { stringify } from 'node:querystring';
+
+import { useLocation, useHistory } from 'react-router-dom';
+import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 interface Props {
     postInfo: Post
 }
 
 const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
-    const [commentText, setCommentText] = useState<string>("");
+    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate();
     const loggedInUser = useLoggedInUser();
+    const history = useHistory();
+    const location = useLocation();
+
+    const [commentText, setCommentText] = useState<string>("");
+    const [showInteraction, setShowInteraction] = useState<boolean>(location.pathname === '/home');
 
     let userCanDeleteThisPost = false;
 
@@ -56,9 +62,20 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
         DatabaseHandler.addNewLike(postId, emailOfLiker);
     }
 
+    const toggleShowInteraction = () => {
+        setShowInteraction(!showInteraction);
+    }
+
+    const visitProfile = (userId: string) => {
+        currentlyVisitedUserProfileUpdate(userId);
+        history.push('/profile');
+    }
+
+    const showToggleInteraction = location.pathname === '/discover' || location.pathname === '/profile';
+    const showDeleteButton = !showToggleInteraction && userCanDeleteThisPost && postInfo && location.pathname === '/home';
+
     return loggedInUser ? <PostCardView 
         postCardInfo = {postInfo} 
-        userCanDeletePost = {userCanDeleteThisPost}
         addComment = {addComment}
         addLike = {addLike}
         commentTextChangeHandler = {commentTextChangeHandler}
@@ -66,6 +83,11 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
         filledRatingArray = {filledRatingArray}
         nonFilledRatingArray = {nonFilledRatingArray}
         loggedInUserEmail = {loggedInUser.email}
+        showInteraction = {showInteraction}
+        visitProfile = {visitProfile}
+        toggleShowInteraction = {toggleShowInteraction}
+        showToggleInteraction = {showToggleInteraction}
+        showDeleteButton = {showDeleteButton}
     /> : null;
 }
 
