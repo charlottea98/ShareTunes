@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import { error } from 'node:console';
+import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
 import { SpotifyAPI } from './spotifyCommunication';
 import { User, Post, Comment, Song } from './types';
@@ -34,8 +36,10 @@ export const DatabaseHandler = {
                 "id": newUser.email,
                 "following": []
             });
+
+            return "New user created";
         } else {
-            return "Email already exist!"
+            return "Email already exist";
         }
     },
     async addNewSong(songId: string) {
@@ -127,10 +131,11 @@ export const DatabaseHandler = {
         // Add new songs
         DatabaseHandler.addNewSong("5qYf19BLOheApfe6NqhDPg");
         DatabaseHandler.addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
-    
-        DatabaseHandler.addNewSong("1XvrMOEi2oLFYdrkfIX3xG");
+        DatabaseHandler.addNewSong("3LmpQiFNgFCnvAnhhvKUyI");
         DatabaseHandler.addNewSong("54rjlka9h5VCl8ugns7gvt");
         DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+        DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+        
     
         // Add new users
         let userToAdd1 : User = {
@@ -189,19 +194,7 @@ export const DatabaseHandler = {
             rating: 3,
             tags: ["Tagg"],
             postImageURL: createImageLinkFromDriveId("10ANTVpvP4crwarzLLlxGLs4ilJab5kmK"),
-            song: {
-                id: "4aaEV6V9aOQb2oQzWlf9cu",
-                title: "Washout",
-                artists: [{
-                    id: "670UISOh9XV1zlq5z5IfoY",
-                    name: "GOLDHOUSE",
-                }, {
-                    id: "3sKeaby6GMSJWgYueZaSjE",
-                    name: "Mokita"
-                }],
-                albumCoverURL: "https://i.scdn.co/image/ab67616d0000b2731989c8fd66a096ed5427aae6",
-                previewURL: "https://p.scdn.co/mp3-preview/57c1229a5ace5ed994e01881628e7559dacb3274?cid=c9e9c34181c846e2bf3d591af1b4ea52",
-            },
+            songId: "4aaEV6V9aOQb2oQzWlf9cu",
             usernameOfPublisher: "rasmusrudling",
             emailOfPublisher: "rrudling@kth.se",
             profilePictureOfPublisher: createImageLinkFromDriveId("1GnZSOEI94lljIswu601Cu3lFDtvExwPb"),
@@ -217,16 +210,7 @@ export const DatabaseHandler = {
             rating: 4,
             tags: ["Lugn"],
             postImageURL: createImageLinkFromDriveId("1SJ9G6CaASo9QKysPlnBcQY5Bo2Kzw0rO"),
-            song: {
-                id: "5nNmj1cLH3r4aA4XDJ2bgY",
-                title: "September",
-                artists: [{
-                    id: "4QQgXkCYTt3BlENzhyNETg",
-                    name: "Earth, Wind & Fire",
-                }],
-                albumCoverURL: "https://i.scdn.co/image/ab67616d0000b273af0d466d16c97b6385219d90",
-                previewURL: null,
-            },
+            songId: "5nNmj1cLH3r4aA4XDJ2bgY",
             usernameOfPublisher: "lottaandersson",
             emailOfPublisher: "charande@kth.se",
             profilePictureOfPublisher: createImageLinkFromDriveId("1nfCENDyYTWQMAtWsDYCNQjBk3oIjStr1"),
@@ -242,16 +226,7 @@ export const DatabaseHandler = {
             rating: 5,
             tags: ["Chill", "Sommar", "annat"],
             postImageURL: createImageLinkFromDriveId("1BwAehUC9llxQDoIkaQdZm6yOH29K7lV5"),
-            song: {
-                id: "54rjlka9h5VCl8ugns7gvt",
-                title: "It's Raining Men - Single Version",
-                artists: [{
-                    id: "0LyfQWJT6nXafLPZqxe9Of",
-                    name: "Blandade Artister",
-                }],
-                albumCoverURL: "https://i.scdn.co/image/ab67616d0000b27378d64ddab6a7631beddabd29",
-                previewURL: null,
-            },
+            songId: "54rjlka9h5VCl8ugns7gvt",
             usernameOfPublisher: "johanlam",
             emailOfPublisher: "johanlam@kth.se",
             profilePictureOfPublisher: createImageLinkFromDriveId("106Y8mMGHIE5_JPSo6Id9gv5-rQgiS5Vw"),
@@ -267,16 +242,7 @@ export const DatabaseHandler = {
             rating: 4,
             tags: [],
             postImageURL: createImageLinkFromDriveId("1tKc382TgI7tLiZB0uOisfQ_yIL-26t_5"),
-            song: {
-                id: "3LmpQiFNgFCnvAnhhvKUyI",
-                title: "Washout",
-                artists: [{
-                    id: "1LZEQNv7sE11VDY3SdxQeN",
-                    name: "Bee Gees",
-                }],
-                albumCoverURL: "https://i.scdn.co/image/ab67616d0000b2739821d5e58a3fba7559dc2722",
-                previewURL: null,
-            },
+            songId: "3LmpQiFNgFCnvAnhhvKUyI",
             usernameOfPublisher: "isakmovitzpettersson",
             emailOfPublisher: "isakpet@kth.se",
             profilePictureOfPublisher: createImageLinkFromDriveId("1L5iHyRF6Ai6nJy9CIqee6eTaquykT0ef"),
@@ -291,23 +257,66 @@ export const DatabaseHandler = {
         DatabaseHandler.addNewPost(postToAdd3);
         DatabaseHandler.addNewPost(postToAdd4);
     },
-    loginUser(email: string, password: string) {
-        // Return error eller OK
-        // TODO
-    },
-    signUpUser(name: string, username:string, email: string, password: string) {
-        DatabaseHandler.addNewUser({
-            id: email,
-            email: email,
-            name: name,
-            username: username,
-            biography: "",
-            favoriteSong: null,
-            profilePictureURL: null,
-            posts: []
+    async loginUser(email: string, password: string) {
+        let returnMessage;
+
+        await fire.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => {
+            sessionStorage.setItem('user-session', email);
+            returnMessage = "User logged in successfully";
         })
+        .catch((err) => {
+            switch (err.code) {
+                case 'auth/invalid-email':
+                case 'auth/user-disabled':
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                    returnMessage = err.message;
+                break;
+            }
+        });
+
+        return returnMessage;
     },
-    logoutUser() {
-        // TODO
+    async signUpUser(name: string, username:string, email: string, password: string) {
+        let returnMessage;
+        
+        await fire.auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                DatabaseHandler.addNewUser({
+                    id: email,
+                    email: email,
+                    name: name,
+                    username: username,
+                    biography: "",
+                    favoriteSong: null,
+                    profilePictureURL: DEFAULT_PROFILE_PICTURE_URL,
+                    posts: []
+                })
+
+                returnMessage = "New user added in database";
+            })
+            .catch((err) => {
+                switch (err.code) {
+                    case 'auth/email-already-in-use':
+                    case 'auth/invalid-email':
+                    case 'auth/weak-password':
+                        returnMessage = err.message;
+                    break;
+                }
+            });
+
+        return returnMessage;
+    },
+    async logoutUser() {
+        let returnMessage;
+
+        await fire.auth().signOut()
+            .then(msg => {returnMessage = msg})
+            .catch(error => {returnMessage = error})
+
+        return returnMessage;
     },
 }

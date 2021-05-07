@@ -18,6 +18,7 @@ const ProfilePresenter: React.FC<Props> = () => {
         history.push('/profile/edit');
     };
 
+
     return <ProfileView user={user} onClickEditProfile={handleEditProfile} />;
 };
 

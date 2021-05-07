@@ -136,7 +136,7 @@ const PublishPagePresenter = () => {
             profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
             emailOfPublisher: String(loggedInUser?.email),
             rating: rating,
-            song: song,
+            songId: song.id,
             tags: tags,
             usernameOfPublisher: String(loggedInUser?.username)
         }

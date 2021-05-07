@@ -16,7 +16,7 @@ const UserCheckerPresenter: React.FC = ({ children }) => {
     let session = sessionStorage.getItem('user-session');
 
     useEffect(() => {
-        if (session !== null) {
+        if (session !== null && !loggedInUser) {
             updateLoggedInUser(session);
         }
     }, []);

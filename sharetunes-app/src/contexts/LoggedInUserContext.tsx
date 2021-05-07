@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 import { User } from '../utility/types';
 import { useDatabase } from './DatabaseContext';
 
@@ -20,9 +20,12 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     const { users } = useDatabase()
 
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+    const [loggedInUserEmail, setLoggedInUserEmail] = useState<string>("null");
 
-    const changeLoggedInUser = async (loggedInUserEmail: string) => {
-        let userInfo = users.filter(user => user.email === loggedInUserEmail)[0];
+    const changeLoggedInUser = async (newLoggedInUserEmail: string) => {
+        setLoggedInUserEmail(newLoggedInUserEmail)
+
+        let userInfo = users.filter(user => user.email === newLoggedInUserEmail)[0];
 
         let user: User = {
             id: userInfo?.id,
@@ -37,6 +40,23 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
         setLoggedInUser(user);
     };
+
+    useEffect(() => {
+        let userInfo = users.filter(user => user.email === loggedInUserEmail)[0];
+
+        let user: User = {
+            id: userInfo?.id,
+            name: userInfo?.name,
+            email: userInfo?.email,
+            username: userInfo?.username,
+            profilePictureURL: userInfo?.profilePictureURL,
+            favoriteSong: userInfo?.favoriteSong,
+            biography: userInfo?.biography,
+            posts: userInfo?.posts,
+        };
+
+        setLoggedInUser(user);
+    }, [users]);
 
     return (
         <LoggedInUser.Provider value={loggedInUser}>

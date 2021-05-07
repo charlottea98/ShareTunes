@@ -22,7 +22,7 @@ export interface Post {
     rating: number,
     tags: Array<string>,
     postImageURL: string,
-    song: Song,
+    songId: string,
     usernameOfPublisher: string,
     emailOfPublisher: string,
     profilePictureOfPublisher: string,
