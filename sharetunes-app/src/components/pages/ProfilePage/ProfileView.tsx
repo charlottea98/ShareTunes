@@ -21,10 +21,11 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
             <section className={classes.ProfileInfo}>
                 <div className={classes.NameButtonContainer}>
                     <h2 className={classes.Name}>{user.username}</h2>
+
                     <PrimaryButton
                         text="Edit profile"
                         onButtonClick={onClickEditProfile}
-                        buttonColor="green"
+                        buttonColor="editProfileBtn"
                     />
                 </div>
                 <ul className={classes.List}>
