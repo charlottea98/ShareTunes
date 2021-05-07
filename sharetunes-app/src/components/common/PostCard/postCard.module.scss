@@ -31,7 +31,12 @@
 	align-items: center;
 }
 
-.publisherInfoContainer img {
+.publisherInfoContainer div {
+	cursor: pointer;
+}
+
+.profilePictureOfPublisher {
+	cursor: pointer;
 	height: 70%;
 	border-radius: 50%;
 	margin-right: 10px;
@@ -114,19 +119,34 @@
 .numberOfLikes,
 .captionAndComments div {
 	display: flex;
-	justify-content: left;
 	margin-top: 3px;
 }
 
-.numberOfLikes,
-.userNameInComment {
+.numberOfLikes {
 	font-weight: 700;
 }
 
 .userNameInComment {
 	margin-right: 5px;
+	text-align: left;
+}
+
+.userNameInComment strong {
 	cursor: pointer;
 	user-select: none;
+}
+
+.userNameInComment strong::after {
+	content: " ";
+}
+
+.commentContainer {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.deleteComment {
 }
 
 .viewPost {

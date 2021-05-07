@@ -43,9 +43,11 @@ const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searc
                     <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
                 </div>
                 <div className={classes.tagsContainer}>
-                    {tagsArray.map(tag => {
-                        return <div className={classes.tag}>{tag}</div>
-                    })}
+                    {tagsArray.map((tag, idx) => (
+                        <div className={classes.tag} key={idx}>
+                            {tag}
+                        </div>
+                    ))}
                 </div>
             </div>
             <div>
@@ -73,10 +75,15 @@ const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searc
                 )}
             </div>
             <div className={classes.postRatings}>
-                {ratings.map(rating => {
-                    return <div className={classes.ratingsButton} tabIndex={rating}
-                    onClick={()=>{handleChange(rating, 'rating')}}>{rating}</div>
-                })}
+                {ratings.map((rating, idx) => (
+                    <div 
+                        key = {idx}
+                        className={classes.ratingsButton}
+                        tabIndex={rating}
+                        onClick={() => handleChange(rating, 'rating')}
+                    >{rating}</div>
+                )
+                )}
             </div>
             <div className={classes.postPublish}>
                 <div className={classes.cancelButton} onClick={()=>handleCancel()}>Cancel</div>

@@ -8,23 +8,25 @@ import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons
 import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
-import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
+import DeletePostButtonPresenter from './DeletePostAndComment/DeletePost/DeletePostButtonPresenter';
+import DeleteCommentButtonPresenter from './DeletePostAndComment/DeleteComment/DeleteCommentButtonPresenter';
 
 
 interface Props {
     postCardInfo: Post | undefined,
-    addComment: (commentText: string) => void,
-    addLike: (postId: string, emailOfLiker: string) => void,
-    commentTextChangeHandler: (newCommentText: string) => void,
+    
     commentText: string,
     filledRatingArray: Array<number>,
     nonFilledRatingArray: Array<number>,
     loggedInUserEmail: string,
     showInteraction: boolean,
     showToggleInteraction: boolean,
-    visitProfile: (userId: string) => void,
+    showDeleteButton: boolean,
+    addComment: (commentText: string) => void,
+    addLike: (postId: string, emailOfLiker: string) => void,
+    commentTextChangeHandler: (newCommentText: string) => void,
     toggleShowInteraction: () => void,
-    showDeleteButton: boolean
+    visitProfile: (userToVisit: string) => void,
 }
 
 const PostCardView: React.FC<Props> = ({
@@ -40,16 +42,21 @@ const PostCardView: React.FC<Props> = ({
     addLike,
     commentTextChangeHandler,
     toggleShowInteraction,
+    visitProfile
 }) => {
-
-
     return postCardInfo ? (
         <div className={classes.PostCardHome}>
             
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
-                    <img src={postCardInfo.profilePictureOfPublisher} />
-                    {postCardInfo.usernameOfPublisher}
+                    <img 
+                        src={postCardInfo.profilePictureOfPublisher} 
+                        className={classes.profilePictureOfPublisher}
+                        onClick = {() => visitProfile(postCardInfo.emailOfPublisher)}
+                    />
+                    <div onClick = {() => visitProfile(postCardInfo.emailOfPublisher)}>
+                        {postCardInfo.usernameOfPublisher}
+                    </div>
                 </div>
                 {showDeleteButton ? <DeletePostButtonPresenter postId={postCardInfo.id} /> : <div />}
                 {showToggleInteraction ? 
@@ -73,15 +80,15 @@ const PostCardView: React.FC<Props> = ({
             <div className={classes.reviewContainer}>
                 <div className={classes.ratingContainer}>
                     {
-                        filledRatingArray.map(() => (
-                            <div>
+                        filledRatingArray.map((el: any, idx:number) => (
+                            <div key={idx}>
                                 <FontAwesomeIcon icon={faMusic} color="#FEC46E" />
                             </div>
                         ))
                     }
                     {
-                        nonFilledRatingArray.map(() => (
-                            <div>
+                        nonFilledRatingArray.map((el: any, idx:number) => (
+                            <div key={idx}>
                                 <FontAwesomeIcon icon={faMusic} color="#FEC46E" opacity="0.25" />
                             </div>
                         ))
@@ -89,8 +96,8 @@ const PostCardView: React.FC<Props> = ({
                 </div>
                 <div className={classes.tagsContainer}>
                     {
-                        postCardInfo.tags.map(tag => (
-                            <div className={classes.tag}>{tag}</div>
+                        postCardInfo.tags.map((tag, idx) => (
+                            <div className={classes.tag} key={idx}>{tag}</div>
                         ))
                     }
                 </div>
@@ -113,22 +120,36 @@ const PostCardView: React.FC<Props> = ({
 
                     <div className={classes.captionAndComments}>
                         <div>
-                            <span 
-                                className={classes.userNameInComment}
-                                onClick = {() => {
-                                    
-                                }}
-                            >
-                                {postCardInfo.usernameOfPublisher}
+                            <span className={classes.userNameInComment}>
+                                <strong onClick = {() => visitProfile(postCardInfo.emailOfPublisher)}>
+                                    {postCardInfo.usernameOfPublisher}
+                                </strong>
+                                {postCardInfo.caption}
                             </span>
-                            {postCardInfo.caption}
+                            
                         </div>
 
-                        {postCardInfo.comments.map(comment => (
-                            <div>
-                            <span className={classes.userNameInComment}>{comment.usernameOfPublisher}</span>
-                            {comment.comment}
-                        </div>
+                        {postCardInfo.comments.map((comment, idx) => (
+                            <div className={classes.commentContainer} key={idx}>
+                                <span className={classes.userNameInComment}>
+                                    <strong onClick = {() => visitProfile(comment.emailOfPublisher)}>
+                                        {comment.usernameOfPublisher}
+                                    </strong>
+                                    {comment.comment}
+                                </span>
+
+                                {loggedInUserEmail === comment.emailOfPublisher ? 
+                                        <div className={classes.deleteComment}>
+                                            <DeleteCommentButtonPresenter 
+                                                postId = {postCardInfo.id} 
+                                                commentId = {comment.id}
+                                                comment = {comment.comment}
+                                            /> 
+                                        </div>
+                                        
+                                        : null
+                                    }
+                            </div>
                         ))}
                     </div>                
                 </div>

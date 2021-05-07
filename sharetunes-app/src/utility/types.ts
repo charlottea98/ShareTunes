@@ -1,4 +1,5 @@
 export interface Comment {
+    id: string,
     date: any,
     emailOfPublisher: string,
     usernameOfPublisher: string,
