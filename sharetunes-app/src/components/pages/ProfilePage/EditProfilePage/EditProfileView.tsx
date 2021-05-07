@@ -23,7 +23,6 @@ const EditProfileView: React.FC<Props> = ({ username,user,handleUpdate,setUserna
             <input type='text' autoFocus = {true} value = {username} onChange={e=>setUsername(e.target.value)}></input>
 
             <SignInUpButton text="Save" onButtonClick={() => {handleUpdate(user);}}/>
-
         </div>
 
        

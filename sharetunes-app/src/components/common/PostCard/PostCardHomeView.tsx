@@ -2,6 +2,8 @@ import React from 'react';
 import { PostCardInfo } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
+import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons';
@@ -9,20 +11,27 @@ import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
 import DeletePostButtonPresenter from './DeletePost/DeletePostButtonPresenter';
+import { useHistory } from 'react-router';
+import { createDataBase } from '../../../utility/firestoreCommunication';
 
 interface Props {
     postCardInfo: PostCardInfo | undefined,
     currentLoggedInUserLikesPost: boolean,
     likeButtonClickHandler: () => void,
-    userCanDeletePost: boolean
+    userCanDeletePost: boolean,
+    deletePost: Function
 }
 
 const PostCardHomeView: React.FC<Props> = ({
     postCardInfo,
     currentLoggedInUserLikesPost,
     likeButtonClickHandler,
-    userCanDeletePost
+    userCanDeletePost,
+    deletePost
 }) => {
+    const history = useHistory();
+    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate()
+
     const day = postCardInfo?.date.toDate().getDay() + 1;
     const month = postCardInfo?.date.toDate().getMonth() + 1;
     const year = postCardInfo?.date.toDate().getFullYear();
@@ -48,11 +57,10 @@ const PostCardHomeView: React.FC<Props> = ({
                     {postCardInfo?.usernameOfPublisher}
                 </div>
                 {
-                    userCanDeletePost && postCardInfo ? <DeletePostButtonPresenter postId={postCardInfo.id} /> : <div />
-                }
-                
-                    
-                {/* TODO: (1) Ska bara synas för post-ägaren (2) När man trycker på knapparna ska man kunna radera posten */}
+                    userCanDeletePost && postCardInfo 
+                        ? <DeletePostButtonPresenter postId={postCardInfo.id} deletePost={deletePost} /> 
+                        : <div />
+                }  
             </div>
             <div
                 className={classes.postImage}
@@ -99,7 +107,10 @@ const PostCardHomeView: React.FC<Props> = ({
                         style={{
                             "color": currentLoggedInUserLikesPost ? "#fec46e" : "#232323"
                         }}
-                        onClick={likeButtonClickHandler}
+                        onClick={() => {
+                            likeButtonClickHandler();
+                            // createDataBase();
+                        }}
                     >
                         <FontAwesomeIcon icon={currentLoggedInUserLikesPost ? faHeart : farFaHeart} />
                     </div>
@@ -109,26 +120,24 @@ const PostCardHomeView: React.FC<Props> = ({
 
                 <div className={classes.captionAndComments}>
                     <div> {/*TODO: När man trycker på användare ska man tas till dennes profil */}
-                        <span className={classes.userNameInComment}>{postCardInfo?.usernameOfPublisher}</span>
+                        <span 
+                            className={classes.userNameInComment}
+                            onClick = {() => {
+                                currentlyVisitedUserProfileUpdate(postCardInfo?.emailOfPublisher);
+                                history.push('/profile');
+                            }}
+                        >
+                            {postCardInfo?.usernameOfPublisher}
+                        </span>
                         {postCardInfo?.caption}
                     </div>
 
-                    <div>
-                        <span className={classes.userNameInComment}>johanlam</span>
-                        Cool bild!⭐
-                    </div>
-
-                    <div>
-                        <span className={classes.userNameInComment}>isakpet</span>
-                        Niiiice låt🎵
-                    </div>
-
-                    {/* {postCardInfo?.comments.map(comment => (
+                    {postCardInfo?.comments.map(comment => (
                         <div>
                         <span className={classes.userNameInComment}>{comment.postedBy}</span>
                         {comment.comment}
                     </div>
-                    ))} */}
+                    ))}
                 </div>
             </div>
         </div>
