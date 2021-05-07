@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './profileInfoView.module.scss';
+import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import { isDebuggerStatement } from 'typescript';
 
