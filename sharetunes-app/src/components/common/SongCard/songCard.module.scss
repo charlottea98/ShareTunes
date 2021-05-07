@@ -34,7 +34,7 @@
 }
 
 .SongTitleContainer span,
-.SongArtistsContainer span {
+.SongArtistsContainer div {
 	overflow-x: hidden;
 	white-space: nowrap;
 	transition: text-indent 60s linear;
@@ -44,12 +44,12 @@
 	margin-left: 9px;
 }
 
-.SongArtistsContainer span {
+.SongArtistsContainer div {
 	margin-left: 5px;
 }
 
 .SongTitleContainer:hover span,
-.SongArtistsContainer:hover span {
+.SongArtistsContainer:hover div {
 	text-indent: -3000px;
 }
 
@@ -60,19 +60,19 @@
 	justify-content: center;
 	background-color: #fec46e;
 	width: 64px;
-	height:64px;
+	height: 64px;
 	cursor: pointer;
 	user-select: none;
 }
 
-.dontButtonContainer{
+.dontButtonContainer {
 	display: flex;
 	align-self: center;
 	align-items: center;
 	justify-content: center;
 	background-color: grey;
 	width: 64px;
-	height:64px;
+	height: 64px;
 }
 
 .playButtonContainer:hover {
@@ -84,4 +84,8 @@
 	width: 30px;
 	align-self: center;
 	fill: white;
+}
+
+.artistContainer:not(:last-child)::after {
+	content: ", ";
 }

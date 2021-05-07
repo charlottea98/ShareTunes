@@ -33,16 +33,38 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     const [users, setUsers] = useState<Array<User>>([]);
 
     useEffect(() => {
-        let usersRef = db.collection('users');
-        usersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let usersFromDatabase: Array<any> = [];
+        let followersRef = db.collection('followers');
+        followersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let followersFromDatabase: Array<any> = [];
 
             querySnapshot.forEach(doc => {
-                usersFromDatabase.push(doc.data());
+                followersFromDatabase.push(doc.data());
             });
             
-            setUsers(usersFromDatabase);
-        })
+            setFollowers(followersFromDatabase);
+        });
+
+        let followingRef = db.collection('following');
+        followingRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let followingFromDatabase: Array<any> = [];
+
+            querySnapshot.forEach(doc => {
+                followingFromDatabase.push(doc.data());
+            });
+            
+            setFollowing(followingFromDatabase);
+        });
+
+        let songsRef = db.collection('songs');
+        songsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let songsFromDatabase: Array<any> = [];
+
+            querySnapshot.forEach(doc => {
+                songsFromDatabase.push(doc.data());
+            });
+            
+            setSongs(songsFromDatabase);
+        });
 
         let postsRef = db.collection('posts');
         postsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
@@ -54,10 +76,30 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
             postsFromDatabase = postsFromDatabase.filter(post => !post.deleted);
 
+            postsFromDatabase = postsFromDatabase.sort((postA, postB) => {
+                if (postA.date < postB.date) {
+                    return 1;
+                } else if (postA.date > postB.date) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            })
+
             setPosts(postsFromDatabase);
+        });
+
+        let usersRef = db.collection('users');
+        usersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+            let usersFromDatabase: Array<any> = [];
+
+            querySnapshot.forEach(doc => {
+                usersFromDatabase.push(doc.data());
+            });
+            
+            setUsers(usersFromDatabase);
         })
     }, []);
-
     
 
     return (
