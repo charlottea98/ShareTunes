@@ -33,7 +33,7 @@
 	background-color: $orange;
 	color: white;
 	cursor: pointer;
-	transition: 0.1s;
+	transition: $hover-transition-speed;
 }
 
 .loginPageButton:hover {

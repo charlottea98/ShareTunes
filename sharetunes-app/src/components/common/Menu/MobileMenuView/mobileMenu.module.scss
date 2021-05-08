@@ -10,7 +10,7 @@
 	z-index: 1000;
 	align-items: center;
 	justify-content: flex-end;
-	transition: 0.3s;
+	transition: $hover-transition-speed;
 	border-top: 1px solid $gray-light;
 }
 

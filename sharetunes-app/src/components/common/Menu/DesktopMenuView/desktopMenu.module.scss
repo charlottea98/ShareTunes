@@ -9,7 +9,7 @@
 	display: none;
 	align-items: center;
 	justify-content: flex-end;
-	transition: 0.3s;
+	transition: $hover-transition-speed;
 	border-top: 5px solid $orange;
 	border-bottom: 1px solid $gray-light;
 }
