@@ -2,7 +2,8 @@ import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import MenuIconView from './MenuIconView';
-import { faCompass, faHome, faBell, faSearch, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCompass, faHome, faBell, faSearch, faPlusCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { DatabaseHandler } from '../../../../utility/databaseHandler';
 
 
 interface Props {
@@ -34,6 +35,14 @@ const MenuIconPresenter: React.FC<Props> = ({menuIcon, height, showNotifications
         icon = faPlusCircle;
         iconClickHandler = () => history.push('/publish');
         isActive = location.pathname === '/publish';
+    } else if (menuIcon === 'signOut') {
+        icon = faSignOutAlt;
+        iconClickHandler = () => {
+            DatabaseHandler.logoutUser().then(() => {
+                history.push('/login');
+            })
+        };
+        isActive = false;
     } else {
         icon = faBell;
         isActive = showNotifications;
