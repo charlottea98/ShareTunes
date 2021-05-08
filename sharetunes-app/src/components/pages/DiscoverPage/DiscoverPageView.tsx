@@ -31,9 +31,9 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
                         Popular Songs
                     </div>
                     <div className={classes.displayPopular}>
-                        {topSongs.map((song, idx) => (
+                        {topSongs.map((songId, idx) => (
                             <div className={classes.songCard} key={idx}>
-                                <SongCardPresenter songId={song.id} />
+                                <SongCardPresenter songId={songId} />
                             </div>
                         ))}
                     </div>
@@ -43,9 +43,9 @@ const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSon
                         Recommended Songs
                     </div>
                     <div className={classes.displayRecommended}>
-                    {recommendedSongs.map((song, idx) => (
+                    {recommendedSongs.map((songId, idx) => (
                         <div className={classes.songCard} key={idx}>
-                            <SongCardPresenter songId={song.id} />
+                            <SongCardPresenter songId={songId} />
                         </div>
                     ))}
                     </div>
