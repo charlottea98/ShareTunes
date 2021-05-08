@@ -7,10 +7,11 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
-    const [posts, setPosts] = useState<any[]>([]);
+    const { posts } = useDatabase();
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
 
@@ -52,16 +53,8 @@ const DiscoverPage: React.FC = () => {
 
     useEffect(() => {
         getSpotifyPopularPlaylist();
-        setPosts([]);
-        firestore
-            .collection('posts')
-            .get()
-            .then((snapshot) => {
-                snapshot.docs.map((doc) => {
-                    setPosts((oldArray) => [...oldArray, doc.data()]);
-                });
-            });
-    }, []);
+        posts.sort(function(a,b){return b.likes.length - a.likes.length});
+    }, [posts]);
 
     return (
         <div className={classes.DiscoverPage}>
