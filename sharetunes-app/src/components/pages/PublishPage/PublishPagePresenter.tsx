@@ -140,7 +140,6 @@ const PublishPagePresenter = () => {
     }
 
     const handlePostPictureChange = (imageURL: string) => {
-        console.log(imageURL);
         setPictureURLInput(imageURL);
     }
 
