@@ -3,7 +3,6 @@ import { Post } from '../../../utility/types';
 import classes from './homePage.module.scss';
 
 import PostCard from '../../common/PostCard/PostCardPresenter';
-import ImageUploader from '../../common/FileUploader/ImageUploaderPresenter';
 
 interface Props {
     postsToShow: Array<Post>
