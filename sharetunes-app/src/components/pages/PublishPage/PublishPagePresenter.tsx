@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SpotifyAPI } from '../../../utility/spotifyCommunication';
+import { SpotifyAPI } from '../../../utility/spotifyHandler';
 import { Song, Post} from '../../../utility/types';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
@@ -147,24 +147,31 @@ const PublishPagePresenter = () => {
 
     const handleCancel = () => {
         setErrorMessage('Cancelled! You will soon be redirected to your home page')
-        setTimeout(()=>history.push('/home'), 5000);
+        setTimeout(() => history.push('/home'), 5000);
     }
 
-    return <PublishPageView isSearching={isSearching} 
-                            switchSearchMode={switchSearchMode}
-                            searchSong={searchSong}
-                            songPostInfo={songPostInfo}
-                            handleChange={handleChange}
-                            searchInput={searchInput}
-                            captionInput={captionInput}
-                            tagsArray={tagsArray}
-                            imageURL={pictureURLInput}
-                            ratingInput={ratingInput}
-                            handleSubmit={handleSubmit}
-                            errorMessage={errorMessage}
-                            handleCancel={handleCancel}
-                            addToTags={addToTags}
-                            />
+    const handlePostPictureChange = (imageURL: string) => {
+        console.log(imageURL);
+        setPictureURLInput(imageURL);
+    }
+
+    return <PublishPageView 
+        isSearching={isSearching} 
+        switchSearchMode={switchSearchMode}
+        searchSong={searchSong}
+        songPostInfo={songPostInfo}
+        handleChange={handleChange}
+        searchInput={searchInput}
+        captionInput={captionInput}
+        tagsArray={tagsArray}
+        imageURL={pictureURLInput}
+        ratingInput={ratingInput}
+        handleSubmit={handleSubmit}
+        errorMessage={errorMessage}
+        handleCancel={handleCancel}
+        addToTags={addToTags}
+        handlePostPictureChange = {handlePostPictureChange}
+    />;
 }
 
 export default PublishPagePresenter;

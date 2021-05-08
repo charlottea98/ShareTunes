@@ -3,6 +3,7 @@ import classes from './publishPage.module.scss';
 import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
+import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
 
 interface Props {
     isSearching: any,
@@ -18,19 +19,39 @@ interface Props {
     handleSubmit:Function,
     errorMessage:any,
     handleCancel:Function,
-    addToTags: Function
+    addToTags: Function,
+    handlePostPictureChange: (imageURL: string) => void
 }
 
-const PublishPageView : React.FC<Props> = ({isSearching, switchSearchMode, searchSong, songPostInfo, handleChange, searchInput, captionInput, tagsArray,imageURL, ratingInput, handleSubmit, errorMessage, handleCancel, addToTags}) => {
-    var ratings = [1,2,3,4,5];
+const PublishPageView : React.FC<Props> = ({
+    isSearching, 
+    switchSearchMode, 
+    searchSong, 
+    songPostInfo, 
+    handleChange, 
+    searchInput, 
+    captionInput, 
+    tagsArray,
+    imageURL, 
+    ratingInput, 
+    handleSubmit, 
+    errorMessage, 
+    handleCancel, 
+    addToTags,
+    handlePostPictureChange
+}) => {
+    const ratings = [1, 2, 3, 4, 5];
+
     return <div className={classes.mainDiv}>
         <div className={classes.title}>
             Create post
         </div>
         <div className={classes.postBox}>
             <div className={classes.postImage}>
-                <div className={classes.headers}>Post picture URL</div>
-                <input className={classes.input} onChange={e => {handleChange(e,'image');}}/>
+                <div className={classes.headers}>Post picture</div>
+                {/* <input className={classes.input} onChange={e => {handleChange(e, 'image');}}/> */}
+                <ImageUploaderPresenter onFileChange={handlePostPictureChange} imageCategory="posts" />
+
             </div>
             <div className={classes.postCaption}>
                 <div className={classes.headers}>Caption</div>

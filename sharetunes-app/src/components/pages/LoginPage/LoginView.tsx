@@ -23,64 +23,47 @@ interface Props {
     password1: string
     setPassword1: (password1: string) => void
     passwordError: string 
-
-
-    
     handleLogin:() => void
-
-   
-
 }
 
 
-const LoginView : React.FC<Props> = (
-    {
+const LoginView : React.FC<Props> = ({
     clearAll,
     hasAccount,
     setHasAccount,
+
     email,
     setEmail,
     emailError,
+
     password1,
     setPassword1,
     passwordError,
-    handleLogin,
-
-    }
     
-    ) => {
-
-        
+    handleLogin,
+}) => {
     return (
         <div className={classes.LoginPage}>
-        <section>
-            <>
-            <div className= {[classes.loginContainer,classes.form].join(" ")}>
+            <section>
+                <div className= {[classes.loginContainer,classes.form].join(" ")}>
+                    <LogoPresenter fontSize = {"40px"}/>
 
-                <LogoPresenter fontSize = {"40px"}/>
+                    <div className = {classes.form}>
+                        <label className = {classes.formText}>Mail</label>
+                        <input type='text' autoFocus = {true} required value={email} onChange={e=>setEmail(e.target.value)} ></input>
+                        <p className = {classes.errorText}>{emailError}</p>
+                        
+                        <label  className = {classes.formText}>Password</label>
+                        <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
+                        <p  className = {classes.errorText}>{passwordError}</p>
 
-                <div className = {classes.form}>
-
-                    <label className = {classes.formText}>Mail</label>
-                    <input type='text' autoFocus = {true} required value={email} onChange={e=>setEmail(e.target.value)} ></input>
-                    <p className = {classes.errorText}>{emailError}</p>
+                    </div>
                     
-                    <label  className = {classes.formText}>Password</label>
-                    <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
-                    <p  className = {classes.errorText}>{passwordError}</p>
-
+                    <SignInUpButton text="Sign in" onButtonClick={() => {handleLogin();}}/>
                 </div>
                 
-                <SignInUpButton text="Sign in" onButtonClick={() => {handleLogin();}}/>
-
-            </div>
-            
-            <SwitchButton text1 = "Don't have an account?" text2 = "Sign up" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>
-
-        
-            </>
-                
-        </section>
+                <SwitchButton text1 = "Don't have an account?" text2 = "Sign up" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>
+            </section>
         </div>
     )
 }

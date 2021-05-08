@@ -1,15 +1,12 @@
-import React, { ReactNode,useEffect, useState } from 'react';
-
-//import firebase from 'firebase';
+import React from 'react';
 
 import classes from './loginPage.module.scss';
 import LogoPresenter from '../../common/Logo/LogoPresenter';
 import SignInUpButton from '../../common/buttons/SignInUpButton/SignInUpButton'
 import SwitchButton from '../../common/buttons/SwitchButton/SwitchButton'
-
+import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
 
 interface Props {
-    
     clearAll: () => void
     hasAccount: boolean
     setHasAccount:(hasAccount:boolean) => void
@@ -32,9 +29,8 @@ interface Props {
     setUsername: (setUsername: string) => void
     usernameError: string
     
-    confirmSignup: () => void
-   
-
+    confirmSignup: () => void,
+    handleProfilePictureChange: (newProfilePictureURL: string) => void
 }
 
 
@@ -57,11 +53,9 @@ const LoginView : React.FC<Props> = ({
     setUsername,
     usernameError,
     confirmSignup,
-    }
+    handleProfilePictureChange
+}) => {
     
-    ) => {
-
-        
     return (
         <div className={classes.LoginPage}>
         <section>
@@ -70,13 +64,22 @@ const LoginView : React.FC<Props> = ({
                 <LogoPresenter fontSize = {"40px"}/>
 
                 <div className = {classes.form}>
-                    <label  className = {classes.formText}>Name </label>
+                    <label  className = {classes.formText}>Name</label>
                     <input type='text' autoFocus = {true} required value={name} onChange={e=>setName(e.target.value)}></input>
                     <p className = {classes.errorText}>{nameError}</p>
                 
                     <label  className = {classes.formText}>Username</label>
                     <input type='text' required value={username} onChange={e=>setUsername(e.target.value)}></input>
                     <p className = {classes.errorText}>{usernameError}</p>
+
+                    {/* // TODO (After deadline): At the moment the users must be signed in to view images, so the below won't
+                    // work for the sign up page, but lets keep it here */}
+                    {/* <label  className = {classes.formText}>Profile picture</label>
+                    <ImageUploaderPresenter 
+                        imageCategory="users" 
+                        onFileChange={handleProfilePictureChange} 
+                    /> */}
+
 
                     <label  className = {classes.formText}>Mail</label>
                     <input type='text' required value={email} onChange={e=>setEmail(e.target.value)}></input>

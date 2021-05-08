@@ -21,6 +21,7 @@ const UserCheckerPresenter: React.FC = ({ children }) => {
         }
     }, []);
 
+
     return (
         <div>
             {loggedInUser === null ? (

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 import UserImageView from './UserImageView';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 interface Props {
     diameter: string,
@@ -14,14 +15,22 @@ interface Props {
 const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
+    // const [profileURL, setProfileURL] = useState<string>("");
 
-    let profileImage;
+    let profileURL;
 
     if (loggedInUser && loggedInUser.profilePictureURL !== null && loggedInUser.profilePictureURL !== undefined) {
-        profileImage = loggedInUser.profilePictureURL;
+        profileURL = loggedInUser.profilePictureURL;
     } else {
-        profileImage = DEFAULT_PROFILE_PICTURE_URL;
+        profileURL = DEFAULT_PROFILE_PICTURE_URL;
     }
+
+    // useEffect(() => {
+    //     DatabaseHandler.getImageUrl("").then((url) => {
+    //         setProfileURL(url);
+    //     })
+    // }, []);
+
 
     const userImageClickedHandler = () => {
         history.replace('/profile');
@@ -31,7 +40,7 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
         diameter = {diameter}
         userImageClickedHandler={userImageClickedHandler}
         isActive = {isActive}
-        profileImage = {profileImage}
+        profileImage = {profileURL}
     />;
 }
 

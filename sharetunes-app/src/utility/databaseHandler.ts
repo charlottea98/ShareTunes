@@ -1,11 +1,12 @@
+import { faTasks } from '@fortawesome/free-solid-svg-icons';
 import firebase from 'firebase';
-import { error } from 'node:console';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
-import { SpotifyAPI } from './spotifyCommunication';
+import { SpotifyAPI } from './spotifyHandler';
 import { User, Post, Comment, Song } from './types';
 
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 export const DatabaseHandler = {
     // === ADD ===
@@ -278,7 +279,7 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
-    async signUpUser(name: string, username:string, email: string, password: string) {
+    async signUpUser(name: string, username:string, pictureURL: string, email: string, password: string) {
         let returnMessage;
         
         await fire.auth()
@@ -291,7 +292,7 @@ export const DatabaseHandler = {
                     username: username,
                     biography: "",
                     favoriteSong: null,
-                    profilePictureURL: DEFAULT_PROFILE_PICTURE_URL,
+                    profilePictureURL: pictureURL !== "" ? pictureURL : DEFAULT_PROFILE_PICTURE_URL,
                     posts: []
                 })
 
@@ -317,5 +318,21 @@ export const DatabaseHandler = {
             .catch(error => {returnMessage = error})
 
         return returnMessage;
+    },
+
+    // === STORAGE ===
+    async uploadImage(imageFile: any, imageCategory: "users" | "posts") {
+        let fileType = String(imageFile.type).slice(6);
+        let fileId = `${String(Date.now())}.${fileType}`;
+        let storageRef = storage.ref(`images/${imageCategory}/${fileId}`);
+        let uploadTask = storageRef.put(imageFile);
+
+        let fileURL;
+
+        await uploadTask.then(() => {
+            fileURL = storageRef.getDownloadURL();
+        })
+
+        return fileURL;
     },
 }
