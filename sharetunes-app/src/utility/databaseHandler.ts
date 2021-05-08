@@ -26,7 +26,6 @@ export const DatabaseHandler = {
         const email_already_exsist = snapshot.docs.some(doc => doc.data().email === newUser.email);
         
         if (!email_already_exsist) {
-            newUser.profilePictureURL = DEFAULT_PROFILE_PICTURE_URL;
             firebase.firestore().collection('users').doc(newUser.email).set(newUser);
             firebase.firestore().collection('followers').doc(newUser.email).set({
                 "id": newUser.email,
@@ -292,7 +291,7 @@ export const DatabaseHandler = {
                     username: username,
                     biography: "",
                     favoriteSong: null,
-                    profilePictureURL: pictureURL !== "" ? pictureURL : DEFAULT_PROFILE_PICTURE_URL,
+                    profilePictureURL: pictureURL,
                     posts: []
                 })
 
@@ -322,17 +321,20 @@ export const DatabaseHandler = {
 
     // === STORAGE ===
     async uploadImage(imageFile: any, imageCategory: "users" | "posts") {
-        let fileType = String(imageFile.type).slice(6);
-        let fileId = `${String(Date.now())}.${fileType}`;
-        let storageRef = storage.ref(`images/${imageCategory}/${fileId}`);
-        let uploadTask = storageRef.put(imageFile);
-
         let fileURL;
 
-        await uploadTask.then(() => {
-            fileURL = storageRef.getDownloadURL();
-        })
+        if (imageFile) {
+            let fileType = String(imageFile.type).slice(6);
+            let fileId = `${String(Date.now())}.${fileType}`;
+            let storageRef = storage.ref(`images/${imageCategory}/${fileId}`);
+            let uploadTask = storageRef.put(imageFile);
+    
+    
+            await uploadTask.then(() => {
+                fileURL = storageRef.getDownloadURL();
+            })
+        }
 
-        return fileURL;
+        return fileURL ? fileURL : "";
     },
 }

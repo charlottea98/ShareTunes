@@ -17,8 +17,6 @@ const ImageUploaderView: React.FC<Props> = ({
     selectedImageURL,
     height
 }) => {
-
-    console.log(selectedImageURL);
     const iconToDisplay = selectedImageURL === "" ? (
         <div className={classes.uploadIcon}><FontAwesomeIcon icon={faPlus} size="3x" color="#fec46e" /></div>
     ): (
