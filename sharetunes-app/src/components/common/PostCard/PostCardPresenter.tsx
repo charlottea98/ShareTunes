@@ -87,6 +87,7 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
         toggleShowInteraction = {toggleShowInteraction}
         showToggleInteraction = {showToggleInteraction}
         showDeleteButton = {showDeleteButton}
+        showingOnPage = {location.pathname}
     /> : null;
 }
 

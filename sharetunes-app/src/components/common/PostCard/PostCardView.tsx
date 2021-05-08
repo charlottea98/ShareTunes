@@ -26,6 +26,7 @@ interface Props {
     commentTextChangeHandler: (newCommentText: string) => void,
     toggleShowInteraction: () => void,
     visitProfile: (userToVisit: string) => void,
+    showingOnPage: string
 }
 
 const PostCardView: React.FC<Props> = ({
@@ -41,10 +42,11 @@ const PostCardView: React.FC<Props> = ({
     addLike,
     commentTextChangeHandler,
     toggleShowInteraction,
-    visitProfile
+    visitProfile,
+    showingOnPage
 }) => {
     return postCardInfo ? (
-        <div className={classes.PostCardHome}>
+        <div className={showingOnPage === "/home" ? classes.PostCardHome : classes.PostCard}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
                     <img 

@@ -1,21 +1,21 @@
 @import "../../variables.scss";
 
+.PostCard,
 .PostCardHome {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	width: 300px;
 	background-color: white;
 	overflow: hidden;
 }
 
-.PostCardDiscovery {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 10px;
+.PostCard {
 	width: 300px;
-	background-color: white;
-	overflow: hidden;
+}
+
+.PostCardHome {
+	width: calc(100vw - 15px);
+	max-width: 500px;
 }
 
 .layer1 {

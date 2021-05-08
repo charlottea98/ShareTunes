@@ -1,5 +1,4 @@
 import React from 'react';
-
 import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
 
 import './App.scss';
