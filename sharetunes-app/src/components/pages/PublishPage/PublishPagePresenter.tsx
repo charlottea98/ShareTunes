@@ -12,7 +12,7 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 const PublishPagePresenter = () => {
     const loggedInUser = useLoggedInUser();
     const [isSearching, setIsSearching] = useState<boolean>(false);
-    const [songPostInfo, setPostSongInfo] = useState<Song | undefined>(undefined);
+    const [songPostId, setPostSongId] = useState<string>('');
     const [searchInput, setSearchInput] = useState<string>(' ');
     const [pictureURLInput, setPictureURLInput] = useState<string>('');
     const [captionInput, setCaptionInput] = useState<string>('');
@@ -25,7 +25,7 @@ const PublishPagePresenter = () => {
     const switchSearchMode = () => {
         setIsSearching(!isSearching);
         if (isSearching){
-            setPostSongInfo(undefined);
+            setPostSongId('');
         }
     }
 
@@ -37,24 +37,13 @@ const PublishPagePresenter = () => {
             }
             else{
                 setErrorMessage('');
-                let postSong = {
-                    id: song.id,
-                    title: song.name,
-                    artists: [{id:song.artists[0].id, name:song.artists[0].name}],
-                    albumCoverURL: song.album.images[0].url,
-                    previewURL: song.preview_url
-                }
-                setPostSongInfo( {
-                    id: postSong.id,
-                    title: postSong.title,
-                    artists: postSong.artists,
-                    albumCoverURL: postSong.albumCoverURL,
-                    previewURL: postSong.previewURL,
-                })
+                let postSongId = song.id;
+                setPostSongId(postSongId);
                 switchSearchMode();
+                DatabaseHandler.addNewSong(postSongId);
+                setSearchInput('');
             }
-        })
-            
+        })    
     }
 
     const handleChange = (e:any, type:string) => {
@@ -90,7 +79,7 @@ const PublishPagePresenter = () => {
         }
     }
 
-    const handleSubmit = (image:string, caption:string, song:Song, rating:number, tags:string[]) => {
+    const handleSubmit = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
         var errors = [];
         if (image===''){
             errors.push('picture URL');
@@ -98,14 +87,14 @@ const PublishPagePresenter = () => {
         if (caption===''){
             errors.push('caption');
         }
-        if (song===undefined){
+        if (songId===''){
             errors.push('song');
         }
         if (rating===0 || rating === undefined){
             errors.push('rating');
         }
         if (errors.length===0){
-            handlePublish(image, caption, song, rating, tags);
+            handlePublish(image, caption, songId, rating, tags);
             setErrorMessage('Published! You will soon be redirected to your home page')
             setTimeout(()=>history.push('/home'), 5000);
         }
@@ -124,7 +113,7 @@ const PublishPagePresenter = () => {
         }
     }
 
-    const handlePublish = (image:string, caption:string, song:Song, rating:number, tags:string[]) => {
+    const handlePublish = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
         let newPost : Post = {
             caption: caption,
             comments: [],
@@ -136,13 +125,13 @@ const PublishPagePresenter = () => {
             profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
             emailOfPublisher: String(loggedInUser?.email),
             rating: rating,
-            songId: song.id,
+            songId: songId,
             tags: tags,
             usernameOfPublisher: String(loggedInUser?.username)
         }
 
         DatabaseHandler.addNewPost(newPost);
-        DatabaseHandler.addNewSong(song.id);
+        DatabaseHandler.addNewSong(songId);
     }
 
     const handleCancel = () => {
@@ -159,7 +148,7 @@ const PublishPagePresenter = () => {
         isSearching={isSearching} 
         switchSearchMode={switchSearchMode}
         searchSong={searchSong}
-        songPostInfo={songPostInfo}
+        songPostId={songPostId}
         handleChange={handleChange}
         searchInput={searchInput}
         captionInput={captionInput}

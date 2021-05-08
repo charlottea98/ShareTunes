@@ -9,7 +9,7 @@ interface Props {
     isSearching: any,
     switchSearchMode: Function,
     searchSong: Function,
-    songPostInfo: any,
+    songPostId: string,
     handleChange: Function,
     searchInput: any,
     captionInput:any,
@@ -27,7 +27,7 @@ const PublishPageView : React.FC<Props> = ({
     isSearching, 
     switchSearchMode, 
     searchSong, 
-    songPostInfo, 
+    songPostId, 
     handleChange, 
     searchInput, 
     captionInput, 
@@ -75,7 +75,7 @@ const PublishPageView : React.FC<Props> = ({
                 <div className={classes.headers}>Song</div>
                 {isSearching?(
                     <div className={classes.showSong}>
-                        <SongCardPresenter songId = {songPostInfo.id} />
+                        <SongCardPresenter songId = {songPostId} />
                         <div className={classes.songButton} onClick={()=>switchSearchMode()}>Change song</div>
                     </div>
                 ):(
@@ -98,7 +98,7 @@ const PublishPageView : React.FC<Props> = ({
             </div>
             <div className={classes.postPublish}>
                 <div className={classes.cancelButton} onClick={()=>handleCancel()}>Cancel</div>
-                <div className={classes.publishButton} onClick={()=>handleSubmit(imageURL, captionInput, songPostInfo, ratingInput, tagsArray)}>Publish</div>
+                <div className={classes.publishButton} onClick={()=>handleSubmit(imageURL, captionInput, songPostId, ratingInput, tagsArray)}>Publish</div>
             </div>
         </div>
         {
