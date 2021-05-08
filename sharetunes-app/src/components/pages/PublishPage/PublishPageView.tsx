@@ -20,6 +20,7 @@ interface Props {
     errorMessage:any,
     handleCancel:Function,
     addToTags: Function,
+    tagsInput: string,
     handlePostPictureChange: (imageURL: string) => void
 }
 
@@ -38,6 +39,7 @@ const PublishPageView : React.FC<Props> = ({
     errorMessage, 
     handleCancel, 
     addToTags,
+    tagsInput,
     handlePostPictureChange
 }) => {
     const ratings = [1, 2, 3, 4, 5];
@@ -60,7 +62,12 @@ const PublishPageView : React.FC<Props> = ({
             <div className={classes.headers}>Tags</div>
             <div className={classes.postSong}>
                 <div className={classes.addTags}>
-                    <input type="text" className={classes.input} onChange={e => {handleChange(e,'tags');}}/>
+                    <input 
+                        type="text" 
+                        className={classes.input}
+                        onChange={e => handleChange(e,'tags')}
+                        value={tagsInput}
+                    />
                     <div className={classes.icon}>
                         <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
                     </div>

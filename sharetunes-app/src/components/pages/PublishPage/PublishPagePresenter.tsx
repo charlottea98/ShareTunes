@@ -70,11 +70,12 @@ const PublishPagePresenter: React.FC = () => {
     }
 
     const addToTags = () => {
-        if (tagsInput.replace(' ', '')===''){
+        if (tagsInput.replace(' ', '') === ''){
             setErrorMessage('Tag can`t be empty');
         }
         else{
             setTagsArray(oldArray => [...oldArray, tagsInput]);
+            setTagsInput("");
         }
     }
 
@@ -157,6 +158,7 @@ const PublishPagePresenter: React.FC = () => {
         errorMessage={errorMessage}
         handleCancel={handleCancel}
         addToTags={addToTags}
+        tagsInput={tagsInput}
         handlePostPictureChange = {handlePostPictureChange}
     />;
 }
