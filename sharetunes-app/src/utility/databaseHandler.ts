@@ -291,7 +291,7 @@ export const DatabaseHandler = {
                     username: username,
                     biography: "",
                     favoriteSong: null,
-                    profilePictureURL: pictureURL,
+                    profilePictureURL: pictureURL !== "" ? pictureURL : DEFAULT_PROFILE_PICTURE_URL,
                     posts: []
                 })
 
