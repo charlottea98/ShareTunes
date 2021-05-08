@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
 import firestore from '../../../firestore';
-import { SpotifyAPI } from '../../../utility/spotifyCommunication';
+import { SpotifyAPI } from '../../../utility/spotifyHandler';
 
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';

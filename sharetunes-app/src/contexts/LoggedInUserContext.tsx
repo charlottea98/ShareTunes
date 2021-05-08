@@ -29,20 +29,18 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
         let userInfo = users.filter(user => user.email === newLoggedInUserEmail)[0];
 
         if (userInfo) {
-            DatabaseHandler.getImageUrl("").then((url) => {
-                let user: User = {
-                    id: userInfo.id,
-                    name: userInfo.name,
-                    email: userInfo.email,
-                    username: userInfo.username,
-                    profilePictureURL: url,
-                    favoriteSong: userInfo.favoriteSong,
-                    biography: userInfo.biography,
-                    posts: userInfo.posts,
-                };
-        
-                setLoggedInUser(user);
-            })
+            let user: User = {
+                id: userInfo.id,
+                name: userInfo.name,
+                email: userInfo.email,
+                username: userInfo.username,
+                profilePictureURL: userInfo.profilePictureURL,
+                favoriteSong: userInfo.favoriteSong,
+                biography: userInfo.biography,
+                posts: userInfo.posts,
+            };
+    
+            setLoggedInUser(user);
         }
 
     };
@@ -50,20 +48,20 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     useEffect(() => {
         let userInfo = users.filter(user => user.email === loggedInUserEmail)[0];
 
-        DatabaseHandler.getImageUrl("").then((url) => {
+        if (userInfo) {
             let user: User = {
                 id: userInfo.id,
                 name: userInfo.name,
                 email: userInfo.email,
                 username: userInfo.username,
-                profilePictureURL: url,
+                profilePictureURL: userInfo.profilePictureURL,
                 favoriteSong: userInfo.favoriteSong,
                 biography: userInfo.biography,
                 posts: userInfo.posts,
             };
     
             setLoggedInUser(user);
-        })
+        }
     }, [users]);
 
     return (

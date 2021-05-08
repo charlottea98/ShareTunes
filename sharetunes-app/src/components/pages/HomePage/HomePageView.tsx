@@ -3,7 +3,8 @@ import { Post } from '../../../utility/types';
 import classes from './homePage.module.scss';
 
 import PostCard from '../../common/PostCard/PostCardPresenter';
-import FileUploaderPresenter from '../../common/FileUploader/FileUploaderPresenter';
+import ImageUploader from '../../common/FileUploader/ImageUploaderPresenter';
+import FileUploaderInspo from '../../common/FileUploader/FileUploaderInspo';
 
 interface Props {
     postsToShow: Array<Post>
@@ -12,7 +13,11 @@ interface Props {
 const HomePageView : React.FC<Props> = ({postsToShow}) => {
     return (
         <div className={classes.HomePage}>
-            <FileUploaderPresenter />
+            {/* <ImageUploader imageCategory="users" /> */}
+            {/* <div style={{"width": "300px"}}>
+                <FileUploaderInspo onChange={(file) => console.log(file)} />
+            </div>   */}
+            
             {
                 postsToShow.map((post, idx) => (
                     <div className={classes.postCardContainer} key = {idx}>

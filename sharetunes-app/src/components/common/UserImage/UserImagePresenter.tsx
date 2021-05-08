@@ -15,19 +15,21 @@ interface Props {
 const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
-    const [profileURL, setProfileURL] = useState<string>("");
+    // const [profileURL, setProfileURL] = useState<string>("");
 
-    // if (loggedInUser && loggedInUser.profilePictureURL !== null && loggedInUser.profilePictureURL !== undefined) {
-    //     profileImage = loggedInUser.profilePictureURL;
-    // } else {
-    //     profileImage = DEFAULT_PROFILE_PICTURE_URL;
-    // }
+    let profileURL;
 
-    useEffect(() => {
-        DatabaseHandler.getImageUrl("").then((url) => {
-            setProfileURL(url);
-        })
-    }, []);
+    if (loggedInUser && loggedInUser.profilePictureURL !== null && loggedInUser.profilePictureURL !== undefined) {
+        profileURL = loggedInUser.profilePictureURL;
+    } else {
+        profileURL = DEFAULT_PROFILE_PICTURE_URL;
+    }
+
+    // useEffect(() => {
+    //     DatabaseHandler.getImageUrl("").then((url) => {
+    //         setProfileURL(url);
+    //     })
+    // }, []);
 
 
     const userImageClickedHandler = () => {

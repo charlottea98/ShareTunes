@@ -2,7 +2,7 @@ import { faTasks } from '@fortawesome/free-solid-svg-icons';
 import firebase from 'firebase';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
-import { SpotifyAPI } from './spotifyCommunication';
+import { SpotifyAPI } from './spotifyHandler';
 import { User, Post, Comment, Song } from './types';
 
 const db = firebase.firestore();
@@ -320,9 +320,20 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
-    async getImageUrl(imagePath: any) {
-        let testPath = "images/users/1620431262622.jpeg";
-        let imageURL = await storage.ref(testPath).getDownloadURL();
-        return imageURL;
-    }
+
+    // === STORAGE ===
+    async uploadImage(imageFile: any, imageCategory: "users" | "posts") {
+        let fileType = String(imageFile.type).slice(6);
+        let fileId = `${String(Date.now())}.${fileType}`;
+        let storageRef = storage.ref(`images/${imageCategory}/${fileId}`);
+        let uploadTask = storageRef.put(imageFile);
+
+        let fileURL;
+
+        await uploadTask.then(() => {
+            fileURL = storageRef.getDownloadURL();
+        })
+
+        return fileURL;
+    },
 }
