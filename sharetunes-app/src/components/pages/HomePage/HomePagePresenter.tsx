@@ -16,6 +16,15 @@ const HomePagePresenter : React.FC = () => {
         
         userIsFollowing = [...userIsFollowing, loggedInUser.email];
         postsToShow = posts.filter(post => userIsFollowing.includes(post.emailOfPublisher));
+        postsToShow = posts.sort((postA, postB) => {
+            if (postA.date < postB.date) {
+                return 1;
+            } else if (postA.date > postB.date) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
     }
 
     return <HomePageView postsToShow={postsToShow} />;
