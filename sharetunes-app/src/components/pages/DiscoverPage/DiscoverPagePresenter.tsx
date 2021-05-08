@@ -3,6 +3,7 @@ import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/Logged
 import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
 import firestore from '../../../firestore';
 import { SpotifyAPI } from '../../../utility/spotifyCommunication';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
@@ -21,13 +22,9 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i = 0; countValidTracks < 5; i++) {
-                    const trackInfo: any = {artists: [{name: tracks[i]?.track.artists[0].name, id:tracks[i]?.track.artists[0].id}],
-                    title: tracks[i]?.track.name,
-                    albumCoverURL: tracks[i]?.track.album.images[2].url,
-                    previewURL: tracks[i]?.track.preview_url
-                    };
-                    if (trackInfo.previewURL) {
-                        topTracks.push(trackInfo);
+                    if (tracks[i]?.track.preview_url) {
+                        topTracks.push(tracks[i]?.track.id);
+                        DatabaseHandler.addNewSong(tracks[i]?.track.id);
                         countValidTracks++;
                     }
                 }
@@ -42,13 +39,9 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i=0; countValidTracks < 5; i++) {
-                    const trackInfo:any = {artists: [{name: tracks[i]?.track.artists[0].name, id:tracks[i]?.track.artists[0].id}],
-                                        title: tracks[i]?.track.name,
-                                        albumCoverURL: tracks[i]?.track.album.images[2].url,
-                                        previewURL: tracks[i]?.track.preview_url
-                                        };
-                    if (trackInfo.previewURL){
-                        recommendedTracks.push(trackInfo);
+                    if (tracks[i]?.track.preview_url){
+                        recommendedTracks.push(tracks[i]?.track.id);
+                        DatabaseHandler.addNewSong(tracks[i]?.track.id);
                         countValidTracks++;
                     }
                 }
