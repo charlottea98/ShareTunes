@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './mobileMenu.module.scss';
 
-import ShareTunesLogo from '../../Logo/LogoPresenter';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserImage from '../../UserImage/UserImagePresenter';
 import MenuIcon from '../MenuIcon/MenuIconPresenter';
 
@@ -31,6 +32,9 @@ const DesktopMenuView: React.FC<Props> = ({userImageActive}) => {
                     <UserImage diameter="35px" isActive={userImageActive} />
                 </div>
 
+                <div className={classes.iconContainer}>
+                    <MenuIcon menuIcon="signOut" height="35px" />
+                </div>
             </div>
         </div>
     )
