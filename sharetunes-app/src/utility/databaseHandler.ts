@@ -1,11 +1,12 @@
+import { faTasks } from '@fortawesome/free-solid-svg-icons';
 import firebase from 'firebase';
-import { error } from 'node:console';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
 import { SpotifyAPI } from './spotifyCommunication';
 import { User, Post, Comment, Song } from './types';
 
 const db = firebase.firestore();
+const storage = firebase.storage();
 
 export const DatabaseHandler = {
     // === ADD ===
@@ -319,4 +320,9 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
+    async getImageUrl(imagePath: any) {
+        let testPath = "images/users/1620431262622.jpeg";
+        let imageURL = await storage.ref(testPath).getDownloadURL();
+        return imageURL;
+    }
 }

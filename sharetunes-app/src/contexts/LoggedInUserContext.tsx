@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { User } from '../utility/types';
 import { useDatabase } from './DatabaseContext';
+import { DatabaseHandler } from '../utility/databaseHandler';
 
 const LoggedInUser = createContext<User | null>(null);
 const LoggedInUserUpdateContext = createContext<
@@ -27,35 +28,42 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
         let userInfo = users.filter(user => user.email === newLoggedInUserEmail)[0];
 
-        let user: User = {
-            id: userInfo?.id,
-            name: userInfo?.name,
-            email: userInfo?.email,
-            username: userInfo?.username,
-            profilePictureURL: userInfo?.profilePictureURL,
-            favoriteSong: userInfo?.favoriteSong,
-            biography: userInfo?.biography,
-            posts: userInfo?.posts,
-        };
+        if (userInfo) {
+            DatabaseHandler.getImageUrl("").then((url) => {
+                let user: User = {
+                    id: userInfo.id,
+                    name: userInfo.name,
+                    email: userInfo.email,
+                    username: userInfo.username,
+                    profilePictureURL: url,
+                    favoriteSong: userInfo.favoriteSong,
+                    biography: userInfo.biography,
+                    posts: userInfo.posts,
+                };
+        
+                setLoggedInUser(user);
+            })
+        }
 
-        setLoggedInUser(user);
     };
 
     useEffect(() => {
         let userInfo = users.filter(user => user.email === loggedInUserEmail)[0];
 
-        let user: User = {
-            id: userInfo?.id,
-            name: userInfo?.name,
-            email: userInfo?.email,
-            username: userInfo?.username,
-            profilePictureURL: userInfo?.profilePictureURL,
-            favoriteSong: userInfo?.favoriteSong,
-            biography: userInfo?.biography,
-            posts: userInfo?.posts,
-        };
-
-        setLoggedInUser(user);
+        DatabaseHandler.getImageUrl("").then((url) => {
+            let user: User = {
+                id: userInfo.id,
+                name: userInfo.name,
+                email: userInfo.email,
+                username: userInfo.username,
+                profilePictureURL: url,
+                favoriteSong: userInfo.favoriteSong,
+                biography: userInfo.biography,
+                posts: userInfo.posts,
+            };
+    
+            setLoggedInUser(user);
+        })
     }, [users]);
 
     return (
