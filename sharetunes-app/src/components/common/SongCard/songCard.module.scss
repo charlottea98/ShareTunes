@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .SongCard {
 	height: 64px;
 	display: flex;
@@ -58,7 +60,7 @@
 	align-self: center;
 	align-items: center;
 	justify-content: center;
-	background-color: #fec46e;
+	background-color: $orange;
 	width: 64px;
 	height: 64px;
 	cursor: pointer;
@@ -70,13 +72,13 @@
 	align-self: center;
 	align-items: center;
 	justify-content: center;
-	background-color: grey;
+	background-color: $gray-dark;
 	width: 64px;
 	height: 64px;
 }
 
 .playButtonContainer:hover {
-	background-color: #eeb45e;
+	background-color: $orange-dark;
 }
 
 .songCardPlayerImage {

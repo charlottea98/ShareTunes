@@ -1,5 +1,7 @@
-.outsideContainer{
-    position: fixed;
+@import "../../variables.scss";
+
+.outsideContainer {
+	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100vw;
@@ -8,62 +10,58 @@
 }
 
 .SearchBar {
-    display: flex;
-    flex-direction: row;
-    width: 175px;
-    position: relative;
-    top:0;
-    z-index: 1006;
+	position: relative;
+	display: flex;
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
 }
 
 .SearchInput {
-    height: 30px;
-    width: calc(100%-32px);
-	border: 1px solid #707070;
-	border-radius: 2px;
+	padding: 15px;
+	height: 40px;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid $gray-light;
 }
 
-
-.SearchList{
-    position: absolute;
-    top: 32px;
-    left: 0px;
-    background-color: whitesmoke;
-    max-height: 200px;
-    overflow: scroll;
-    border: 1px solid #707070;
-    width: 175px;
-    z-index: 1006;
+.SearchList {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	background-color: white;
+	width: 100%;
 }
 
 .SearchItems {
-    padding:5px;
-    border-bottom:0.5px solid #707070;
-    border-left: 0.5px solid #707070;
-    border-right: 0.5px solid #707070;
-    cursor: pointer;
+	padding: 5px;
+	border-bottom: 0.5px solid $gray-light;
+	border-left: 0.5px solid $gray-light;
+	border-right: 0.5px solid $gray-light;
+	cursor: pointer;
 }
 
+@media (min-width: $mobile-breakpoint) {
+	.SearchBar {
+		z-index: 1006;
+		position: relative;
+		width: 175px;
+	}
 
-@media (max-width: 600px) {
-    .SearchBar {
-        width: 100%;
-        position: fixed;
-        left: 0;
-    }
+	.SearchInput {
+		height: 30px;
+		width: 150px;
+		border: 1px solid $gray-light;
+		border-radius: 2px;
+	}
 
-    .SearchInput{
-        padding: 15px;
-        height: 40px;
-        width: 100%;
-        border: 0;
-        border-bottom: 1px solid #707070;
-    }
-
-    .SearchList{
-        position: absolute;
-        top: 30px;
-        background-color: white;
-        width: 100%;
-    }
+	.SearchList {
+		top: 32px;
+		max-height: 200px;
+		overflow: scroll;
+		border: 1px solid $gray-light;
+		width: 175px;
+		z-index: 1006;
+	}
 }

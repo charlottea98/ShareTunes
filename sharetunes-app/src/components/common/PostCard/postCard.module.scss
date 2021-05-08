@@ -1,9 +1,11 @@
+@import "../../variables.scss";
+
 .PostCardHome {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
 	width: 300px;
-	background-color: #fff;
+	background-color: white;
 	overflow: hidden;
 }
 
@@ -12,7 +14,7 @@
 	flex-direction: column;
 	margin-bottom: 10px;
 	width: 300px;
-	background-color: #fff;
+	background-color: white;
 	overflow: hidden;
 }
 
@@ -21,7 +23,7 @@
 	align-items: center;
 	justify-content: space-between;
 	height: 60px;
-	border: 1px solid #dbdbdb;
+	border: 1px solid $gray-light;
 	padding: 0 10px;
 }
 
@@ -53,7 +55,7 @@
 	display: flex;
 	height: 45px;
 	align-items: center;
-	border: 1px solid #dbdbdb;
+	border: 1px solid $gray-light;
 	padding: 0 10px;
 }
 
@@ -74,7 +76,7 @@
 .tag {
 	border: 20px;
 	padding: 3px 5px;
-	border: 1px solid #232323;
+	border: 1px solid $black;
 	border-radius: 30px;
 	font-size: 13px;
 	font-weight: 400;
@@ -90,20 +92,20 @@
 	align-items: left;
 	padding: 10px;
 	background-color: white;
-	border-left: 1px solid #dbdbdb;
-	border-right: 1px solid #dbdbdb;
-	border-bottom: 1px solid #dbdbdb;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
 }
 
 .likeAndCommentContainer {
 	display: flex;
 	font-size: 25px;
-	color: #232323;
+	color: $black;
 }
 
 .likeAndCommentContainer div {
 	cursor: pointer;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 	user-select: none;
 }
 
@@ -113,7 +115,7 @@
 
 .likeAndCommentContainer div:hover {
 	transform: scale(1.04);
-	color: #fec46e !important;
+	color: $orange !important;
 }
 
 .numberOfLikes,
@@ -153,18 +155,18 @@
 
 .viewPost {
 	cursor: pointer;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 	user-select: none;
 	font-weight: 1000;
 	font-size: small;
-	color: #fec46e;
+	color: $orange;
 }
 
 .commentBox {
 	height: 40px;
-	border-left: 1px solid #dbdbdb;
-	border-right: 1px solid #dbdbdb;
-	border-bottom: 1px solid #dbdbdb;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
 	display: flex;
 	padding: 0 10px;
 	align-items: center;
@@ -182,11 +184,11 @@
 .inActivePublishComment {
 	border-radius: 2px;
 	padding: 2px 5px;
-	color: #fff;
+	color: white;
 	font-weight: 600;
 	user-select: none;
 	margin-left: 10px;
-	background-color: #fec46e;
+	background-color: $orange;
 }
 
 .publishComment {

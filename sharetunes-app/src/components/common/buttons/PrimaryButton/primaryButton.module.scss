@@ -1,47 +1,49 @@
+@import "../../../variables.scss";
+
 .PrimaryButton {
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    padding: 0 8px;
-    cursor: pointer;
-    transition: .4s;
-    width: fit-content;
-    user-select: none;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 40px;
+	padding: 0 8px;
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	width: fit-content;
+	user-select: none;
 }
 
 .standardStyle {
-    background-color:#5e3d0e;
-    color: #fff;
+	background-color: #5e3d0e;
+	color: #fff;
 }
 
 .standardStyle:hover {
-    background-color: #8d5f20;
+	background-color: #8d5f20;
 }
 
 .blackStyle {
-    background-color: #232323;
-    color: #fff;
+	background-color: #232323;
+	color: #fff;
 }
 
 .blackStyle:hover {
-    background-color: #444444;
+	background-color: #444444;
 }
 
 .greenStyle {
-    background-color: #1DB954;
-    color: #fff;
+	background-color: #1db954;
+	color: #fff;
 }
 
 .greenStyle:hover {
-    background-color: #128139;
+	background-color: #128139;
 }
 
-.editProfileBtn{
-    border: 2px solid #c3c3c3 
+.editProfileBtn {
+	border: 2px solid #c3c3c3;
 }
 
-.editProfileBtn:hover{
-    background-color: #a8a8a8
+.editProfileBtn:hover {
+	background-color: #a8a8a8;
 }

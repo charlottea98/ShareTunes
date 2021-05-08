@@ -1,7 +1,9 @@
+@import "../../variables.scss";
+
 .Logo {
 	font-weight: 900;
 	font-size: 25px;
-	color: #fec46e;
+	color: $orange;
 	font-style: italic;
 	user-select: none;
 }

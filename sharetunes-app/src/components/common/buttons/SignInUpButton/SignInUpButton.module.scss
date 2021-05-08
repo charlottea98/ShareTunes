@@ -1,28 +1,27 @@
+@import "../../../variables.scss";
+
 .SignInUpButton {
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    width: 300px;
-    padding:20px;
-    margin:10px;
-    
-    cursor: pointer;
-    transition: .4s;
-    //width: fit-content;
-    user-select: none;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 30px;
+	width: 300px;
+	padding: 20px;
+	margin: 10px;
+
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	//width: fit-content;
+	user-select: none;
 }
 
-
-
-// Byt till rätt färger här 
+// Byt till rätt färger här
 .standardStyle {
-    background-color:#fec46e;
-    color: rgb(1, 1, 1);
+	background-color: $orange;
+	color: $black;
 }
 
 .standardStyle:hover {
-    background-color:   #fbd9a6;
+	background-color: $orange-dark;
 }
-

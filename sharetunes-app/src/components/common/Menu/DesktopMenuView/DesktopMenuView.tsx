@@ -21,14 +21,14 @@ const DesktopMenuView: React.FC<Props> = ({userImageActive}) => {
     return (
         <div className={classes.Menu}>
             <div className={classes.menuContent}>
-                <ShareTunesLogo fontSize="30px" clickable={true} />
+                <ShareTunesLogo fontSize="34px" clickable={true} />
 
                 <SearchBar/>
 
                 <div className={classes.iconsToRight}>
-                    <MenuIcon menuIcon="home" height="30px" />
-                    <MenuIcon menuIcon="compass" height="30px" />
-                    <MenuIcon menuIcon="plus" height="30px" />
+                    <MenuIcon menuIcon="home" height="34px" />
+                    <MenuIcon menuIcon="compass" height="34px" />
+                    <MenuIcon menuIcon="plus" height="34px" />
                     {/* <MenuIcon menuIcon="bell" height="30px" /> */}
 
                     <UserImage diameter="30px" isActive={userImageActive} />
