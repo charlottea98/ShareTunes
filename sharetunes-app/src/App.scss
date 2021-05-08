@@ -15,9 +15,14 @@ h4 {
 	color: #232323;
 }
 
+body,
+html {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
 body {
 	background-color: #f0f0f0;
-	overflow-x: hidden;
 }
 
 .pageContainer {
