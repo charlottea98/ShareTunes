@@ -12,26 +12,36 @@ interface Props {
 }
 
 const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, handleClose, isFollowing, followUser}) => {
-    return (<div className={classes.SearchBar}>
+    return (
+        <>
+        {typing ? ( 
+            <div className={classes.outsideContainer} onClick={()=>handleClose()}/>
+        ): (null)}
+    <div className={classes.SearchBar}>
         <input type="text"
                 name="name"
                 placeholder="Search users..."
                 onChange={e => {handleChange(e);}}
                 className={classes.SearchInput}
-                autoComplete="off">
+                autoComplete="off"
+                id="searchinput">
         </input>
-        <div hidden={!typing}>
-        <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClose()} size='2x' cursor='pointer' color='#fec46e'></FontAwesomeIcon>
-        </div>
-        <ul hidden={!typing} className={classes.SearchList}>
-        {searchResults.map((result, idx) => (
+        {typing ? (
+            <div>
+                <div>
+                    <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClose()} size='2x' cursor='pointer' color='#fec46e'></FontAwesomeIcon>
+                </div>
+                <ul className={classes.SearchList}>
+                    {searchResults.map((result, idx) => (
             <div className={classes.SearchItems} key={idx}>
-                {result?.username}<button disabled={isFollowing(result?.email)} onClick={()=>followUser(result)}>Follow</button>
+                {result?.username}
             </div>)
         )}
-        
         </ul>
-        </div>)
+            </div>
+        ): (null)}
+        </div>
+        </>)
 }
 
 export default SearchbarView;
