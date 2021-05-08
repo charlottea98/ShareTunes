@@ -58,7 +58,6 @@ export const DatabaseHandler = {
                 albumCoverURL: songData.album.images[2].url,
                 previewURL: songData.preview_url,
             }
-            console.log(songId);
             firebase.firestore().collection('songs').doc(songId).set(newSong);
         }
     },
@@ -134,8 +133,8 @@ export const DatabaseHandler = {
         DatabaseHandler.addNewSong("4aaEV6V9aOQb2oQzWlf9cu");
         DatabaseHandler.addNewSong("3LmpQiFNgFCnvAnhhvKUyI");
         DatabaseHandler.addNewSong("54rjlka9h5VCl8ugns7gvt");
-        DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
-        DatabaseHandler.addNewSong("5nNmj1cLH3r4aA4XDJ2bgY");
+        DatabaseHandler.addNewSong("2grjqo0Frpf2okIBiifQKs");
+        DatabaseHandler.addNewSong("2grjqo0Frpf2okIBiifQKs");
         
     
         // Add new users
