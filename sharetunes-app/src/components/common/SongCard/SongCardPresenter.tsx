@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SongCardView from './SongCardView';
-import { Song } from '../../../utility/types';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 
 interface Props {

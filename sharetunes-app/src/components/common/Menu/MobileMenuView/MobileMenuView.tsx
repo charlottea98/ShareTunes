@@ -1,8 +1,6 @@
 import React from 'react';
 import classes from './mobileMenu.module.scss';
 
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserImage from '../../UserImage/UserImagePresenter';
 import MenuIcon from '../MenuIcon/MenuIconPresenter';
 

@@ -3,8 +3,6 @@ import classes from '../deletePostAndComment.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-// import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-
 
 interface Props {
     onClickHandler: () => void

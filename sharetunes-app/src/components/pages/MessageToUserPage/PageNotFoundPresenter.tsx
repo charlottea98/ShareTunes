@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import { DatabaseHandler } from '../../../utility/databaseHandler';
 import MessageToUserPage from './MessageToUserPagePresenter';
 
 const PageNotFoundPresenter: React.FC = () => {

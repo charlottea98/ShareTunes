@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './logo.module.scss';
 import { useHistory } from "react-router-dom";
 
 import LogoView from './LogoView';

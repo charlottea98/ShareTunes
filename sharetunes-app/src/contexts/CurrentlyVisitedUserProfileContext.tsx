@@ -1,7 +1,5 @@
 import React, { useState, useContext, createContext } from 'react';
 
-import { useLoggedInUser } from './LoggedInUserContext';
-
 const CurrentlyVisitedUserProfileContext = createContext<string>("");
 const CurrentlyVisitedUserProfileUpdateContext = createContext<Function>(() => "");
 
