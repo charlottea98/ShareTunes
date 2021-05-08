@@ -1,11 +1,13 @@
+@import "../../variables.scss";
+
 .FileUploader {
 	display: flex;
 	flex-direction: column;
 	height: 172px;
 	width: 100%;
 	margin: 0 auto;
-	border: 3px dashed #fec46e;
-	transition: 0.3s;
+	border: 3px dashed $orange;
+	transition: $hover-transition-speed;
 	position: relative;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -52,12 +54,12 @@
 	font-size: 27px;
 	justify-content: center;
 	align-items: center;
-	background-color: #a1a1a1;
-	color: #fff;
+	background-color: $gray-dark;
+	color: white;
 	border-radius: 3px;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 }
 
 .deleteCurrentImageIcon:hover {
-	background-color: #fe6e6e;
+	background-color: $red;
 }

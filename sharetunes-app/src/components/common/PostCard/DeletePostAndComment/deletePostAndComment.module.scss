@@ -1,18 +1,20 @@
+@import "../../../variables.scss";
+
 .DeletePostButton,
 .DeleteCommentButton {
 	cursor: pointer;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 }
 
 .DeletePostButton {
 	margin-right: 8px;
 	font-size: 20px;
-	color: #232323;
+	color: $black;
 }
 
 .DeleteCommentButton {
 	font-size: 14px;
-	color: #a1a1a1;
+	color: $gray-dark;
 }
 
 .DeletePostButton:hover,

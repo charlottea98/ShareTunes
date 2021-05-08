@@ -1,16 +1,17 @@
+@import "../../../variables.scss";
+
 .Menu {
 	display: flex;
 	height: 60px;
 	width: 100vw;
-	background-color: #fff;
+	background-color: white;
 	position: fixed;
 	bottom: 0;
 	z-index: 1000;
 	align-items: center;
 	justify-content: flex-end;
 	transition: 0.3s;
-	border-top: 1px solid #dbdbdb;
-	// border-top: 4px solid #fec46e;
+	border-top: 1px solid $gray-light;
 }
 
 .menuContent {
@@ -22,16 +23,17 @@
 	align-items: center;
 	justify-content: space-between;
 	display: flex;
+	padding-right: 20px;
 }
 
 .iconContainer {
-	width: 25%;
+	width: 20%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-@media (min-width: 600px) {
+@media (min-width: $mobile-breakpoint) {
 	.Menu {
 		display: none;
 	}

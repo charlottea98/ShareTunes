@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .ThreeDotsButton {
 	display: flex;
 	justify-content: space-between;
@@ -5,6 +7,6 @@
 }
 
 .bullet {
-	background-color: #232323;
+	background-color: $black;
 	border-radius: 50%;
 }

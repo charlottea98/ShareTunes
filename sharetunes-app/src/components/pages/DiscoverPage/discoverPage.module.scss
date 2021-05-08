@@ -1,67 +1,74 @@
-.discoverPage{
-    display: flex;
-    flex-direction: row;
+@import "../../variables.scss";
+
+.discoverPage {
+	display: flex;
+	flex-direction: row;
 }
 
 .SearchBar {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
+	display: flex;
+	justify-content: center;
+	position: relative;
+	z-index: 1;
 }
 
-.discoverSidebar{
-    flex: 1;
-    padding-top: 20px;
-    padding-right: 20px;
-    max-width: 300px;
+.discoverSidebar {
+	flex: 1;
+	padding-top: 20px;
+	padding-right: 20px;
+	max-width: 300px;
 }
 
-.sideBarText{
-    font-weight: bold;
-    font-size: large;
-    width: 300px;
+.sideBarText {
+	font-weight: bold;
+	font-size: large;
+	width: 300px;
 }
 
-.popularSongs{
-    margin-bottom: 20px;
+.popularSongs {
+	margin-bottom: 20px;
 }
 
 .recommendedSongs {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
-.songCard{
-    background-color: white;
-    margin-top:10px;
+.songCard {
+	background-color: white;
+	margin-top: 10px;
 }
 
-.discoverFeed{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content:center ;
-    padding-top: 20px;
-    flex:2;
+.discoverFeed {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-top: 20px;
+	flex: 2;
 }
 
-.card{
-    margin: 10px;
-    margin-top: 0px;
+.card {
+	margin-bottom: 10px;
 }
 
-
-@media (min-width: 600px) {
-    .SearchBar {
-        display: none;
-    }
+@media (min-width: 350px) {
+	.card {
+		margin: 10px;
+		margin-top: 0px;
+	}
 }
 
-@media (max-width: 600px) {
-    .discoverSidebar{
-        display: none;
-    }
-    .discoverPage{
-        margin-top: 20px;
-    }
+@media (min-width: $mobile-breakpoint) {
+	.SearchBar {
+		display: none;
+	}
+}
+
+@media (max-width: $mobile-breakpoint) {
+	.discoverSidebar {
+		display: none;
+	}
+	.discoverPage {
+		margin-top: 20px;
+	}
 }
