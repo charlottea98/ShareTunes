@@ -50,16 +50,36 @@ const LoginView : React.FC<Props> = ({
 
                     <div className = {classes.form}>
                         <label className = {classes.formText}>Mail</label>
-                        <input type='text' autoFocus = {true} required value={email} onChange={e=>setEmail(e.target.value)} ></input>
+                        <input 
+                            type = 'text' 
+                            autoFocus = {true}
+                            required
+                            value = {email}
+                            onChange = {e => setEmail(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    handleLogin();
+                                }
+                            }}
+                        />
                         <p className = {classes.errorText}>{emailError}</p>
                         
-                        <label  className = {classes.formText}>Password</label>
-                        <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
-                        <p  className = {classes.errorText}>{passwordError}</p>
-
+                        <label className={classes.formText}>Password</label>
+                        <input 
+                            type="password" 
+                            required 
+                            value={password1} 
+                            onChange={e => setPassword1(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    handleLogin();
+                                }
+                            }}
+                        />
+                        <p className={classes.errorText}>{passwordError}</p>
                     </div>
                     
-                    <SignInUpButton text="Sign in" onButtonClick={() => {handleLogin();}}/>
+                    <SignInUpButton text="Sign in" onButtonClick={handleLogin}/>
                 </div>
                 
                 <SwitchButton text1 = "Don't have an account?" text2 = "Sign up" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>

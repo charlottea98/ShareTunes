@@ -119,7 +119,9 @@ const PostCardView: React.FC<Props> = ({
                         </div>
                         {/* <div><FontAwesomeIcon icon={farFaComments} /></div> */}
                     </div>
-                    <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
+                    <div className={classes.numberOfLikes}>
+                        {postCardInfo.likes.length} {postCardInfo.likes.length === 1 ? "like" : "likes"}
+                    </div>
                     
 
                     <div className={classes.captionAndComments}>
