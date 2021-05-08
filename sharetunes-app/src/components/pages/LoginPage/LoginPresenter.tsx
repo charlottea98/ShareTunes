@@ -84,6 +84,7 @@ const LoginPresenter: React.FC<Props> = () => {
         }
     };
     const handleSignup = async () => {
+        console.log(profilePictureURL);
         let message = await DatabaseHandler.signUpUser(name, username, profilePictureURL, email, password1);
 
         if (message === "New user added in database") {

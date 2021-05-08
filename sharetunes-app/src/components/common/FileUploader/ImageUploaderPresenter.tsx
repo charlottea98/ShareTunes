@@ -12,9 +12,14 @@ const ImageUploaderPresenter: React.FC<Props> = ({onFileChange, imageCategory, h
 	const [selectedImageURL, setSelectedImageURL] = useState<string>("");
 
     const fileChangeHandler = async (event: any) => {
-        let imageURL = await DatabaseHandler.uploadImage(event.target.files[0], imageCategory);
-        onFileChange(String(imageURL));
-        setSelectedImageURL(String(imageURL));
+        let imageFile = event.target.files[0];
+
+        if (imageFile) {
+            let imageURL = await DatabaseHandler.uploadImage(imageFile, imageCategory);
+            imageURL = String(imageURL);
+            onFileChange(imageURL);
+            setSelectedImageURL(imageURL);
+        }
 	};
 
     const clearUploadedImage = () => {

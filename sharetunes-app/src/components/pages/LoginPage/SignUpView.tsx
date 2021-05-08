@@ -72,13 +72,12 @@ const LoginView : React.FC<Props> = ({
                     <input type='text' required value={username} onChange={e=>setUsername(e.target.value)}></input>
                     <p className = {classes.errorText}>{usernameError}</p>
 
-                    {/* // TODO (After deadline): At the moment the users must be signed in to view images, so the below won't
-                    // work for the sign up page, but lets keep it here */}
-                    {/* <label  className = {classes.formText}>Profile picture</label>
+                    <label  className = {classes.formText}>Profile picture</label>
                     <ImageUploaderPresenter 
                         imageCategory="users" 
                         onFileChange={handleProfilePictureChange} 
-                    /> */}
+                        height="292px"
+                    />
 
 
                     <label  className = {classes.formText}>Mail</label>
