@@ -4,7 +4,6 @@ import classes from './homePage.module.scss';
 
 import PostCard from '../../common/PostCard/PostCardPresenter';
 import ImageUploader from '../../common/FileUploader/ImageUploaderPresenter';
-import FileUploaderInspo from '../../common/FileUploader/FileUploaderInspo';
 
 interface Props {
     postsToShow: Array<Post>
@@ -12,12 +11,7 @@ interface Props {
 
 const HomePageView : React.FC<Props> = ({postsToShow}) => {
     return (
-        <div className={classes.HomePage}>
-            {/* <ImageUploader imageCategory="users" /> */}
-            {/* <div style={{"width": "300px"}}>
-                <FileUploaderInspo onChange={(file) => console.log(file)} />
-            </div>   */}
-            
+        <div className={classes.HomePage}>        
             {
                 postsToShow.map((post, idx) => (
                     <div className={classes.postCardContainer} key = {idx}>

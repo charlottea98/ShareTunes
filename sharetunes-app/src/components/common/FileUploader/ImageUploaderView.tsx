@@ -7,13 +7,15 @@ import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 interface Props {
     fileChangeHandler: (event: any) => void,
     clearUploadedImage: () => void,
-    selectedImageURL: string
+    selectedImageURL: string,
+    height: string
 }
 
 const ImageUploaderView: React.FC<Props> = ({
     fileChangeHandler,
     clearUploadedImage,
-    selectedImageURL
+    selectedImageURL,
+    height
 }) => {
 
     console.log(selectedImageURL);
@@ -29,7 +31,10 @@ const ImageUploaderView: React.FC<Props> = ({
     return (
         <div 
             className={classes.FileUploader}
-            style={{ backgroundImage: `url('${selectedImageURL}')` }}
+            style={{ 
+                backgroundImage: `url('${selectedImageURL}')` ,
+                height: height
+            }}
         >
             <input type="file" name="file" onChange={fileChangeHandler} />
             { iconToDisplay }

@@ -280,7 +280,7 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
-    async signUpUser(name: string, username:string, email: string, password: string) {
+    async signUpUser(name: string, username:string, pictureURL: string, email: string, password: string) {
         let returnMessage;
         
         await fire.auth()
@@ -293,7 +293,7 @@ export const DatabaseHandler = {
                     username: username,
                     biography: "",
                     favoriteSong: null,
-                    profilePictureURL: DEFAULT_PROFILE_PICTURE_URL,
+                    profilePictureURL: pictureURL !== "" ? pictureURL : DEFAULT_PROFILE_PICTURE_URL,
                     posts: []
                 })
 

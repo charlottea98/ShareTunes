@@ -29,6 +29,8 @@ const LoginPresenter: React.FC<Props> = () => {
     const [username, setUsername] = useState<string>('');
     const [usernameError, setUsernameError] = useState<string>('');
 
+    const [profilePictureURL, setProfilePictureURL] = useState<string>('');
+
     const history = useHistory();
 
     const updateLoggedInUser = useLoggedInUserUpdate();
@@ -82,7 +84,7 @@ const LoginPresenter: React.FC<Props> = () => {
         }
     };
     const handleSignup = async () => {
-        let message = await DatabaseHandler.signUpUser(name, username, email, password1);
+        let message = await DatabaseHandler.signUpUser(name, username, profilePictureURL, email, password1);
 
         if (message === "New user added in database") {
             updateLoggedInUser(email);
@@ -102,6 +104,10 @@ const LoginPresenter: React.FC<Props> = () => {
             }
         });
     };
+
+    const handleProfilePictureChange = (newProfilePictureURL: string) => {
+        setProfilePictureURL(newProfilePictureURL);
+    }
 
     useEffect(() => {
         authListener();
@@ -143,6 +149,7 @@ const LoginPresenter: React.FC<Props> = () => {
                 setUsername={setUsername}
                 usernameError={usernameError}
                 confirmSignup={confirmSignUp}
+                handleProfilePictureChange = {handleProfilePictureChange}
             />
         );
     }

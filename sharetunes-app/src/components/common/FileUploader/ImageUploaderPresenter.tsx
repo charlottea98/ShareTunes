@@ -4,10 +4,11 @@ import ImageUploaderView from './ImageUploaderView';
 
 interface Props {
     onFileChange: (imageURL: string) => void,
-    imageCategory: "users" | "posts"
+    imageCategory: "users" | "posts",
+    height?: string
 }
 
-const ImageUploaderPresenter: React.FC<Props> = ({onFileChange, imageCategory}) => {
+const ImageUploaderPresenter: React.FC<Props> = ({onFileChange, imageCategory, height="172px"}) => {
 	const [selectedImageURL, setSelectedImageURL] = useState<string>("");
 
     const fileChangeHandler = async (event: any) => {
@@ -25,6 +26,7 @@ const ImageUploaderPresenter: React.FC<Props> = ({onFileChange, imageCategory}) 
         fileChangeHandler = {fileChangeHandler}
         selectedImageURL = {selectedImageURL}
         clearUploadedImage = {clearUploadedImage}
+        height = {height}
     />;
 }
 
