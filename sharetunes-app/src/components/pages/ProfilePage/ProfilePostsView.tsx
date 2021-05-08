@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './profilePostsView.module.scss';
-import { isDebuggerStatement } from 'typescript';
 
 interface Props {
     user: any;

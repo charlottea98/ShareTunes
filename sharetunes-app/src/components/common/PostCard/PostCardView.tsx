@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
@@ -46,7 +45,6 @@ const PostCardView: React.FC<Props> = ({
 }) => {
     return postCardInfo ? (
         <div className={classes.PostCardHome}>
-            
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
                     <img 

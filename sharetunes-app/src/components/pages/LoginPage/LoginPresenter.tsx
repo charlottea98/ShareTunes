@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginView from './LoginView';
 import SignUpView from './SignUpView';
 import firebase from 'firebase';
@@ -6,10 +6,7 @@ import fire from '../../../fire';
 
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
-import {
-    useLoggedInUser,
-    useLoggedInUserUpdate,
-} from '../../../contexts/LoggedInUserContext';
+import { useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
 
 interface Props {}

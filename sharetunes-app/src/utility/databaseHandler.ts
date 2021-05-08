@@ -1,4 +1,3 @@
-import { faTasks } from '@fortawesome/free-solid-svg-icons';
 import firebase from 'firebase';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';

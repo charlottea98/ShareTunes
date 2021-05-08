@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
-import { isDebuggerStatement } from 'typescript';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
  

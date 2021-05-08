@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SpotifyAPI } from '../../../utility/spotifyHandler';
-import { Song, Post} from '../../../utility/types';
+import { Post} from '../../../utility/types';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
 import firebase from 'firebase/app';
@@ -8,8 +8,7 @@ import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 
-
-const PublishPagePresenter = () => {
+const PublishPagePresenter: React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [songPostId, setPostSongId] = useState<string>('');

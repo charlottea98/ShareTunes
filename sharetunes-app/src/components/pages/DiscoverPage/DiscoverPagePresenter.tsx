@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
-import firestore from '../../../firestore';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { SpotifyAPI } from '../../../utility/spotifyHandler';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
