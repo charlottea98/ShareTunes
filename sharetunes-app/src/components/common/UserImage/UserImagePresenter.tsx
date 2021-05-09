@@ -14,14 +14,22 @@ interface Props {
 const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
+    // const [profileURL, setProfileURL] = useState<string>("");
 
-    let profileImage;
+    let profileURL;
 
-    if (loggedInUser && loggedInUser.profilePictureURL !== "") {
-        profileImage = loggedInUser.profilePictureURL;
+    if (loggedInUser && loggedInUser.profilePictureURL !== null && loggedInUser.profilePictureURL !== undefined) {
+        profileURL = loggedInUser.profilePictureURL;
     } else {
-        profileImage = DEFAULT_PROFILE_PICTURE_URL;
+        profileURL = DEFAULT_PROFILE_PICTURE_URL;
     }
+
+    // useEffect(() => {
+    //     DatabaseHandler.getImageUrl("").then((url) => {
+    //         setProfileURL(url);
+    //     })
+    // }, []);
+
 
     const userImageClickedHandler = () => {
         history.replace('/profile');
@@ -31,7 +39,7 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
         diameter = {diameter}
         userImageClickedHandler={userImageClickedHandler}
         isActive = {isActive}
-        profileImage = {profileImage}
+        profileImage = {profileURL}
     />;
 }
 

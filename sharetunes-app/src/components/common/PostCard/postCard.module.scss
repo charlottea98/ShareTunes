@@ -1,19 +1,14 @@
+@import "../../variables.scss";
+
+.PostCard,
 .PostCardHome {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	width: 300px;
-	background-color: #fff;
+	background-color: white;
 	overflow: hidden;
-}
-
-.PostCardDiscovery{
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 10px;
-	width: 300px;
-	background-color: #fff;
-	overflow: hidden;
+	width: calc(100vw - 15px);
+	max-width: 500px;
 }
 
 .layer1 {
@@ -21,7 +16,7 @@
 	align-items: center;
 	justify-content: space-between;
 	height: 60px;
-	border: 1px solid #dbdbdb;
+	border: 1px solid $gray-light;
 	padding: 0 10px;
 }
 
@@ -31,7 +26,12 @@
 	align-items: center;
 }
 
-.publisherInfoContainer img {
+.publisherInfoContainer div {
+	cursor: pointer;
+}
+
+.profilePictureOfPublisher {
+	cursor: pointer;
 	height: 70%;
 	border-radius: 50%;
 	margin-right: 10px;
@@ -48,7 +48,7 @@
 	display: flex;
 	height: 45px;
 	align-items: center;
-	border: 1px solid #dbdbdb;
+	border: 1px solid $gray-light;
 	padding: 0 10px;
 }
 
@@ -69,7 +69,7 @@
 .tag {
 	border: 20px;
 	padding: 3px 5px;
-	border: 1px solid #232323;
+	border: 1px solid $black;
 	border-radius: 30px;
 	font-size: 13px;
 	font-weight: 400;
@@ -85,20 +85,20 @@
 	align-items: left;
 	padding: 10px;
 	background-color: white;
-	border-left: 1px solid #dbdbdb;
-	border-right: 1px solid #dbdbdb;
-	border-bottom: 1px solid #dbdbdb;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
 }
 
 .likeAndCommentContainer {
 	display: flex;
 	font-size: 25px;
-	color: #232323;
+	color: $black;
 }
 
 .likeAndCommentContainer div {
 	cursor: pointer;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 	user-select: none;
 }
 
@@ -108,32 +108,93 @@
 
 .likeAndCommentContainer div:hover {
 	transform: scale(1.04);
-	color: #fec46e !important;
+	color: $orange !important;
 }
 
 .numberOfLikes,
 .captionAndComments div {
 	display: flex;
-	justify-content: left;
 	margin-top: 3px;
 }
 
-.numberOfLikes,
-.userNameInComment {
+.numberOfLikes {
 	font-weight: 700;
 }
 
 .userNameInComment {
 	margin-right: 5px;
+	text-align: left;
+}
+
+.userNameInComment strong {
 	cursor: pointer;
 	user-select: none;
 }
 
-.viewPost{
+.userNameInComment strong::after {
+	content: " ";
+}
+
+.commentContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.deleteComment {
+	margin-top: -2px !important;
+}
+
+.viewPost {
 	cursor: pointer;
-	transition: 0.2s;
+	transition: $hover-transition-speed;
 	user-select: none;
 	font-weight: 1000;
 	font-size: small;
-	color: #fec46e;
+	color: $orange;
+}
+
+.commentBox {
+	height: 40px;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
+	display: flex;
+	padding: 0 10px;
+	align-items: center;
+}
+
+.commentBox input {
+	border: none;
+	outline: none;
+	height: 100%;
+	width: 100%;
+	font-size: 15px;
+}
+
+.publishComment,
+.inActivePublishComment {
+	border-radius: 2px;
+	padding: 2px 5px;
+	color: white;
+	font-weight: 600;
+	user-select: none;
+	margin-left: 10px;
+	background-color: $orange;
+}
+
+.publishComment {
+	cursor: pointer;
+}
+
+.inActivePublishComment {
+	opacity: 0.5;
+	cursor: default;
+}
+
+@media (min-width: $mobile-breakpoint-2) {
+	.PostCard {
+		width: 300px;
+	}
 }

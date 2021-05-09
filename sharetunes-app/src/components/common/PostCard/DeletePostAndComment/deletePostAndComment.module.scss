@@ -1,13 +1,25 @@
-.DeletePostButton {
-	font-size: 20px;
-	margin-right: 8px;
+@import "../../../variables.scss";
+
+.DeletePostButton,
+.DeleteCommentButton {
 	cursor: pointer;
-	transition: 0.2s;
-	color: #232323;
+	transition: $hover-transition-speed;
 }
 
-.DeletePostButton:hover {
-	color: #fe6e6e;
+.DeletePostButton {
+	margin-right: 8px;
+	font-size: 20px;
+	color: $gray-dark;
+}
+
+.DeleteCommentButton {
+	font-size: 14px;
+	color: $gray;
+}
+
+.DeletePostButton:hover,
+.DeleteCommentButton:hover {
+	color: $red;
 }
 
 .DeletePostModalBG {
@@ -22,20 +34,25 @@
 	cursor: pointer;
 }
 
-.DeletePostModalContainer {
+.DeletePostModalContainer,
+.DeleteCommentModalContainer {
 	display: flex;
 	flex-direction: column;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #fff;
-	border: 5px solid #fec46e;
+	background-color: white;
+	border: 5px solid $orange;
 	z-index: 1006;
 	font-weight: 700;
 	font-size: 20px;
 	padding: 30px;
 	min-width: 275px;
+}
+
+.DeleteCommentModalContainer {
+	max-width: 350px;
 }
 
 .buttonContainer {
@@ -52,23 +69,26 @@
 	padding: 10px 13px;
 	border-radius: 2px;
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttonContainer div:first-child {
-	background-color: #bfbfbf;
+	background-color: $gray;
 }
 
 .buttonContainer div:last-child {
-	background-color: #fe6e6e;
+	background-color: $red;
 	margin-top: 15px;
 }
 
 .buttonContainer div:first-child:hover {
-	background-color: #a1a1a1;
+	background-color: $gray-dark;
 }
 
 .buttonContainer div:last-child:hover {
-	background-color: #e15454;
+	background-color: $red-dark;
 }
 
 @media (min-width: 715px) {

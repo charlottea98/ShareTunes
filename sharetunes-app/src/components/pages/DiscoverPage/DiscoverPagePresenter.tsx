@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
-import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
-import firestore from '../../../firestore';
-import { SpotifyAPI } from '../../../utility/spotifyCommunication';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+import { SpotifyAPI } from '../../../utility/spotifyHandler';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
-    const [posts, setPosts] = useState<any[]>([]);
+    const { posts } = useDatabase();
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
 
@@ -21,15 +21,9 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i = 0; countValidTracks < 5; i++) {
-                    const trackInfo: any = {
-                        artist: tracks[i]?.track.artists[0].name,
-                        title: tracks[i]?.track.name,
-                        albumCoverSmall:
-                            tracks[i]?.track.album.images[2].url,
-                        preview: tracks[i]?.track.preview_url,
-                    };
-                    if (trackInfo.preview) {
-                        topTracks.push(trackInfo);
+                    if (tracks[i]?.track.preview_url) {
+                        topTracks.push(tracks[i]?.track.id);
+                        DatabaseHandler.addNewSong(tracks[i]?.track.id);
                         countValidTracks++;
                     }
                 }
@@ -44,13 +38,9 @@ const DiscoverPage: React.FC = () => {
 
             if (tracks !== undefined) {
                 for (var i=0; countValidTracks < 5; i++) {
-                    const trackInfo:any = {artist: tracks[i]?.track.artists[0].name,
-                                        title: tracks[i]?.track.name,
-                                        albumCoverSmall: tracks[i]?.track.album.images[2].url,
-                                        preview: tracks[i]?.track.preview_url
-                                        };
-                    if (trackInfo.preview){
-                        recommendedTracks.push(trackInfo);
+                    if (tracks[i]?.track.preview_url){
+                        recommendedTracks.push(tracks[i]?.track.id);
+                        DatabaseHandler.addNewSong(tracks[i]?.track.id);
                         countValidTracks++;
                     }
                 }
@@ -61,16 +51,8 @@ const DiscoverPage: React.FC = () => {
 
     useEffect(() => {
         getSpotifyPopularPlaylist();
-        setPosts([]);
-        firestore
-            .collection('posts')
-            .get()
-            .then((snapshot) => {
-                snapshot.docs.map((doc) => {
-                    setPosts((oldArray) => [...oldArray, doc.data()]);
-                });
-            });
-    }, []);
+        posts.sort(function(a,b){return b.likes.length - a.likes.length});
+    }, [posts]);
 
     return (
         <div className={classes.DiscoverPage}>
@@ -79,7 +61,6 @@ const DiscoverPage: React.FC = () => {
                             topSongs={topSongs} 
                             recommendedSongs={recommendedSongs}
             />
-            <LogoutButton/>
         </div>
     );
 };

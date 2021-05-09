@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
-import { getAllRelevantPosts } from '../../../utility/firestoreCommunication';
-import { Post } from '../../../utility/types';
-import { deletePost as deletePostFromFirestore } from '../../../utility/firestoreCommunication';
+import React from 'react';
 
 import HomePageView from './HomePageView';
+import { useDatabase } from '../../../contexts/DatabaseContext';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
+import { Post } from '../../../utility/types';
 
 const HomePagePresenter : React.FC = () => {
-    const [postsToShow, setPostsToShow] = useState<Array<Post>>([]);
+    const { posts, following } = useDatabase();
     const loggedInUser = useLoggedInUser();
 
-    const deletePost = (postId: string) => {
-        deletePostFromFirestore(parseInt(postId));
+    let postsToShow: Array<Post> = [];
 
-        if (loggedInUser) {
-            getAllRelevantPosts(loggedInUser.email, "home page")
-                .then(posts => setPostsToShow(posts));
-        }
+    if (loggedInUser) {
+        let userIsFollowing = following.filter(followingObject => (followingObject.id === loggedInUser.email))[0].following;
+        
+        userIsFollowing = [...userIsFollowing, loggedInUser.email];
+        postsToShow = posts.filter(post => userIsFollowing.includes(post.emailOfPublisher));
+        postsToShow = posts.sort((postA, postB) => {
+            if (postA.date < postB.date) {
+                return 1;
+            } else if (postA.date > postB.date) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
     }
 
-    useEffect(() => {
-        if (loggedInUser) {
-            getAllRelevantPosts(loggedInUser.email, "home page")
-                .then(posts => setPostsToShow(posts));
-        }
-    }, []);
-    
-
-    return <HomePageView postsToShow={postsToShow} deletePost={deletePost} />;
+    return <HomePageView postsToShow={postsToShow} />;
 }
 
 export default HomePagePresenter;

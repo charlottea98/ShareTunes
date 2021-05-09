@@ -1,56 +1,54 @@
+@import "../../variables.scss";
+
 .LoginPage {
-    display:flex ;
-    //background-color: white;
-    text-align: center;
-    justify-content: center;
+	display: flex;
+	text-align: center;
+	justify-content: center;
 }
 
-
-
-
 .loginContainer {
-    padding-top: 10px;
-    padding-bottom:1px;
-    border-style: solid;
-    border-width: 0.5px;
-    border-color: rgb(160, 156, 156);
-    border-left-color:#fec46e;
-    border-left-width: 5px;
-    margin-left: 35%;
-    margin-right: 35%;
-    margin-top: 0%;
-   
-    background-color: white;
-    flex-direction: column;
-    
-    align-items: center;
-    padding:20px;
-    margin:10px;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: $gray-light;
+	border-left-color: $orange;
+	border-left-width: 5px;
+	margin-left: 35%;
+	margin-right: 35%;
+	margin-top: 0%;
 
- }
+	background-color: white;
+	flex-direction: column;
 
+	align-items: center;
+	padding: 20px;
+	margin: 10px;
+}
 
- .form{
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 94%;
+}
 
-    display:flex;
-    flex-direction: column;
-    width: 94%;
+.formText {
+	font-weight: $form-label-font-weight;
+	font-size: $form-label-font-size;
+	display: block;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: $form-label-margin-bottom;
+}
 
- }
+.form input {
+	font-weight: $form-input-font-weight;
+	font-size: $form-input-font-size;
+	padding: $form-input-padding;
+	outline-color: $gray-dark;
+}
 
-
- .formText{
-
-    font-weight:600;
-    font-size: 12px;
-    display: block;
-    text-align:left;
-
-    margin-top: 15px;
- }
-
- .errorText{
-    font-size: 12px;
-    color: rgb(240, 46, 46);
- }
-
+.errorText {
+	font-size: 12px;
+	color: $red-dark;
+}

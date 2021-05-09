@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
     useLoggedInUser,
     useLoggedInUserUpdate,
@@ -16,10 +16,11 @@ const UserCheckerPresenter: React.FC = ({ children }) => {
     let session = sessionStorage.getItem('user-session');
 
     useEffect(() => {
-        if (session !== null) {
+        if (session !== null && !loggedInUser) {
             updateLoggedInUser(session);
         }
     }, []);
+
 
     return (
         <div>

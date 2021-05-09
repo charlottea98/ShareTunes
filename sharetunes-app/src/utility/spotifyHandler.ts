@@ -36,7 +36,7 @@ export const SpotifyAPI = {
                 throw new Error(`Code "${response.status}" with the message "${response.statusText}"! :(`);
             }
         }).catch(error => {
-            console.log(error);
+            // console.log(error);
         })
     },
     async getSongDetails(songId: string) {

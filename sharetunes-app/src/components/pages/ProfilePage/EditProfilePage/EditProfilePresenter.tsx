@@ -8,7 +8,6 @@ import EditProfileView from './EditProfileView';
 import {
     useLoggedInUser,
     useLoggedInUserUpdate,
-    useUpdateProfilePicture,
 } from '../../../../contexts/LoggedInUserContext';
 
 

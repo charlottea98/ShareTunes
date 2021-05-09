@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import SongCardView from './SongCardView';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 interface Props {
-    title?: string,
-    artists?: string,
-    albumCover?: string,
-    previewSong?: string
+    songId: string
 }
 
-const SongCardPresenter: React.FC<Props> = ({title, artists, albumCover, previewSong}) => {
+const SongCardPresenter: React.FC<Props> = ({songId}) => {
+    const { songs } = useDatabase();
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
+
+    let song = songs.filter(song => song.id === songId)[0];
     let songCard;
 
     useEffect(() => {
@@ -59,12 +60,12 @@ const SongCardPresenter: React.FC<Props> = ({title, artists, albumCover, preview
         return false;
     }
 
-    if (title && artists && albumCover) {
+    if (song?.title && song?.artists && song?.albumCoverURL) {
         songCard = <SongCardView 
-            title = {title}
-            artists = {artists}
-            albumCover = {albumCover}
-            previewSong = {previewSong}
+            title = {song.title}
+            artists = {song.artists}
+            albumCover = {song.albumCoverURL}
+            previewSong = {song.previewURL}
             handleAudio={handleAudio} 
             isPlaying={isPlayingCurrentFile}
         />;

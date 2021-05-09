@@ -15,20 +15,23 @@ h4 {
 	color: #232323;
 }
 
+body,
+html {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
 body {
 	background-color: #f0f0f0;
-	overflow-x: hidden;
 }
 
 .pageContainer {
-	padding-top: 20px;
-	padding-bottom: 80px;
-	padding: 20px 20px 60px 20px;
+	padding: 20px 0 60px 0;
 	max-width: 1000px;
 	margin: 0 auto;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 775px) {
 	body {
 		overflow-x: visible;
 	}

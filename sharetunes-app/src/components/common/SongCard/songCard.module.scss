@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .SongCard {
 	height: 64px;
 	display: flex;
@@ -6,7 +8,9 @@
 	justify-content: space-between;
 }
 
-.SongCard img {
+.albumImageContainer {
+	display: inline-flex;
+	justify-content: center;
 	height: 64px;
 	width: 64px;
 }
@@ -32,7 +36,7 @@
 }
 
 .SongTitleContainer span,
-.SongArtistsContainer span {
+.SongArtistsContainer div {
 	overflow-x: hidden;
 	white-space: nowrap;
 	transition: text-indent 60s linear;
@@ -42,12 +46,12 @@
 	margin-left: 9px;
 }
 
-.SongArtistsContainer span {
+.SongArtistsContainer div {
 	margin-left: 5px;
 }
 
 .SongTitleContainer:hover span,
-.SongArtistsContainer:hover span {
+.SongArtistsContainer:hover div {
 	text-indent: -3000px;
 }
 
@@ -56,25 +60,25 @@
 	align-self: center;
 	align-items: center;
 	justify-content: center;
-	background-color: #fec46e;
+	background-color: $orange;
 	width: 64px;
-	height:64px;
+	height: 64px;
 	cursor: pointer;
 	user-select: none;
 }
 
-.dontButtonContainer{
+.dontButtonContainer {
 	display: flex;
 	align-self: center;
 	align-items: center;
 	justify-content: center;
-	background-color: grey;
+	background-color: $gray-dark;
 	width: 64px;
-	height:64px;
+	height: 64px;
 }
 
 .playButtonContainer:hover {
-	background-color: #eeb45e;
+	background-color: $orange-dark;
 }
 
 .songCardPlayerImage {
@@ -82,4 +86,8 @@
 	width: 30px;
 	align-self: center;
 	fill: white;
+}
+
+.artistContainer:not(:last-child)::after {
+	content: ", ";
 }

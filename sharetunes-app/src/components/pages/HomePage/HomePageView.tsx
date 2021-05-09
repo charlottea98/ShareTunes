@@ -5,23 +5,17 @@ import classes from './homePage.module.scss';
 import PostCard from '../../common/PostCard/PostCardPresenter';
 
 interface Props {
-    postsToShow: Array<Post>,
-    deletePost: Function
+    postsToShow: Array<Post>
 }
 
-const HomePageView : React.FC<Props> = ({postsToShow, deletePost}) => {
-    console.log(postsToShow);
-    
+const HomePageView : React.FC<Props> = ({postsToShow}) => {
     return (
-        <div className={classes.HomePage}>
+        <div className={classes.HomePage}>        
             {
-                postsToShow.map(post => (
-                    <div className={classes.postCardContainer}>
+                postsToShow.map((post, idx) => (
+                    <div className={classes.postCardContainer} key = {idx}>
                         <PostCard
-                            key = {post.id}
                             postInfo = {post}
-                            pageToViewOn="home page"
-                            deletePost = {deletePost}
                         />
                     </div>
                 ))

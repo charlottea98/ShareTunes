@@ -1,17 +1,12 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginView from './LoginView';
 import SignUpView from './SignUpView';
 import firebase from 'firebase';
 import fire from '../../../fire';
 
-import { Post, Song, User } from '../../../utility/types';
-import { createImageLinkFromDriveId } from '../../../utility/utility';
-import { addNewUser } from '../../../utility/firestoreCommunication';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
-import {
-    useLoggedInUser,
-    useLoggedInUserUpdate,
-} from '../../../contexts/LoggedInUserContext';
+import { useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
 
 interface Props {}
@@ -30,6 +25,8 @@ const LoginPresenter: React.FC<Props> = () => {
     const [nameError, setNameError] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [usernameError, setUsernameError] = useState<string>('');
+
+    const [profilePictureURL, setProfilePictureURL] = useState<string>('');
 
     const history = useHistory();
 
@@ -55,31 +52,16 @@ const LoginPresenter: React.FC<Props> = () => {
         setNameError('');
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         clearErrors();
-        fire.auth()
-            .signInWithEmailAndPassword(email, password1)
-            .then(() => {
-                // Session storage
-                sessionStorage.setItem('user-session', email);
+        let message = await DatabaseHandler.loginUser(email, password1);
 
-                // Uppdatera mer här ?
-                updateLoggedInUser(email);
-
-                history.push('/discover');
-            })
-            .catch((err) => {
-                switch (err.code) {
-                    case 'auth/invalid-email':
-                    case 'auth/user-disabled':
-                    case 'auth/user-not-found':
-                        setEmailError(err.message);
-                        break;
-                    case 'auth/wrong-password':
-                        setPasswordError(err.message);
-                        break;
-                }
-            });
+        if (message === "User logged in successfully") {
+            updateLoggedInUser(email);
+            history.push('/discover');
+        } else {
+            // Kolla message och hantera det 
+        }
     };
 
     const confirmSignUp = () => {
@@ -98,28 +80,18 @@ const LoginPresenter: React.FC<Props> = () => {
             setUsernameError('You have to fill in a username');
         }
     };
-    const handleSignup = () => {
-        fire.auth()
-            .createUserWithEmailAndPassword(email, password1)
-            .then(() => {
-                updateLoggedInUser(email);
-                createUserInDataBase();
-                history.push('/discover');
-            })
-            .catch((err) => {
-                switch (err.code) {
-                    case 'auth/email-already-in-use':
-                    case 'auth/invalid-email':
-                        setEmailError(err.message);
-                        break;
-                    case 'auth/weak-password':
-                        setPasswordError(err.message);
-                        break;
-                }
-            });
+    const handleSignup = async () => {
+        let message = await DatabaseHandler.signUpUser(name, username, profilePictureURL, email, password1);
+
+        if (message === "New user added in database") {
+            updateLoggedInUser(email);
+            history.push('/discover');
+        } else if (message === "The email address is badly formatted.") {
+            setEmailError(message);
+        }
     };
 
-    const authListener = () => {
+    const authListener = () => { // Kommentar från Rasmus: Vad gör det här? Är inte helt säker så vågar inte flytta själv till DatabaseHandler
         fire.auth().onAuthStateChanged((user) => {
             if (user) {
                 clearInputs();
@@ -130,54 +102,13 @@ const LoginPresenter: React.FC<Props> = () => {
         });
     };
 
+    const handleProfilePictureChange = (newProfilePictureURL: string) => {
+        setProfilePictureURL(newProfilePictureURL);
+    }
+
     useEffect(() => {
         authListener();
     }, []);
-
-    const createUserInDataBase = () => {
-        // Ny rasmus
-        let userToAdd: User = {
-            id: email,
-            name: name,
-            email: email,
-            username: username,
-            profilePictureURL: createImageLinkFromDriveId(
-                '1pYIMKBLGubCmw78RAxDDhbm98PyOlY6Y'
-            ),
-            favoriteSong: '4aaEV6V9aOQb2oQzWlf9cu',
-            biography: '',
-            posts: [],
-        };
-        addNewUser(userToAdd);
-
-        // // Lägg till i followers
-        // firebase.firestore().collection('followers').doc(email).set({
-        //     followers: [email]
-
-        // })
-
-        // //Lägg till i following
-        // firebase.firestore().collection('following').doc(email).set({
-        //     following: [email]
-        // })
-
-        // // Lägg till i users,  gammal, mail redan i database funkar redan här
-        // firebase.firestore().collection('users').doc(email).set({
-        //     id:email,
-        //     name: name,
-        //     username: username,
-        //     email: email,
-        //     profilePictureURL:'',
-        //     favouriteSong:'7723JnKU2R15Iv4T7OJrly',
-        //     favouriteArtist:'',
-        //     posts:[''],
-        //     biography:''
-        //   })
-    };
-
-    const checkUsername = () => {
-        // Ser ifall userName redan finns i databasen ? Kanske onödigt krångligt , strunta i den här?
-    };
 
     if (hasAccount) {
         return (
@@ -215,6 +146,7 @@ const LoginPresenter: React.FC<Props> = () => {
                 setUsername={setUsername}
                 usernameError={usernameError}
                 confirmSignup={confirmSignUp}
+                handleProfilePictureChange = {handleProfilePictureChange}
             />
         );
     }

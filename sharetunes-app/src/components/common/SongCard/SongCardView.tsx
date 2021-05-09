@@ -3,12 +3,13 @@ import classes from './songCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faUsers, faPlay, faPause, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { Artist } from '../../../utility/types';
 
 interface Props {
     title: string,
-    artists: string,
+    artists: Array<Artist>,
     albumCover: string,
-    previewSong: string | undefined,
+    previewSong: string | null,
     handleAudio: Function,
     isPlaying: Function
 }
@@ -24,8 +25,9 @@ const SongCardView: React.FC<Props> = ({
     return (
         <div className={classes.SongCard}>
             <div className={classes.albumCoverAndSongInfoContainer}>
+                <div className={classes.albumImageContainer}>
                 <img src={albumCover} />
-
+                </div>
                 <div className={classes.SongInfoContainer}>
                     <div className={classes.SongTitleContainer}>
                         <FontAwesomeIcon icon={faMusic} color="#232323" size="1x" />
@@ -34,7 +36,15 @@ const SongCardView: React.FC<Props> = ({
 
                     <div className={classes.SongArtistsContainer}>
                         <FontAwesomeIcon icon={faUsers} color="#232323" size="1x" />
-                        <span>{artists}</span>
+                        <div>
+                            {
+                                artists.map((artist, idx) => (
+                                    <span className={classes.artistContainer} key={idx}>
+                                        {artist.name}
+                                    </span>
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

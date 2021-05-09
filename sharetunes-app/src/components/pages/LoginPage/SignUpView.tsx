@@ -1,15 +1,12 @@
-import React, { ReactNode,useEffect, useState } from 'react';
-
-//import firebase from 'firebase';
+import React from 'react';
 
 import classes from './loginPage.module.scss';
 import LogoPresenter from '../../common/Logo/LogoPresenter';
 import SignInUpButton from '../../common/buttons/SignInUpButton/SignInUpButton'
 import SwitchButton from '../../common/buttons/SwitchButton/SwitchButton'
-
+import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
 
 interface Props {
-    
     clearAll: () => void
     hasAccount: boolean
     setHasAccount:(hasAccount:boolean) => void
@@ -32,9 +29,8 @@ interface Props {
     setUsername: (setUsername: string) => void
     usernameError: string
     
-    confirmSignup: () => void
-   
-
+    confirmSignup: () => void,
+    handleProfilePictureChange: (newProfilePictureURL: string) => void
 }
 
 
@@ -57,48 +53,99 @@ const LoginView : React.FC<Props> = ({
     setUsername,
     usernameError,
     confirmSignup,
-    }
+    handleProfilePictureChange
+}) => {
     
-    ) => {
-
-        
     return (
         <div className={classes.LoginPage}>
-        <section>
-                <>
+            <section>
                 <div className= {[classes.loginContainer, classes.form].join(" ")}>
-                <LogoPresenter fontSize = {"40px"}/>
+                    <LogoPresenter fontSize = {"40px"}/>
 
-                <div className = {classes.form}>
-                    <label  className = {classes.formText}>Name </label>
-                    <input type='text' autoFocus = {true} required value={name} onChange={e=>setName(e.target.value)}></input>
-                    <p className = {classes.errorText}>{nameError}</p>
+                    <div className = {classes.form}>
+                        <label  className = {classes.formText}>Name</label>
+                        <input 
+                            type='text'
+                            autoFocus = {true}
+                            required
+                            value={name}
+                            onChange={e=>setName(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    confirmSignup();
+                                }
+                            }}
+                        />
+                        <p className = {classes.errorText}>{nameError}</p>
+                    
+                        <label  className = {classes.formText}>Username</label>
+                        <input 
+                            type='text'
+                            required
+                            value={username}
+                            onChange={e=>setUsername(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    confirmSignup();
+                                }
+                            }}
+                        />
+                        <p className = {classes.errorText}>{usernameError}</p>
+
+                        <label  className = {classes.formText}>Profile picture</label>
+                        <ImageUploaderPresenter 
+                            imageCategory="users" 
+                            onFileChange={handleProfilePictureChange} 
+                            height="292px"
+                        />
+
+                        <label  className = {classes.formText}>Mail</label>
+                        <input 
+                            type='text'
+                            required
+                            value={email}
+                            onChange={e=>setEmail(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    confirmSignup();
+                                }
+                            }}
+                        />
+                        <p className = {classes.errorText}>{emailError}</p>
+
+                        <label  className = {classes.formText}>Password</label>
+                        <input 
+                            type="password"
+                            required
+                            value={password1}
+                            onChange={(e) => {setPassword1(e.target.value)}}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    confirmSignup();
+                                }
+                            }}
+                        />
+                        <p  className = {classes.errorText}>{passwordError}</p>
+
+                        <label  className = {classes.formText}>Confirm Password</label>
+                        <input 
+                            type="password"
+                            required
+                            value={password2}
+                            onChange={e => setPassword2(e.target.value)}
+                            onKeyDown = {e => {
+                                if (e.key === 'Enter') {
+                                    confirmSignup();
+                                }
+                            }}
+                        />
+                    </div>
+
+                    <SignInUpButton text="Create account" onButtonClick={confirmSignup}/>
                 
-                    <label  className = {classes.formText}>Username</label>
-                    <input type='text' required value={username} onChange={e=>setUsername(e.target.value)}></input>
-                    <p className = {classes.errorText}>{usernameError}</p>
-
-                    <label  className = {classes.formText}>Mail</label>
-                    <input type='text' required value={email} onChange={e=>setEmail(e.target.value)}></input>
-                    <p className = {classes.errorText}>{emailError}</p>
-
-                    <label  className = {classes.formText}>Password</label>
-                    <input type="password" required value={password1} onChange={(e) => {setPassword1(e.target.value)}}></input>
-                    <p  className = {classes.errorText}>{passwordError}</p>
-
-                    <label  className = {classes.formText}>Confirm Password</label>
-                    <input type="password" required value={password2} onChange={(e) => {setPassword2(e.target.value)}}></input> 
-
                 </div>
-
-                <SignInUpButton text="Create account" onButtonClick={() => {confirmSignup();}}/>
-            
-            </div>
-            <SwitchButton  text1 = "Have an account?" text2 = "Sign in" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>
-                
-            </>
-       
-        </section>
+                <SwitchButton  text1 = "Have an account?" text2 = "Sign in" onButtonClick={() => {clearAll();setHasAccount(!hasAccount)}}/>
+            </section>
         </div>
     )
 }
