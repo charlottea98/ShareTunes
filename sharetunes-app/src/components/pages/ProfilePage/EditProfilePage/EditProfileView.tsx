@@ -3,7 +3,8 @@ import classes from './editProfileView.module.scss';
 
 import SongCardPresenter from "../../../common/SongCard/SongCardPresenter"
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../../utility/utility';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 
 import UserImagePresenter from "../../../common/UserImage/UserImagePresenter"
 
@@ -30,7 +31,13 @@ interface Props {
     biography:string
     setBiography: (name: string) => void
     favoriteSong:string
-    setFavoriteSong: (name: string) => void
+    
+    isSearching:boolean
+    switchSearchMode: Function
+    searchSong: Function
+    handleChange:Function
+    searchInput: string
+    postSongId: string
   
 }
 
@@ -48,7 +55,12 @@ const EditProfileView: React.FC<Props> = ({
     biography,
     setBiography,
     favoriteSong,
-    setFavoriteSong,
+    isSearching,
+    switchSearchMode,
+    handleChange,
+    searchSong,
+    searchInput,
+    postSongId
 }) => {
     return (
         
@@ -76,11 +88,22 @@ const EditProfileView: React.FC<Props> = ({
                     <input type='text' className = {classes.biography} autoFocus = {true} placeholder = {biography}  onChange={e=>setBiography(e.target.value)}></input>
                     
                     <label  className = {classes.formText}>Favorite song</label>
-                    <SongCardPresenter songId = {favoriteSong}  /> 
+
+
+                    {isSearching?(
+                    <div>
+                        <SongCardPresenter songId = {postSongId == ''? favoriteSong:postSongId} />
+                        <ChangeButton text="Change favorite song" onButtonClick={() => { switchSearchMode();}}/>
+                    </div>
+                    ):(
+                    <div>
+                        <input onChange={e => {handleChange(e,'song');}}/>
+                        <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
+                    </div>
+                    )}
 
                </div>
                
-               <ChangeButton text="Change favorite song" onButtonClick={() => { history.push('/profile');}}/>
                 <div className = {classes.saveCancel}>
                     <div className={classes.cancelButton} onClick={()=>history.push('/profile')}>Cancel</div>
                     <div className={classes.saveButton} onClick={()=>handleUpdate(user)}>Save</div>
@@ -98,3 +121,4 @@ const EditProfileView: React.FC<Props> = ({
 };
 
 export default EditProfileView;
+

@@ -10,6 +10,7 @@ import {
     useLoggedInUserUpdate,
 } from '../../../../contexts/LoggedInUserContext';
 
+import { SpotifyAPI } from '../../../../utility/spotifyHandler';
 
 const EditProfilePresenter: React.FC = () => {
     
@@ -18,6 +19,13 @@ const EditProfilePresenter: React.FC = () => {
     const [profilePictureURL,setProfilePictureURL] = useState<any>('');     // Fungerade inte med string här ? 
     const [biography, setBiography] = useState<string>('');
     const [favoriteSong, setFavoriteSong] = useState<any>('');
+
+
+    const [postSongId, setPostSongId] = useState<string>('');
+    const [searchInput, setSearchInput] = useState<string>(' ');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [isSearching, setIsSearching] = useState<boolean>(true);
+
 
     const user = useLoggedInUser();
     const history = useHistory();
@@ -33,17 +41,20 @@ const EditProfilePresenter: React.FC = () => {
       }, [user?.id,user?.profilePictureURL,user?.name,user?.username,user?.biography,user?.favoriteSong]); // maybe add some more? favouritesong etc
 
 
-
     const handleUpdate = () => {
         let newUserInfo: User;
         
+
+        console.log(favoriteSong)
         if(user != null){
             newUserInfo = user
             newUserInfo.profilePictureURL = profilePictureURL
             newUserInfo.name = name
             newUserInfo.username = username
             newUserInfo.biography = biography
-            newUserInfo.favoriteSong = favoriteSong
+
+            if(postSongId != '')
+                newUserInfo.favoriteSong = postSongId
             
             DatabaseHandler.updateUserInfo(user);
         }
@@ -51,6 +62,46 @@ const EditProfilePresenter: React.FC = () => {
         history.push('/profile');
         
     }
+
+    const handleChange = (e:any,type:string) => {
+        if (type==='error'){
+            setErrorMessage(e);
+        }
+        else{
+            var value = e.target.value;
+            if (type==='song'){
+                setSearchInput(value);
+            }
+        }
+
+    }
+
+    const switchSearchMode = () => {
+        setIsSearching(!isSearching);
+        if (isSearching){
+            setPostSongId('');
+        }
+    }
+
+    const searchSong = (searchString:string) => {
+        SpotifyAPI.getSongSearch(searchString).then(songInfo=>{
+            let song=songInfo?.tracks?.items[0];
+            if (song===undefined){
+                handleChange('Please type a song', 'error');
+            }
+            else{
+                setErrorMessage('');
+                let postSongId = song.id;
+                setPostSongId(postSongId);
+                switchSearchMode();
+                DatabaseHandler.addNewSong(postSongId);
+                setSearchInput('');
+            }
+        })    
+    }
+
+
+
 
 
     return (<EditProfileView 
@@ -67,8 +118,13 @@ const EditProfilePresenter: React.FC = () => {
         biography = {biography}
         setBiography = {setBiography}
         favoriteSong = {favoriteSong}
-        setFavoriteSong = {setFavoriteSong}
-    
+        isSearching = {isSearching}
+        
+        switchSearchMode = {switchSearchMode}
+        searchSong = {searchSong}
+        handleChange = {handleChange}
+        searchInput = {searchInput}
+        postSongId= {postSongId}
 
         />
     )
