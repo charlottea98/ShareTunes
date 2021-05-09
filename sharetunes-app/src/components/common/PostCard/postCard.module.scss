@@ -7,13 +7,6 @@
 	margin: 0 auto;
 	background-color: white;
 	overflow: hidden;
-}
-
-.PostCard {
-	width: 300px;
-}
-
-.PostCardHome {
 	width: calc(100vw - 15px);
 	max-width: 500px;
 }
@@ -198,4 +191,10 @@
 .inActivePublishComment {
 	opacity: 0.5;
 	cursor: default;
+}
+
+@media (min-width: $mobile-breakpoint-2) {
+	.PostCard {
+		width: 300px;
+	}
 }

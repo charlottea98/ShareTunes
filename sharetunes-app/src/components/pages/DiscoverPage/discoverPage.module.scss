@@ -51,7 +51,7 @@
 	margin-bottom: 10px;
 }
 
-@media (min-width: 350px) {
+@media (min-width: $mobile-breakpoint-2) {
 	.card {
 		margin: 10px;
 		margin-top: 0px;
