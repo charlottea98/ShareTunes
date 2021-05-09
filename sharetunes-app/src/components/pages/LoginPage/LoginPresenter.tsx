@@ -60,7 +60,12 @@ const LoginPresenter: React.FC<Props> = () => {
             updateLoggedInUser(email);
             history.push('/discover');
         } else {
-            // Kolla message och hantera det 
+            if(message != undefined)
+                if(message == 'The password is invalid or the user does not have a password.')
+                    setPasswordError(message);
+                else{
+                    setEmailError(message)
+                }
         }
     };
 
@@ -91,24 +96,10 @@ const LoginPresenter: React.FC<Props> = () => {
         }
     };
 
-    // const authListener = () => { // Kommentar från Rasmus: Vad gör det här? Är inte helt säker så vågar inte flytta själv till DatabaseHandler
-    //     fire.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             clearInputs();
-    //             setUser(user);
-    //         } else {
-    //             setUser('');
-    //         }
-    //     });
-    // };
 
     const handleProfilePictureChange = (newProfilePictureURL: string) => {
         setProfilePictureURL(newProfilePictureURL);
     }
-
-    // useEffect(() => {
-    //     authListener();
-    // }, []);
 
     if (hasAccount) {
         return (

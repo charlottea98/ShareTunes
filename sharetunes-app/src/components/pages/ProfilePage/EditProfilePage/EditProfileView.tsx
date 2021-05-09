@@ -8,12 +8,13 @@ import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 
 import UserImagePresenter from "../../../common/UserImage/UserImagePresenter"
 
-// Använd antingen placeholder eller value i inputsen.
+// Använd antingen placeholder eller value i inputsen?
 
-// Vad ska hända när man klickar på change song ? Ska vi ha nånting liknande som i post istället? 
+// Vilka error meddelanden vill vi ha ? 
+// egentligen bara profileImage URL som kan bli fel. Hur ska designen vara på error? (relevant i post också)
 
 // Ändra i UserImagePresenter så att den kan ta in ett imageURL som ett prop istället och en bool ifall man ska kunna klicka eller inte 
-
+// så slipper vi kodupprepa när Rasmus redan gjort en komponent.
 
 import ChangeButton from "../../../common/buttons/TextButton/textButton"
 
@@ -31,7 +32,7 @@ interface Props {
     biography:string
     setBiography: (name: string) => void
     favoriteSong:string
-    
+
     isSearching:boolean
     switchSearchMode: Function
     searchSong: Function
@@ -65,7 +66,7 @@ const EditProfileView: React.FC<Props> = ({
     return (
         
         <div className={classes.EditProfileView}>
-            <h2 className = {classes.pageTitle}>Profile Settings</h2>
+            <div className = {classes.pageTitle}>Profile Settings</div>
             <div className = {classes.editContainer}>
 
                 <div className = {classes.image}>
@@ -80,12 +81,11 @@ const EditProfileView: React.FC<Props> = ({
                     <label  className = {classes.formText}>Name</label>
                     <input type='text' autoFocus = {true} placeholder = {name}  onChange={e=>setName(e.target.value)}></input>
 
-
                     <label  className = {classes.formText}>Username</label>
                     <input type='text' autoFocus = {true} placeholder = {username}  onChange={e=>setUsername(e.target.value)}></input>
 
                     <label  className = {classes.formText}>Biography</label>
-                    <input type='text' className = {classes.biography} autoFocus = {true} placeholder = {biography}  onChange={e=>setBiography(e.target.value)}></input>
+                    <textarea className = {classes.biography} autoFocus = {true} placeholder = {biography}  onChange={e=>setBiography(e.target.value)}></textarea>
                     
                     <label  className = {classes.formText}>Favorite song</label>
 
@@ -101,19 +101,15 @@ const EditProfileView: React.FC<Props> = ({
                         <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
                     </div>
                     )}
-
+    
                </div>
-               
-                <div className = {classes.saveCancel}>
+
+               <div className = {classes.saveCancel}>
                     <div className={classes.cancelButton} onClick={()=>history.push('/profile')}>Cancel</div>
                     <div className={classes.saveButton} onClick={()=>handleUpdate(user)}>Save</div>
-                </div>
+               </div>  
                
-
             </div>
-
-
-
         </div>
 
        
