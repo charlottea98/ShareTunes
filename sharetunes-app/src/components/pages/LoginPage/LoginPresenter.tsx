@@ -12,7 +12,7 @@ import { useHistory } from 'react-router';
 interface Props {}
 
 const LoginPresenter: React.FC<Props> = () => {
-    const [user, setUser] = useState<string | firebase.User>(''); // const [user, setUser] = useState<string | firebase.User>('');
+    //const [user, setUser] = useState<string | firebase.User>(''); // const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password1, setPassword1] = useState<string>('');
     const [password2, setPassword2] = useState<string>('');
@@ -91,24 +91,24 @@ const LoginPresenter: React.FC<Props> = () => {
         }
     };
 
-    const authListener = () => { // Kommentar från Rasmus: Vad gör det här? Är inte helt säker så vågar inte flytta själv till DatabaseHandler
-        fire.auth().onAuthStateChanged((user) => {
-            if (user) {
-                clearInputs();
-                setUser(user);
-            } else {
-                setUser('');
-            }
-        });
-    };
+    // const authListener = () => { // Kommentar från Rasmus: Vad gör det här? Är inte helt säker så vågar inte flytta själv till DatabaseHandler
+    //     fire.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             clearInputs();
+    //             setUser(user);
+    //         } else {
+    //             setUser('');
+    //         }
+    //     });
+    // };
 
     const handleProfilePictureChange = (newProfilePictureURL: string) => {
         setProfilePictureURL(newProfilePictureURL);
     }
 
-    useEffect(() => {
-        authListener();
-    }, []);
+    // useEffect(() => {
+    //     authListener();
+    // }, []);
 
     if (hasAccount) {
         return (

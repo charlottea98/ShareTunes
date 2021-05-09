@@ -1,0 +1,30 @@
+@import "../../../variables.scss";
+
+.TextButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	user-select: none;
+
+    font-weight:600;
+	font-size: 15px;
+
+	margin-bottom: $form-label-margin-bottom;
+
+
+
+	margin-left: 20%;
+	margin-right: 20%;
+
+	margin-top: 2%;
+}
+
+
+// Byt till rätt färger här
+.standardStyle {
+	background-color: inherit;
+	color: $orange;
+}

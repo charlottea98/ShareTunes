@@ -8,8 +8,6 @@ import SignInUpButton from '../../common/buttons/SignInUpButton/SignInUpButton'
 import SwitchButton from '../../common/buttons/SwitchButton/SwitchButton'
 
 
-// Gör om form till en komponent också? Men blir väldigt mycket kodupprepning då 
-
 interface Props {
     
     clearAll: () => void

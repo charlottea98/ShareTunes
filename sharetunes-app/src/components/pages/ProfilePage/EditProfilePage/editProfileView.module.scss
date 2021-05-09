@@ -1,10 +1,107 @@
+@import "../../../variables.scss";
+
 .EditProfileView {
     text-align: center;
-	padding-top: 80px;
-    margin-top:100px;
+
 }
 .profileImg {
     border-radius: 50%;
     width: 300px;
     height: 300px;
+}
+
+.pageTitle {
+	font-weight: 750;
+	font-size: 30px;
+	color: $orange;
+}
+
+.formText {
+	font-weight: $form-label-font-weight;
+	font-size: $form-label-font-size;
+	display: block;
+	text-align: left;
+	margin-top: 15px;
+	margin-bottom: $form-label-margin-bottom;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 94%;
+    margin-left: 8px;
+
+}
+
+.image{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.biography{
+	// Add for bipgraphy here
+	display:flex;
+}
+
+.editContainer{
+
+    padding-top: 10px;
+	padding-bottom: 1px;
+	border-style: solid;
+	border-width: 0.5px;
+	border-color: $gray-light;
+	border-left-color: $orange;
+	border-left-width: 5px;
+	margin-left: 35%;
+	margin-right: 35%;
+
+
+    background-color: white;
+	flex-direction: column;
+
+
+}
+
+
+.changeButton{
+	text-align: center;
+
+}
+
+
+
+.saveButton,
+.cancelButton {
+	padding: 5px 30px;
+	cursor: pointer;
+	border-radius: 3px;
+	transition: $hover-transition-speed;
+	margin-top: 10px;
+}
+
+.saveCancel {
+	display: flex;
+	flex-direction: row;
+	padding-bottom: 10px;
+	justify-content: space-between;
+}
+
+
+.saveButton {
+	background-color: $orange;
+	margin-right: 20px;
+}
+
+.saveButton:hover {
+	background-color: $orange-dark;
+}
+
+.cancelButton {
+	background-color: $red;
+	margin-left: 20px;
+}
+
+.cancelButton:hover {
+	background-color: $red-dark;
 }
