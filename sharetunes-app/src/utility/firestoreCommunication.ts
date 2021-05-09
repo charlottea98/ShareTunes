@@ -86,9 +86,6 @@ export const updateUser = (currentUser: User|null) => {
    
 
 
-
-
-
 const deleteCollectionsData = async (collectionsToDelete: Array<string>) => {
     collectionsToDelete.forEach(async (collection) => {
         let snapshot;
