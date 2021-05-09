@@ -13,7 +13,7 @@ interface Props {
 
 const DiscoverPageView:React.FC<Props> = ({user, posts, topSongs, recommendedSongs}) => {
     return (
-        <div>
+        <div className={classes.discoverPageContainer}>
             <div className={classes.SearchBar}>
             <SearchBar />
             </div>

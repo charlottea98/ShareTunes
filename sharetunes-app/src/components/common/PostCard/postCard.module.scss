@@ -153,6 +153,12 @@
 	font-weight: 1000;
 	font-size: small;
 	color: $orange;
+	padding: 5px 8px;
+	border-radius: 3px;
+}
+
+.viewPost:hover {
+	background-color: $orange-light;
 }
 
 .commentBox {
@@ -178,10 +184,10 @@
 	border-radius: 2px;
 	padding: 2px 5px;
 	color: white;
-	font-weight: 600;
+	font-weight: 700;
 	user-select: none;
 	margin-left: 10px;
-	background-color: $orange;
+	color: $orange;
 }
 
 .publishComment {

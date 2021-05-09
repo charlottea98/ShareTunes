@@ -2,7 +2,7 @@
 
 .Menu {
 	height: 60px;
-	width: 100vw;
+	width: 100%;
 	background-color: white;
 	position: fixed;
 	z-index: 1000;
@@ -17,8 +17,8 @@
 .menuContent {
 	margin: 0 auto;
 	width: 100%;
-	padding: 0 40px 0 20px;
-	max-width: 935px;
+	margin: 0 20px;
+	max-width: 1000px;
 	height: 100%;
 	display: none;
 	align-items: center;
@@ -37,17 +37,17 @@
 	cursor: pointer;
 	border-radius: 3px;
 	user-select: none;
-	background-color: $gray-light;
 	color: $black;
 	height: 34px;
 	padding: 0 7px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: $hover-transition-speed;
 }
 
 .signOut:hover {
-	background-color: $gray-dark;
+	background-color: $gray-white;
 }
 
 .signOut span {
@@ -57,5 +57,6 @@
 @media (min-width: $mobile-breakpoint) {
 	.Menu {
 		display: flex;
+		justify-content: center;
 	}
 }

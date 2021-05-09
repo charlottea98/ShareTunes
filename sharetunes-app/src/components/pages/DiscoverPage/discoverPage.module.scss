@@ -1,5 +1,10 @@
 @import "../../variables.scss";
 
+.discoverPageContainer {
+	max-width: $max-width-of-page;
+	margin: 0 auto;
+}
+
 .discoverPage {
 	display: flex;
 	flex-direction: row;
