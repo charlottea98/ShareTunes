@@ -1,5 +1,5 @@
 import classes from './fileUploader.module.scss';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +17,7 @@ const ImageUploaderView: React.FC<Props> = ({
     selectedImageURL,
     height
 }) => {
+    const [backgroundColor, setBackgroundColor] = useState<string>("#fff");
     const iconToDisplay = selectedImageURL === "" ? (
         <div className={classes.uploadIcon}><FontAwesomeIcon icon={faPlus} size="3x" color="#fec46e" /></div>
     ): (
@@ -31,10 +32,17 @@ const ImageUploaderView: React.FC<Props> = ({
             className={classes.FileUploader}
             style={{ 
                 backgroundImage: `url('${selectedImageURL}')` ,
-                height: height
+                height: height,
+                backgroundColor: backgroundColor
             }}
+            onDragOver = {e => e.preventDefault()}
+            onDragEnter = {() => setBackgroundColor("#e9e9e9")}
+            onDragLeave = {() => setBackgroundColor("#fff")}
         >
-            <input type="file" name="file" onChange={fileChangeHandler} />
+            <input type="file" name="file" onChange={e => {
+                fileChangeHandler(e);
+                setBackgroundColor("#fff");
+            }} />
             { iconToDisplay }
         </div>
     )
