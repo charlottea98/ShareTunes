@@ -6,6 +6,7 @@ import { DEFAULT_PROFILE_PICTURE_URL } from '../../../../utility/utility';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
 
+import ImageUploader from '../../../common/FileUploader/ImageUploaderPresenter';
 import UserImagePresenter from "../../../common/UserImage/UserImagePresenter"
 
 // Använd antingen placeholder eller value i inputsen?
@@ -39,7 +40,7 @@ interface Props {
     handleChange:Function
     searchInput: string
     postSongId: string
-  
+    handlePostPictureChange: (imageURL: string) => void
 }
 
 
@@ -61,7 +62,8 @@ const EditProfileView: React.FC<Props> = ({
     handleChange,
     searchSong,
     searchInput,
-    postSongId
+    postSongId,
+    handlePostPictureChange
 }) => {
     return (
         
@@ -74,9 +76,8 @@ const EditProfileView: React.FC<Props> = ({
                 </div>
                 
                 <div className = {classes.form}>
-
-                    <label  className = {classes.formText}>Profile picture URL</label>
-                    <input type='text' autoFocus = {true} placeholder = {profilePictureURL}  onChange={e=>setProfilePictureURL(e.target.value)}></input>
+                    <label className = {classes.formText}>Profile picture</label>
+                    <ImageUploader onFileChange={handlePostPictureChange} imageCategory="users" height="264px" />
 
                     <label  className = {classes.formText}>Name</label>
                     <input type='text' autoFocus = {true} placeholder = {name}  onChange={e=>setName(e.target.value)}></input>
@@ -89,16 +90,17 @@ const EditProfileView: React.FC<Props> = ({
                     
                     <label  className = {classes.formText}>Favorite song</label>
 
-
                     {isSearching?(
                     <div>
-                        <SongCardPresenter songId = {postSongId == ''? favoriteSong:postSongId} />
+                        <SongCardPresenter songId = {postSongId == '' ? favoriteSong:postSongId} />
                         <ChangeButton text="Change favorite song" onButtonClick={() => { switchSearchMode();}}/>
                     </div>
                     ):(
-                    <div>
+                    <div className={classes.searchSongContainer}>
                         <input onChange={e => {handleChange(e,'song');}}/>
-                        <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
+                        <div className={classes.searchSongIcon} onClick={() => searchSong(searchInput)}>
+                            <FontAwesomeIcon icon={faSearch} size='1x'/>
+                        </div>
                     </div>
                     )}
     
