@@ -133,3 +133,79 @@
 .searchSongIcon:hover {
 	background-color: $gray-white;
 }
+
+// Lottas stuff
+.showSong {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: $form-label-margin-top;
+}
+
+.songButton {
+	display: flex;
+	justify-content: center;
+	font-weight: bold;
+	font-size: small;
+	color: $orange;
+	cursor: pointer;
+	width: fit-content;
+	margin: 5px auto 0 auto;
+	padding: 5px 8px;
+	border-radius: 3px;
+	transition: $hover-transition-speed;
+}
+
+.songButton:hover {
+	background-color: $orange-white;
+}
+
+.SearchResultsList {
+	position: absolute;
+	top: 40px;
+	z-index: 10000;
+	width: 264px;
+	margin-right: 10px;
+	background-color: white;
+}
+
+.SearchListItems {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 1px solid $gray-light;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	padding-right: 10px;
+}
+
+.SearchListItems:first-child {
+	border-top: 1px solid $gray-light;
+}
+
+.SearchListItems:hover {
+	background-color: $gray-white;
+}
+
+.SearchItemImage {
+	left: 0px;
+	height: 30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.SearchItemTitle {
+	margin-left: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.songComponent {
+	position: relative;
+}
+
+.songComponent input {
+	width: 100%;
+}
