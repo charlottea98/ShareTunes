@@ -22,6 +22,7 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
                 name="name"
                 placeholder="Search users..."
                 onChange={e => {handleChange(e);}}
+                onClick={e => handleChange(e)}
                 className={classes.SearchInput}
                 autoComplete="off"
                 id="searchinput">

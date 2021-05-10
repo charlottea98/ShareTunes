@@ -49,6 +49,6 @@ export const SpotifyAPI = {
         return SpotifyAPI.apiCall(`playlists/${playlistId}`).then(data => data);
     },
     async getSongSearch(searchString: string){
-        return SpotifyAPI.apiCall(`search?q=${searchString}&type=track&limit=1`).then(data=>data);
+        return SpotifyAPI.apiCall(`search?q=${searchString}&type=track&limit=5`).then(data=>data);
     }
 };
