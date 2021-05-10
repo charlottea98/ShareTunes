@@ -19,30 +19,43 @@ const PublishPagePresenter: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [tagsInput, setTagsInput] = useState<string>('');
     const [tagsArray, setTagsArray] = useState<Array<string>>([]);
+    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [typing, setTyping] = useState<boolean>(false);
     const history = useHistory();
 
     const switchSearchMode = () => {
         setIsSearching(!isSearching);
         if (isSearching){
             setPostSongId('');
+            setSearchResults([]);
         }
     }
 
-    const searchSong = (searchString:string) => {
-        SpotifyAPI.getSongSearch(searchString).then(songInfo=>{
-            let song=songInfo?.tracks?.items[0];
-            if (song===undefined){
-                handleChange('Please type a song', 'error');
+    const searchSong = (id:string) => {
+        if (id===undefined){
+            handleChange('Please type a song', 'error');
+        }
+        else{
+            setErrorMessage('');
+            setPostSongId(id);
+            switchSearchMode();
+            DatabaseHandler.addNewSong(id);
+            setSearchInput('');
+        }  
+    }
+
+    const handleTypeSearch = (value:string) => {
+        setSearchResults([]);
+        SpotifyAPI.getSongSearch(value).then(songInfo=>{
+            let songs = songInfo?.tracks?.items;
+            if (songs!==undefined){
+                songs = songs.map((song:any) => {
+                    return {id: song.id, title: song.name, albumImage: song.album.images[2].url};
+                })
+                setSearchResults(songs);
             }
-            else{
-                setErrorMessage('');
-                let postSongId = song.id;
-                setPostSongId(postSongId);
-                switchSearchMode();
-                DatabaseHandler.addNewSong(postSongId);
-                setSearchInput('');
-            }
-        })    
+            console.log(songs);
+        })
     }
 
     const handleChange = (e:any, type:string) => {
@@ -55,7 +68,10 @@ const PublishPagePresenter: React.FC = () => {
         else{
             var value = e.target.value;
             if (type==='song'){
+                console.log(value);
                 setSearchInput(value);
+                setTyping(true);
+                handleTypeSearch(value);
             }
             if (type==='caption'){
                 setCaptionInput(value);
@@ -89,7 +105,7 @@ const PublishPagePresenter: React.FC = () => {
     const handleSubmit = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
         var errors = [];
         if (image===''){
-            errors.push('picture URL');
+            errors.push('picture ');
         }
         if (caption===''){
             errors.push('caption');
@@ -102,8 +118,8 @@ const PublishPagePresenter: React.FC = () => {
         }
         if (errors.length===0){
             handlePublish(image, caption, songId, rating, tags);
-            setErrorMessage('Published! You will soon be redirected to your home page')
-            setTimeout(()=>history.push('/home'), 5000);
+            setErrorMessage('Published!')
+            setTimeout(()=>history.push('/home'), 2000);
         }
         else if (errors.length===1){
             var errormessage = 'Missing field: ';
@@ -142,12 +158,17 @@ const PublishPagePresenter: React.FC = () => {
     }
 
     const handleCancel = () => {
-        setErrorMessage('Cancelled! You will soon be redirected to your home page')
-        setTimeout(() => history.push('/home'), 5000);
+        setErrorMessage('Cancelled!')
+        setTimeout(() => history.push('/home'), 2000);
     }
 
     const handlePostPictureChange = (imageURL: string) => {
         setPictureURLInput(imageURL);
+    }
+
+    const handleClose = () => {
+        setTyping(false);
+        setSearchResults([]);
     }
 
     return <PublishPageView 
@@ -168,6 +189,9 @@ const PublishPagePresenter: React.FC = () => {
         tagsInput={tagsInput}
         handlePostPictureChange = {handlePostPictureChange}
         deleteTag = {deleteTag}
+        searchResults={searchResults}
+        typing={typing} 
+        handleClose={handleClose}
     />;
 }
 

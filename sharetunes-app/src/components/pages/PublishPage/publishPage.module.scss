@@ -1,5 +1,14 @@
 @import "../../variables.scss";
 
+.outsideContainer {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1005;
+}
+
 .mainDiv {
 	display: flex;
 	flex-direction: column;
@@ -61,8 +70,57 @@
 
 .hideSong {
 	display: flex;
+	flex-direction: column;
 	padding-bottom: $form-label-margin-top;
+}
+
+.songComponent {
+	margin-bottom: $form-label-margin-top;
+	position: relative;
+}
+
+.SearchResultsList {
+	position: absolute;
+	top: 65px;
+	z-index: 10000;
+	width: 264px;
+
+	margin-right: 10px;
+	background-color: white;
+}
+
+.SearchListItems {
+	display: flex;
+	flex-direction: row;
 	align-items: center;
+	border-bottom: 1px solid $gray-light;
+	border-left: 1px solid $gray-light;
+	border-right: 1px solid $gray-light;
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	padding-right: 10px;
+}
+
+.SearchListItems:first-child {
+	border-top: 1px solid $gray-light;
+}
+
+.SearchListItems:hover {
+	background-color: $gray-white;
+}
+
+.SearchItemImage {
+	left: 0px;
+	height: 30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.SearchItemTitle {
+	margin-left: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .input {
@@ -209,9 +267,15 @@
 .deleteTag {
 	font-size: 10px;
 	margin-left: 3px;
-	padding: 3px 5px 2px 5px;
+	// padding: 3px 5px 2px 5px;
+	display: flex;
+	height: 17px;
+	width: 17px;
+	align-items: center;
+	justify-content: center;
+
 	background-color: $gray-dark; // Alt. 1
-	border-radius: 10px;
+	border-radius: 15px;
 	color: white; // Alt. 1
 	// color: $gray-dark; // Alt. 2
 	cursor: pointer;
