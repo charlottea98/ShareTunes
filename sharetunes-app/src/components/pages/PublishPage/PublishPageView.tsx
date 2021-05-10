@@ -163,13 +163,26 @@ const PublishPageView : React.FC<Props> = ({
                 
                 {songComponent}
 
-                <div className={classes.postRatings}>
+                <div 
+                    className={classes.postRatings}
+                    style = {songPostId === '' ? {
+                        marginTop: "10px",
+                        marginBottom: "0px"
+                    } : {
+                        paddingBottom: "15px"
+                    }}
+                >
                     {ratings.map((rating, idx) => (
                         <div 
                             key = {idx}
                             className={classes.ratingsButton}
                             tabIndex={rating}
                             onClick={() => handleChange(rating, 'rating')}
+                            style = {ratingInput === rating ? {
+                                backgroundColor: "#fec46e",
+                                color: "#fff",
+                                fontWeight: 700
+                            } : {}}
                         >{rating}</div>
                     )
                     )}

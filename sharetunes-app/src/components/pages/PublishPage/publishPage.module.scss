@@ -75,7 +75,7 @@
 }
 
 .songComponent {
-	margin-bottom: $form-label-margin-top;
+	// margin-bottom: $form-label-margin-top;
 	position: relative;
 }
 
@@ -149,6 +149,15 @@
 	font-size: small;
 	color: $orange;
 	cursor: pointer;
+	width: fit-content;
+	margin: 5px auto 0 auto;
+	padding: 5px 8px;
+	border-radius: 3px;
+	transition: $hover-transition-speed;
+}
+
+.songButton:hover {
+	background-color: $orange-white;
 }
 
 .postRatings {
@@ -174,12 +183,6 @@
 
 .ratingsButton:hover {
 	background-color: $gray-light;
-}
-
-.ratingsButton:focus {
-	background-color: $orange;
-	color: white;
-	font-weight: bold;
 }
 
 .addTagIcon {
