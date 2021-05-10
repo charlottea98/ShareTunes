@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './publishPage.module.scss';
-import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlusCircle, faMusic} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
 import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
@@ -21,7 +21,10 @@ interface Props {
     handleCancel:Function,
     addToTags: Function,
     tagsInput: string,
-    handlePostPictureChange: (imageURL: string) => void
+    handlePostPictureChange: (imageURL: string) => void,
+    searchResults:any[],
+    typing: boolean,
+    handleClose: Function
 }
 
 const PublishPageView : React.FC<Props> = ({
@@ -40,7 +43,10 @@ const PublishPageView : React.FC<Props> = ({
     handleCancel, 
     addToTags,
     tagsInput,
-    handlePostPictureChange
+    handlePostPictureChange,
+    searchResults,
+    typing,
+    handleClose
 }) => {
     const ratings = [1, 2, 3, 4, 5];
 
@@ -89,9 +95,27 @@ const PublishPageView : React.FC<Props> = ({
                     </div>
                 ):(
                 <div className={classes.hideSong}>
-                    <input className={classes.input} onChange={e => {handleChange(e,'song');}}/>
-                    <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
-                </div>
+                    {typing ? (
+                         <div className={classes.outsideContainer} onClick={()=>handleClose()}/>
+                    ): (null)}
+                    <input className={classes.input} onChange={e => {handleChange(e,'song');}} onClick={e=>{ handleChange(e,'song');}}/>
+                    {typing ? (
+                        <div className={classes.SearchResultsList}>
+                        {searchResults.map(result => {
+                            return <div className={classes.SearchListItems} onClick={()=> searchSong(result.id)}>
+                                <img src={result.albumImage} className={classes.SearchItemImage}></img>
+                                <FontAwesomeIcon icon={faMusic}></FontAwesomeIcon>
+                                <div className={classes.SearchItemTitle}>
+                                    {result.title}
+                                </div>
+                                {console.log(result)}
+                            </div>
+                        })}
+                        </div>
+                    ):(
+                        null
+                    )}
+                    </div>
                 )}
             </div>
             <div className={classes.postRatings}>

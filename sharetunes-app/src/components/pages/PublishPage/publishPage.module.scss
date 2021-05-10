@@ -1,5 +1,14 @@
 @import "../../variables.scss";
 
+.outsideContainer {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 1005;
+}
+
 .mainDiv {
 	display: flex;
 	flex-direction: column;
@@ -65,8 +74,42 @@
 
 .hideSong {
 	display: flex;
+	flex-direction: column;
 	padding-bottom: 10px;
+}
+
+.SearchResultsList{
+	position: fixed;
+	top:520px;
+	z-index: 10000;
+	width: 254px;
+	border-top:  0.5px solid $gray-light;
+	margin-right: 10px;
+	background-color: white;
+}
+
+.SearchListItems{
+	display: flex;
+	flex-direction: row;
 	align-items: center;
+	border-bottom: 0.5px solid $gray-light;
+	border-left: 0.5px solid $gray-light;
+	border-right: 0.5px solid $gray-light;
+	cursor: pointer;
+}
+
+.SearchItemImage{
+	left: 0px;
+	height:30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.SearchItemTitle{
+	margin-left: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	white-space: nowrap;
 }
 
 .input {
