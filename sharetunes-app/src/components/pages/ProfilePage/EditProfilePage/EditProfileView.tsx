@@ -4,7 +4,7 @@ import classes from './editProfileView.module.scss';
 import SongCardPresenter from "../../../common/SongCard/SongCardPresenter"
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../../utility/utility';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faMusic } from '@fortawesome/free-solid-svg-icons';
 
 import ImageUploader from '../../../common/FileUploader/ImageUploaderPresenter';
 import UserImagePresenter from "../../../common/UserImage/UserImagePresenter"
@@ -40,7 +40,12 @@ interface Props {
     handleChange:Function
     searchInput: string
     postSongId: string
-    handlePostPictureChange: (imageURL: string) => void
+    handlePostPictureChange: (imageURL: string) => void,
+
+    typing: boolean,
+    handleClose: () => void,
+    searchResults: Array<any>,
+    showSongCardStart: boolean
 }
 
 
@@ -63,10 +68,68 @@ const EditProfileView: React.FC<Props> = ({
     searchSong,
     searchInput,
     postSongId,
-    handlePostPictureChange
+    handlePostPictureChange,
+    handleClose,
+    typing,
+    searchResults,
+    showSongCardStart
 }) => {
+
+    const isSearchingElements = (
+        <div className={classes.showSong}>
+            <SongCardPresenter songId = {postSongId} />
+            <div className={classes.songButton} onClick={()=>switchSearchMode()}>Change favorite song</div>
+        </div>
+    );
+
+    const isNotSearchingElements = typing ? (
+        <div 
+            className={classes.outsideContainer} 
+            onClick={() => handleClose()}
+        />
+    ) : null;
+
+
+    const isTypingElements = typing ? (
+        <div className={classes.SearchResultsList}>
+            {searchResults.map(result => (
+                <div 
+                    className={classes.SearchListItems} 
+                    onClick={() => {
+                        searchSong(result.id);
+                        handleClose();
+                    }}
+                >
+                    <img src={result.albumImage} className={classes.SearchItemImage} />
+                    <FontAwesomeIcon icon={faMusic} />
+
+                    <div className={classes.SearchItemTitle}>
+                        {result.title}
+                    </div>
+                </div>
+            ))}
+        </div>
+    ) : null;
+
+    const songComponent = (
+        <div className={classes.songComponent}>
+            {isSearching ? isSearchingElements : isNotSearchingElements}
+
+            {
+                postSongId === "" ? (
+                    <input 
+                        className={classes.input} 
+                        onChange={e => handleChange(e, 'song')} 
+                        onClick={e => handleChange(e, 'song')}
+                    />
+                ) : null
+            }
+            
+            {isTypingElements}
+        </div>
+    );
+
     return (
-        
         <div className={classes.EditProfileView}>
             <div className = {classes.pageTitle}>Profile Settings</div>
             <div className = {classes.editContainer}>
@@ -89,20 +152,7 @@ const EditProfileView: React.FC<Props> = ({
                     <textarea className = {classes.biography} autoFocus = {true} placeholder = {biography}  onChange={e=>setBiography(e.target.value)}></textarea>
                     
                     <label  className = {classes.formText}>Favorite song</label>
-
-                    {isSearching?(
-                    <div>
-                        <SongCardPresenter songId = {postSongId == '' ? favoriteSong:postSongId} />
-                        <ChangeButton text="Change favorite song" onButtonClick={() => { switchSearchMode();}}/>
-                    </div>
-                    ):(
-                    <div className={classes.searchSongContainer}>
-                        <input onChange={e => {handleChange(e,'song');}}/>
-                        <div className={classes.searchSongIcon} onClick={() => searchSong(searchInput)}>
-                            <FontAwesomeIcon icon={faSearch} size='1x'/>
-                        </div>
-                    </div>
-                    )}
+                    {songComponent}
     
                </div>
 

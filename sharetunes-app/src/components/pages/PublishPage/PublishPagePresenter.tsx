@@ -54,7 +54,6 @@ const PublishPagePresenter: React.FC = () => {
                 })
                 setSearchResults(songs);
             }
-            console.log(songs);
         })
     }
 

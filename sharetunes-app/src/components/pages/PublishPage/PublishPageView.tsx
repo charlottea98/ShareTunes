@@ -93,7 +93,6 @@ const PublishPageView : React.FC<Props> = ({
             <div className={classes.headers}>Song</div>
             {isSearching ? isSearchingElements : isNotSearchingElements}
 
-
             {
                 songPostId === "" ? (
                     <input 
