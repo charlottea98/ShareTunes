@@ -3,18 +3,31 @@ import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
- 
+
 interface Props {
     user: any;
     onClickEditProfile: any;
+    posts: any;
+    followers: any;
+    following: any;
 }
 
-const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
+const ProfileView: React.FC<Props> = ({
+    user,
+    onClickEditProfile,
+    posts,
+    followers,
+    following,
+}) => {
     return (
         <header className={classes.ProfileViewHeader}>
             <img
                 className={classes.ProfileImg}
-                src={user.profilePictureURL ? user.profilePictureURL : DEFAULT_PROFILE_PICTURE_URL}
+                src={
+                    user.profilePictureURL
+                        ? user.profilePictureURL
+                        : DEFAULT_PROFILE_PICTURE_URL
+                }
                 alt="Profile picture"
             />
             <section className={classes.ProfileInfo}>
@@ -28,9 +41,9 @@ const ProfileView: React.FC<Props> = ({ user, onClickEditProfile }) => {
                     />
                 </div>
                 <ul className={classes.List}>
-                    <li>posts</li>
-                    <li>followers</li>
-                    <li>following</li>
+                    <li>{posts} posts</li>
+                    <li>{followers} followers</li>
+                    <li>{following} following</li>
                 </ul>
 
                 <div className={classes.Song}>

@@ -4,14 +4,16 @@ import {
     useLoggedInUser,
     useLoggedInUserUpdate,
 } from '../../../contexts/LoggedInUserContext';
+import { useDatabase } from '../../../contexts/DatabaseContext';
 
 interface Props {}
 
 const ProfilePostsPresenter: React.FC<Props> = () => {
     const user = useLoggedInUser();
     const setUser = useLoggedInUserUpdate();
+    const db = useDatabase();
 
-    return <ProfilePostsView user={user} />;
+    return <ProfilePostsView posts={db.posts} />;
 };
 
 export default ProfilePostsPresenter;
