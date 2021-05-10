@@ -3,11 +3,12 @@ $mobile-breakpoint-2: 657px;
 
 $max-width-of-page: 1000px;
 
+$orange-white: #fff4e3;
 $orange-light: #ffefd6;
 $orange: #fec46e;
 $orange-dark: #eeb45e;
 
-$gray-white: #e9e9e9;
+$gray-white: rgb(231, 231, 231);
 $gray-light: #dbdbdb;
 $gray: #bfbfbf;
 $gray-dark: #a1a1a1;
@@ -23,6 +24,7 @@ $hover-transition-speed: 0.2s;
 $form-label-font-size: 12px;
 $form-label-font-weight: 600;
 $form-label-margin-bottom: 2px;
+$form-label-margin-top: 10px;
 
 $form-input-font-size: 15px;
 $form-input-font-weight: 400;

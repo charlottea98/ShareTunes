@@ -6,9 +6,6 @@
 	justify-content: center;
 }
 
-
-
-
 .loginContainer {
 	padding-top: 10px;
 	padding-bottom: 1px;
@@ -40,8 +37,8 @@
 	font-size: $form-label-font-size;
 	display: block;
 	text-align: left;
-	margin-top: 15px;
 	margin-bottom: $form-label-margin-bottom;
+	margin-top: $form-label-margin-top;
 }
 
 .form input {

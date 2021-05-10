@@ -16,7 +16,7 @@ const EditProfilePresenter: React.FC = () => {
     
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
-    const [profilePictureURL,setProfilePictureURL] = useState<any>('');     // Fungerade inte med string här ? 
+    const [profilePictureURL, setProfilePictureURL] = useState<any>('');     // Fungerade inte med string här ? 
     const [biography, setBiography] = useState<string>('');
     const [favoriteSong, setFavoriteSong] = useState<any>('');
 
@@ -100,7 +100,9 @@ const EditProfilePresenter: React.FC = () => {
         })    
     }
 
-
+    const handlePostPictureChange = (imageURL: string) => {
+        setProfilePictureURL(imageURL);
+    }
 
 
 
@@ -125,7 +127,7 @@ const EditProfilePresenter: React.FC = () => {
         handleChange = {handleChange}
         searchInput = {searchInput}
         postSongId= {postSongId}
-
+        handlePostPictureChange = {handlePostPictureChange}
         />
     )
     

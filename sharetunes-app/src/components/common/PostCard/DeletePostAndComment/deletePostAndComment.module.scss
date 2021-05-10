@@ -10,16 +10,27 @@
 	margin-right: 8px;
 	font-size: 20px;
 	color: $gray-dark;
+	padding: 4px 7px;
+	border-radius: 5px;
 }
 
 .DeleteCommentButton {
 	font-size: 14px;
-	color: $gray;
+	color: $gray; // Alt. 1 / 3
+	// color: white; // Alt. 2
+	// background-color: $gray-dark; // Alt. 2
+	padding: 4px 5px;
+	border-radius: 4px;
 }
 
-.DeletePostButton:hover,
+.DeletePostButton:hover {
+	background-color: $gray-white;
+}
+
 .DeleteCommentButton:hover {
-	color: $red;
+	color: $red; // Alt. 1
+	// background-color: $red; // Alt. 2
+	// background-color: $gray-white; // Alt. 3
 }
 
 .DeletePostModalBG {

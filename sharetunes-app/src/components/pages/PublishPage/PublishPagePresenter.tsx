@@ -18,7 +18,7 @@ const PublishPagePresenter: React.FC = () => {
     const [ratingInput, setRatingInput] = useState<number>(0);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [tagsInput, setTagsInput] = useState<string>('');
-    const [tagsArray, setTagsArray] = useState<String[]>([]);
+    const [tagsArray, setTagsArray] = useState<Array<string>>([]);
     const history = useHistory();
 
     const switchSearchMode = () => {
@@ -77,6 +77,13 @@ const PublishPagePresenter: React.FC = () => {
             setTagsArray(oldArray => [...oldArray, tagsInput]);
             setTagsInput("");
         }
+    }
+
+    const deleteTag = (tagToDelete: string) => {
+        let newTags = [...tagsArray];
+        newTags = newTags.filter(tag => tag !== tagToDelete);
+        
+        setTagsArray(newTags);
     }
 
     const handleSubmit = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
@@ -160,6 +167,7 @@ const PublishPagePresenter: React.FC = () => {
         addToTags={addToTags}
         tagsInput={tagsInput}
         handlePostPictureChange = {handlePostPictureChange}
+        deleteTag = {deleteTag}
     />;
 }
 

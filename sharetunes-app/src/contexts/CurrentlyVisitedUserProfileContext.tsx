@@ -20,7 +20,7 @@ export const useViewingOwnProfile = () => {
 
 const CurrentlyVisitedUserProfileProvider: React.FC = ({ children }) => {
     const [currentlyVisitedUserProfile, setCurrentlyVisitedUserProfile] = useState<string>("");
-    const [viewingOwnProfile, setViewingOwnProfile] = useState<boolean>(false);
+    const [viewingOwnProfile, setViewingOwnProfile] = useState<boolean>(true);
 
     const changeCurrentlyVisitedUserProfile = (newCurrentlyVisitedUserEmail: string, currentlyLoggedInUserEmail: string) => {
         setViewingOwnProfile(currentlyLoggedInUserEmail === newCurrentlyVisitedUserEmail);

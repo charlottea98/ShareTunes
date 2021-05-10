@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './publishPage.module.scss';
-import { faSearch, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
 import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
@@ -13,7 +13,7 @@ interface Props {
     handleChange: Function,
     searchInput: any,
     captionInput:any,
-    tagsArray:String[],
+    tagsArray:Array<string>,
     imageURL:any,
     ratingInput:any,
     handleSubmit:Function,
@@ -21,7 +21,8 @@ interface Props {
     handleCancel:Function,
     addToTags: Function,
     tagsInput: string,
-    handlePostPictureChange: (imageURL: string) => void
+    handlePostPictureChange: (imageURL: string) => void,
+    deleteTag: (tagToDelete: string) => void
 }
 
 const PublishPageView : React.FC<Props> = ({
@@ -40,7 +41,8 @@ const PublishPageView : React.FC<Props> = ({
     handleCancel, 
     addToTags,
     tagsInput,
-    handlePostPictureChange
+    handlePostPictureChange,
+    deleteTag
 }) => {
     const ratings = [1, 2, 3, 4, 5];
 
@@ -50,7 +52,12 @@ const PublishPageView : React.FC<Props> = ({
         </div>
         <div className={classes.postBox}>
             <div className={classes.postImage}>
-                <div className={classes.headers}>Post picture</div>
+                <div 
+                    className={classes.headers}
+                    style = {{
+                        marginTop: 0
+                    }}
+                >Post picture</div>
                 {/* <input className={classes.input} onChange={e => {handleChange(e, 'image');}}/> */}
                 <ImageUploaderPresenter onFileChange={handlePostPictureChange} imageCategory="posts" />
 
@@ -63,19 +70,30 @@ const PublishPageView : React.FC<Props> = ({
             <div className={classes.postSong}>
                 <div className={classes.addTags}>
                     <input 
-                        type="text" 
-                        className={classes.input}
-                        onChange={e => handleChange(e,'tags')}
-                        value={tagsInput}
+                        type = "text" 
+                        className = {classes.input}
+                        onChange = {e => handleChange(e,'tags')}
+                        value = {tagsInput}
+                        onKeyDown = {e => {
+                            if (e.key === "Enter") {
+                                addToTags();
+                            }
+                        }}
                     />
-                    <div className={classes.icon}>
-                        <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
+                    <div className={classes.addTagIcon} onClick={() => addToTags()}>
+                        <FontAwesomeIcon icon={faPlusCircle} cursor='pointer' size='1x' />
                     </div>
                 </div>
                 <div className={classes.tagsContainer}>
                     {tagsArray.map((tag, idx) => (
                         <div className={classes.tag} key={idx}>
                             {tag}
+                            <div 
+                                className={classes.deleteTag}
+                                onClick={() => deleteTag(tag)}
+                            >
+                                <FontAwesomeIcon icon={faTimes}  cursor='pointer' size='1x' />
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -89,8 +107,12 @@ const PublishPageView : React.FC<Props> = ({
                     </div>
                 ):(
                 <div className={classes.hideSong}>
-                    <input className={classes.input} onChange={e => {handleChange(e,'song');}}/>
-                    <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
+                    <input className={classes.input} onChange={e => handleChange(e,'song')}/>
+                    
+                    <div className={classes.addTagIcon} onClick={() => searchSong(searchInput)}>
+                        <FontAwesomeIcon icon={faSearch} size='1x'/>
+                    </div>
+                    
                 </div>
                 )}
             </div>
@@ -107,7 +129,10 @@ const PublishPageView : React.FC<Props> = ({
             </div>
             <div className={classes.postPublish}>
                 <div className={classes.cancelButton} onClick={()=>handleCancel()}>Cancel</div>
-                <div className={classes.publishButton} onClick={()=>handleSubmit(imageURL, captionInput, songPostId, ratingInput, tagsArray)}>Publish</div>
+                <div 
+                    className={classes.publishButton} 
+                    onClick={()=>handleSubmit(imageURL, captionInput, songPostId, ratingInput, tagsArray)}
+                >Publish</div>
             </div>
         </div>
         {
