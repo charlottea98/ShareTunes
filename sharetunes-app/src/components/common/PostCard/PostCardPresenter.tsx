@@ -1,13 +1,12 @@
 import React, {  useState } from 'react';
 
 import PostCardView from './PostCardView';
-import { Post, Comment, Song } from '../../../utility/types';
+import { Post, Comment } from '../../../utility/types';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
-import { useDatabase } from '../../../contexts/DatabaseContext';
 
 interface Props {
     postInfo: Post
@@ -88,6 +87,7 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
         toggleShowInteraction = {toggleShowInteraction}
         showToggleInteraction = {showToggleInteraction}
         showDeleteButton = {showDeleteButton}
+        showingOnPage = {location.pathname}
     /> : null;
 }
 

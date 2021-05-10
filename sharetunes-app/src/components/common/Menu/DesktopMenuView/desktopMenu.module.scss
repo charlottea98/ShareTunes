@@ -1,22 +1,24 @@
+@import "../../../variables.scss";
+
 .Menu {
 	height: 60px;
-	width: 100vw;
-	background-color: #fff;
+	width: 100%;
+	background-color: white;
 	position: fixed;
 	z-index: 1000;
 	display: none;
 	align-items: center;
 	justify-content: flex-end;
-	transition: 0.3s;
-	border-top: 5px solid #fec46e;
-	border-bottom: 1px solid #dbdbdb;
+	transition: $hover-transition-speed;
+	border-top: 5px solid $orange;
+	border-bottom: 1px solid $gray-light;
 }
 
 .menuContent {
 	margin: 0 auto;
 	width: 100%;
-	padding: 0 20px;
-	max-width: 935px;
+	margin: 0 20px;
+	max-width: 1000px;
 	height: 100%;
 	display: none;
 	align-items: center;
@@ -28,22 +30,33 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 175px;
+	width: 290px;
 }
 
-.searchbarPlaceHolder {
-	width: 175px;
-	height: 30px;
-	border: 1px solid #707070;
+.signOut {
+	cursor: pointer;
+	border-radius: 3px;
+	user-select: none;
+	color: $black;
+	height: 34px;
+	padding: 0 7px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #bfbfbf;
-	border-radius: 2px;
+	transition: $hover-transition-speed;
 }
 
-@media (min-width: 600px) {
+.signOut:hover {
+	background-color: $gray-white;
+}
+
+.signOut span {
+	margin-right: 7px;
+}
+
+@media (min-width: $mobile-breakpoint) {
 	.Menu {
 		display: flex;
+		justify-content: center;
 	}
 }

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Post } from '../../../utility/types';
 import classes from './postCard.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faComments as farFaComments } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
@@ -27,6 +26,7 @@ interface Props {
     commentTextChangeHandler: (newCommentText: string) => void,
     toggleShowInteraction: () => void,
     visitProfile: (userToVisit: string) => void,
+    showingOnPage: string
 }
 
 const PostCardView: React.FC<Props> = ({
@@ -42,11 +42,11 @@ const PostCardView: React.FC<Props> = ({
     addLike,
     commentTextChangeHandler,
     toggleShowInteraction,
-    visitProfile
+    visitProfile,
+    showingOnPage
 }) => {
     return postCardInfo ? (
-        <div className={classes.PostCardHome}>
-            
+        <div className={showingOnPage === "/home" ? classes.PostCardHome : classes.PostCard}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
                     <img 
@@ -119,7 +119,9 @@ const PostCardView: React.FC<Props> = ({
                         </div>
                         {/* <div><FontAwesomeIcon icon={farFaComments} /></div> */}
                     </div>
-                    <div className={classes.numberOfLikes}>{postCardInfo.likes.length} likes</div>
+                    <div className={classes.numberOfLikes}>
+                        {postCardInfo.likes.length} {postCardInfo.likes.length === 1 ? "like" : "likes"}
+                    </div>
                     
 
                     <div className={classes.captionAndComments}>

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLoggedInUser, useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
-import LogoutButton from '../../common/buttons/LogoutButton/LogoutButton';
-import firestore from '../../../firestore';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { SpotifyAPI } from '../../../utility/spotifyHandler';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
@@ -79,7 +77,6 @@ const DiscoverPage: React.FC = () => {
                 topSongs={topSongs} 
                 recommendedSongs={recommendedSongs}
                     />
-                <LogoutButton/>
                 </>
             )}
         </div>

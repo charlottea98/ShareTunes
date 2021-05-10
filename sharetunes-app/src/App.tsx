@@ -1,14 +1,13 @@
 import React from 'react';
-
 import LoginPresenter from './components/pages/LoginPage/LoginPresenter';
 
 import './App.scss';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // === PROVIDERS ===
-
 import LoggedInUserProvider from './contexts/LoggedInUserContext';
 import DatabaseProvider from './contexts/DatabaseContext';
+import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUserProfileContext';
 
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
@@ -19,7 +18,6 @@ import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPageP
 import HomePage from './components/pages/HomePage/HomePagePresenter';
 import PublishPage from './components/pages/PublishPage/PublishPagePresenter';
 import UserCheckerPresenter from './components/pages/UserCheckerPresenter';
-import CurrentlyVisitedUserProfileProvider from './contexts/CurrentlyVisitedUserProfileContext';
 import PageNotFound from './components/pages/MessageToUserPage/PageNotFoundPresenter';
 
 const App: React.FC = () => {

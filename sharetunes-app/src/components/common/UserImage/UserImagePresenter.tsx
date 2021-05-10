@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from "react-router-dom";
 
 import UserImageView from './UserImageView';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
-import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 interface Props {
     diameter: string,

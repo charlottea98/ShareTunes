@@ -1,7 +1,6 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
 import { User } from '../utility/types';
 import { useDatabase } from './DatabaseContext';
-import { DatabaseHandler } from '../utility/databaseHandler';
 
 const LoggedInUser = createContext<User | null>(null);
 const LoggedInUserUpdateContext = createContext<

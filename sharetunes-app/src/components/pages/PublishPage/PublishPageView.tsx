@@ -20,6 +20,7 @@ interface Props {
     errorMessage:any,
     handleCancel:Function,
     addToTags: Function,
+    tagsInput: string,
     handlePostPictureChange: (imageURL: string) => void
 }
 
@@ -38,6 +39,7 @@ const PublishPageView : React.FC<Props> = ({
     errorMessage, 
     handleCancel, 
     addToTags,
+    tagsInput,
     handlePostPictureChange
 }) => {
     const ratings = [1, 2, 3, 4, 5];
@@ -59,9 +61,16 @@ const PublishPageView : React.FC<Props> = ({
             </div>
             <div className={classes.headers}>Tags</div>
             <div className={classes.postSong}>
-                <input type="text" className={classes.input} onChange={e => {handleChange(e,'tags');}}/>
-                <div className={classes.icon}>
-                    <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
+                <div className={classes.addTags}>
+                    <input 
+                        type="text" 
+                        className={classes.input}
+                        onChange={e => handleChange(e,'tags')}
+                        value={tagsInput}
+                    />
+                    <div className={classes.icon}>
+                        <FontAwesomeIcon icon={faPlusCircle} onClick={()=>{addToTags()}} cursor='pointer' size='1x'></FontAwesomeIcon>
+                    </div>
                 </div>
                 <div className={classes.tagsContainer}>
                     {tagsArray.map((tag, idx) => (
@@ -79,9 +88,9 @@ const PublishPageView : React.FC<Props> = ({
                         <div className={classes.songButton} onClick={()=>switchSearchMode()}>Change song</div>
                     </div>
                 ):(
-                <div className={classes.postSong}>
-                <input className={classes.input} onChange={e => {handleChange(e,'song');}}/>
-                <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
+                <div className={classes.hideSong}>
+                    <input className={classes.input} onChange={e => {handleChange(e,'song');}}/>
+                    <FontAwesomeIcon icon={faSearch} onClick={()=>searchSong(searchInput)} cursor='pointer' size='1x'></FontAwesomeIcon>
                 </div>
                 )}
             </div>

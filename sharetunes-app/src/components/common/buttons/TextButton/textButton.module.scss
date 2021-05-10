@@ -1,27 +1,30 @@
 @import "../../../variables.scss";
 
-.SignInUpButton {
-	border-radius: 5px;
+.TextButton {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 30px;
-	width: 300px;
-	padding: 20px;
-	margin: 10px;
 
 	cursor: pointer;
 	transition: $hover-transition-speed;
-	//width: fit-content;
 	user-select: none;
+
+    font-weight:600;
+	font-size: 15px;
+
+	margin-bottom: $form-label-margin-bottom;
+
+
+
+	margin-left: 10%;
+	margin-right: 10%;
+
+	margin-top: 3%;
 }
+
 
 // Byt till rätt färger här
 .standardStyle {
-	background-color: $orange;
-	color: $black;
-}
-
-.standardStyle:hover {
-	background-color: $orange-dark;
+	background-color: inherit;
+	color: $orange;
 }

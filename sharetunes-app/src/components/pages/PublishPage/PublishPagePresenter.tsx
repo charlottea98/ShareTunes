@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SpotifyAPI } from '../../../utility/spotifyHandler';
-import { Song, Post} from '../../../utility/types';
+import { Post} from '../../../utility/types';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
 import firebase from 'firebase/app';
@@ -8,8 +8,7 @@ import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 
-
-const PublishPagePresenter = () => {
+const PublishPagePresenter: React.FC = () => {
     const loggedInUser = useLoggedInUser();
     const [isSearching, setIsSearching] = useState<boolean>(false);
     const [songPostId, setPostSongId] = useState<string>('');
@@ -71,11 +70,12 @@ const PublishPagePresenter = () => {
     }
 
     const addToTags = () => {
-        if (tagsInput.replace(' ', '')===''){
+        if (tagsInput.replace(' ', '') === ''){
             setErrorMessage('Tag can`t be empty');
         }
         else{
             setTagsArray(oldArray => [...oldArray, tagsInput]);
+            setTagsInput("");
         }
     }
 
@@ -140,7 +140,6 @@ const PublishPagePresenter = () => {
     }
 
     const handlePostPictureChange = (imageURL: string) => {
-        console.log(imageURL);
         setPictureURLInput(imageURL);
     }
 
@@ -159,6 +158,7 @@ const PublishPagePresenter = () => {
         errorMessage={errorMessage}
         handleCancel={handleCancel}
         addToTags={addToTags}
+        tagsInput={tagsInput}
         handlePostPictureChange = {handlePostPictureChange}
     />;
 }
