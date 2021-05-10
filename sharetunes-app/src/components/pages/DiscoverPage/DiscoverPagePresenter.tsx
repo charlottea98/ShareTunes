@@ -8,9 +8,13 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
+import { faMusic} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {ProgressLoader} from '../../common/ProgressLoader/ProgressLoader';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
+    const [loading, setLoading] = useState<boolean>(false);
     const { posts } = useDatabase();
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
@@ -51,19 +55,33 @@ const DiscoverPage: React.FC = () => {
         })
     };
 
-    useEffect(() => {
-        getSpotifyPopularPlaylist();
+    const sortDatabse = () => {
         posts.sort(function(a,b){return b.likes.length - a.likes.length});
-    }, [posts]);
+        setTimeout(()=>{setLoading(false);}, 5000);
+    }
+
+    useEffect(() => {
+        setLoading(true);
+        getSpotifyPopularPlaylist();
+        sortDatabse();
+    }, []);
 
     return (
         <div className={classes.DiscoverPage}>
-            <DiscoverPageView user={loggedInUser} 
-                            posts={posts} 
-                            topSongs={topSongs} 
-                            recommendedSongs={recommendedSongs}
-            />
-            <LogoutButton/>
+            {loading ? (
+                <div className={classes.loader}>
+                    <FontAwesomeIcon icon={faMusic} className={classes.loadericon}></FontAwesomeIcon>
+                </div>
+            ): (
+                <>
+                <DiscoverPageView user={loggedInUser} 
+                posts={posts} 
+                topSongs={topSongs} 
+                recommendedSongs={recommendedSongs}
+                    />
+                <LogoutButton/>
+                </>
+            )}
         </div>
     );
 };
