@@ -60,7 +60,7 @@
 .showSong {
 	display: flex;
 	flex-direction: column;
-	padding-bottom: $form-label-margin-top;
+	margin-bottom: -5px;
 }
 
 .postSong {
