@@ -12,8 +12,14 @@ const ProfilePostsPresenter: React.FC<Props> = () => {
     const user = useLoggedInUser();
     const setUser = useLoggedInUserUpdate();
     const db = useDatabase();
+    const { posts } = useDatabase();
+    const userId = user?.email;
 
-    return <ProfilePostsView posts={db.posts} />;
+    const userPosts = Object.values(posts).filter((post: any) => {
+        return post.emailOfPublisher === userId;
+    });
+
+    return <ProfilePostsView posts={userPosts} />;
 };
 
 export default ProfilePostsPresenter;

@@ -7,7 +7,7 @@ import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 interface Props {
     user: any;
     onClickEditProfile: any;
-    posts: any;
+    numberOfposts: any;
     followers: any;
     following: any;
 }
@@ -15,7 +15,7 @@ interface Props {
 const ProfileView: React.FC<Props> = ({
     user,
     onClickEditProfile,
-    posts,
+    numberOfposts,
     followers,
     following,
 }) => {
@@ -41,7 +41,7 @@ const ProfileView: React.FC<Props> = ({
                     />
                 </div>
                 <ul className={classes.List}>
-                    <li>{posts} posts</li>
+                    <li>{numberOfposts} posts</li>
                     <li>{followers} followers</li>
                     <li>{following} following</li>
                 </ul>
