@@ -1,7 +1,9 @@
 .ProfileViewHeader{
     display: flex;
     flex-direction: row;
-	
+    width: 80%;
+    justify-content: center;
+	margin-bottom: 20px;
 }
 .ProfileImg {
     border-radius: 50%;

@@ -1,3 +1,11 @@
 .Posts {
     display:flex;
+    flex-wrap:wrap;
+    width:80%;
+    justify-content: center;
+    margin:auto
+}
+
+.PostCardContainer {
+    margin:12px;
 }

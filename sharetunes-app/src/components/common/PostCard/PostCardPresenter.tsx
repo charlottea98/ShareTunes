@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 
 import PostCardView from './PostCardView';
 import { Post, Comment } from '../../../utility/types';
@@ -9,21 +9,26 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 interface Props {
-    postInfo: Post
+    postInfo: Post;
 }
 
-const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
+const PostCardPresenter: React.FC<Props> = ({ postInfo }) => {
     const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate();
     const loggedInUser = useLoggedInUser();
     const history = useHistory();
     const location = useLocation();
 
-    const [commentText, setCommentText] = useState<string>("");
-    const [showInteraction, setShowInteraction] = useState<boolean>(location.pathname === '/home');
+    const [commentText, setCommentText] = useState<string>('');
+    const [showInteraction, setShowInteraction] = useState<boolean>(
+        location.pathname === '/home'
+    );
 
     let userCanDeleteThisPost = false;
 
-    if (loggedInUser && loggedInUser.username == postInfo?.usernameOfPublisher) {
+    if (
+        loggedInUser &&
+        loggedInUser.username == postInfo?.usernameOfPublisher
+    ) {
         userCanDeleteThisPost = true;
     }
 
@@ -40,7 +45,7 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
 
     const commentTextChangeHandler = (newCommentText: string) => {
         setCommentText(newCommentText);
-    }
+    };
 
     const addComment = (commentText: string) => {
         if (loggedInUser) {
@@ -49,46 +54,53 @@ const PostCardPresenter : React.FC<Props> = ({postInfo}) => {
                 date: new Date(),
                 emailOfPublisher: loggedInUser.email,
                 usernameOfPublisher: loggedInUser.username,
-                comment: commentText
-            }
+                comment: commentText,
+            };
 
             DatabaseHandler.addNewComment(postInfo.id, newComment);
-            setCommentText("");
+            setCommentText('');
         }
-    }
+    };
 
     const addLike = (postId: string, emailOfLiker: string) => {
         DatabaseHandler.addNewLike(postId, emailOfLiker);
-    }
+    };
 
     const toggleShowInteraction = () => {
         setShowInteraction(!showInteraction);
-    }
+    };
 
     const visitProfile = (userToVisit: string) => {
         currentlyVisitedUserProfileUpdate(userToVisit);
         history.push('/profile');
-    }
+    };
 
-    const showToggleInteraction = location.pathname === '/discover' || location.pathname === '/profile';
-    const showDeleteButton = !showToggleInteraction && userCanDeleteThisPost && postInfo && location.pathname === '/home';
+    const showToggleInteraction =
+        location.pathname === '/discover' || location.pathname === '/profile';
+    const showDeleteButton =
+        !showToggleInteraction &&
+        userCanDeleteThisPost &&
+        postInfo &&
+        location.pathname === '/home';
 
-    return loggedInUser ? <PostCardView 
-        postCardInfo = {postInfo}
-        addComment = {addComment}
-        addLike = {addLike}
-        commentTextChangeHandler = {commentTextChangeHandler}
-        commentText = {commentText}
-        filledRatingArray = {filledRatingArray}
-        nonFilledRatingArray = {nonFilledRatingArray}
-        loggedInUserEmail = {loggedInUser.email}
-        showInteraction = {showInteraction}
-        visitProfile = {visitProfile}
-        toggleShowInteraction = {toggleShowInteraction}
-        showToggleInteraction = {showToggleInteraction}
-        showDeleteButton = {showDeleteButton}
-        showingOnPage = {location.pathname}
-    /> : null;
-}
+    return loggedInUser ? (
+        <PostCardView
+            postCardInfo={postInfo}
+            addComment={addComment}
+            addLike={addLike}
+            commentTextChangeHandler={commentTextChangeHandler}
+            commentText={commentText}
+            filledRatingArray={filledRatingArray}
+            nonFilledRatingArray={nonFilledRatingArray}
+            loggedInUserEmail={loggedInUser.email}
+            showInteraction={showInteraction}
+            visitProfile={visitProfile}
+            toggleShowInteraction={toggleShowInteraction}
+            showToggleInteraction={showToggleInteraction}
+            showDeleteButton={showDeleteButton}
+            showingOnPage={location.pathname}
+        />
+    ) : null;
+};
 
 export default PostCardPresenter;
