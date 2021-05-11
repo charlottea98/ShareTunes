@@ -11,9 +11,9 @@ interface Props {}
 const ProfilePostsPresenter: React.FC<Props> = () => {
     const user = useLoggedInUser();
     const setUser = useLoggedInUserUpdate();
-    const db = useDatabase();
+    const { posts } = useDatabase();
 
-    return <ProfilePostsView posts={db.posts} />;
+    return <ProfilePostsView posts={posts} />;
 };
 
 export default ProfilePostsPresenter;

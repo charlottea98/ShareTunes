@@ -25,8 +25,7 @@ const ProfilePresenter: React.FC<Props> = () => {
 
     console.log(userId);
 
-    const posts = user?.posts.length;
-
+    const postsCount = user?.posts.length;
     const followers = helperFunction(0)[0].followers.length; // 0 is the index for followers
     const following = helperFunction(1)[0].following.length; // 1 is the index for following
 
@@ -38,7 +37,7 @@ const ProfilePresenter: React.FC<Props> = () => {
         <ProfileView
             user={user}
             onClickEditProfile={handleEditProfile}
-            posts={posts}
+            numberOfposts={postsCount}
             followers={followers}
             following={following}
         />
