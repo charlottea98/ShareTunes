@@ -39,6 +39,7 @@ const MenuIconPresenter: React.FC<Props> = ({menuIcon, height, showNotifications
         icon = faSignOutAlt;
         iconClickHandler = () => {
             DatabaseHandler.logoutUser().then(() => {
+                sessionStorage.removeItem('user-session');
                 history.push('/login');
             })
         };

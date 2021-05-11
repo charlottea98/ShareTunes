@@ -41,9 +41,9 @@ const ProfileView: React.FC<Props> = ({
                     />
                 </div>
                 <ul className={classes.List}>
-                    <li>{numberOfposts} posts</li>
-                    <li>{followers} followers</li>
-                    <li>{following} following</li>
+                    <li><b>{numberOfposts}</b> posts</li>
+                    <li><b>{followers}</b> followers</li>
+                    <li><b>{following}</b> following</li>
                 </ul>
 
                 <div className={classes.Song}>
