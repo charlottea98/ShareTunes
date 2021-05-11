@@ -293,7 +293,8 @@ export const DatabaseHandler = {
                     profilePictureURL: pictureURL !== "" ? pictureURL : DEFAULT_PROFILE_PICTURE_URL,
                     posts: []
                 })
-
+                
+                sessionStorage.setItem('user-session', email);
                 returnMessage = "New user added in database";
             })
             .catch((err) => {
