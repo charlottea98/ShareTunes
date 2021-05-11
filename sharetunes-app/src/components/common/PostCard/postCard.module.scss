@@ -1,14 +1,24 @@
 @import "../../variables.scss";
 
 .PostCard,
-.PostCardHome {
+.PostCardHome,
+.PostCardDiscover {
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
 	background-color: white;
 	overflow: hidden;
-	width: calc(100vw - 15px);
+	width: 100%;
+	min-width: 300px;
 	max-width: 500px;
+}
+
+.PostCard,
+.PostCardHome {
+	margin: 0 auto;
+}
+
+.PostCardDiscover {
+	width: 100%;
 }
 
 .layer1 {
@@ -201,6 +211,18 @@
 
 @media (min-width: $mobile-breakpoint-2) {
 	.PostCard {
+		width: 300px;
+	}
+}
+
+@media (min-width: 880px) {
+	.PostCardDiscover {
+		width: 500px;
+	}
+}
+
+@media (min-width: 997px) {
+	.PostCardDiscover {
 		width: 300px;
 	}
 }

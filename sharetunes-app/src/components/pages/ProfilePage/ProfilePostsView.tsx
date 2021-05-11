@@ -15,7 +15,7 @@ const ProfilePostsView: React.FC<Props> = ({ posts }) => {
             {/* {posts[0].caption} */}
 
             {posts.map((post: any, idx: any) => (
-                <div className={classes.PostCardContainer}>
+                <div className={classes.PostCardContainer} key={idx}>
                     <PostCardPresenter postInfo={post} />
                 </div>
             ))}

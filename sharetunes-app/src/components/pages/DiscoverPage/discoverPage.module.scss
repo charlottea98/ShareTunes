@@ -1,28 +1,30 @@
 @import "../../variables.scss";
 
 .discoverPageContainer {
-	max-width: $max-width-of-page;
-	margin: 0 auto;
+	display: flex;
+	justify-content: center;
 }
 
 .discoverPage {
 	display: flex;
 	flex-direction: row;
+	margin: 0 20px;
+	max-width: $max-width-of-page;
 }
 
-.loader{
-    display: flex;
-    padding-top: 100px;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
+.loader {
+	display: flex;
+	padding-top: 100px;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
 }
 
-.loadericon{
-    color: rgb(62, 122, 235);
-    border-radius: 1rem;
-    transition: 1s ease;
-    transition-delay: 0.5s;
+.loadericon {
+	color: rgb(62, 122, 235);
+	border-radius: 1rem;
+	transition: 1s ease;
+	transition-delay: 0.5s;
 }
 
 .SearchBar {
@@ -34,8 +36,6 @@
 
 .discoverSidebar {
 	flex: 1;
-	padding-top: 20px;
-	padding-right: 20px;
 	max-width: 300px;
 }
 
@@ -60,21 +60,22 @@
 
 .discoverFeed {
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: center;
-	padding-top: 20px;
-	flex: 2;
+	justify-content: left;
+	margin-right: 20px;
+	// width: calc(100vw - 320px);
 }
 
 .card {
-	margin-bottom: 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: left;
 }
 
-@media (min-width: $mobile-breakpoint-2) {
-	.card {
-		margin: 10px;
-		margin-top: 0px;
+@media (min-width: 997px) {
+	.card:nth-child(2n) {
+		margin-left: 20px;
 	}
 }
 
