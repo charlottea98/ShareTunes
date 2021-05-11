@@ -26,7 +26,7 @@ const EditProfilePresenter: React.FC = () => {
     const [postSongId, setPostSongId] = useState<string>(user?.favoriteSong ? user.favoriteSong : "");
     const [searchInput, setSearchInput] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
-    const [isSearching, setIsSearching] = useState<boolean>(true);
+    const [isSearching, setIsSearching] = useState<boolean>(postSongId !== "");
 
     // Lottas nya sökfunktion
     const [typing, setTyping] = useState<boolean>(false);
