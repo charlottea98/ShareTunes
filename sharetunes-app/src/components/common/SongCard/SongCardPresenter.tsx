@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SongCardView from './SongCardView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
+import { useCurrentAudioFile, useCurrentAudioFileUpdate, useCurrentAudio, useCurrentAudioUpdate} from '../../../contexts/AudioContext';
 
 interface Props {
     songId: string
@@ -9,8 +10,12 @@ interface Props {
 const SongCardPresenter: React.FC<Props> = ({songId}) => {
     const { songs } = useDatabase();
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
-    const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
+
+    const updateCurrentAudioFile = useCurrentAudioFileUpdate();
+    const currentAudioFile = useCurrentAudioFile();
+
+    const currentAudio = useCurrentAudio();
+    const updateCurrentAudio = useCurrentAudioUpdate();
 
     let song = songs.filter(song => song.id === songId)[0];
     let songCard;
@@ -24,22 +29,21 @@ const SongCardPresenter: React.FC<Props> = ({songId}) => {
         }
     }, [isPlaying])
 
-
-    const handleAudio = (audiofile:string) => {
+    const handleAudio = (audiofile:string) => { 
         if (currentAudioFile===''){
             var audio = new Audio(audiofile);
-            setCurrentAudio(audio);
-            setCurrentAudioFile(audiofile);
+            updateCurrentAudio(audio);
+            updateCurrentAudioFile(audiofile);
         }
-        else if (currentAudioFile!==audiofile && currentAudio){
+        else if (currentAudioFile!==audiofile && currentAudio){ 
             handlePause();
             currentAudio.currentTime=0;
             var audio = new Audio(audiofile);
-            setCurrentAudio(audio);
-            setCurrentAudioFile(audiofile);
+            updateCurrentAudio(audio);
+            updateCurrentAudioFile(audiofile);
         }
-        else{
-            setCurrentAudio(currentAudio);
+        else {
+            updateCurrentAudioFile(audiofile);
         }
         setIsPlaying(!isPlaying);
     }

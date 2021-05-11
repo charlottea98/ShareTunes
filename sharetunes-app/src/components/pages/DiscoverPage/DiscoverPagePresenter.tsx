@@ -55,7 +55,7 @@ const DiscoverPage: React.FC = () => {
 
     const sortDatabse = () => {
         posts.sort(function(a,b){return b.likes.length - a.likes.length});
-        setTimeout(()=>{setLoading(false);}, 5000);
+        setTimeout(()=>{setLoading(false);}, 3000);
     }
 
     useEffect(() => {
@@ -64,23 +64,23 @@ const DiscoverPage: React.FC = () => {
         sortDatabse();
     }, []);
 
-    return (
+    if (loading){
+        return (
+            <div className={classes.loader}>
+                    <div className={classes.loadericon}>Loading</div>
+            </div>
+        )
+    }
+    else{
+        return (
         <div className={classes.DiscoverPage}>
-            {loading ? (
-                <div className={classes.loader}>
-                    <FontAwesomeIcon icon={faMusic} className={classes.loadericon}></FontAwesomeIcon>
-                </div>
-            ): (
-                <>
-                <DiscoverPageView user={loggedInUser} 
+            <DiscoverPageView user={loggedInUser} 
                 posts={posts} 
                 topSongs={topSongs} 
                 recommendedSongs={recommendedSongs}
                     />
-                </>
-            )}
-        </div>
-    );
+        </div>)
+    }
 };
 
 export default DiscoverPage;

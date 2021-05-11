@@ -11,18 +11,30 @@
 }
 
 .loader{
-    display: flex;
-    padding-top: 100px;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
+    padding: .5em 1.5em;
+    font-size: 2em;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    margin-top: -1em;
+    border-radius: 100vh;
 }
 
 .loadericon{
-    color: rgb(62, 122, 235);
-    border-radius: 1rem;
-    transition: 1s ease;
-    transition-delay: 0.5s;
+    border: 2px solid black;
+    background: linear-gradient(to top, #000 50%, #fff 50%);
+    background-size: 100% 200%;
+    background-position: top left;
+    animation: loader 3s infinite linear;
+}
+
+@keyframes loader {
+    from {background-position: top left;
+    }
+    to {background-position: bottom left;
+        color: #fff;     
+        border: 2px solid limegreen;
+    }
 }
 
 .SearchBar {
