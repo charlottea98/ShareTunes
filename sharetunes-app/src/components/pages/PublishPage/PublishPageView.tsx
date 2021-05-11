@@ -162,15 +162,9 @@ const PublishPageView : React.FC<Props> = ({
                 
                 {songComponent}
 
-                <div 
-                    className={classes.postRatings}
-                    style = {songPostId === '' ? {
-                        marginTop: "10px",
-                        marginBottom: "0px"
-                    } : {
-                        paddingBottom: "15px"
-                    }}
-                >
+
+                <div className={classes.headers}>Rating</div>
+                <div className={classes.postRatings}>
                     {ratings.map((rating, idx) => (
                         <div 
                             key = {idx}
