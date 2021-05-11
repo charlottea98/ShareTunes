@@ -37,7 +37,10 @@ const DesktopMenuView: React.FC<Props> = ({userImageActive}) => {
                         className={classes.signOut}
                         onClick = {() => {
                             DatabaseHandler.logoutUser()
-                                .then(() => history.push('/login'))
+                                .then(() => {
+                                    history.push('/login');
+                                    sessionStorage.removeItem('user-session');
+                                })
                         }}
                     >
                         <span>Sign out</span>

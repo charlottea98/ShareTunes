@@ -18,7 +18,7 @@
 }
 
 .PostCardDiscover {
-	width: 100%;
+	margin: 10px 0;
 }
 
 .layer1 {
@@ -215,14 +215,18 @@
 	}
 }
 
-@media (min-width: 880px) {
+@media (min-width: $mobile-breakpoint) {
 	.PostCardDiscover {
-		width: 500px;
+		// width: 80%;
 	}
 }
 
 @media (min-width: 997px) {
 	.PostCardDiscover {
 		width: 300px;
+	}
+
+	.PostCardDiscover:nth-child(2n) {
+		margin-left: 20px;
 	}
 }

@@ -8,8 +8,9 @@
 .discoverPage {
 	display: flex;
 	flex-direction: row;
-	margin: 0 20px;
+	margin: 20px 20px 0 20px;
 	max-width: $max-width-of-page;
+	width: 100%;
 }
 
 .loader {
@@ -35,8 +36,9 @@
 }
 
 .discoverSidebar {
-	flex: 1;
+	display: none;
 	max-width: 300px;
+	width: 100%;
 }
 
 .sideBarText {
@@ -56,14 +58,15 @@
 .songCard {
 	background-color: white;
 	margin-top: 10px;
+	width: 100%;
 }
 
 .discoverFeed {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: left;
-	margin-right: 20px;
-	// width: calc(100vw - 320px);
+	justify-content: center;
+	// margin-right: 20px;
+	width: 100%;
 }
 
 .card {
@@ -73,23 +76,45 @@
 	justify-content: left;
 }
 
-@media (min-width: 997px) {
-	.card:nth-child(2n) {
-		margin-left: 20px;
-	}
-}
-
 @media (min-width: $mobile-breakpoint) {
+	.discoverSidebar {
+		display: flex;
+		flex-direction: column;
+	}
+	.discoverPage {
+		margin-top: 0;
+		justify-content: space-between;
+	}
+
+	.discoverFeed {
+		justify-content: left;
+		width: 400px;
+		margin-right: 20px;
+	}
+
 	.SearchBar {
 		display: none;
 	}
 }
 
-@media (max-width: $mobile-breakpoint) {
-	.discoverSidebar {
-		display: none;
+@media (min-width: 850px) {
+	.discoverFeed {
+		width: 450px;
 	}
-	.discoverPage {
-		margin-top: 20px;
+}
+
+@media (min-width: 875px) {
+	.discoverFeed {
+		width: 500px;
+	}
+}
+
+@media (min-width: 997px) {
+	.discoverFeed {
+		width: 100%;
+	}
+
+	.card:nth-child(2n) {
+		margin-left: 20px;
 	}
 }
