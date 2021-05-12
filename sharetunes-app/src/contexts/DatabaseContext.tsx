@@ -3,21 +3,44 @@ import firebase from 'firebase';
 
 import { Followee, Follower, Post, Song, User } from './../utility/types';
 
+
+interface Followers {
+    [key: string]: Followee
+}
+
+interface Following {
+    [key: string]: Follower
+}
+
+interface Posts {
+    [key: string]: Post
+}
+
+interface Songs {
+    [key: string]: Song
+}
+
+interface Users {
+    [key: string]: User
+}
+
 interface Database {
-    followers: Array<Followee>,
-    following: Array<Follower>,
-    posts: Array<Post>,
-    songs: Array<Song>,
-    users: Array<User>
+    followers: Followers,
+    following: Following,
+    posts: Posts,
+    songs: Songs,
+    users: Users
 }
 
 const DatabaseContext = createContext<Database>({
-    followers: [],
-    following: [],
-    posts: [],
-    songs: [],
-    users: []
+    followers: {},
+    following: {},
+    posts: {},
+    songs: {},
+    users: {}
 });
+
+
 
 export const useDatabase = () => {
     return useContext(DatabaseContext);
@@ -26,19 +49,20 @@ export const useDatabase = () => {
 const LoggedInUserProvider: React.FC = ({ children }) => {
     const db = firebase.firestore();
 
-    const [followers, setFollowers] = useState<Array<Followee>>([]);
-    const [following, setFollowing] = useState<Array<Follower>>([]);
-    const [posts, setPosts] = useState<Array<Post>>([]);
-    const [songs, setSongs] = useState<Array<Song>>([]);
-    const [users, setUsers] = useState<Array<User>>([]);
+    const [followers, setFollowers] = useState<Followers>({});
+    const [following, setFollowing] = useState<Following>({});
+    const [posts, setPosts] = useState<Posts>({});
+    const [songs, setSongs] = useState<Songs>({});
+    const [users, setUsers] = useState<Users>({});
 
     useEffect(() => {
         let followersRef = db.collection('followers');
         followersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let followersFromDatabase: Array<any> = [];
+            let followersFromDatabase: any = {};
 
             querySnapshot.forEach(doc => {
-                followersFromDatabase.push(doc.data());
+                let docId = doc.data().id;
+                followersFromDatabase[docId] = doc.data();
             });
             
             setFollowers(followersFromDatabase);
@@ -46,10 +70,11 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
         let followingRef = db.collection('following');
         followingRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let followingFromDatabase: Array<any> = [];
+            let followingFromDatabase: any = {};
 
             querySnapshot.forEach(doc => {
-                followingFromDatabase.push(doc.data());
+                let docId = doc.data().id;
+                followingFromDatabase[docId] = doc.data();
             });
             
             setFollowing(followingFromDatabase);
@@ -57,50 +82,63 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
 
         let songsRef = db.collection('songs');
         songsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let songsFromDatabase: Array<any> = [];
+            let songsFromDatabase: any = {};
 
             querySnapshot.forEach(doc => {
-                songsFromDatabase.push(doc.data());
+                let docId = doc.data().id;
+                songsFromDatabase[docId] = doc.data();
             });
             
             setSongs(songsFromDatabase);
         });
 
-        let postsRef = db.collection('posts');
-        postsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let postsFromDatabase: Array<any> = [];
-
-            querySnapshot.forEach(doc => {
-                postsFromDatabase.push(doc.data());
-            });
-
-            postsFromDatabase = postsFromDatabase.filter(post => !post.deleted);
-
-            postsFromDatabase = postsFromDatabase.sort((postA, postB) => {
-                if (postA.date < postB.date) {
-                    return 1;
-                } else if (postA.date > postB.date) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            })
-
-            setPosts(postsFromDatabase);
-        });
-
         let usersRef = db.collection('users');
         usersRef.where('id', '!=', "").onSnapshot(querySnapshot => {
-            let usersFromDatabase: Array<any> = [];
+            let usersFromDatabase: any = {};
 
             querySnapshot.forEach(doc => {
-                usersFromDatabase.push(doc.data());
+                let docId = doc.data().id;
+                usersFromDatabase[docId] = doc.data();
             });
-            
             setUsers(usersFromDatabase);
-        })
-    }, []);
+
+            let postsRef = db.collection('posts');
+            postsRef.where('id', '!=', "").onSnapshot(querySnapshot => {
+                let postsFromDatabase: any = {};
     
+                querySnapshot.forEach(doc => {
+                    let docId = doc.data().id;
+                    postsFromDatabase[docId] = doc.data();
+                });
+    
+                let postsIds = Object.keys(postsFromDatabase);
+    
+                postsIds.forEach(postId => {
+                    let publisherId = postsFromDatabase[postId].publisherId;
+                    delete postsFromDatabase[postId].publisherId;
+                    let publisher = usersFromDatabase[publisherId];
+                    
+                    postsFromDatabase[postId].usernameOfPublisher = publisher.username;
+                    postsFromDatabase[postId].emailOfPublisher = publisher.email;
+                    postsFromDatabase[postId].profilePictureOfPublisher = publisher.profilePictureURL;
+
+                    let postComments : Array<Comment> = [];
+                    postsFromDatabase[postId].comments.forEach((comment: any) => {
+                        let newComment = {...comment};
+                        let commentPublisherId = newComment.publisherId;
+                        let commentPublisher = usersFromDatabase[commentPublisherId];
+                        newComment.emailOfPublisher = commentPublisher.email;
+                        newComment.usernameOfPublisher = commentPublisher.username;
+                        delete newComment.publisherId;
+
+                        postComments.push(newComment);
+                    })
+                    postsFromDatabase[postId].comments = postComments;
+                })
+                setPosts(postsFromDatabase);
+            });
+        });
+    }, []);
 
     return (
         <DatabaseContext.Provider value={{

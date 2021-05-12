@@ -53,5 +53,5 @@ export interface User {
     profilePictureURL: string | null,
     favoriteSong: string | null,
     biography: string,
-    posts: Array<number>
+    posts: Array<string>
 }

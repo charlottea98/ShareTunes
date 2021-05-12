@@ -9,6 +9,7 @@ import { useDatabase } from '../../../contexts/DatabaseContext';
 import { faMusic} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {ProgressLoader} from '../../common/ProgressLoader/ProgressLoader';
+import { Post } from '../../../utility/types';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -16,6 +17,7 @@ const DiscoverPage: React.FC = () => {
     const { posts } = useDatabase();
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
+    const [postsToUse, setPostsToUse] = useState<Array<Post>>([]);
 
     const getSpotifyPopularPlaylist = () => {
         SpotifyAPI.getPlaylistDetails('37i9dQZEVXbMDoHDwVN2tF').then(body => {
@@ -53,15 +55,22 @@ const DiscoverPage: React.FC = () => {
         })
     };
 
-    const sortDatabse = () => {
-        posts.sort(function(a,b){return b.likes.length - a.likes.length});
-        setTimeout(()=>{setLoading(false);}, 5000);
-    }
+    useEffect(() => {
+        let postIds = Object.keys(posts);
+        let postsToUseTemp = postIds.map(postId => posts[postId]);
+        postsToUseTemp.sort(function(a, b){return b.likes.length - a.likes.length});
+
+        setPostsToUse(postsToUseTemp);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [posts]);
+
 
     useEffect(() => {
         setLoading(true);
         getSpotifyPopularPlaylist();
-        sortDatabse();
     }, []);
 
     return (
@@ -73,7 +82,7 @@ const DiscoverPage: React.FC = () => {
             ): (
                 <>
                 <DiscoverPageView user={loggedInUser} 
-                posts={posts} 
+                posts={postsToUse} 
                 topSongs={topSongs} 
                 recommendedSongs={recommendedSongs}
                     />

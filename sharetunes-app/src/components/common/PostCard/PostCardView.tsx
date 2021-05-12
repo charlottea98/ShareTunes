@@ -185,9 +185,9 @@ const PostCardView: React.FC<Props> = ({
                                     </strong>
                                     {comment.comment}
                                 </span>
-
-                                {loggedInUserEmail ===
-                                comment.emailOfPublisher ? (
+                                
+                                
+                                {loggedInUserEmail === comment.emailOfPublisher ? (
                                     <div className={classes.deleteComment}>
                                         <DeleteCommentButtonPresenter
                                             postId={postCardInfo.id}

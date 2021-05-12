@@ -11,23 +11,19 @@ interface Props {}
 
 const ProfilePresenter: React.FC<Props> = () => {
     const history = useHistory();
-    const user = useLoggedInUser();
+    const loggedInUser = useLoggedInUser();
     const setUser = useLoggedInUserUpdate();
-    const db = useDatabase();
-    const userId = user?.email;
+    const { users, followers, following } = useDatabase();
 
-    const helperFunction = (arrIndex: number) => {
-        const firestoreObj = Object.values(db)[arrIndex].filter((mail: any) => {
-            return mail.id === userId;
-        });
-        return firestoreObj;
-    };
+    let numberOfPosts = 0;
+    let numberOfFollowers = 0;
+    let numberOfFollowing = 0;
 
-    console.log(userId);
-
-    const postsCount = user?.posts.length;
-    const followers = helperFunction(0)[0].followers.length; // 0 is the index for followers
-    const following = helperFunction(1)[0].following.length; // 1 is the index for following
+    if (loggedInUser) {
+        numberOfPosts = users[loggedInUser.email].posts.length;
+        numberOfFollowers = followers[loggedInUser.email].followers.length;
+        numberOfFollowing = followers[loggedInUser.email].followers.length;
+    }
 
     const handleEditProfile = () => {
         history.push('/profile/edit');
@@ -35,11 +31,11 @@ const ProfilePresenter: React.FC<Props> = () => {
 
     return (
         <ProfileView
-            user={user}
+            user={loggedInUser}
             onClickEditProfile={handleEditProfile}
-            numberOfposts={postsCount}
-            followers={followers}
-            following={following}
+            numberOfposts={numberOfPosts}
+            followers={numberOfFollowers}
+            following={numberOfFollowing}
         />
     );
 };

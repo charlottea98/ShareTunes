@@ -12,7 +12,7 @@ const SongCardPresenter: React.FC<Props> = ({songId}) => {
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
 
-    let song = songs.filter(song => song.id === songId)[0];
+    let song = songs[songId];
     let songCard;
 
     useEffect(() => {

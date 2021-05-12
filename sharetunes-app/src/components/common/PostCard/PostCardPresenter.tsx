@@ -49,11 +49,10 @@ const PostCardPresenter: React.FC<Props> = ({ postInfo }) => {
 
     const addComment = (commentText: string) => {
         if (loggedInUser) {
-            let newComment: Comment = {
+            let newComment = {
                 id: String(Date.now()),
                 date: new Date(),
-                emailOfPublisher: loggedInUser.email,
-                usernameOfPublisher: loggedInUser.username,
+                publisherId: loggedInUser.email,
                 comment: commentText,
             };
 
