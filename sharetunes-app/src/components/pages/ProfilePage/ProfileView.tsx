@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
+import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 
@@ -47,7 +48,7 @@ const ProfileView: React.FC<Props> = ({
                 </ul>
 
                 <div className={classes.Song}>
-                    <p>{user.favoriteSong}</p>
+                    <SongCardPresenter songId={user.favoriteSong}></SongCardPresenter>
                 </div>
 
                 <div className={classes.About}>
