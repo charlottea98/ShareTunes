@@ -44,14 +44,19 @@ const PostCardView: React.FC<Props> = ({
     visitProfile,
     showingOnPage,
 }) => {
+
+    let containerClass;
+
+    if (showingOnPage === '/home') {
+        containerClass = classes.PostCardHome;
+    } else if (showingOnPage === '/discover') {
+        containerClass = classes.PostCardDiscover;
+    } else {
+        containerClass = classes.PostCard;
+    }
+
     return postCardInfo ? (
-        <div
-            className={
-                showingOnPage === '/home'
-                    ? classes.PostCardHome
-                    : classes.PostCard
-            }
-        >
+        <div className={containerClass}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
                     <img

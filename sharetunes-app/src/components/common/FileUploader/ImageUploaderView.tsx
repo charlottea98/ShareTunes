@@ -36,7 +36,7 @@ const ImageUploaderView: React.FC<Props> = ({
                 backgroundColor: backgroundColor
             }}
             onDragOver = {e => e.preventDefault()}
-            onDragEnter = {() => setBackgroundColor("#e9e9e9")}
+            onDragEnter = {() => setBackgroundColor("#fff4e3")}
             onDragLeave = {() => setBackgroundColor("#fff")}
         >
             <input type="file" name="file" onChange={e => {

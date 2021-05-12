@@ -71,18 +71,55 @@ const LoginPresenter: React.FC<Props> = () => {
 
     const confirmSignUp = () => {
         clearErrors();
-        if (
-            password1 == password2 &&
-            name.trim().length &&
-            username.trim().length
-        ) {
-            handleSignup();
-        } else if (password1 != password2) {
+        let someError = false;
+        
+        if (password1 != password2) {
             setPasswordError('Passwords do not match');
-        } else if (!name.trim().length) {
+            someError = true;
+        }
+        
+        if (!name.trim().length) {
             setNameError('You have to fill in your name');
-        } else if (!username.trim().length) {
+            someError = true;
+        }
+
+        if (name.length > 100) {
+            setNameError('Your name can be a maximum of 100 characters');
+            someError = true;
+        } 
+
+        if (!username.trim().length) {
             setUsernameError('You have to fill in a username');
+            someError = true;
+        } 
+
+        if (username.includes(" ")) {
+            setUsernameError("You can't use blank spaces in your username");
+            someError = true;
+        }
+
+        if (username.split("").some(char => char.match(/[^a-z0-9 ]/g))) {
+            setUsernameError("Use small characters a-z and/or numbers 0-9");
+            someError = true;
+        } 
+
+        if (username.length > 15) {
+            setUsernameError('Your username can be a maximum of 15 characters');
+            someError = true;
+        } 
+        
+        if (!email.trim().length) {
+            setEmailError('You have to fill in your email');
+            someError = true;
+        }
+        
+        if (!password1.trim().length) {
+            setPasswordError('You have to fill in a password');
+            someError = true;
+        }
+
+        if(!someError) {
+            handleSignup();
         }
     };
     const handleSignup = async () => {

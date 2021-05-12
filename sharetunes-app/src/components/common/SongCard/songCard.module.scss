@@ -6,6 +6,8 @@
 	flex-direction: row;
 	border-radius: 2px;
 	justify-content: space-between;
+	max-width: 500px;
+	width: 100%;
 }
 
 .albumImageContainer {
@@ -57,7 +59,6 @@
 
 .playButtonContainer {
 	display: flex;
-	align-self: center;
 	align-items: center;
 	justify-content: center;
 	background-color: $orange;

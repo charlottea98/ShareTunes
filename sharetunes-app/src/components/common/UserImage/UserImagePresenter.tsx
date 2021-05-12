@@ -14,7 +14,6 @@ interface Props {
 const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
-    // const [profileURL, setProfileURL] = useState<string>("");
 
     let profileURL;
 
@@ -24,16 +23,11 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
         profileURL = DEFAULT_PROFILE_PICTURE_URL;
     }
 
-    // useEffect(() => {
-    //     DatabaseHandler.getImageUrl("").then((url) => {
-    //         setProfileURL(url);
-    //     })
-    // }, []);
-
-
     const userImageClickedHandler = () => {
         history.replace('/profile');
     }
+
+    console.log(profileURL);
 
     return <UserImageView 
         diameter = {diameter}
