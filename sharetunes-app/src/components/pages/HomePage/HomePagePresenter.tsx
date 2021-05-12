@@ -38,7 +38,7 @@ const HomePagePresenter : React.FC = () => {
                     }
                 })
     
-                setPostsToShow(postsToShowTemp)
+                setPostsToShow(postsToShowTemp);
             }
         }
     }, [users, posts]);

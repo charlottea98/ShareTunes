@@ -114,9 +114,10 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
                 let postsIds = Object.keys(postsFromDatabase);
     
                 postsIds.forEach(postId => {
-                    let publisherID = postsFromDatabase[postId].publisherID;
-                    delete postsFromDatabase[postId].publisherID;
-                    let publisher = usersFromDatabase[publisherID];
+                    let publisherId = postsFromDatabase[postId].publisherId;
+                    delete postsFromDatabase[postId].publisherId;
+                    let publisher = usersFromDatabase[publisherId];
+                    
                     postsFromDatabase[postId].usernameOfPublisher = publisher.username;
                     postsFromDatabase[postId].emailOfPublisher = publisher.email;
                     postsFromDatabase[postId].profilePictureOfPublisher = publisher.profilePictureURL;

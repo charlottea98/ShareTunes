@@ -55,23 +55,22 @@ const DiscoverPage: React.FC = () => {
         })
     };
 
-    const sortDatabse = () => {
-
+    useEffect(() => {
         let postIds = Object.keys(posts);
-
         let postsToUseTemp = postIds.map(postId => posts[postId]);
-
         postsToUseTemp.sort(function(a, b){return b.likes.length - a.likes.length});
 
         setPostsToUse(postsToUseTemp);
 
-        setTimeout(()=>{setLoading(false);}, 2000);
-    }
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [posts]);
+
 
     useEffect(() => {
         setLoading(true);
         getSpotifyPopularPlaylist();
-        sortDatabse();
     }, []);
 
     return (

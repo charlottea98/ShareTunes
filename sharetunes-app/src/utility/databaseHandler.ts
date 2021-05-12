@@ -10,11 +10,12 @@ const storage = firebase.storage();
 export const DatabaseHandler = {
     // === ADD ===
     async addNewPost(newPost: any) {
-        firebase.firestore().collection('posts').add(newPost)
+        db.collection('posts').add(newPost)
             .then(docRef => {
-                firebase.firestore().collection('posts').doc(docRef.id).update({id: docRef.id})
+                db.collection('posts').doc(docRef.id).update({id: docRef.id})
                 .then(()=>{
-                    firebase.firestore().collection('users').doc(newPost.emailOfPublisher).update({
+                    console.log(newPost.publisherId);
+                    db.collection('users').doc(newPost.publisherId).update({
                         posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
                 });
                 })
