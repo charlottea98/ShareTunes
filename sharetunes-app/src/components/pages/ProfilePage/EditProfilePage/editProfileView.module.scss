@@ -64,7 +64,6 @@
 	margin-top: 0%;
 	display: flex;
 	flex-direction: column;
-	align-items: left;
 	padding: 15px;
 	margin: 10px;
 }
@@ -133,6 +132,20 @@
 .searchSongIcon:hover {
 	background-color: $gray-white;
 }
+
+
+.UserImage {
+	border-radius: 50px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+	box-sizing: content-box !important;
+
+	height:100px;
+	width:100px;
+	margin:0 auto;
+}	
 
 // Lottas stuff
 .showSong {
