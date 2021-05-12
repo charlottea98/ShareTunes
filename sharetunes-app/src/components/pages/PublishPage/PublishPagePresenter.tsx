@@ -136,7 +136,23 @@ const PublishPagePresenter: React.FC = () => {
     }
 
     const handlePublish = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
-        let newPost : Post = {
+        // let newPost : Post = {
+        //     caption: caption,
+        //     comments: [],
+        //     date: firebase.firestore.FieldValue.serverTimestamp(),
+        //     deleted: false,
+        //     id: '',
+        //     likes: [],
+        //     postImageURL: image,
+        //     profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
+        //     emailOfPublisher: String(loggedInUser?.email),
+        //     rating: rating,
+        //     songId: songId,
+        //     tags: tags,
+        //     usernameOfPublisher: String(loggedInUser?.username)
+        // }
+
+        let newPost = {
             caption: caption,
             comments: [],
             date: firebase.firestore.FieldValue.serverTimestamp(),
@@ -144,12 +160,10 @@ const PublishPagePresenter: React.FC = () => {
             id: '',
             likes: [],
             postImageURL: image,
-            profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
-            emailOfPublisher: String(loggedInUser?.email),
+            publisherID: String(loggedInUser?.email),
             rating: rating,
             songId: songId,
             tags: tags,
-            usernameOfPublisher: String(loggedInUser?.username)
         }
 
         DatabaseHandler.addNewPost(newPost);

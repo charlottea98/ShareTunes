@@ -25,7 +25,7 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     const changeLoggedInUser = async (newLoggedInUserEmail: string) => {
         setLoggedInUserEmail(newLoggedInUserEmail)
 
-        let userInfo = users.filter(user => user.email === newLoggedInUserEmail)[0];
+        let userInfo = users[newLoggedInUserEmail];
 
         if (userInfo) {
             let user: User = {
@@ -45,7 +45,7 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     };
 
     useEffect(() => {
-        let userInfo = users.filter(user => user.email === loggedInUserEmail)[0];
+        let userInfo = users[loggedInUserEmail];
 
         if (userInfo) {
             let user: User = {

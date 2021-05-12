@@ -9,7 +9,7 @@ const storage = firebase.storage();
 
 export const DatabaseHandler = {
     // === ADD ===
-    async addNewPost(newPost: Post) {
+    async addNewPost(newPost: any) {
         firebase.firestore().collection('posts').add(newPost)
             .then(docRef => {
                 firebase.firestore().collection('posts').doc(docRef.id).update({id: docRef.id})
@@ -59,7 +59,7 @@ export const DatabaseHandler = {
             firebase.firestore().collection('songs').doc(songId).set(newSong);
         }
     },
-    async addNewComment(postId: string, newComment: Comment) {
+    async addNewComment(postId: string, newComment: any) {
         if (newComment.comment !== "") {
             const postData : any = await firebase.firestore().collection('posts').doc(postId).get();
             const post : Post = postData.data();
