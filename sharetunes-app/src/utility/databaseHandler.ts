@@ -14,7 +14,6 @@ export const DatabaseHandler = {
             .then(docRef => {
                 db.collection('posts').doc(docRef.id).update({id: docRef.id})
                 .then(()=>{
-                    console.log(newPost.publisherId);
                     db.collection('users').doc(newPost.publisherId).update({
                         posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
                 });

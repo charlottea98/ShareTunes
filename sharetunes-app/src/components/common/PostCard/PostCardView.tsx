@@ -62,14 +62,14 @@ const PostCardView: React.FC<Props> = ({
                     <img
                         src={postCardInfo.profilePictureOfPublisher}
                         className={classes.profilePictureOfPublisher}
-                        onClick={() =>
+                        onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
-                        }
+                        }}
                     />
                     <div
-                        onClick={() =>
+                        onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
-                        }
+                        }}
                     >
                         {postCardInfo.usernameOfPublisher}
                     </div>
