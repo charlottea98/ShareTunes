@@ -14,7 +14,7 @@
 }
 
 .ProfileInfo {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .NameButtonContainer {
@@ -33,7 +33,11 @@
 }
 
 .List > li {
-    margin-right: 20px;
+    margin-right:20px;
+}
+
+.List > li:last-child {
+    margin-right:0px;
 }
 
 .Song {
@@ -43,4 +47,36 @@
 .About {
     display: flex;
     flex-direction: column;
+}
+
+
+@media (max-width: 580px) {
+    .ProfileImg {
+        margin-bottom:20px
+    }
+    .ProfileViewHeader{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+}
+
+
+
+@media (max-width: 385px) {
+    .List {
+        display:flex;
+        flex-direction: row;
+        text-align: center;
+    }
+}
+
+@media (min-width: 385px) and (max-width: 812px) {
+    .List {
+        display:flex;
+        flex-direction: row;
+        text-align: center;
+    }
 }
