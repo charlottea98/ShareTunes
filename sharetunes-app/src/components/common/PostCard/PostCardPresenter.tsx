@@ -70,7 +70,7 @@ const PostCardPresenter: React.FC<Props> = ({ postInfo }) => {
     };
 
     const visitProfile = (userToVisit: string) => {
-        currentlyVisitedUserProfileUpdate(userToVisit);
+        currentlyVisitedUserProfileUpdate(userToVisit, loggedInUser?.email);
         history.push('/profile');
     };
 
