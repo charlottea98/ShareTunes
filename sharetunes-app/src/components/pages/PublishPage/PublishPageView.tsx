@@ -60,11 +60,14 @@ const PublishPageView : React.FC<Props> = ({
     );
 
     const isNotSearchingElements = typing ? (
+        <>
         <div 
             className={classes.outsideContainer} 
             onClick={() => handleClose()}
         />
-    ) : null;
+        <SongCardPresenter songId=''></SongCardPresenter>
+        </>
+    ) : <SongCardPresenter songId=''></SongCardPresenter>;
 
 
     const isTypingElements = typing ? (

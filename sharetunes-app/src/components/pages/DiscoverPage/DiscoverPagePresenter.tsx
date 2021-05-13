@@ -73,23 +73,23 @@ const DiscoverPage: React.FC = () => {
         getSpotifyPopularPlaylist();
     }, []);
 
-    return (
+    if (loading){
+        return (
+            <div className={classes.loader}>
+            <ProgressLoader></ProgressLoader>
+            </div>
+        )
+    }
+    else{
+        return (
         <div className={classes.DiscoverPage}>
-            {loading ? (
-                <div className={classes.loader}>
-                    <FontAwesomeIcon icon={faMusic} className={classes.loadericon}></FontAwesomeIcon>
-                </div>
-            ): (
-                <>
                 <DiscoverPageView user={loggedInUser} 
                 posts={postsToUse} 
                 topSongs={topSongs} 
-                recommendedSongs={recommendedSongs}
-                    />
-                </>
-            )}
-        </div>
-    );
+                recommendedSongs={recommendedSongs}>
+                </DiscoverPageView>
+    </div>)
+    }
 };
 
 export default DiscoverPage;
