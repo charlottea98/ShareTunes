@@ -67,7 +67,6 @@ const PublishPagePresenter: React.FC = () => {
         else{
             var value = e.target.value;
             if (type==='song'){
-                console.log(value);
                 setSearchInput(value);
                 setTyping(true);
                 handleTypeSearch(value);

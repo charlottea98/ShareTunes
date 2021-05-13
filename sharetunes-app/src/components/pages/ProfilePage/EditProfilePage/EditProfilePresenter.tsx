@@ -87,7 +87,6 @@ const EditProfilePresenter: React.FC = () => {
             let value = e.target.value;
 
             if (type === 'song') {
-                console.log(value);
                 setSearchInput(value);
                 setTyping(true);
                 handleTypeSearch(value);

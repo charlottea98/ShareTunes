@@ -108,9 +108,11 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
     
                 querySnapshot.forEach(doc => {
                     let docId = doc.data().id;
-                    postsFromDatabase[docId] = doc.data();
+                    let post = doc.data();
+
+                    postsFromDatabase[docId] = post;
                 });
-    
+
                 let postsIds = Object.keys(postsFromDatabase);
     
                 postsIds.forEach(postId => {
@@ -135,6 +137,7 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
                     })
                     postsFromDatabase[postId].comments = postComments;
                 })
+
                 setPosts(postsFromDatabase);
             });
         });

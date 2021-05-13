@@ -59,6 +59,7 @@ const DiscoverPage: React.FC = () => {
         let postIds = Object.keys(posts);
         let postsToUseTemp = postIds.map(postId => posts[postId]);
         postsToUseTemp.sort(function(a, b){return b.likes.length - a.likes.length});
+        postsToUseTemp = postsToUseTemp.filter((post: Post) => !post.deleted);
 
         setPostsToUse(postsToUseTemp);
 

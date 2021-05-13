@@ -1,6 +1,6 @@
 @import "../../variables.scss";
 
-.PostCard,
+.PostCardProfile,
 .PostCardHome,
 .PostCardDiscover {
 	display: flex;
@@ -10,14 +10,15 @@
 	width: 100%;
 	min-width: 300px;
 	max-width: 500px;
+	height: fit-content;
 }
 
-.PostCard,
 .PostCardHome {
 	margin: 0 auto;
 }
 
-.PostCardDiscover {
+.PostCardDiscover,
+.PostCardProfile {
 	margin: 10px 0;
 }
 
@@ -210,16 +211,22 @@
 }
 
 @media (min-width: $mobile-breakpoint-2) {
-	.PostCard {
+	.PostCard,
+	.PostCardProfile {
 		width: 300px;
+	}
+
+	.PostCardProfile {
+		margin-left: 10px;
+		margin-right: 10px;
 	}
 }
 
-@media (min-width: $mobile-breakpoint) {
-	.PostCardDiscover {
-		// width: 80%;
-	}
-}
+// @media (min-width: 977px) {
+// 	.PostCardProfile:nth-child(3n) {
+// 		margin-left: 20px;
+// 	}
+// }
 
 @media (min-width: 997px) {
 	.PostCardDiscover {

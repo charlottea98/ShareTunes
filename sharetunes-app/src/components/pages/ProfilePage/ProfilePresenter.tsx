@@ -8,15 +8,14 @@ import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import { useCurrentlyVisitedUserProfile } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
+import ProfilePostsPresenter from './ProfilePostsPresenter';
+
 interface Props {}
 
 const ProfilePresenter: React.FC<Props> = () => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
-    const setUser = useLoggedInUserUpdate();
-    const currentlyVisitedUserProfile = useCurrentlyVisitedUserProfile();
-    const { users, followers, following } = useDatabase();
-
+    const { users, followers } = useDatabase();
 
     let numberOfPosts = 0;
     let numberOfFollowers = 0;
