@@ -37,19 +37,23 @@ const UserImagePresenter: React.FC<Props> = ({ diameter, isActive }) => {
         profileURL = DEFAULT_PROFILE_PICTURE_URL;
     }
 
-    async function userImageClickedHandler() {
-        // let asyncFn = () => {
-        //     return new Promise((res) => {
-        //         updateProfileView('');
-        //         viewOwnProfile(true);
-        //         history.replace('/profile');
-        //     });
-        // };
-        // await asyncFn();
+    const userImageClickedHandler = () => {
         if (viewingSelf === false) {
             window.location.reload();
         }
-    }
+        history.replace('/profile');
+    };
+
+    // async function userImageClickedHandler() {
+    //     let asyncFn = () => {
+    //         return new Promise((res) => {
+    //             updateProfileView('');
+    //             viewOwnProfile(true);
+    //             history.replace('/profile');
+    //         });
+    //     };
+    //     await asyncFn();
+    // }
 
     return (
         <UserImageView
