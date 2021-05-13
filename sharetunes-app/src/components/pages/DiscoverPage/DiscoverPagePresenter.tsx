@@ -6,8 +6,6 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
-import { faMusic} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {ProgressLoader} from '../../common/ProgressLoader/ProgressLoader';
 import { Post } from '../../../utility/types';
 

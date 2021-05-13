@@ -35,7 +35,8 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
                 <ul className={classes.SearchList}>
                     {searchResults.map((result, idx) => (
             <div className={classes.SearchItems} key={idx}>
-                {result?.username}
+                <img src={result?.profilePictureURL} className={classes.SearchItemsImages} ></img>
+                <div className={classes.SearchItemsText}>{result?.username}</div>
             </div>)
         )}
         </ul>

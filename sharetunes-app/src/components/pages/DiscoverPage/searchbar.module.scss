@@ -35,11 +35,30 @@
 }
 
 .SearchItems {
-	padding: 5px;
+	//padding: 5px;
 	border-bottom: 0.5px solid $gray-light;
 	border-left: 0.5px solid $gray-light;
 	border-right: 0.5px solid $gray-light;
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.SearchItemsImages{
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	margin-left: 5px;
+}
+
+.SearchItemsText {
+	padding-left: 5px;
+	margin: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
 }
 
 @media (min-width: $mobile-breakpoint) {
