@@ -15,14 +15,23 @@ interface Props {}
 const ProfilePresenter: React.FC<Props> = () => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
-    const { users, followers } = useDatabase();
+    const { users, followers, posts } = useDatabase();
 
     let numberOfPosts = 0;
     let numberOfFollowers = 0;
     let numberOfFollowing = 0;
 
     if (loggedInUser) {
-        numberOfPosts = users[loggedInUser.email].posts.length;
+        let postsIds = users[loggedInUser.email].posts;
+        let relevantPosts = [];
+
+        postsIds.forEach(postId => {
+            if (!posts[postId].deleted) {
+                relevantPosts.push(posts[postId]);
+            }
+        })
+
+        numberOfPosts = relevantPosts.length;
         numberOfFollowers = followers[loggedInUser.email].followers.length;
         numberOfFollowing = followers[loggedInUser.email].followers.length;
     }
