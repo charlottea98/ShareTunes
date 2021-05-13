@@ -1,12 +1,71 @@
-.progressDiv {
-    background-color: black;
-    border-radius: .5rem;
+:root{
+    --background: #f0f0f0;;
 }
 
-.progress {
-    background-color: rgb(62, 122, 235);
-    width: 10px;
-    border-radius: 1rem;
-    transition: 1s ease;
-    transition-delay: 0.5s;
-  }
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.box {
+    position: relative;
+    background: var(--background);
+    height: 8rem;
+    width: 8rem;
+    outline: 0;
+    overflow: none;
+}
+
+.box::before {
+    content: url('../../../Resources/images/music-solid.svg');
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.box::after {
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    background: var(--background);
+    height: 200%;
+    width:200%;
+    animation: loading 2s linear forwards;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateY(0%);
+    }
+    100%{
+        transform: translateY(-100%);
+    }
+}
+
+.loader{
+    padding: .5em 1.5em;
+    font-size: 2em;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    margin-top: -1em;
+    border-radius: 100vh;
+}
+
+.loadericon{
+    border: 2px solid black;
+    //background: linear-gradient(to top, #000 50%, #fff 50%);
+    //background-size: 100% 200%;
+    //background-position: top left;
+    //animation: loader 2s infinite linear;
+    animation-fill-mode: backwards;
+}
+
+@keyframes loader {
+    from {background-position: top left;
+    }
+    to {background-position: bottom left;   
+        border: 2px solid limegreen;
+    }
+}

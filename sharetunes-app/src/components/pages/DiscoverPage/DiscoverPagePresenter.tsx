@@ -76,7 +76,7 @@ const DiscoverPage: React.FC = () => {
     if (loading){
         return (
             <div className={classes.loader}>
-                    <div className={classes.loadericon}>Loading</div>
+            <ProgressLoader></ProgressLoader>
             </div>
         )
     }
