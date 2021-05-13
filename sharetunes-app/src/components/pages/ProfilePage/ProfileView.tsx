@@ -7,16 +7,18 @@ import ProfilePostsPresenter from './ProfilePostsPresenter';
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 
 interface Props {
+    ownProfile: boolean;
     user: any;
-    onClickEditProfile: any;
+    onClickButton: any;
     numberOfposts: any;
-    followers: any;
-    following: any;
+    followers: number;
+    following: number;
 }
 
 const ProfileView: React.FC<Props> = ({
+    ownProfile,
     user,
-    onClickEditProfile,
+    onClickButton,
     numberOfposts,
     followers,
     following,
@@ -40,14 +42,22 @@ const ProfileView: React.FC<Props> = ({
                             <h2 className={classes.Name}>{user.username}</h2>
 
                             <div className={classes.Button}>
-                                <PrimaryButton
-                                    text="Edit profile"
-                                    onButtonClick={onClickEditProfile}
-                                    buttonColor="editProfileBtn"
-                                />
+                                {ownProfile ? (
+                                    <PrimaryButton
+                                        text="Edit profile"
+                                        onButtonClick={onClickButton}
+                                        buttonColor="editProfileBtn"
+                                    />
+                                ) : (
+                                    <PrimaryButton
+                                        text="Follow"
+                                        onButtonClick={onClickButton}
+                                        buttonColor="followBtn"
+                                    />
+                                )}
                             </div>
                         </div>
-                        
+
                         <ul className={classes.List}>
                             <li>
                                 <b>{numberOfposts}</b> posts
@@ -61,7 +71,9 @@ const ProfileView: React.FC<Props> = ({
                         </ul>
 
                         <div className={classes.Song}>
-                            <SongCardPresenter songId={user.favoriteSong}></SongCardPresenter>
+                            <SongCardPresenter
+                                songId={user.favoriteSong}
+                            ></SongCardPresenter>
                         </div>
 
                         <div className={classes.About}>
@@ -74,8 +86,6 @@ const ProfileView: React.FC<Props> = ({
 
                 <ProfilePostsPresenter />
             </div>
-
-            
         </div>
     );
 };
