@@ -49,6 +49,7 @@ const UserImagePresenter: React.FC<Props> = ({ diameter, isActive }) => {
         if (viewingSelf === false) {
             window.location.reload();
         }
+        history.replace('/profile');
     }
 
     return (

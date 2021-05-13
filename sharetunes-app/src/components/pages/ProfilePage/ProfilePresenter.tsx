@@ -30,23 +30,28 @@ const ProfilePresenter: React.FC<Props> = () => {
     let PostsCount = 0;
     let FollowersCount = 0;
     let FollowingCount = 0;
-    let postsIds = users[loggedInUser.email].posts;
+    let postsIds: any;
     let relevantPosts = [];
 
-    postsIds.forEach((postId) => {
-        if (!posts[postId].deleted) {
-            relevantPosts.push(posts[postId]);
-        }
-    });
+    const handlePostsIds = () => {
+        postsIds.forEach((postId: any) => {
+            if (!posts[postId].deleted) {
+                relevantPosts.push(posts[postId]);
+            }
+        });
+    };
 
     if (loggedInUser) {
+        postsIds = users[loggedInUser.email].posts;
         PostsCount = users[loggedInUser.email].posts.length;
         FollowersCount = followers[loggedInUser.email].followers.length;
         FollowingCount = following[loggedInUser.email].following.length;
+        handlePostsIds();
     } else if (!viewingOwnProfile) {
         postsIds = users[visitedUser.email].posts;
         FollowersCount = followers[visitedUser.email].followers.length;
         FollowingCount = following[visitedUser.email].following.length;
+        handlePostsIds();
     }
 
     const handleEditProfile = () => {
