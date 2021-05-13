@@ -31,20 +31,29 @@ const ProfileView: React.FC<Props> = ({
                 }
                 alt="Profile picture"
             />
+
             <section className={classes.ProfileInfo}>
                 <div className={classes.NameButtonContainer}>
                     <h2 className={classes.Name}>{user.username}</h2>
 
-                    <PrimaryButton
-                        text="Edit profile"
-                        onButtonClick={onClickEditProfile}
-                        buttonColor="editProfileBtn"
-                    />
+                    <div className={classes.Button}>
+                        <PrimaryButton
+                            text="Edit profile"
+                            onButtonClick={onClickEditProfile}
+                            buttonColor="editProfileBtn"
+                        />
+                    </div>
                 </div>
                 <ul className={classes.List}>
-                    <li><b>{numberOfposts}</b> posts</li>
-                    <li><b>{followers}</b> followers</li>
-                    <li><b>{following}</b> following</li>
+                    <li>
+                        <b>{numberOfposts}</b> posts
+                    </li>
+                    <li>
+                        <b>{followers}</b> followers
+                    </li>
+                    <li>
+                        <b>{following}</b> following
+                    </li>
                 </ul>
 
                 <div className={classes.Song}>

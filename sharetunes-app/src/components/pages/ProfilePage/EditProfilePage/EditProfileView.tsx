@@ -9,10 +9,6 @@ import { faSearch, faMusic } from '@fortawesome/free-solid-svg-icons';
 import ImageUploader from '../../../common/FileUploader/ImageUploaderPresenter';
 import UserImagePresenter from "../../../common/UserImage/UserImagePresenter"
 
-// Använd antingen placeholder eller value i inputsen?
-
-// Vilka error meddelanden vill vi ha ? 
-// egentligen bara profileImage URL som kan bli fel. Hur ska designen vara på error? (relevant i post också)
 
 // Ändra i UserImagePresenter så att den kan ta in ett imageURL som ett prop istället och en bool ifall man ska kunna klicka eller inte 
 // så slipper vi kodupprepa när Rasmus redan gjort en komponent.
@@ -134,9 +130,8 @@ const EditProfileView: React.FC<Props> = ({
             <div className = {classes.pageTitle}>Profile Settings</div>
             <div className = {classes.editContainer}>
 
-                <div className = {classes.image}>
-                    <UserImagePresenter  diameter = "100px" isActive = {true} /> 
-                </div>
+           
+                <img className= {classes.UserImage} src={profilePictureURL} alt="Profile picture"/>
                 
                 <div className = {classes.form}>
                     <label className = {classes.formText}>Profile picture</label>

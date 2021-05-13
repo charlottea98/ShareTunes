@@ -17,7 +17,7 @@ const SongCardPresenter: React.FC<Props> = ({songId}) => {
     const currentAudio = useCurrentAudio();
     const updateCurrentAudio = useCurrentAudioUpdate();
 
-    let song = songs.filter(song => song.id === songId)[0];
+    let song = songs[songId];
     let songCard;
 
     useEffect(() => {

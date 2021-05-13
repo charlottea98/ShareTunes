@@ -51,7 +51,7 @@ const ImageUploaderPresenter: React.FC<Props> = ({onFileChange, imageCategory, h
             {
                 showToBigFileModal ? 
                     <FullscreenMessageToUserView 
-                        bigTextMessage = "The selcted image is to big"
+                        bigTextMessage = "The selected image is too big"
                         smallTextMessage = {{
                             text: `Your file is ${currentFileSize} kB, while the limit is ${maxSizeInKB} kB.`,
                             styling: {

@@ -136,7 +136,7 @@ const PublishPagePresenter: React.FC = () => {
     }
 
     const handlePublish = (image:string, caption:string, songId:string, rating:number, tags:string[]) => {
-        let newPost : Post = {
+        let newPost = {
             caption: caption,
             comments: [],
             date: firebase.firestore.FieldValue.serverTimestamp(),
@@ -144,12 +144,10 @@ const PublishPagePresenter: React.FC = () => {
             id: '',
             likes: [],
             postImageURL: image,
-            profilePictureOfPublisher: String(loggedInUser?.profilePictureURL),
-            emailOfPublisher: String(loggedInUser?.email),
+            publisherId: String(loggedInUser?.email),
             rating: rating,
             songId: songId,
             tags: tags,
-            usernameOfPublisher: String(loggedInUser?.username)
         }
 
         DatabaseHandler.addNewPost(newPost);

@@ -16,8 +16,8 @@ const Menu: React.FC<Props> = () => {
 
     return (
         <>
-            <DesktopMenuView userImageActive = {location.pathname === '/profile' && viewingOwnProfile}/>
-            <MobileMenuView userImageActive = {location.pathname === '/profile' && viewingOwnProfile}/>
+            <DesktopMenuView userImageActive = {location.pathname === '/profile' && viewingOwnProfile} />
+            <MobileMenuView userImageActive = {location.pathname === '/profile' && viewingOwnProfile} />
         </>
     )
 }

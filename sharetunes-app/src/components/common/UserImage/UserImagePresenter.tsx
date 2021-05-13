@@ -27,8 +27,6 @@ const UserImagePresenter : React.FC<Props> = ({diameter, isActive}) => {
         history.replace('/profile');
     }
 
-    console.log(profileURL);
-
     return <UserImageView 
         diameter = {diameter}
         userImageClickedHandler={userImageClickedHandler}

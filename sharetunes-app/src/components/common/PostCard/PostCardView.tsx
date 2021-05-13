@@ -62,14 +62,14 @@ const PostCardView: React.FC<Props> = ({
                     <img
                         src={postCardInfo.profilePictureOfPublisher}
                         className={classes.profilePictureOfPublisher}
-                        onClick={() =>
+                        onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
-                        }
+                        }}
                     />
                     <div
-                        onClick={() =>
+                        onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
-                        }
+                        }}
                     >
                         {postCardInfo.usernameOfPublisher}
                     </div>
@@ -185,9 +185,9 @@ const PostCardView: React.FC<Props> = ({
                                     </strong>
                                     {comment.comment}
                                 </span>
-
-                                {loggedInUserEmail ===
-                                comment.emailOfPublisher ? (
+                                
+                                
+                                {loggedInUserEmail === comment.emailOfPublisher ? (
                                     <div className={classes.deleteComment}>
                                         <DeleteCommentButtonPresenter
                                             postId={postCardInfo.id}
