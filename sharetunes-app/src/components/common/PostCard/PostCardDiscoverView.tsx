@@ -12,51 +12,34 @@ import DeleteCommentButtonPresenter from './DeletePostAndComment/DeleteComment/D
 
 interface Props {
     postCardInfo: Post | undefined;
-
     commentText: string;
     filledRatingArray: Array<number>;
     nonFilledRatingArray: Array<number>;
     loggedInUserEmail: string;
     showInteraction: boolean;
     showToggleInteraction: boolean;
-    showDeleteButton: boolean;
     addComment: (commentText: string) => void;
     addLike: (postId: string, emailOfLiker: string) => void;
     commentTextChangeHandler: (newCommentText: string) => void;
     toggleShowInteraction: () => void;
     visitProfile: (userToVisit: string) => void;
-    showingOnPage: string;
 }
 
 const PostCardView: React.FC<Props> = ({
     postCardInfo,
-    showDeleteButton,
     commentText,
     filledRatingArray,
     nonFilledRatingArray,
     loggedInUserEmail,
     showInteraction,
-    showToggleInteraction,
     addComment,
     addLike,
     commentTextChangeHandler,
     toggleShowInteraction,
     visitProfile,
-    showingOnPage,
 }) => {
-
-    let containerClass;
-
-    if (showingOnPage === '/home') {
-        containerClass = classes.PostCardHome;
-    } else if (showingOnPage === '/discover') {
-        containerClass = classes.PostCardDiscover;
-    } else {
-        containerClass = classes.PostCard;
-    }
-
     return postCardInfo ? (
-        <div className={containerClass}>
+        <div className={classes.PostCardDiscover}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
                     <img
@@ -74,19 +57,12 @@ const PostCardView: React.FC<Props> = ({
                         {postCardInfo.usernameOfPublisher}
                     </div>
                 </div>
-                {showDeleteButton ? (
-                    <DeletePostButtonPresenter postId={postCardInfo.id} />
-                ) : (
-                    <div />
-                )}
-                {showToggleInteraction ? (
-                    <div
-                        className={classes.viewPost}
-                        onClick={toggleShowInteraction}
-                    >
-                        {showInteraction ? <p>Close post</p> : <p>View post</p>}
-                    </div>
-                ) : null}
+                <div
+                    className={classes.viewPost}
+                    onClick={toggleShowInteraction}
+                >
+                    {showInteraction ? <p>Close post</p> : <p>View post</p>}
+                </div>
             </div>
             <div
                 className={classes.postImage}

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-import PostCardView from './PostCardView';
 import { Post, Comment } from '../../../utility/types';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
+
+import PostCardHomeView from './PostCardHomeView';
+import PostCardDiscoverView from './PostCardDiscoverView';
+import PostCardProfileView from './PostCardProfileView';
 
 interface Props {
     postInfo: Post;
@@ -76,30 +79,62 @@ const PostCardPresenter: React.FC<Props> = ({ postInfo }) => {
 
     const showToggleInteraction =
         location.pathname === '/discover' || location.pathname === '/profile';
-    const showDeleteButton =
-        !showToggleInteraction &&
-        userCanDeleteThisPost &&
-        postInfo &&
-        location.pathname === '/home';
 
-    return loggedInUser ? (
-        <PostCardView
-            postCardInfo={postInfo}
-            addComment={addComment}
-            addLike={addLike}
-            commentTextChangeHandler={commentTextChangeHandler}
-            commentText={commentText}
-            filledRatingArray={filledRatingArray}
-            nonFilledRatingArray={nonFilledRatingArray}
-            loggedInUserEmail={loggedInUser.email}
-            showInteraction={showInteraction}
-            visitProfile={visitProfile}
-            toggleShowInteraction={toggleShowInteraction}
-            showToggleInteraction={showToggleInteraction}
-            showDeleteButton={showDeleteButton}
-            showingOnPage={location.pathname}
-        />
-    ) : null;
+    let postCardViewToShow = null;
+
+    if (location.pathname === '/home' && loggedInUser) {
+        postCardViewToShow = (
+            <PostCardHomeView
+                postCardInfo={postInfo}
+                addComment={addComment}
+                addLike={addLike}
+                commentTextChangeHandler={commentTextChangeHandler}
+                commentText={commentText}
+                filledRatingArray={filledRatingArray}
+                nonFilledRatingArray={nonFilledRatingArray}
+                loggedInUserEmail={loggedInUser.email}
+                visitProfile={visitProfile}
+                showDeleteButton={userCanDeleteThisPost}
+            />
+        );
+    } else if (location.pathname === '/discover' && loggedInUser) {
+        postCardViewToShow = (
+            <PostCardDiscoverView
+                postCardInfo={postInfo}
+                addComment={addComment}
+                addLike={addLike}
+                commentTextChangeHandler={commentTextChangeHandler}
+                commentText={commentText}
+                filledRatingArray={filledRatingArray}
+                nonFilledRatingArray={nonFilledRatingArray}
+                loggedInUserEmail={loggedInUser.email}
+                showInteraction={showInteraction}
+                visitProfile={visitProfile}
+                toggleShowInteraction={toggleShowInteraction}
+                showToggleInteraction={showToggleInteraction}
+            />
+        );
+    } else if (location.pathname === '/profile' && loggedInUser) {
+        postCardViewToShow = (
+            <PostCardProfileView
+                postCardInfo={postInfo}
+                addComment={addComment}
+                addLike={addLike}
+                commentTextChangeHandler={commentTextChangeHandler}
+                commentText={commentText}
+                filledRatingArray={filledRatingArray}
+                nonFilledRatingArray={nonFilledRatingArray}
+                loggedInUserEmail={loggedInUser.email}
+                showInteraction={showInteraction}
+                visitProfile={visitProfile}
+                toggleShowInteraction={toggleShowInteraction}
+                showToggleInteraction={showToggleInteraction}
+                showDeleteButton={userCanDeleteThisPost}
+            />
+        );
+    }
+
+    return postCardViewToShow;
 };
 
 export default PostCardPresenter;

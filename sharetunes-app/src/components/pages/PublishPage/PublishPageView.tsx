@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './publishPage.module.scss';
-import { faSearch, faPlusCircle, faMusic, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faMusic, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
 import ImageUploaderPresenter from '../../common/FileUploader/ImageUploaderPresenter';
@@ -11,13 +11,11 @@ interface Props {
     searchSong: Function,
     songPostId: string,
     handleChange: Function,
-    searchInput: any,
     captionInput:any,
     tagsArray:Array<string>,
     imageURL:any,
     ratingInput:any,
     handleSubmit:Function,
-    errorMessage:any,
     handleCancel:Function,
     addToTags: Function,
     tagsInput: string,
@@ -25,7 +23,8 @@ interface Props {
     deleteTag: (tagToDelete: string) => void
     searchResults:any[],
     typing: boolean,
-    handleClose: Function
+    handleClose: Function,
+    errors: string[]
 }
 
 const PublishPageView : React.FC<Props> = ({
@@ -34,13 +33,11 @@ const PublishPageView : React.FC<Props> = ({
     searchSong, 
     songPostId, 
     handleChange, 
-    searchInput, 
     captionInput, 
     tagsArray,
     imageURL, 
     ratingInput, 
-    handleSubmit, 
-    errorMessage, 
+    handleSubmit,
     handleCancel, 
     addToTags,
     tagsInput,
@@ -48,7 +45,8 @@ const PublishPageView : React.FC<Props> = ({
     deleteTag,
     searchResults,
     typing,
-    handleClose
+    handleClose,
+    errors
 }) => {
     const ratings = [1, 2, 3, 4, 5];
 
@@ -60,11 +58,14 @@ const PublishPageView : React.FC<Props> = ({
     );
 
     const isNotSearchingElements = typing ? (
+        <>
         <div 
             className={classes.outsideContainer} 
             onClick={() => handleClose()}
         />
-    ) : null;
+        <SongCardPresenter songId=''></SongCardPresenter>
+        </>
+    ) : <SongCardPresenter songId=''></SongCardPresenter>;
 
 
     const isTypingElements = typing ? (
@@ -79,7 +80,6 @@ const PublishPageView : React.FC<Props> = ({
                 >
                     <img src={result.albumImage} className={classes.SearchItemImage} />
                     <FontAwesomeIcon icon={faMusic} />
-
                     <div className={classes.SearchItemTitle}>
                         {result.title}
                     </div>
@@ -121,11 +121,26 @@ const PublishPageView : React.FC<Props> = ({
                         }}
                     >Post picture</div>
                     <ImageUploaderPresenter onFileChange={handlePostPictureChange} imageCategory="posts" />
-
+                    {errors.includes('picture')? (
+                        <div className = {classes.errorText}>
+                            You have to add an image
+                        </div>
+                    ):
+                    (
+                        null
+                    )}
                 </div>
                 <div className={classes.postCaption}>
                     <div className={classes.headers}>Caption</div>
                     <input className={classes.input} onChange={e => {handleChange(e,'caption');}}/>
+                    {errors.includes('caption')? (
+                        <div className = {classes.errorText}>
+                            You have to write a caption
+                        </div>
+                    ):
+                    (
+                        null
+                    )}
                 </div>
                 <div className={classes.headers}>Tags</div>
                 <div className={classes.postSong}>
@@ -158,12 +173,28 @@ const PublishPageView : React.FC<Props> = ({
                             </div>
                         ))}
                     </div>
+                    {errors.includes('tags')? (
+                        <div className = {classes.errorText}>
+                            Tag can`t be empty
+                        </div>
+                    ):
+                    (
+                        null
+                    )}
                 </div>
                 
                 {songComponent}
-
+                {errors.includes('song')? (
+                        <div className = {classes.errorText}>
+                            You have to choose a song
+                        </div>
+                    ):
+                    (
+                        null
+                    )}
 
                 <div className={classes.headers}>Rating</div>
+                <div>
                 <div className={classes.postRatings}>
                     {ratings.map((rating, idx) => (
                         <div 
@@ -180,6 +211,15 @@ const PublishPageView : React.FC<Props> = ({
                     )
                     )}
                 </div>
+                {errors.includes('rating')? (
+                        <div className = {classes.errorText}>
+                            You have to add a rating
+                        </div>
+                    ):
+                    (
+                        null
+                    )}
+                </div>
                 <div className={classes.postPublish}>
                     <div className={classes.cancelButton} onClick={()=>handleCancel()}>Cancel</div>
                     <div 
@@ -188,16 +228,6 @@ const PublishPageView : React.FC<Props> = ({
                     >Publish</div>
                 </div>
             </div>
-            {
-                errorMessage!==''?(
-                    <div className={classes.publishedInfo}>
-                        {errorMessage}
-                    </div>
-                ):(
-                    <div>
-                    </div>
-                )
-            }
         </div>
     );
 }

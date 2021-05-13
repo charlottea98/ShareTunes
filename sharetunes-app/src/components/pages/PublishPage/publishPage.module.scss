@@ -161,7 +161,6 @@
 .postRatings {
 	display: flex;
 	flex-direction: row;
-	padding-bottom: 10px;
 	justify-content: space-between;
 }
 
@@ -203,7 +202,7 @@
 .postPublish {
 	display: flex;
 	flex-direction: row;
-	margin-top: 0;
+	margin-top: 10px;
 	justify-content: space-between;
 }
 
@@ -287,3 +286,11 @@
 	background-color: $red; // Alt. 1
 	// background-color: $gray-light; // Alt. 2
 }
+
+.errorText {
+	font-size: 12px;
+	color: $red-dark;
+	width: 300px;
+	margin-top: $form-label-margin-bottom;
+}
+

@@ -6,8 +6,6 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 import classes from './discoverPage.module.scss';
 import DiscoverPageView from './DiscoverPageView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
-import { faMusic} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {ProgressLoader} from '../../common/ProgressLoader/ProgressLoader';
 import { Post } from '../../../utility/types';
 
@@ -59,6 +57,7 @@ const DiscoverPage: React.FC = () => {
         let postIds = Object.keys(posts);
         let postsToUseTemp = postIds.map(postId => posts[postId]);
         postsToUseTemp.sort(function(a, b){return b.likes.length - a.likes.length});
+        postsToUseTemp = postsToUseTemp.filter((post: Post) => !post.deleted);
 
         setPostsToUse(postsToUseTemp);
 
@@ -73,23 +72,23 @@ const DiscoverPage: React.FC = () => {
         getSpotifyPopularPlaylist();
     }, []);
 
-    return (
+    if (loading){
+        return (
+            <div className={classes.loader}>
+            <ProgressLoader></ProgressLoader>
+            </div>
+        )
+    }
+    else{
+        return (
         <div className={classes.DiscoverPage}>
-            {loading ? (
-                <div className={classes.loader}>
-                    <FontAwesomeIcon icon={faMusic} className={classes.loadericon}></FontAwesomeIcon>
-                </div>
-            ): (
-                <>
                 <DiscoverPageView user={loggedInUser} 
                 posts={postsToUse} 
                 topSongs={topSongs} 
-                recommendedSongs={recommendedSongs}
-                    />
-                </>
-            )}
-        </div>
-    );
+                recommendedSongs={recommendedSongs}>
+                </DiscoverPageView>
+    </div>)
+    }
 };
 
 export default DiscoverPage;

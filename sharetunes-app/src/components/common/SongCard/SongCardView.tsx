@@ -38,11 +38,7 @@ const SongCardView: React.FC<Props> = ({
                         <FontAwesomeIcon icon={faUsers} color="#232323" size="1x" />
                         <div>
                             {
-                                artists.map((artist, idx) => (
-                                    <span className={classes.artistContainer} key={idx}>
-                                        {artist.name}
-                                    </span>
-                                ))
+                                artists.map(artist => <span className={classes.artistContainer}>{artist.name}</span>)
                             }
                         </div>
                     </div>

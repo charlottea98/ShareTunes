@@ -5,12 +5,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 40px;
-	padding: 0 8px;
+	height: 28px;
+	padding: 0 6px 1px 6px;
 	cursor: pointer;
 	transition: $hover-transition-speed;
 	width: fit-content;
 	user-select: none;
+	font-size: 15px;
+	background-color: white;
 }
 
 .standardStyle {
@@ -45,7 +47,7 @@
 }
 
 .editProfileBtn:hover {
-	background-color: #a8a8a8;
+	background-color: $gray-white;
 }
 
 .followBtn {

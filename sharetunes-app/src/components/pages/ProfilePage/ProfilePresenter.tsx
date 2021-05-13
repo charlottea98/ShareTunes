@@ -12,11 +12,13 @@ import {
     useViewingOwnProfileUpdate,
 } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
+import ProfilePostsPresenter from './ProfilePostsPresenter';
+
 interface Props {}
 
 const ProfilePresenter: React.FC<Props> = () => {
     const history = useHistory();
-    const { users, followers, following } = useDatabase();
+    const { users, followers, following, posts } = useDatabase();
     const currentlyVisitedUserProfile = useCurrentlyVisitedUserProfile();
     const loggedInUser = useLoggedInUser();
     const visitedUser = users[currentlyVisitedUserProfile];
@@ -28,13 +30,21 @@ const ProfilePresenter: React.FC<Props> = () => {
     let PostsCount = 0;
     let FollowersCount = 0;
     let FollowingCount = 0;
+    let postsIds = users[loggedInUser.email].posts;
+    let relevantPosts = [];
+
+    postsIds.forEach((postId) => {
+        if (!posts[postId].deleted) {
+            relevantPosts.push(posts[postId]);
+        }
+    });
 
     if (loggedInUser) {
         PostsCount = users[loggedInUser.email].posts.length;
         FollowersCount = followers[loggedInUser.email].followers.length;
         FollowingCount = following[loggedInUser.email].following.length;
     } else if (!viewingOwnProfile) {
-        PostsCount = visitedUser.posts.length;
+        postsIds = users[visitedUser.email].posts;
         FollowersCount = followers[visitedUser.email].followers.length;
         FollowingCount = following[visitedUser.email].following.length;
     }

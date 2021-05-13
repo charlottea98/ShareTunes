@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfilePostsView from './ProfilePostsView';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { useDatabase } from '../../../contexts/DatabaseContext';
+import { Post } from '../../../utility/types';
 
 interface Props {}
 
 const ProfilePostsPresenter: React.FC<Props> = () => {
-    const user = useLoggedInUser();
+    const loggedInUser = useLoggedInUser();
     const { posts } = useDatabase();
-    const userId = user?.email;
+    const [postsToShow, setPostsToShow] = useState<Array<Post>>([]);
 
-    const userPosts = Object.values(posts).filter((post: any) => {
-        return post.emailOfPublisher === userId;
-    });
+    useEffect(() => {
+        if (loggedInUser) {
+            let numberOfPosts = Object.keys(posts).length;
+            
+            if (numberOfPosts > 0) {
+                let postsToShowTemp = loggedInUser.posts.map((postId: string) => posts[postId]);
+                postsToShowTemp = postsToShowTemp.filter((post: Post) => !post.deleted);
+    
+                setPostsToShow(postsToShowTemp);
+            }
+        }
+    }, [posts]);
 
-    return <ProfilePostsView posts={userPosts} />;
+    return <ProfilePostsView posts={postsToShow} />;
 };
 
 export default ProfilePostsPresenter;
