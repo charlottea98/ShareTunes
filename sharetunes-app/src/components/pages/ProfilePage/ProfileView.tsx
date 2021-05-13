@@ -5,16 +5,18 @@ import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 
 interface Props {
+    ownProfile: boolean;
     user: any;
-    onClickEditProfile: any;
+    onClickButton: any;
     numberOfposts: any;
-    followers: any;
-    following: any;
+    followers: number;
+    following: number;
 }
 
 const ProfileView: React.FC<Props> = ({
+    ownProfile,
     user,
-    onClickEditProfile,
+    onClickButton,
     numberOfposts,
     followers,
     following,
@@ -24,7 +26,7 @@ const ProfileView: React.FC<Props> = ({
             <img
                 className={classes.ProfileImg}
                 src={
-                    user.profilePictureURL
+                    user?.profilePictureURL
                         ? user.profilePictureURL
                         : DEFAULT_PROFILE_PICTURE_URL
                 }
@@ -33,14 +35,22 @@ const ProfileView: React.FC<Props> = ({
 
             <section className={classes.ProfileInfo}>
                 <div className={classes.NameButtonContainer}>
-                    <h2 className={classes.Name}>{user.username}</h2>
+                    <h2 className={classes.Name}>{user?.username}</h2>
 
                     <div className={classes.Button}>
-                        <PrimaryButton
-                            text="Edit profile"
-                            onButtonClick={onClickEditProfile}
-                            buttonColor="editProfileBtn"
-                        />
+                        {ownProfile ? (
+                            <PrimaryButton
+                                text="Edit profile"
+                                onButtonClick={onClickButton}
+                                buttonColor="editProfileBtn"
+                            />
+                        ) : (
+                            <PrimaryButton
+                                text="Follow"
+                                onButtonClick={onClickButton}
+                                buttonColor="followBtn"
+                            />
+                        )}
                     </div>
                 </div>
                 <ul className={classes.List}>
@@ -56,14 +66,14 @@ const ProfileView: React.FC<Props> = ({
                 </ul>
 
                 <div className={classes.Song}>
-                    <p>{user.favoriteSong}</p>
+                    <p>{user?.favoriteSong}</p>
                 </div>
 
                 <div className={classes.About}>
-                    <h1>{user.name}</h1>
+                    <h1>{user?.name}</h1>
                     <br />
 
-                    <p>{user.biography}</p>
+                    <p>{user?.biography}</p>
                 </div>
             </section>
         </header>

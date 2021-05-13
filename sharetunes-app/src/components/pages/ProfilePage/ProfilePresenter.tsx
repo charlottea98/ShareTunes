@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileView from './ProfileView';
 import {
     useLoggedInUser,
@@ -6,39 +6,72 @@ import {
 } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../../contexts/DatabaseContext';
-import { useCurrentlyVisitedUserProfile } from '../../../contexts/CurrentlyVisitedUserProfileContext';
+import {
+    useCurrentlyVisitedUserProfile,
+    useViewingOwnProfile,
+    useViewingOwnProfileUpdate,
+} from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 interface Props {}
 
 const ProfilePresenter: React.FC<Props> = () => {
     const history = useHistory();
-    const loggedInUser = useLoggedInUser();
-    const setUser = useLoggedInUserUpdate();
-    const currentlyVisitedUserProfile = useCurrentlyVisitedUserProfile();
     const { users, followers, following } = useDatabase();
+    const currentlyVisitedUserProfile = useCurrentlyVisitedUserProfile();
+    const loggedInUser = useLoggedInUser();
+    const visitedUser = users[currentlyVisitedUserProfile];
 
+    const [viewingOwnProfile, setViewingOwnProfile] = useState(
+        useViewingOwnProfile()
+    );
 
-    let numberOfPosts = 0;
-    let numberOfFollowers = 0;
-    let numberOfFollowing = 0;
+    let PostsCount = 0;
+    let FollowersCount = 0;
+    let FollowingCount = 0;
 
     if (loggedInUser) {
-        numberOfPosts = users[loggedInUser.email].posts.length;
-        numberOfFollowers = followers[loggedInUser.email].followers.length;
-        numberOfFollowing = followers[loggedInUser.email].followers.length;
+        PostsCount = users[loggedInUser.email].posts.length;
+        FollowersCount = followers[loggedInUser.email].followers.length;
+        FollowingCount = following[loggedInUser.email].following.length;
+    } else if (!viewingOwnProfile) {
+        PostsCount = visitedUser.posts.length;
+        FollowersCount = followers[visitedUser.email].followers.length;
+        FollowingCount = following[visitedUser.email].following.length;
     }
 
     const handleEditProfile = () => {
         history.push('/profile/edit');
     };
 
-    return (
+    const handleFollow = () => {
+        console.log('hello world');
+    };
+
+    // TODO: swap to follow button, check if following, write a handle function for visiting view
+
+    useEffect(() => {
+        return () => {};
+    }, [viewingOwnProfile]);
+
+    return viewingOwnProfile ? (
         <ProfileView
+            ownProfile={viewingOwnProfile}
             user={loggedInUser}
-            onClickEditProfile={handleEditProfile}
-            numberOfposts={numberOfPosts}
-            followers={numberOfFollowers}
-            following={numberOfFollowing}
+            onClickButton={handleEditProfile}
+            numberOfposts={PostsCount}
+            followers={FollowersCount}
+            following={FollowingCount}
+            key={new Date().getTime()}
+        />
+    ) : (
+        <ProfileView
+            ownProfile={viewingOwnProfile}
+            user={visitedUser}
+            onClickButton={handleFollow}
+            numberOfposts={PostsCount}
+            followers={FollowersCount}
+            following={FollowingCount}
+            key={new Date().getTime()}
         />
     );
 };

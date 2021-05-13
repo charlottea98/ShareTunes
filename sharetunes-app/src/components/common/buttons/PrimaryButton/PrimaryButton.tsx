@@ -5,7 +5,7 @@ import classes from './primaryButton.module.scss';
 interface Props {
     text: String;
     onButtonClick: () => void;
-    buttonColor?: 'black' | 'blue' | 'green' | 'editProfileBtn';
+    buttonColor?: 'black' | 'blue' | 'green' | 'editProfileBtn' | 'followBtn';
 }
 
 const PrimaryButton: React.FC<Props> = ({
@@ -23,6 +23,8 @@ const PrimaryButton: React.FC<Props> = ({
         buttonStyle = classes.greenStyle;
     } else if (buttonColor === 'editProfileBtn') {
         buttonStyle = classes.editProfileBtn;
+    } else if (buttonColor === 'followBtn') {
+        buttonStyle = classes.followBtn;
     }
 
     return (
