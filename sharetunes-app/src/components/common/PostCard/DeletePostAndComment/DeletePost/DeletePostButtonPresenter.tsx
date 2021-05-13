@@ -20,7 +20,6 @@ const DeletePostButtonPresenter: React.FC<Props> = ({postId}) => {
 
     const confirmDeleteButtonClicked = () => {
         DatabaseHandler.deletePost(postId);
-        console.log(postId);
         setDisplayDeleteModal(false);
     }
 
