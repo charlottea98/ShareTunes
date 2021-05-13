@@ -14,18 +14,10 @@
 }
 
 .loader {
+	margin-top: 40px;
 	display: flex;
-	padding-top: 100px;
 	justify-content: center;
 	align-items: center;
-	align-self: center;
-}
-
-.loadericon {
-	color: rgb(62, 122, 235);
-	border-radius: 1rem;
-	transition: 1s ease;
-	transition-delay: 0.5s;
 }
 
 .SearchBar {
