@@ -22,7 +22,7 @@ const HomePagePresenter : React.FC = () => {
             })
 
             let numberOfPosts = Object.keys(posts).length;
-    
+            
             if (numberOfPosts > 0) {
                 let postsToShowTemp = postsToShowIds.map(postId => {
                     return posts[postId];
@@ -37,13 +37,13 @@ const HomePagePresenter : React.FC = () => {
                         return 0;
                     }
                 })
-    
+
+                postsToShowTemp = postsToShowTemp.filter((post: Post) => !post.deleted);
+
                 setPostsToShow(postsToShowTemp);
             }
         }
     }, [users, posts]);
-    
-
     
 
     return <HomePageView postsToShow={postsToShow} />;

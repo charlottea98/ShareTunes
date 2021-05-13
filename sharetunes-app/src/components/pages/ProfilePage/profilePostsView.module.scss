@@ -1,11 +1,13 @@
+@import "../../variables.scss";
+
 .Posts {
-    display:flex;
-    flex-wrap:wrap;
-    width:80%;
-    justify-content: center;
-    margin:auto
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.PostCardContainer {
-    margin:12px;
+@media (min-width: $mobile-breakpoint-2) {
+	.Posts {
+		// justify-content: left;
+	}
 }

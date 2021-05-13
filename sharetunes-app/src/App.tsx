@@ -13,7 +13,6 @@ import AudioContextProvider from './contexts/AudioContext';
 
 import MenuPresenter from './components/common/Menu/MenuPresenter';
 import ProfilePresenter from './components/pages/ProfilePage/ProfilePresenter';
-import ProfilePostsPresenter from './components/pages/ProfilePage/ProfilePostsPresenter';
 import EditProfilePresenter from './components/pages/ProfilePage/EditProfilePage/EditProfilePresenter';
 import DiscoverPagePresenter from './components/pages/DiscoverPage/DiscoverPagePresenter';
 import HomePage from './components/pages/HomePage/HomePagePresenter';
@@ -34,7 +33,6 @@ const App: React.FC = () => {
                                         <MenuPresenter />
                                         <div className="pageContainer">
                                             <ProfilePresenter />
-                                            <ProfilePostsPresenter />
                                         </div>
                                     </UserCheckerPresenter>
                                 </Route>
