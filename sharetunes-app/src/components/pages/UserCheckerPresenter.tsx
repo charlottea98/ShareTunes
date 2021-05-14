@@ -7,6 +7,7 @@ import {
 import MessageToUserPage from './MessageToUserPage/MessageToUserPagePresenter';
 
 import { useHistory } from 'react-router-dom';
+import profileNoData from './ProfilePage/ProfileNoData';
 
 const UserCheckerPresenter: React.FC = ({ children }) => {
     const loggedInUser = useLoggedInUser();
@@ -22,19 +23,21 @@ const UserCheckerPresenter: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <div>
-            {loggedInUser === null ? (
-                <MessageToUserPage
-                    emotion="sad"
-                    message="You need to be logged in to use our website!"
-                    actionButtonFunc={() => history.push('/login')}
-                    actionButtonText="Take me to the login page"
-                    pauseRender={true}
-                />
-            ) : (
-                children
-            )}
-        </div>
+        profileNoData(loggedInUser, session) || (
+            <div>
+                {loggedInUser === null ? (
+                    <MessageToUserPage
+                        emotion="sad"
+                        message="You need to be logged in to use our website!"
+                        actionButtonFunc={() => history.push('/login')}
+                        actionButtonText="Take me to the login page"
+                        pauseRender={true}
+                    />
+                ) : (
+                    children
+                )}
+            </div>
+        )
     );
 };
 

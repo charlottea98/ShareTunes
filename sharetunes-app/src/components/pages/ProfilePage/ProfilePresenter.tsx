@@ -13,6 +13,7 @@ import {
 } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 import ProfilePostsPresenter from './ProfilePostsPresenter';
+import profileNoData from './ProfileNoData';
 
 interface Props {}
 
@@ -24,6 +25,7 @@ const ProfilePresenter: React.FC<Props> = () => {
     const visitedUser = users[currentlyVisitedUserProfile];
     const viewingOwnProfile = useViewingOwnProfile();
 
+    let session = sessionStorage.getItem('user-session');
     let PostsCount = 0;
     let FollowersCount = 0;
     let FollowingCount = 0;
@@ -59,27 +61,52 @@ const ProfilePresenter: React.FC<Props> = () => {
         console.log('hello world');
     };
 
-    return viewingOwnProfile ? (
-        <ProfileView
-            ownProfile={viewingOwnProfile}
-            user={loggedInUser}
-            onClickButton={handleEditProfile}
-            numberOfposts={PostsCount}
-            followers={FollowersCount}
-            following={FollowingCount}
-            key={new Date().getTime()}
-        />
-    ) : (
-        <ProfileView
-            ownProfile={viewingOwnProfile}
-            user={visitedUser}
-            onClickButton={handleFollow}
-            numberOfposts={PostsCount}
-            followers={FollowersCount}
-            following={FollowingCount}
-            key={new Date().getTime()}
-        />
+    return (
+        profileNoData(loggedInUser, session) ||
+        (viewingOwnProfile ? (
+            <ProfileView
+                ownProfile={viewingOwnProfile}
+                user={loggedInUser}
+                onClickButton={handleEditProfile}
+                numberOfposts={PostsCount}
+                followers={FollowersCount}
+                following={FollowingCount}
+                key={new Date().getTime()}
+            />
+        ) : (
+            <ProfileView
+                ownProfile={viewingOwnProfile}
+                user={visitedUser}
+                onClickButton={handleFollow}
+                numberOfposts={PostsCount}
+                followers={FollowersCount}
+                following={FollowingCount}
+                key={new Date().getTime()}
+            />
+        ))
     );
+
+    // return viewingOwnProfile ? (
+    //     <ProfileView
+    //         ownProfile={viewingOwnProfile}
+    //         user={loggedInUser}
+    //         onClickButton={handleEditProfile}
+    //         numberOfposts={PostsCount}
+    //         followers={FollowersCount}
+    //         following={FollowingCount}
+    //         key={new Date().getTime()}
+    //     />
+    // ) : (
+    //     <ProfileView
+    //         ownProfile={viewingOwnProfile}
+    //         user={visitedUser}
+    //         onClickButton={handleFollow}
+    //         numberOfposts={PostsCount}
+    //         followers={FollowersCount}
+    //         following={FollowingCount}
+    //         key={new Date().getTime()}
+    //     />
+    // );
 };
 
 export default ProfilePresenter;
