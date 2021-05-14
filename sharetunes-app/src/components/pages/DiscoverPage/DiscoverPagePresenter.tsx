@@ -11,7 +11,7 @@ import { Post } from '../../../utility/types';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const { posts } = useDatabase();
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
@@ -61,14 +61,11 @@ const DiscoverPage: React.FC = () => {
 
         setPostsToUse(postsToUseTemp);
 
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
+        setLoading(false);
     }, [posts]);
 
 
     useEffect(() => {
-        setLoading(true);
         getSpotifyPopularPlaylist();
     }, []);
 

@@ -7,7 +7,6 @@ import { faMusic, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farFaHeart } from '@fortawesome/free-regular-svg-icons';
 
 import SongCard from '../SongCard/SongCardPresenter';
-import DeletePostButtonPresenter from './DeletePostAndComment/DeletePost/DeletePostButtonPresenter';
 import DeleteCommentButtonPresenter from './DeletePostAndComment/DeleteComment/DeleteCommentButtonPresenter';
 
 interface Props {
@@ -48,6 +47,7 @@ const PostCardView: React.FC<Props> = ({
                         onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
                         }}
+                        alt=''
                     />
                     <div
                         onClick={() => {
