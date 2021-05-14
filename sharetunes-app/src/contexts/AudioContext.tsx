@@ -23,7 +23,6 @@ export const useCurrentAudioUpdate = () => {
 }
 
 const AudioContextProvider: React.FC = ({ children }) => {
-
     const [currentAudio, setCurrentAudio] = useState<HTMLMediaElement>();
     const [currentAudioFile, setCurrentAudioFile] = useState<string>('');
 

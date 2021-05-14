@@ -42,10 +42,7 @@ const CurrentlyVisitedUserProfileProvider: React.FC = ({ children }) => {
     };
 
     const changeViewingOwnProfile = () => {
-        console.log('hello from viewprofile context');
         setViewingOwnProfile(true);
-
-        console.log(viewingOwnProfile);
     };
 
     return (

@@ -1,0 +1,21 @@
+@import "../../../variables.scss";
+
+.PrimaryButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 28px;
+	padding: 0 6px 1px 6px;
+	cursor: pointer;
+	transition: $hover-transition-speed;
+	width: fit-content;
+	user-select: none;
+	font-size: 15px;
+	color: white;
+	background-color: $orange;
+	font-weight: 500;
+}
+
+.followBtn:hover {
+	background-color: $orange-dark;
+}
