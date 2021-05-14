@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import {
     useCurrentlyVisitedUserProfile,
-    useViewingOwnProfile
+    useViewingOwnProfile,
 } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 import profileNoData from './ProfileNoData';
@@ -26,48 +26,46 @@ const ProfilePresenter: React.FC<Props> = () => {
     let FollowersCount = 0;
     let FollowingCount = 0;
     let postsIds: any;
-    let relevantPosts = [];
-
-    const handlePostsIds = () => {
-        postsIds.forEach((postId: any) => {
-            if (!posts[postId].deleted) {
-                relevantPosts.push(posts[postId]);
-            }
-        });
-    };
 
     if (viewingOwnProfile && loggedInUser) {
         postsIds = users[loggedInUser.email].posts;
         PostsCount = users[loggedInUser.email].posts.length;
         FollowersCount = followers[loggedInUser.email].followers.length;
         FollowingCount = following[loggedInUser.email].following.length;
-        handlePostsIds();
     } else if (!viewingOwnProfile) {
         postsIds = users[visitedUser.email].posts;
         FollowersCount = followers[visitedUser.email].followers.length;
         FollowingCount = following[visitedUser.email].following.length;
-        handlePostsIds();
     }
 
     const isFollowing = () => {
-        if (loggedInUser){
-           if (following[loggedInUser.email].following.includes(visitedUser.email)) {
+        if (loggedInUser) {
+            if (
+                following[loggedInUser.email].following.includes(
+                    visitedUser.email
+                )
+            ) {
                 return true;
-           }
-        } 
+            }
+        }
         return false;
-    }
+    };
 
     const handleEditProfile = () => {
         history.push('/profile/edit');
     };
 
     const handleFollow = () => {
-        if (!isFollowing()){
-            DatabaseHandler.addNewFollower(loggedInUser?.email, visitedUser.email);
-        }
-        else {
-            DatabaseHandler.deleteFollower(loggedInUser?.email, visitedUser.email);
+        if (!isFollowing()) {
+            DatabaseHandler.addNewFollower(
+                loggedInUser?.email,
+                visitedUser.email
+            );
+        } else {
+            DatabaseHandler.deleteFollower(
+                loggedInUser?.email,
+                visitedUser.email
+            );
         }
     };
 
@@ -82,7 +80,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={FollowersCount}
                 following={FollowingCount}
                 key={new Date().getTime()}
-                isFollowing = {isFollowing}
+                isFollowing={isFollowing}
             />
         ) : (
             <ProfileView
@@ -93,7 +91,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={FollowersCount}
                 following={FollowingCount}
                 key={new Date().getTime()}
-                isFollowing = {isFollowing}
+                isFollowing={isFollowing}
             />
         ))
     );
