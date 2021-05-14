@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import firestore from '../../../firestore';
 import firebase from 'firebase/app';
 import { useLoggedInUser} from '../../../contexts/LoggedInUserContext';
+import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
+import { useHistory } from 'react-router';
 
 
 const SearchBar:React.FC = () => {
@@ -10,6 +12,8 @@ const SearchBar:React.FC = () => {
     const [following, setFollowing] = useState<any[]>([]);
     const [typing, setTyping] = useState<boolean>(false);
     const loggedInUser = useLoggedInUser();
+    const currentlyVisitedUserProfileUpdate = useCurrentlyVisitedUserProfileUpdate();
+    const history = useHistory();
 
     const findUsers = (val:string) => {
         setSearchResult([]);
@@ -62,10 +66,16 @@ const SearchBar:React.FC = () => {
         })
     }
 
+    const visitProfile = (userToVisit: string) => {
+        currentlyVisitedUserProfileUpdate(userToVisit, loggedInUser?.email);
+        history.push('/profile');
+    };
+
 
     return (<div>
         <SearchbarView handleChange={handleChange} searchResults={searchResults} typing={typing} 
-        handleClose={handleClose} isFollowing={isFollowing} followUser={followUser}/>
+        handleClose={handleClose} isFollowing={isFollowing} followUser={followUser}
+        visitProfile={visitProfile}/>
     </div>)
 
 }

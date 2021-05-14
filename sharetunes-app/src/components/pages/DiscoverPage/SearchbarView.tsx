@@ -8,10 +8,11 @@ interface Props {
     searchResults: any[],
     typing: boolean,
     isFollowing: Function,
-    followUser: Function
+    followUser: Function,
+    visitProfile: (userToVisit: string) => void;
 }
 
-const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, handleClose, isFollowing, followUser}) => {
+const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, handleClose, isFollowing, followUser, visitProfile}) => {
     return (
         <>
         {typing ? ( 
@@ -34,7 +35,7 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
                 </div>
                 <ul className={classes.SearchList}>
                     {searchResults.map((result, idx) => (
-            <div className={classes.SearchItems} key={idx}>
+            <div className={classes.SearchItems} key={idx} onClick={()=>{visitProfile(result?.email); handleClose()}}>
                 <img src={result?.profilePictureURL} className={classes.SearchItemsImages} ></img>
                 <div className={classes.SearchItemsText}>{result?.username}</div>
             </div>)
