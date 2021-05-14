@@ -31,7 +31,7 @@
     background: var(--background);
     height: 200%;
     width:200%;
-    animation: loading 2s linear forwards;
+    animation: loading 0.5s linear infinite;
 }
 
 @keyframes loading {
@@ -40,32 +40,5 @@
     }
     100%{
         transform: translateY(-100%);
-    }
-}
-
-.loader{
-    padding: .5em 1.5em;
-    font-size: 2em;
-    font-weight: 700;
-    color: #000;
-    text-transform: uppercase;
-    margin-top: -1em;
-    border-radius: 100vh;
-}
-
-.loadericon{
-    border: 2px solid black;
-    //background: linear-gradient(to top, #000 50%, #fff 50%);
-    //background-size: 100% 200%;
-    //background-position: top left;
-    //animation: loader 2s infinite linear;
-    animation-fill-mode: backwards;
-}
-
-@keyframes loader {
-    from {background-position: top left;
-    }
-    to {background-position: bottom left;   
-        border: 2px solid limegreen;
     }
 }

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import {
     useCurrentlyVisitedUserProfile,
-    useViewingOwnProfile
+    useViewingOwnProfile,
 } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 import profileNoData from './ProfileNoData';
@@ -69,24 +69,33 @@ const ProfilePresenter: React.FC<Props> = () => {
     }, [following, loggedInUser]);
 
     const isFollowing = () => {
-        if (loggedInUser){
-           if (following[loggedInUser.email].following.includes(visitedUser.email)) {
+        if (loggedInUser) {
+            if (
+                following[loggedInUser.email].following.includes(
+                    visitedUser.email
+                )
+            ) {
                 return true;
-           }
-        } 
+            }
+        }
         return false;
-    }
+    };
 
     const handleEditProfile = () => {
         history.push('/profile/edit');
     };
 
     const handleFollow = () => {
-        if (!isFollowing()){
-            DatabaseHandler.addNewFollower(loggedInUser?.email, visitedUser.email);
-        }
-        else {
-            DatabaseHandler.deleteFollower(loggedInUser?.email, visitedUser.email);
+        if (!isFollowing()) {
+            DatabaseHandler.addNewFollower(
+                loggedInUser?.email,
+                visitedUser.email
+            );
+        } else {
+            DatabaseHandler.deleteFollower(
+                loggedInUser?.email,
+                visitedUser.email
+            );
         }
     };
 
@@ -101,7 +110,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={numberOfFollwers}
                 following={numberOfFollwing}
                 key={new Date().getTime()}
-                isFollowing = {isFollowing}
+                isFollowing={isFollowing}
             />
         ) : (
             <ProfileView
@@ -112,7 +121,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={numberOfFollwers}
                 following={numberOfFollwing}
                 key={new Date().getTime()}
-                isFollowing = {isFollowing}
+                isFollowing={isFollowing}
             />
         ))
     );
