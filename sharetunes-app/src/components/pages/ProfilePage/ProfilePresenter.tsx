@@ -14,6 +14,8 @@ import {
 
 import ProfilePostsPresenter from './ProfilePostsPresenter';
 import profileNoData from './ProfileNoData';
+import firestore from '../../../firestore';
+import firebase from 'firebase/app';
 
 interface Props {}
 
@@ -40,7 +42,7 @@ const ProfilePresenter: React.FC<Props> = () => {
         });
     };
 
-    if (loggedInUser) {
+    if (viewingOwnProfile && loggedInUser) {
         postsIds = users[loggedInUser.email].posts;
         PostsCount = users[loggedInUser.email].posts.length;
         FollowersCount = followers[loggedInUser.email].followers.length;
@@ -53,12 +55,36 @@ const ProfilePresenter: React.FC<Props> = () => {
         handlePostsIds();
     }
 
+    const isFollowing = () => {
+        if (loggedInUser){
+           if (following[loggedInUser.email].following.includes(visitedUser.email)) {
+                return true;
+           }
+        } 
+        return false;
+    }
+
     const handleEditProfile = () => {
         history.push('/profile/edit');
     };
 
     const handleFollow = () => {
-        console.log('hello world');
+        if (!isFollowing()){
+            firestore.collection('followers').doc(visitedUser.email).update({
+            followers: firebase.firestore.FieldValue.arrayUnion(loggedInUser?.email)
+        })
+            firestore.collection('following').doc(loggedInUser?.email).update({
+                following: firebase.firestore.FieldValue.arrayUnion(visitedUser.email)
+        })
+        }
+        else {
+            firestore.collection('followers').doc(visitedUser.email).update({
+                followers: firebase.firestore.FieldValue.arrayRemove(loggedInUser?.email)
+            })
+            firestore.collection('following').doc(loggedInUser?.email).update({
+                following: firebase.firestore.FieldValue.arrayRemove(visitedUser.email)
+            })
+        }
     };
 
     return (
@@ -72,6 +98,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={FollowersCount}
                 following={FollowingCount}
                 key={new Date().getTime()}
+                isFollowing = {isFollowing}
             />
         ) : (
             <ProfileView
@@ -82,6 +109,7 @@ const ProfilePresenter: React.FC<Props> = () => {
                 followers={FollowersCount}
                 following={FollowingCount}
                 key={new Date().getTime()}
+                isFollowing = {isFollowing}
             />
         ))
     );
