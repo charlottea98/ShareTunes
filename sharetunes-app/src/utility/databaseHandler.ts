@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import fire from '../fire';
 import { createImageLinkFromDriveId, DEFAULT_PROFILE_PICTURE_URL } from '../utility/utility';
 import { SpotifyAPI } from './spotifyHandler';
-import { User, Post, Comment, Song } from './types';
+import { User, Post, Song } from './types';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -340,7 +340,7 @@ export const DatabaseHandler = {
         let searchArray:any[] = [];
 
         await db.collection('users').get().then(snapshot => {
-            snapshot.docs.map(doc => {
+            snapshot.docs.forEach(doc => {
                 if (doc.data().username.toLowerCase().includes(value)){
                     searchArray.push(doc.data());
                 }
