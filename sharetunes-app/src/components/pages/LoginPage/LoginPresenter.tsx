@@ -118,13 +118,16 @@ const LoginPresenter: React.FC<Props> = () => {
             someError = true;
         }
 
+        if(password1.length < 6){
+            setPasswordError('Your password needs to be more than 6 characters')
+        }
+
         if(!someError) {
             handleSignup();
         }
     };
     const handleSignup = async () => {
         let message = await DatabaseHandler.signUpUser(name, username, profilePictureURL, email, password1);
-
         if (message === "New user added in database") {
             updateLoggedInUser(email);
             history.push('/discover');
