@@ -1,10 +1,9 @@
 import SearchbarView from './SearchbarView';
 import React, { useState } from 'react';
-import firestore from '../../../firestore';
 import { useLoggedInUser} from '../../../contexts/LoggedInUserContext';
 import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 import { useHistory } from 'react-router';
-
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 const SearchBar:React.FC = () => {
     const [searchResults, setSearchResult] = useState<any[]>([]);
@@ -14,14 +13,9 @@ const SearchBar:React.FC = () => {
     const history = useHistory();
 
     const findUsers = (val:string) => {
-        setSearchResult([]);
-        firestore.collection('users').get().then(snapshot => {
-            snapshot.docs.map(doc => {
-                if (doc.data().username.includes(val)){
-                    setSearchResult(oldArray => [...oldArray, doc.data()]);
-                }
-            })
-        })
+        DatabaseHandler.findUsersSearch(val).then(results => {
+            setSearchResult(results);
+        });
     }
 
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {

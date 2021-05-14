@@ -336,6 +336,19 @@ export const DatabaseHandler = {
 
         return returnMessage;
     },
+    async findUsersSearch(value:string) {
+        let searchArray:any[] = [];
+
+        await db.collection('users').get().then(snapshot => {
+            snapshot.docs.map(doc => {
+                if (doc.data().username.toLowerCase().includes(value)){
+                    searchArray.push(doc.data());
+                }
+            })
+        })
+        return searchArray;
+    }
+    ,
 
     // === STORAGE ===
     async uploadImage(imageFile: any, imageCategory: "users" | "posts") {
