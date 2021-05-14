@@ -13,6 +13,7 @@ interface Props {
     numberOfposts: any;
     followers: number;
     following: number;
+    isFollowing: Function;
 }
 
 const ProfileView: React.FC<Props> = ({
@@ -22,6 +23,7 @@ const ProfileView: React.FC<Props> = ({
     numberOfposts,
     followers,
     following,
+    isFollowing
 }) => {
     return (
         <div className={classes.ProfileViewContainer}>
@@ -48,12 +50,17 @@ const ProfileView: React.FC<Props> = ({
                                         onButtonClick={onClickButton}
                                         buttonColor="editProfileBtn"
                                     />
-                                ) : (
-                                    <PrimaryButton
-                                        text="Follow"
+                                ) : (isFollowing() ? (
+                                        <PrimaryButton
+                                        text="Unfollow"
                                         onButtonClick={onClickButton}
                                         buttonColor="followBtn"
-                                    />
+                                    />)
+                                        : (<PrimaryButton
+                                            text="Follow"
+                                            onButtonClick={onClickButton}
+                                            buttonColor="followBtn"
+                                        />)
                                 )}
                             </div>
                         </div>
