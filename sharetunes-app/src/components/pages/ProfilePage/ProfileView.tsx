@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './profileView.module.scss';
 import PrimaryButton from '../../common/buttons/PrimaryButton/PrimaryButton';
+import FollowButton from '../../common/buttons/FollowButton/PrimaryButton';
 import SongCardPresenter from '../../common/SongCard/SongCardPresenter';
 import ProfilePostsPresenter from './ProfilePostsPresenter';
 
@@ -51,12 +52,12 @@ const ProfileView: React.FC<Props> = ({
                                         buttonColor="editProfileBtn"
                                     />
                                 ) : (isFollowing() ? (
-                                        <PrimaryButton
+                                        <FollowButton
                                         text="Unfollow"
                                         onButtonClick={onClickButton}
                                         buttonColor="followBtn"
                                     />)
-                                        : (<PrimaryButton
+                                        : (<FollowButton
                                             text="Follow"
                                             onButtonClick={onClickButton}
                                             buttonColor="followBtn"

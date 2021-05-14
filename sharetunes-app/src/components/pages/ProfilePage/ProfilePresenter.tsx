@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileView from './ProfileView';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router-dom';
@@ -20,23 +20,53 @@ const ProfilePresenter: React.FC<Props> = () => {
     const loggedInUser = useLoggedInUser();
     const visitedUser = users[currentlyVisitedUserProfile];
     const viewingOwnProfile = useViewingOwnProfile();
+    const [numberOfPosts, setNumberOfPosts] = useState<number>(0);
+    const [numberOfFollwers, setNumberOfFollowers] = useState<number>(0);
+    const [numberOfFollwing, setNumberOfFollowing] = useState<number>(0);
 
     let session = sessionStorage.getItem('user-session');
-    let PostsCount = 0;
-    let FollowersCount = 0;
-    let FollowingCount = 0;
-    let postsIds: any;
 
-    if (viewingOwnProfile && loggedInUser) {
-        postsIds = users[loggedInUser.email].posts;
-        PostsCount = users[loggedInUser.email].posts.length;
-        FollowersCount = followers[loggedInUser.email].followers.length;
-        FollowingCount = following[loggedInUser.email].following.length;
-    } else if (!viewingOwnProfile) {
-        postsIds = users[visitedUser.email].posts;
-        FollowersCount = followers[visitedUser.email].followers.length;
-        FollowingCount = following[visitedUser.email].following.length;
-    }
+    useEffect(() => {
+        if (visitedUser) {
+            let postsIds = visitedUser.posts;
+            let relevantPosts = [];
+
+            postsIds.forEach(postId => {
+                if (!posts[postId].deleted) {
+                    relevantPosts.push(posts[postId]);
+                }
+            })
+
+            setNumberOfPosts(relevantPosts.length);
+        } else if (loggedInUser) {
+            let postsIds = loggedInUser.posts;
+            let relevantPosts = [];
+
+            postsIds.forEach(postId => {
+                if (!posts[postId].deleted) {
+                    relevantPosts.push(posts[postId]);
+                }
+            })
+
+            setNumberOfPosts(relevantPosts.length);
+        }
+    }, [posts, loggedInUser]);
+
+    useEffect(() => {
+        if (visitedUser) {
+            setNumberOfFollowers(followers[visitedUser.email].followers.length);
+        } else if (loggedInUser) {
+            setNumberOfFollowers(followers[loggedInUser.email].followers.length);
+        }
+    }, [followers, loggedInUser]);
+
+    useEffect(() => {
+        if (visitedUser) {
+            setNumberOfFollowing(following[visitedUser.email].following.length);
+        } else if (loggedInUser) {
+            setNumberOfFollowing(following[loggedInUser.email].following.length);
+        }
+    }, [following, loggedInUser]);
 
     const isFollowing = () => {
         if (loggedInUser) {
@@ -76,9 +106,9 @@ const ProfilePresenter: React.FC<Props> = () => {
                 ownProfile={viewingOwnProfile}
                 user={loggedInUser}
                 onClickButton={handleEditProfile}
-                numberOfposts={PostsCount}
-                followers={FollowersCount}
-                following={FollowingCount}
+                numberOfposts={numberOfPosts}
+                followers={numberOfFollwers}
+                following={numberOfFollwing}
                 key={new Date().getTime()}
                 isFollowing={isFollowing}
             />
@@ -87,9 +117,9 @@ const ProfilePresenter: React.FC<Props> = () => {
                 ownProfile={viewingOwnProfile}
                 user={visitedUser}
                 onClickButton={handleFollow}
-                numberOfposts={PostsCount}
-                followers={FollowersCount}
-                following={FollowingCount}
+                numberOfposts={numberOfPosts}
+                followers={numberOfFollwers}
+                following={numberOfFollwing}
                 key={new Date().getTime()}
                 isFollowing={isFollowing}
             />
