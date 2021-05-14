@@ -90,6 +90,15 @@ export const DatabaseHandler = {
             likes: newLikes
         })
     },
+    async addNewFollower(newFollowerEmail:string | undefined , userEmail:string | undefined) {
+        db.collection('followers').doc(userEmail).update({
+            followers: firebase.firestore.FieldValue.arrayUnion(newFollowerEmail)
+        })
+        db.collection('following').doc(newFollowerEmail).update({
+                following: firebase.firestore.FieldValue.arrayUnion(userEmail)
+        })
+    }
+    ,
     checkIfSongExists(songId: string) {
 
     },
@@ -109,6 +118,15 @@ export const DatabaseHandler = {
         
         db.collection('posts').doc(postId).update({comments: newComments});
     },
+    async deleteFollower(removeFollowerEmail:string | undefined , userEmail:string | undefined) {
+        db.collection('followers').doc(userEmail).update({
+            followers: firebase.firestore.FieldValue.arrayRemove(removeFollowerEmail)
+        })
+        db.collection('following').doc(removeFollowerEmail).update({
+            following: firebase.firestore.FieldValue.arrayRemove(userEmail)
+        })
+    }
+    ,
 
     // === UPDATE ===
     updateUserInfo(newUserInfo: User) {

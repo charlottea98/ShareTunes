@@ -7,12 +7,10 @@ interface Props {
     handleClose: Function,
     searchResults: any[],
     typing: boolean,
-    isFollowing: Function,
-    followUser: Function,
     visitProfile: (userToVisit: string) => void;
 }
 
-const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, handleClose, isFollowing, followUser, visitProfile}) => {
+const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, handleClose, visitProfile}) => {
     return (
         <>
         {typing ? ( 
