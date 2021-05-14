@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ProfileView from './ProfileView';
-import {
-    useLoggedInUser,
-    useLoggedInUserUpdate,
-} from '../../../contexts/LoggedInUserContext';
+import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router-dom';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import {
     useCurrentlyVisitedUserProfile,
-    useViewingOwnProfile,
-    useViewingOwnProfileUpdate,
+    useViewingOwnProfile
 } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
-import ProfilePostsPresenter from './ProfilePostsPresenter';
 import profileNoData from './ProfileNoData';
-import firestore from '../../../firestore';
-import firebase from 'firebase/app';
+import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 interface Props {}
 
@@ -70,20 +64,10 @@ const ProfilePresenter: React.FC<Props> = () => {
 
     const handleFollow = () => {
         if (!isFollowing()){
-            firestore.collection('followers').doc(visitedUser.email).update({
-            followers: firebase.firestore.FieldValue.arrayUnion(loggedInUser?.email)
-        })
-            firestore.collection('following').doc(loggedInUser?.email).update({
-                following: firebase.firestore.FieldValue.arrayUnion(visitedUser.email)
-        })
+            DatabaseHandler.addNewFollower(loggedInUser?.email, visitedUser.email);
         }
         else {
-            firestore.collection('followers').doc(visitedUser.email).update({
-                followers: firebase.firestore.FieldValue.arrayRemove(loggedInUser?.email)
-            })
-            firestore.collection('following').doc(loggedInUser?.email).update({
-                following: firebase.firestore.FieldValue.arrayRemove(visitedUser.email)
-            })
+            DatabaseHandler.deleteFollower(loggedInUser?.email, visitedUser.email);
         }
     };
 
