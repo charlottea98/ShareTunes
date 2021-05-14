@@ -38,22 +38,9 @@ const UserImagePresenter: React.FC<Props> = ({ diameter, isActive }) => {
     }
 
     const userImageClickedHandler = () => {
-        if (viewingSelf === false) {
-            window.location.reload();
-        }
+        updateProfileView();
         history.replace('/profile');
     };
-
-    // async function userImageClickedHandler() {
-    //     let asyncFn = () => {
-    //         return new Promise((res) => {
-    //             updateProfileView('');
-    //             viewOwnProfile(true);
-    //             history.replace('/profile');
-    //         });
-    //     };
-    //     await asyncFn();
-    // }
 
     return (
         <UserImageView
