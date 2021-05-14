@@ -31,24 +31,32 @@ const ProfilePresenter: React.FC<Props> = () => {
             let postsIds = visitedUser.posts;
             let relevantPosts = [];
 
-            postsIds.forEach(postId => {
-                if (!posts[postId].deleted) {
-                    relevantPosts.push(posts[postId]);
-                }
-            })
-
-            setNumberOfPosts(relevantPosts.length);
+            let numberOfAllPosts = Object.keys(posts).length;
+            
+            if (numberOfAllPosts > 0) {
+                postsIds.forEach(postId => {
+                    if (!posts[postId].deleted) {
+                        relevantPosts.push(posts[postId]);
+                    }
+                })
+    
+                setNumberOfPosts(relevantPosts.length);
+            }
         } else if (loggedInUser) {
             let postsIds = loggedInUser.posts;
             let relevantPosts = [];
 
-            postsIds.forEach(postId => {
-                if (!posts[postId].deleted) {
-                    relevantPosts.push(posts[postId]);
-                }
-            })
-
-            setNumberOfPosts(relevantPosts.length);
+            let numberOfAllPosts = Object.keys(posts).length;
+            
+            if (numberOfAllPosts > 0) {
+                postsIds.forEach(postId => {
+                    if (!posts[postId].deleted) {
+                        relevantPosts.push(posts[postId]);
+                    }
+                })
+    
+                setNumberOfPosts(relevantPosts.length);
+            }
         }
     }, [posts, loggedInUser]);
 
