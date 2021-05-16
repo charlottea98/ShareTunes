@@ -10,7 +10,6 @@ import {
 
 import profileNoData from './ProfileNoData';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
-import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 interface Props {}
 
@@ -26,12 +25,6 @@ const ProfilePresenter: React.FC<Props> = () => {
     const [numberOfFollwing, setNumberOfFollowing] = useState<number>(0);
 
     let session = sessionStorage.getItem('user-session');
-
-    const currentAudio = useCurrentAudio();
-
-    useEffect(() => {
-        currentAudio?.pause();
-    }, [])
 
     useEffect(() => {
         if (visitedUser) {
@@ -124,7 +117,6 @@ const ProfilePresenter: React.FC<Props> = () => {
                 numberOfposts={numberOfPosts}
                 followers={numberOfFollwers}
                 following={numberOfFollwing}
-                key={new Date().getTime()}
                 isFollowing={isFollowing}
             />
         ) : (
@@ -135,33 +127,10 @@ const ProfilePresenter: React.FC<Props> = () => {
                 numberOfposts={numberOfPosts}
                 followers={numberOfFollwers}
                 following={numberOfFollwing}
-                key={new Date().getTime()}
                 isFollowing={isFollowing}
             />
         ))
     );
-
-    // return viewingOwnProfile ? (
-    //     <ProfileView
-    //         ownProfile={viewingOwnProfile}
-    //         user={loggedInUser}
-    //         onClickButton={handleEditProfile}
-    //         numberOfposts={PostsCount}
-    //         followers={FollowersCount}
-    //         following={FollowingCount}
-    //         key={new Date().getTime()}
-    //     />
-    // ) : (
-    //     <ProfileView
-    //         ownProfile={viewingOwnProfile}
-    //         user={visitedUser}
-    //         onClickButton={handleFollow}
-    //         numberOfposts={PostsCount}
-    //         followers={FollowersCount}
-    //         following={FollowingCount}
-    //         key={new Date().getTime()}
-    //     />
-    // );
 };
 
 export default ProfilePresenter;
