@@ -4,6 +4,7 @@ import classes from './songCard.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faUsers, faPlay, faPause, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Artist } from '../../../utility/types';
+import '../../../Resources/images/nomusic.svg';
 
 interface Props {
     title: string,
@@ -53,7 +54,7 @@ const SongCardView: React.FC<Props> = ({
             </div>
             ):(
                 <div className={classes.dontButtonContainer}>
-                    <FontAwesomeIcon icon={faTimesCircle} color="#fff" size="3x"></FontAwesomeIcon>
+                    <div className={classes.dontButtonContainerIcon}></div>
                 </div>
             )}
             

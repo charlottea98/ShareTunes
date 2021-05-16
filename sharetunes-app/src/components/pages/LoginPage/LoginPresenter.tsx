@@ -8,6 +8,7 @@ import { DatabaseHandler } from '../../../utility/databaseHandler';
 
 import { useLoggedInUserUpdate } from '../../../contexts/LoggedInUserContext';
 import { useHistory } from 'react-router';
+import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 interface Props {}
 
@@ -31,6 +32,12 @@ const LoginPresenter: React.FC<Props> = () => {
     const history = useHistory();
 
     const updateLoggedInUser = useLoggedInUserUpdate();
+
+    const currentAudio = useCurrentAudio();
+
+    useEffect(() => {
+        currentAudio?.pause();
+    }, [])
 
     const clearAll = () => {
         clearInputs();

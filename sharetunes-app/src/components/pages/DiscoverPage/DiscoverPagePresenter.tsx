@@ -8,6 +8,7 @@ import DiscoverPageView from './DiscoverPageView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import {ProgressLoader} from '../../common/ProgressLoader/ProgressLoader';
 import { Post } from '../../../utility/types';
+import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 const DiscoverPage: React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -16,6 +17,8 @@ const DiscoverPage: React.FC = () => {
     const [topSongs, setTopSongs] = useState<string[]>([]);
     const [recommendedSongs, setRecommendedSongs] = useState<string[]>([])
     const [postsToUse, setPostsToUse] = useState<Array<Post>>([]);
+
+    const currentAudio = useCurrentAudio();
 
     const getSpotifyPopularPlaylist = () => {
         SpotifyAPI.getPlaylistDetails('37i9dQZEVXbMDoHDwVN2tF').then(body => {
@@ -67,6 +70,7 @@ const DiscoverPage: React.FC = () => {
 
     useEffect(() => {
         getSpotifyPopularPlaylist();
+        currentAudio?.pause();
     }, []);
 
     if (loading){

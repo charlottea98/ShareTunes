@@ -11,10 +11,14 @@ import {
 } from '../../../../contexts/LoggedInUserContext';
 
 import { SpotifyAPI } from '../../../../utility/spotifyHandler';
+import { useCurrentAudio } from '../../../../contexts/AudioContext';
+
 
 const EditProfilePresenter: React.FC = () => {
     const user = useLoggedInUser();
     const history = useHistory();
+
+    const currentAudio = useCurrentAudio();
     
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
@@ -25,7 +29,6 @@ const EditProfilePresenter: React.FC = () => {
 
     const [postSongId, setPostSongId] = useState<string>(user?.favoriteSong ? user.favoriteSong : "");
     const [searchInput, setSearchInput] = useState<string>('');
-    const [errorMessage, setErrorMessage] = useState<string>('');
     const [isSearching, setIsSearching] = useState<boolean>(postSongId !== "");
 
     // Lottas nya sökfunktion
@@ -80,19 +83,13 @@ const EditProfilePresenter: React.FC = () => {
         })
     }
 
-    const handleChange = (e:any, type:string) => {
-        if (type==='error'){
-            setErrorMessage(e);
-        } else {
-            let value = e.target.value;
+    const handleChange = (e:any) => {
+        let value = e.target.value;
 
-            if (type === 'song') {
-                setSearchInput(value);
-                setTyping(true);
-                handleTypeSearch(value);
-                setShowSongCardStart(false);
-            }
-        }   
+        setSearchInput(value);
+        setTyping(true);
+        handleTypeSearch(value);
+        setShowSongCardStart(false);
     }
 
     const switchSearchMode = () => {
@@ -100,20 +97,15 @@ const EditProfilePresenter: React.FC = () => {
         if (isSearching){
             setPostSongId('');
             setSearchResults([]);
+            currentAudio?.pause();
         }
     }
 
     const searchSong = (id:string) => {
-        if (id===undefined){
-            handleChange('Please type a song', 'error');
-        }
-        else{
-            setErrorMessage('');
-            setPostSongId(id);
-            switchSearchMode();
-            DatabaseHandler.addNewSong(id);
-            setSearchInput('');
-        }  
+        setPostSongId(id);
+        switchSearchMode();
+        DatabaseHandler.addNewSong(id);
+        setSearchInput('');
     }
 
     const handlePostPictureChange = (imageURL: string) => {

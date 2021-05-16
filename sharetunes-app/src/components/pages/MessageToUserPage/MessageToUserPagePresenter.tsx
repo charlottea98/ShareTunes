@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import MessageToUserPageView from './MessageToUserPageView';
+import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 interface Props {
     emotion: "happy" | "sad",
@@ -18,8 +19,10 @@ const MessageToUserPagePresenter: React.FC<Props> = ({
     pauseRender=false
 }) => {
     const [renderContent, setRenderContent] = useState<boolean>(false);
+    const currentAudio = useCurrentAudio();
 
     useEffect(() => {
+        currentAudio?.pause();
         if (pauseRender) {
             setTimeout(() => { 
                 setRenderContent(true);

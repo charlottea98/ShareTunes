@@ -4,11 +4,19 @@ import HomePageView from './HomePageView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { Post } from '../../../utility/types';
+import { useCurrentAudio } from '../../../contexts/AudioContext';
+
 
 const HomePagePresenter : React.FC = () => {
     const { posts, following, users } = useDatabase();
     const loggedInUser = useLoggedInUser();
     const [postsToShow, setPostsToShow] = useState<Array<Post>>([]);
+
+    const currentAudio = useCurrentAudio();
+
+    useEffect(() => {
+        currentAudio?.pause();
+    }, [])
 
     useEffect(() => {
         if (loggedInUser) {

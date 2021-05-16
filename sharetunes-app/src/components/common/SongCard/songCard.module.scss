@@ -79,6 +79,13 @@
 	height: 64px;
 }
 
+.dontButtonContainerIcon{
+	content: url('../../../Resources/images/no-music.svg');
+	height: 80%;
+	width:80%;
+	display: flex;
+}
+
 .playButtonContainer:hover {
 	background-color: $orange-dark;
 }
