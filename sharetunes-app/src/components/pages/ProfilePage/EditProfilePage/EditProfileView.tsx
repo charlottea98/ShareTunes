@@ -115,8 +115,8 @@ const EditProfileView: React.FC<Props> = ({
                 postSongId === "" ? (
                     <input 
                         className={classes.input} 
-                        onChange={e => handleChange(e, 'song')} 
-                        onClick={e => handleChange(e, 'song')}
+                        onChange={e => handleChange(e)} 
+                        onClick={e => handleChange(e)}
                     />
                 ) : null
             }

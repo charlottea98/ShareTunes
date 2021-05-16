@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SpotifyAPI } from '../../../utility/spotifyHandler';
 import PublishPageView from './PublishPageView';
 import { useHistory } from 'react-router';
 import firebase from 'firebase/app';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
-
+import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 const PublishPagePresenter: React.FC = () => {
     const loggedInUser = useLoggedInUser();
@@ -20,12 +20,18 @@ const PublishPagePresenter: React.FC = () => {
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [typing, setTyping] = useState<boolean>(false);
     const history = useHistory();
+    const currentAudio = useCurrentAudio();
+
+    useEffect(() => {
+        currentAudio?.pause();
+    }, [])
 
     const switchSearchMode = () => {
         setIsSearching(!isSearching);
         if (isSearching){
             setPostSongId('');
             setSearchResults([]);
+            currentAudio?.pause();
         }
     }
 

@@ -10,6 +10,7 @@ import {
 
 import profileNoData from './ProfileNoData';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
+import { useCurrentAudio } from '../../../contexts/AudioContext';
 
 interface Props {}
 
@@ -25,6 +26,12 @@ const ProfilePresenter: React.FC<Props> = () => {
     const [numberOfFollwing, setNumberOfFollowing] = useState<number>(0);
 
     let session = sessionStorage.getItem('user-session');
+
+    const currentAudio = useCurrentAudio();
+
+    useEffect(() => {
+        currentAudio?.pause();
+    }, [])
 
     useEffect(() => {
         if (visitedUser) {

@@ -79,9 +79,10 @@ const ProfileView: React.FC<Props> = ({
                         </ul>
 
                         <div className={classes.Song}>
-                            <SongCardPresenter
-                                songId={user.favoriteSong}
-                            ></SongCardPresenter>
+                            {user.favoriteSong ? (
+                                <SongCardPresenter
+                                songId={user.favoriteSong}/>
+                            ):null}
                         </div>
 
                         <div className={classes.About}>
