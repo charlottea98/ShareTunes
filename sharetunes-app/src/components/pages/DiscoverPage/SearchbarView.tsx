@@ -28,7 +28,7 @@ const SearchbarView:React.FC<Props> = ({handleChange, searchResults, typing, han
         </input>
         {typing ? (
             <div>
-                <div>
+                <div style={{marginLeft: "5px"}}>
                     <FontAwesomeIcon icon={faTimesCircle} onClick={()=>handleClose()} size='2x' cursor='pointer' color='#fec46e'></FontAwesomeIcon>
                 </div>
                 <ul className={classes.SearchList}>
