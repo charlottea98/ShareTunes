@@ -67,13 +67,14 @@ const PublishPageView : React.FC<Props> = ({
 
     const isTypingElements = typing ? (
         <div className={classes.SearchResultsList}>
-            {searchResults.map(result => (
+            {searchResults.map((result, idx) => (
                 <div 
                     className={classes.SearchListItems} 
                     onClick={() => {
                         searchSong(result.id);
                         handleClose();
                     }}
+                    key = {idx}
                 >
                     <img src={result.albumImage} className={classes.SearchItemImage} />
                     <FontAwesomeIcon icon={faMusic} />
