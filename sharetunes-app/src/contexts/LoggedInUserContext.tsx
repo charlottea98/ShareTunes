@@ -5,7 +5,7 @@ import { useDatabase } from './DatabaseContext';
 const LoggedInUser = createContext<User | null>(null);
 const LoggedInUserUpdateContext = createContext<
     (newLoggedInUser: string) => void
->((x) => console.log(x));
+>(() => null);
 
 
 export const useLoggedInUser = () => {
