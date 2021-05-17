@@ -10,9 +10,9 @@ and listen to preview of songs fetched from the spotify API.
 
 Simply clone the project into a local repository and install the required packages.
 
--clone repository (git clone <repository> )
--install required packages (npm install)
--run a local version of the app (npm start)
+- clone repository (git clone <repository> )
+- install required packages (npm install)
+- run a local version of the app (npm start)
  
 
 ![image](https://user-images.githubusercontent.com/46811049/118503654-1e043100-b72b-11eb-8b71-18c6ae36bf7d.png)
