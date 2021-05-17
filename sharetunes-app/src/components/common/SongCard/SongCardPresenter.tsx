@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import SongCardView from './SongCardView';
 import { useDatabase } from '../../../contexts/DatabaseContext';
-import { useCurrentAudioFile, useCurrentAudioFileUpdate, useCurrentAudio, useCurrentAudioUpdate} from '../../../contexts/AudioContext';
+import {
+    useCurrentAudioFile,
+    useCurrentAudioFileUpdate,
+    useCurrentAudio,
+    useCurrentAudioUpdate,
+} from '../../../contexts/AudioContext';
 
 interface Props {
-    songId: string
+    songId: string;
 }
 
-const SongCardPresenter: React.FC<Props> = ({songId}) => {
+const SongCardPresenter: React.FC<Props> = ({ songId }) => {
     const { songs } = useDatabase();
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -21,63 +26,63 @@ const SongCardPresenter: React.FC<Props> = ({songId}) => {
     let songCard;
 
     useEffect(() => {
-        if (isPlaying){
+        if (isPlaying) {
             handlePlay();
-        }
-        else{
+        } else {
             handlePause();
         }
-    }, [isPlaying])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isPlaying]);
 
-    const handleAudio = (audiofile:string) => { 
-        if (currentAudioFile===''){
+    const handleAudio = (audiofile: string) => {
+        if (currentAudioFile === '') {
             var audio = new Audio(audiofile);
             updateCurrentAudio(audio);
             updateCurrentAudioFile(audiofile);
-        }
-        else if (currentAudioFile!==audiofile && currentAudio){ 
+        } else if (currentAudioFile !== audiofile && currentAudio) {
             handlePause();
-            currentAudio.currentTime=0;
-            var audio = new Audio(audiofile);
+            currentAudio.currentTime = 0;
+            audio = new Audio(audiofile);
             updateCurrentAudio(audio);
             updateCurrentAudioFile(audiofile);
-        }
-        else {
+        } else {
             updateCurrentAudioFile(audiofile);
         }
         setIsPlaying(!isPlaying);
-    }
+    };
 
     const handlePlay = () => {
-        currentAudio?.addEventListener("ended", () => setIsPlaying(false));
+        currentAudio?.addEventListener('ended', () => setIsPlaying(false));
         currentAudio?.play();
-    }
+    };
 
     const handlePause = () => {
         currentAudio?.pause();
-    }
+    };
 
-    const isPlayingCurrentFile = (audiofile:string) => {
-        if (isPlaying && audiofile===currentAudioFile){
+    const isPlayingCurrentFile = (audiofile: string) => {
+        if (isPlaying && audiofile === currentAudioFile) {
             return true;
         }
         return false;
-    }
+    };
 
     if (song?.title && song?.artists && song?.albumCoverURL) {
-        songCard = <SongCardView 
-            title = {song.title}
-            artists = {song.artists}
-            albumCover = {song.albumCoverURL}
-            previewSong = {song.previewURL}
-            handleAudio={handleAudio} 
-            isPlaying={isPlayingCurrentFile}
-        />;
+        songCard = (
+            <SongCardView
+                title={song.title}
+                artists={song.artists}
+                albumCover={song.albumCoverURL}
+                previewSong={song.previewURL}
+                handleAudio={handleAudio}
+                isPlaying={isPlayingCurrentFile}
+            />
+        );
     } else {
         songCard = null;
     }
 
     return songCard;
-}
+};
 
 export default SongCardPresenter;

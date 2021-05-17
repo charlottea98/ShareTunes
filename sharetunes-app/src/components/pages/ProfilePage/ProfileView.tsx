@@ -24,7 +24,7 @@ const ProfileView: React.FC<Props> = ({
     numberOfposts,
     followers,
     following,
-    isFollowing
+    isFollowing,
 }) => {
     return (
         <div className={classes.ProfileViewContainer}>
@@ -37,7 +37,7 @@ const ProfileView: React.FC<Props> = ({
                                 ? user.profilePictureURL
                                 : DEFAULT_PROFILE_PICTURE_URL
                         }
-                        alt="Profile picture"
+                        alt="Profile"
                     />
 
                     <div className={classes.profileInfo}>
@@ -51,17 +51,18 @@ const ProfileView: React.FC<Props> = ({
                                         onButtonClick={onClickButton}
                                         buttonColor="editProfileBtn"
                                     />
-                                ) : (isFollowing() ? (
-                                        <FollowButton
+                                ) : isFollowing() ? (
+                                    <FollowButton
                                         text="Unfollow"
                                         onButtonClick={onClickButton}
                                         buttonColor="followBtn"
-                                    />)
-                                        : (<FollowButton
-                                            text="Follow"
-                                            onButtonClick={onClickButton}
-                                            buttonColor="followBtn"
-                                        />)
+                                    />
+                                ) : (
+                                    <FollowButton
+                                        text="Follow"
+                                        onButtonClick={onClickButton}
+                                        buttonColor="followBtn"
+                                    />
                                 )}
                             </div>
                         </div>
@@ -80,9 +81,8 @@ const ProfileView: React.FC<Props> = ({
 
                         <div className={classes.Song}>
                             {user.favoriteSong ? (
-                                <SongCardPresenter
-                                songId={user.favoriteSong}/>
-                            ):null}
+                                <SongCardPresenter songId={user.favoriteSong} />
+                            ) : null}
                         </div>
 
                         <div className={classes.About}>

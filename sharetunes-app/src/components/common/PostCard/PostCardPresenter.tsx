@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Post, Comment } from '../../../utility/types';
+import { Post } from '../../../utility/types';
 import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
@@ -30,7 +30,7 @@ const PostCardPresenter: React.FC<Props> = ({ postInfo }) => {
 
     if (
         loggedInUser &&
-        loggedInUser.username == postInfo?.usernameOfPublisher
+        loggedInUser.username === postInfo?.usernameOfPublisher
     ) {
         userCanDeleteThisPost = true;
     }

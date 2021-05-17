@@ -31,7 +31,8 @@ const ProfilePresenter: React.FC<Props> = () => {
 
     useEffect(() => {
         currentAudio?.pause();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (visitedUser) {
@@ -39,14 +40,14 @@ const ProfilePresenter: React.FC<Props> = () => {
             let relevantPosts = [];
 
             let numberOfAllPosts = Object.keys(posts).length;
-            
+
             if (numberOfAllPosts > 0) {
-                postsIds.forEach(postId => {
+                postsIds.forEach((postId) => {
                     if (!posts[postId].deleted) {
                         relevantPosts.push(posts[postId]);
                     }
-                })
-    
+                });
+
                 setNumberOfPosts(relevantPosts.length);
             }
         } else if (loggedInUser) {
@@ -54,33 +55,40 @@ const ProfilePresenter: React.FC<Props> = () => {
             let relevantPosts = [];
 
             let numberOfAllPosts = Object.keys(posts).length;
-            
+
             if (numberOfAllPosts > 0) {
-                postsIds.forEach(postId => {
+                postsIds.forEach((postId) => {
                     if (!posts[postId].deleted) {
                         relevantPosts.push(posts[postId]);
                     }
-                })
-    
+                });
+
                 setNumberOfPosts(relevantPosts.length);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posts, loggedInUser]);
 
     useEffect(() => {
         if (visitedUser) {
             setNumberOfFollowers(followers[visitedUser.email].followers.length);
         } else if (loggedInUser) {
-            setNumberOfFollowers(followers[loggedInUser.email].followers.length);
+            setNumberOfFollowers(
+                followers[loggedInUser.email].followers.length
+            );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [followers, loggedInUser]);
 
     useEffect(() => {
         if (visitedUser) {
             setNumberOfFollowing(following[visitedUser.email].following.length);
         } else if (loggedInUser) {
-            setNumberOfFollowing(following[loggedInUser.email].following.length);
+            setNumberOfFollowing(
+                following[loggedInUser.email].following.length
+            );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [following, loggedInUser]);
 
     const isFollowing = () => {

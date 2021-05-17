@@ -20,6 +20,7 @@ const UserCheckerPresenter: React.FC = ({ children }) => {
         if (session !== null && !loggedInUser) {
             updateLoggedInUser(session);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
