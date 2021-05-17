@@ -43,14 +43,18 @@
 
 .profilePictureOfPublisher {
 	cursor: pointer;
-	height: 70%;
+	height: 40px;
+	width: 40px;
 	border-radius: 50%;
-	margin-right: 10px;
+	margin-right: 8px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .postImage {
 	height: 200px;
-	background-position: bottom;
+	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
