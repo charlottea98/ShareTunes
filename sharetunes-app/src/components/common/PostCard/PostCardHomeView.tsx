@@ -40,13 +40,16 @@ const PostCardHomeView: React.FC<Props> = ({
         <div className={classes.PostCardHome}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
-                    <img
-                        src={postCardInfo.profilePictureOfPublisher}
+                    <div 
                         className={classes.profilePictureOfPublisher}
+                        style = {{
+                            backgroundImage: `url(${postCardInfo.profilePictureOfPublisher})`
+                        }}
                         onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
                         }}
                     />
+                    
                     <div
                         onClick={() => {
                             visitProfile(postCardInfo.emailOfPublisher)
