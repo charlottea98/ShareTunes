@@ -3,7 +3,7 @@
 **Short description of the project:**
 
 A musical sharing social media website where you can create a profile
-and share your favourite music with friends. You can both comment like and follow other users
+and share your favourite music with friends. You can both comment,like,create posts and follow other users
 and listen to preview of songs fetched from the spotify API. 
 
 **Instruction to run:**
