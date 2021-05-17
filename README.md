@@ -14,8 +14,9 @@ Simply clone the project into a local repository and install the required packag
 - install required packages (npm install)
 - run a local version of the app (npm start)
  
-**Sign in**
-![image](https://user-images.githubusercontent.com/46811049/118504637-f82b5c00-b72b-11eb-9df8-f69f122528ce.png)
+**Sign up**
+![image](https://user-images.githubusercontent.com/46811049/118506167-5dcc1800-b72d-11eb-9418-d1ea8f52edd4.png)
+
 
 
 **Home page**
