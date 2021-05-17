@@ -7,7 +7,6 @@ const LoggedInUserUpdateContext = createContext<
     (newLoggedInUser: string) => void
 >(() => null);
 
-
 export const useLoggedInUser = () => {
     return useContext(LoggedInUser);
 };
@@ -17,13 +16,13 @@ export const useLoggedInUserUpdate = () => {
 };
 
 const LoggedInUserProvider: React.FC = ({ children }) => {
-    const { users } = useDatabase()
+    const { users } = useDatabase();
 
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
-    const [loggedInUserEmail, setLoggedInUserEmail] = useState<string>("null");
+    const [loggedInUserEmail, setLoggedInUserEmail] = useState<string>('null');
 
     const changeLoggedInUser = async (newLoggedInUserEmail: string) => {
-        setLoggedInUserEmail(newLoggedInUserEmail)
+        setLoggedInUserEmail(newLoggedInUserEmail);
 
         let userInfo = users[newLoggedInUserEmail];
 
@@ -38,10 +37,9 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
                 biography: userInfo.biography,
                 posts: userInfo.posts,
             };
-    
+
             setLoggedInUser(user);
         }
-
     };
 
     useEffect(() => {
@@ -58,9 +56,10 @@ const LoggedInUserProvider: React.FC = ({ children }) => {
                 biography: userInfo.biography,
                 posts: userInfo.posts,
             };
-    
+
             setLoggedInUser(user);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [users]);
 
     return (

@@ -35,32 +35,31 @@ const PostCardHomeView: React.FC<Props> = ({
     commentTextChangeHandler,
     visitProfile,
 }) => {
-
     return postCardInfo ? (
         <div className={classes.PostCardHome}>
             <div className={classes.layer1}>
                 <div className={classes.publisherInfoContainer}>
-                    <div 
+                    <div
                         className={classes.profilePictureOfPublisher}
-                        style = {{
-                            backgroundImage: `url(${postCardInfo.profilePictureOfPublisher})`
+                        style={{
+                            backgroundImage: `url(${postCardInfo.profilePictureOfPublisher})`,
                         }}
                         onClick={() => {
-                            visitProfile(postCardInfo.emailOfPublisher)
+                            visitProfile(postCardInfo.emailOfPublisher);
                         }}
                     />
-                    
+
                     <div
                         onClick={() => {
-                            visitProfile(postCardInfo.emailOfPublisher)
+                            visitProfile(postCardInfo.emailOfPublisher);
                         }}
                     >
                         {postCardInfo.usernameOfPublisher}
                     </div>
                 </div>
-                {showDeleteButton 
-                    ? <DeletePostButtonPresenter postId={postCardInfo.id} />
-                    : null}
+                {showDeleteButton ? (
+                    <DeletePostButtonPresenter postId={postCardInfo.id} />
+                ) : null}
             </div>
             <div
                 className={classes.postImage}
@@ -106,12 +105,15 @@ const PostCardHomeView: React.FC<Props> = ({
                                 ? '#fec46e'
                                 : '#232323',
                         }}
-                        onClick={() => addLike(postCardInfo.id, loggedInUserEmail)}
+                        onClick={() =>
+                            addLike(postCardInfo.id, loggedInUserEmail)
+                        }
                     >
                         <FontAwesomeIcon
-                            icon={postCardInfo.likes.includes(loggedInUserEmail)
-                                ? faHeart
-                                : farFaHeart
+                            icon={
+                                postCardInfo.likes.includes(loggedInUserEmail)
+                                    ? faHeart
+                                    : farFaHeart
                             }
                             size="1x"
                         />
@@ -126,9 +128,7 @@ const PostCardHomeView: React.FC<Props> = ({
                     <span className={classes.userNameInComment}>
                         <strong
                             onClick={() =>
-                                visitProfile(
-                                    postCardInfo.emailOfPublisher
-                                )
+                                visitProfile(postCardInfo.emailOfPublisher)
                             }
                         >
                             {postCardInfo.usernameOfPublisher}
@@ -142,17 +142,14 @@ const PostCardHomeView: React.FC<Props> = ({
                         <span className={classes.userNameInComment}>
                             <strong
                                 onClick={() =>
-                                    visitProfile(
-                                        comment.emailOfPublisher
-                                    )
+                                    visitProfile(comment.emailOfPublisher)
                                 }
                             >
                                 {comment.usernameOfPublisher}
                             </strong>
                             {comment.comment}
                         </span>
-                        
-                        
+
                         {loggedInUserEmail === comment.emailOfPublisher ? (
                             <div className={classes.deleteComment}>
                                 <DeleteCommentButtonPresenter

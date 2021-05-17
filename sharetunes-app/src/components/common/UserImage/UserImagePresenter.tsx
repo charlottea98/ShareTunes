@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import UserImageView from './UserImageView';
@@ -6,11 +6,7 @@ import { useLoggedInUser } from '../../../contexts/LoggedInUserContext';
 
 import { DEFAULT_PROFILE_PICTURE_URL } from '../../../utility/utility';
 
-import {
-    useViewingOwnProfileUpdate,
-    useViewingOwnProfile,
-    useCurrentlyVisitedUserProfileUpdate,
-} from '../../../contexts/CurrentlyVisitedUserProfileContext';
+import { useCurrentlyVisitedUserProfileUpdate } from '../../../contexts/CurrentlyVisitedUserProfileContext';
 
 interface Props {
     diameter: string;
@@ -20,9 +16,6 @@ interface Props {
 const UserImagePresenter: React.FC<Props> = ({ diameter, isActive }) => {
     const history = useHistory();
     const loggedInUser = useLoggedInUser();
-    const viewingSelf = useViewingOwnProfile();
-
-    const viewOwnProfile = useViewingOwnProfileUpdate();
     const updateProfileView = useCurrentlyVisitedUserProfileUpdate();
 
     let profileURL;

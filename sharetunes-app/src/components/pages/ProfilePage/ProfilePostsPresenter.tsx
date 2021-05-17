@@ -19,21 +19,30 @@ const ProfilePostsPresenter: React.FC<Props> = () => {
             let numberOfPosts = Object.keys(posts).length;
 
             if (numberOfPosts > 0) {
-                let postsToShowTemp = visitedProfile.posts.map((postId: string) => posts[postId]);
-                postsToShowTemp = postsToShowTemp.filter((post: Post) => !post.deleted);
-    
+                let postsToShowTemp = visitedProfile.posts.map(
+                    (postId: string) => posts[postId]
+                );
+                postsToShowTemp = postsToShowTemp.filter(
+                    (post: Post) => !post.deleted
+                );
+
                 setPostsToShow(postsToShowTemp);
             }
         } else if (loggedInUser) {
             let numberOfPosts = Object.keys(posts).length;
 
             if (numberOfPosts > 0) {
-                let postsToShowTemp = loggedInUser.posts.map((postId: string) => posts[postId]);
-                postsToShowTemp = postsToShowTemp.filter((post: Post) => !post.deleted);
-    
+                let postsToShowTemp = loggedInUser.posts.map(
+                    (postId: string) => posts[postId]
+                );
+                postsToShowTemp = postsToShowTemp.filter(
+                    (post: Post) => !post.deleted
+                );
+
                 setPostsToShow(postsToShowTemp);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posts, viewingProfileEmail]);
 
     return <ProfilePostsView posts={postsToShow} />;

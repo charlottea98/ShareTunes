@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LoginView from './LoginView';
 import SignUpView from './SignUpView';
-import firebase from 'firebase';
-import fire from '../../../fire';
 
 import { DatabaseHandler } from '../../../utility/databaseHandler';
 
@@ -13,7 +11,6 @@ import { useCurrentAudio } from '../../../contexts/AudioContext';
 interface Props {}
 
 const LoginPresenter: React.FC<Props> = () => {
-    //const [user, setUser] = useState<string | firebase.User>(''); // const [user, setUser] = useState<string | firebase.User>('');
     const [email, setEmail] = useState<string>('');
     const [password1, setPassword1] = useState<string>('');
     const [password2, setPassword2] = useState<string>('');
@@ -37,7 +34,8 @@ const LoginPresenter: React.FC<Props> = () => {
 
     useEffect(() => {
         currentAudio?.pause();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const clearAll = () => {
         clearInputs();
@@ -63,15 +61,18 @@ const LoginPresenter: React.FC<Props> = () => {
         clearErrors();
         let message = await DatabaseHandler.loginUser(email, password1);
 
-        if (message === "User logged in successfully") {
+        if (message === 'User logged in successfully') {
             updateLoggedInUser(email);
             history.push('/discover');
         } else {
-            if(message != undefined)
-                if(message == 'The password is invalid or the user does not have a password.')
+            if (message !== undefined)
+                if (
+                    message ===
+                    'The password is invalid or the user does not have a password.'
+                )
                     setPasswordError(message);
-                else{
-                    setEmailError(message)
+                else {
+                    setEmailError(message);
                 }
         }
     };
@@ -79,12 +80,12 @@ const LoginPresenter: React.FC<Props> = () => {
     const confirmSignUp = () => {
         clearErrors();
         let someError = false;
-        
-        if (password1 != password2) {
+
+        if (password1 !== password2) {
             setPasswordError('Passwords do not match');
             someError = true;
         }
-        
+
         if (!name.trim().length) {
             setNameError('You have to fill in your name');
             someError = true;
@@ -93,60 +94,67 @@ const LoginPresenter: React.FC<Props> = () => {
         if (name.length > 100) {
             setNameError('Your name can be a maximum of 100 characters');
             someError = true;
-        } 
+        }
 
         if (!username.trim().length) {
             setUsernameError('You have to fill in a username');
             someError = true;
-        } 
+        }
 
-        if (username.includes(" ")) {
+        if (username.includes(' ')) {
             setUsernameError("You can't use blank spaces in your username");
             someError = true;
         }
 
-        if (username.split("").some(char => char.match(/[^a-z0-9 ]/g))) {
-            setUsernameError("Use small characters a-z and/or numbers 0-9");
+        if (username.split('').some((char) => char.match(/[^a-z0-9 ]/g))) {
+            setUsernameError('Use small characters a-z and/or numbers 0-9');
             someError = true;
-        } 
+        }
 
         if (username.length > 15) {
             setUsernameError('Your username can be a maximum of 15 characters');
             someError = true;
-        } 
-        
+        }
+
         if (!email.trim().length) {
             setEmailError('You have to fill in your email');
             someError = true;
         }
-        
+
         if (!password1.trim().length) {
             setPasswordError('You have to fill in a password');
             someError = true;
         }
 
-        if(password1.length < 6){
-            setPasswordError('Your password needs to be more than 6 characters')
+        if (password1.length < 6) {
+            setPasswordError(
+                'Your password needs to be more than 6 characters'
+            );
         }
 
-        if(!someError) {
+        if (!someError) {
             handleSignup();
         }
     };
     const handleSignup = async () => {
-        let message = await DatabaseHandler.signUpUser(name, username, profilePictureURL, email, password1);
-        if (message === "New user added in database") {
+        let message = await DatabaseHandler.signUpUser(
+            name,
+            username,
+            profilePictureURL,
+            email,
+            password1
+        );
+        if (message === 'New user added in database') {
             updateLoggedInUser(email);
             history.push('/discover');
-        } else if (message === "The email address is badly formatted.") {
+        } else if (message === 'The email address is badly formatted.') {
             setEmailError(message);
         }
     };
 
-
     const handleProfilePictureChange = (newProfilePictureURL: string) => {
         setProfilePictureURL(newProfilePictureURL);
-    }
+    };
 
     if (hasAccount) {
         return (
@@ -184,7 +192,7 @@ const LoginPresenter: React.FC<Props> = () => {
                 setUsername={setUsername}
                 usernameError={usernameError}
                 confirmSignup={confirmSignUp}
-                handleProfilePictureChange = {handleProfilePictureChange}
+                handleProfilePictureChange={handleProfilePictureChange}
             />
         );
     }
